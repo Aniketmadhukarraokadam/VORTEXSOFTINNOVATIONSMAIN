@@ -133,9 +133,9 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 -- 6. SEED DATA
 -- ────────────────────────────────────────────────────────────
 
--- Default admin user (password: ShivaG@1437)
+-- Default admin user (Username: Aniket1800 | Password: Aniket@1800)
 INSERT IGNORE INTO `admin_users` (`username`, `password_hash`, `email`, `full_name`, `role`) VALUES
-('admin', '$2y$10$Y0XP/OdpmbuvJ9a5wy1psOn3OUVhtz37EEEtRFLoH6lGgXMlAdULe', 'careers@vortexsoftinnovations.in', 'Vortexsoft Admin', 'super_admin');
+('Aniket1800', '$2y$10$MUQgvXQBrRkaG.vKSDO5quIZQVYEA56nMXPs6ImwRMqEIClc/IYk.', 'careers@vortexsoftinnovations.in', 'Aniket Kadam', 'super_admin');
 
 -- Sample blog post
 INSERT IGNORE INTO `blog_posts` (`title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES

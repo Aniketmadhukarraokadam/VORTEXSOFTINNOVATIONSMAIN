@@ -115,7 +115,7 @@ VORTEXSOFTINNOVATIONSMAIN/
 2. **`job_applications`**: Stores job title, candidate name, email, phone, experience, notice period, expected CTC, resume path, cover letter, and status pipeline (`new` → `reviewed` → `shortlisted` → `interview` → `offered` → `rejected`).
 3. **`blog_posts`**: Stores post title, slug, category, excerpt, HTML content, author, views, featured flag, and published status.
 4. **`newsletter_subscribers`**: Stores email subscriptions and active status.
-5. **`admin_users`**: Stores admin username, bcrypt password hash, email, full name, role, and login audit fields.
+5. **`admin_users`**: Stores admin username (default `Aniket1800`), bcrypt password hash (default password `Aniket@1800`), email, full name, role, and login audit fields.
 
 ---
 
