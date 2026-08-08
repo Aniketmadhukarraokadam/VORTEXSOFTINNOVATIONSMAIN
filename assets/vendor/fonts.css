@@ -1,0 +1,107 @@
+/*
+ * Vortexsoft Innovations — Self-Hosted Fonts
+ * Replaces Google Fonts CDN dependency completely.
+ * Fonts hosted in: assets/fonts/inter/ and assets/fonts/poppins/
+ */
+
+/* ── INTER ─────────────────────────────────────────────── */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/inter/inter-300.woff2') format('woff2'),
+         url('../fonts/inter/inter-300.ttf')   format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/inter/inter-400.woff2') format('woff2'),
+         url('../fonts/inter/inter-400.ttf')   format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/inter/inter-500.woff2') format('woff2'),
+         url('../fonts/inter/inter-500.ttf')   format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/inter/inter-600.woff2') format('woff2'),
+         url('../fonts/inter/inter-600.ttf')   format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/inter/inter-700.woff2') format('woff2'),
+         url('../fonts/inter/inter-700.ttf')   format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('../fonts/inter/inter-800.woff2') format('woff2'),
+         url('../fonts/inter/inter-800.ttf')   format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url('../fonts/inter/inter-900.woff2') format('woff2'),
+         url('../fonts/inter/inter-900.ttf')   format('truetype');
+}
+
+/* ── POPPINS ────────────────────────────────────────────── */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-300.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-400.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-500.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-600.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-700.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-800.ttf') format('truetype');
+}

@@ -1,0 +1,14 @@
+# Protect uploads directory — Prevent execution of scripts (PHP, JS, CGI, etc.)
+
+<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|jsp|asp|htm|html|shtml|sh|cgi)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow safe document downloads only
+<FilesMatch "\.(pdf|doc|docx|png|jpg|jpeg)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+Options -Indexes -ExecCGI

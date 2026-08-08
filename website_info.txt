@@ -1,0 +1,55 @@
+===================================================
+VORTEXSOFT WEBSITE COMPREHENSIVE OVERVIEW
+===================================================
+
+1. SEO METADATA & KEYWORDS
+---------------------------------------------------
+Primary SEO Description: 
+"Vortexsoft Group is a premier IT, Non-IT, and Business Process Outsourcing company based in India and the USA, providing advanced IT, Healthcare, and Publishing solutions worldwide."
+
+SEO Keywords (Optimized globally across 64 pages):
+vortexsoft, vortexsoft innovations, startup india company, it non it services company, manpower supply company, work from home jobs
+
+Structured Data (JSON-LD):
+Schema types Organization and PostalAddresses mapped to Bengaluru (HQ), Pune, and Sheridan (USA). Includes ISO 27001 certification signals.
+
+2. GLOBAL STYLING & DESIGN TOKENS
+---------------------------------------------------
+Typography: 
+- Body Text: 'Inter', sans-serif (Weights 300 to 900)
+- Headings (h1 - h6): 'Poppins', sans-serif (Weight 700 standard)
+- Icons: Font Awesome 6 (Brands & Regular/Solid) loaded fully locally.
+
+Color Palette:
+- Primary Dark: #0D0F2B / #080B1A (Used for major backgrounds & text)
+- Background Base: #ffffff (White)
+- Accents: #CC2228 (Vortexsoft Red, used for highlights & loaders)
+- Brand Gradients: linear-gradient(135deg, #080B1A 0%, #1C2280 55%, #0D1035 100%) (Employed heavily in hero headers)
+
+Design Aesthetic:
+Clean, corporate light theme transitioning with premium dark hero layouts incorporating glassmorphism and smooth JavaScript-based cubic-bezier animations for pre-loaders and typing effects.
+
+3. SITE ARCHITECTURE & CONTENT
+---------------------------------------------------
+The platform is a massive 64-page static Elementor export optimized for high performance. 
+
+Core Pages:
+- Home (index.html): Features dynamic hero canvas with typing animations ("Empowering Businesses..."), looping multi-directional scroll cards for features, comprehensive reviews carousel, and footer navigation.
+- About (about/index.html): Outlines core values (innovation, quality, sustainability), ISO 27001 trusted badges, awards, and company mission.
+- Services (service/index.html): A monolithic directory of sub-services grouped into IT, BPO, Healthcare, Publishing, etc.
+- Careers (career/index.html): Actively promotes remote working & manpower development. Contains fully integrated AJAX-based file-upload functionality for candidate resumes.
+- Contact (contact/index.html): Contains AJAX contact mechanism routing accurately to info@vortexsoftinnovations.in. Includes an embedded interactive map to HQ (125 Ranganath Complex, Madiwala, Bengaluru). Phone: +91-8308906690.
+
+Key Sub-Services Content Areas:
+- Healthcare: Medical Coding, Medical Billing, Denial Management.
+- Data & AI: Audio/Image/Text/Video Annotation Services, Data Analytics, Data Extraction.
+- Development: CRM Solutions, E-commerce, Software Development.
+- BPO & Back-office: Bookkeeping, Logistics, Lease Abstraction, Payroll Processing.
+- Real Estate: Property Accounting, AR Recovery, Title Settlement.
+
+4. TECHNICAL DEFAULTS
+---------------------------------------------------
+- Global Form Email Submission: info@vortexsoftinnovations.in
+- JavaScript: Utilizes vanilla JS intersecting APIs for layout observations and custom 'fetch' handlers bound to form submissions. (Assets reside via vortex-shared.js).
+- Local Assests: All external fonts and icons downloaded natively to bypass slow external CDN dependencies.
+===================================================

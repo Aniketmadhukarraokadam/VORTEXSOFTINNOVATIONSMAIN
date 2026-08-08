@@ -1,0 +1,336 @@
+<style>
+/* ── TOPBAR ───────────────────────────────────────────── */
+.topbar {
+  background: linear-gradient(90deg, #080B1A 0%, #111536 100%);
+  padding: 11px 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,.75);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.topbar a {
+  color: rgba(255,255,255,.75);
+  text-decoration: none;
+  transition: color .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.topbar a:hover { color: #fff; }
+.topbar i { font-size: 11px; color: #CC2228; }
+.topbar-badge {
+  background: #CC2228;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 13px;
+  border-radius: 100px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.topbar-sep {
+  width: 1px;
+  height: 14px;
+  background: rgba(255,255,255,.12);
+  display: inline-block;
+  vertical-align: middle;
+}
+.topbar-social a {
+  color: #fff !important;
+  width: 29px;
+  height: 29px;
+  border-radius: 7px;
+  background: rgba(255,255,255,.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.65) !important;
+  font-size: 11.5px;
+  transition: background .2s, color .2s;
+}
+.topbar-social a:hover { background: #CC2228; color: #fff !important; }
+.topbar-social a i { color: #ffffff !important; font-size: 13px; }
+
+/* ── MAIN NAVBAR ──────────────────────────────────────── */
+#mainNavbar {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  padding: 0;
+  position: sticky;
+  top: 15px;
+  z-index: 1030;
+  box-shadow: 0 12px 40px rgba(28,34,128,.08);
+  transition: all 0.4s ease;
+  width: 96%;
+  max-width: 1320px;
+  margin: 0 auto 15px;
+  border-radius: 20px;
+}
+#mainNavbar.scrolled {
+  top: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 15px 50px rgba(28,34,128,.12);
+}
+#mainNavbar .container { min-height: 72px; display: flex; align-items: center; }
+.navbar-brand img { height: 58px; object-fit: contain; }
+
+/* Nav links */
+#mainNavbar .nav-link {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1a1d3a !important;
+  padding: 8px 15px !important;
+  border-radius: 8px;
+  position: relative;
+  transition: color .2s, background .2s;
+  letter-spacing: .1px;
+}
+#mainNavbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 15px;
+  right: 15px;
+  height: 2.5px;
+  background: #CC2228;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+#mainNavbar .nav-link:hover,
+#mainNavbar .nav-link.active { color: #1C2280 !important; background: rgba(28,34,128,.05); }
+#mainNavbar .nav-link:hover::after,
+#mainNavbar .nav-link.active::after { transform: scaleX(1); }
+
+/* Mega-menu */
+#mainNavbar .dropdown-menu {
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(28,34,128,.14), 0 0 0 1px rgba(28,34,128,.06);
+  padding: 20px;
+  margin-top: 8px;
+  animation: dropFade .18s ease;
+}
+@keyframes dropFade { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.mega-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0 8px;
+}
+#mainNavbar .dropdown-header {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1C2280;
+  padding: 10px 12px 6px;
+  border-bottom: 1.5px solid rgba(28,34,128,.1);
+  margin-bottom: 4px;
+}
+#mainNavbar .dropdown-item {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2d3060;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background .15s, color .15s, padding-left .15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#mainNavbar .dropdown-item i { font-size: 12px; width: 16px; color: #CC2228; opacity: .8; }
+#mainNavbar .dropdown-item:hover { background: rgba(28,34,128,.06); color: #1C2280; padding-left: 18px; }
+
+/* CTA button */
+#mainNavbar .nav-cta {
+  background: linear-gradient(135deg, #CC2228 0%, #a31720 100%) !important;
+  color: #fff !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  padding: 11px 24px !important;
+  border-radius: 10px !important;
+  letter-spacing: .2px;
+  box-shadow: 0 4px 16px rgba(204,34,40,.28) !important;
+  transition: transform .2s, box-shadow .2s !important;
+  white-space: nowrap;
+}
+#mainNavbar .nav-cta::after { display: none !important; }
+#mainNavbar .nav-cta i { color: #ffffff !important; }
+#mainNavbar .nav-cta:hover {
+  color: #fff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(204,34,40,.4) !important;
+}
+
+/* Phone info block */
+.navbar-phone-info {
+  border-left: 1.5px solid rgba(28,34,128,.1);
+  padding-left: 18px;
+  margin-left: 6px;
+}
+.pn-number {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #1a1d3a;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+.pn-hours { font-size: 11px; color: rgba(28,34,128,.55); font-weight: 500; }
+
+/* Toggler */
+.navbar-toggler { border: none !important; padding: 6px; box-shadow: none !important; outline: none !important; }
+
+/* Mobile */
+@media (max-width: 991px) {
+  #mainNavbar .dropdown-menu { min-width: unset !important; box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+  .mega-menu-grid { grid-template-columns: 1fr 1fr; }
+  #mainNavbar .nav-cta { margin: 10px 14px 6px; display: inline-flex !important; }
+}
+</style>
+
+<!-- ═══════ TOPBAR ═══════ -->
+<div class="topbar d-none d-md-block">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
+        <span class="topbar-badge">Vortexsoft Group</span>
+        <span class="topbar-sep"></span>
+        <a href="mailto:support@vortexsoftinnovations.com">
+          <i class="fas fa-envelope"></i> support@vortexsoftinnovations.com
+        </a>
+        <span class="topbar-sep d-none d-lg-inline-block"></span>
+        <a href="tel:+918308906690" class="d-none d-lg-inline-flex">
+          <i class="fas fa-phone"></i> +91-8308906690
+        </a>
+        <span class="topbar-sep d-none d-xl-inline-block"></span>
+        <span class="d-none d-xl-inline-flex align-items-center gap-2">
+          <i class="fas fa-map-marker-alt"></i> Bengaluru &amp; Pune, India
+        </span>
+      </div>
+      <div class="topbar-social d-flex align-items-center gap-1">
+        <a href="https://www.facebook.com/profile.php?id=61575505273718" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/vortexsoft_innovations" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/vortexsoft-innovations-private-limited/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://twitter.com/vortexsoft" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ NAV ═══════ -->
+<nav class="navbar navbar-expand-lg" id="mainNavbar">
+  <div class="container">
+    <a class="navbar-brand" href="{{PREFIX}}index.html">
+      <img src="{{PREFIX}}logo-header.png" alt="Vortexsoft Innovations">
+    </a>
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars" style="color:#1C2280;font-size:22px;"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="{{PREFIX}}index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{PREFIX}}about.html">About</a></li>
+
+        <!-- Services mega menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{{PREFIX}}service.html"
+             id="servicesDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+          <ul class="dropdown-menu p-3" style="min-width:760px;">
+            <div class="mega-menu-grid">
+              <!-- Col 1: Publishing + Data Annotation -->
+              <div>
+                <h6 class="dropdown-header">Publishing</h6>
+                <li><a class="dropdown-item" href="{{PREFIX}}publishing-services/index.html"><i class="fas fa-book"></i> Publishing Services</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}editorial-services/index.html"><i class="fas fa-pencil-alt"></i> Editorial Services</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}digital-prepress-services/index.html"><i class="fas fa-print"></i> Digital Prepress</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}copy-editing-services/index.html"><i class="fas fa-spell-check"></i> Copy Editing</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}digital-content-services/index.html"><i class="fas fa-file-alt"></i> Digital Content</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}ebook-conversion-services/index.html"><i class="fas fa-tablet-alt"></i> eBook Conversion</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}alt-text-writing-services/index.html"><i class="fas fa-image"></i> Alt Text Writing</a></li>
+                <h6 class="dropdown-header mt-2">Data Annotation</h6>
+                <li><a class="dropdown-item" href="{{PREFIX}}image-annotation-services/index.html"><i class="fas fa-image"></i> Image Annotation</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}audio-annotation-services/index.html"><i class="fas fa-microphone"></i> Audio Annotation</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}video-annotation-services/index.html"><i class="fas fa-video"></i> Video Annotation</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}text-annotation-services/index.html"><i class="fas fa-font"></i> Text Annotation</a></li>
+              </div>
+              <!-- Col 2: Health Care + Real Estate -->
+              <div>
+                <h6 class="dropdown-header">Health Care</h6>
+                <li><a class="dropdown-item" href="{{PREFIX}}medical-coding-services/index.html"><i class="fas fa-code"></i> Medical Coding</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}medical-billing-services/index.html"><i class="fas fa-file-invoice-dollar"></i> Medical Billing</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}payment-posting-services/index.html"><i class="fas fa-credit-card"></i> Payment Posting</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}denial-management-services/index.html"><i class="fas fa-ban"></i> Denial Management</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}ar-recovery-services/index.html"><i class="fas fa-undo"></i> AR Recovery</a></li>
+                <h6 class="dropdown-header mt-2">Real Estate</h6>
+                <li><a class="dropdown-item" href="{{PREFIX}}cam-audit-services/index.html"><i class="fas fa-search-dollar"></i> CAM Audit</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}cam-reconciliation-services/index.html"><i class="fas fa-balance-scale"></i> CAM Reconciliation</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}lease-administration-services/index.html"><i class="fas fa-file-contract"></i> Lease Administration</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}lease-abstraction-services/index.html"><i class="fas fa-scroll"></i> Lease Abstraction</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}property-accounting-services/index.html"><i class="fas fa-calculator"></i> Property Accounting</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}property-management-service/index.html"><i class="fas fa-building"></i> Property Management</a></li>
+              </div>
+              <!-- Col 3: Accounting + IT & Digital -->
+              <div>
+                <h6 class="dropdown-header">Accounting</h6>
+                <li><a class="dropdown-item" href="{{PREFIX}}bookkeeping-services/index.html"><i class="fas fa-book-open"></i> Bookkeeping</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}payroll-processing-services/index.html"><i class="fas fa-money-check-alt"></i> Payroll Processing</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}manpower-payroll-services/index.html"><i class="fas fa-users-cog"></i> Manpower &amp; Payroll</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}financial-reporting-services/index.html"><i class="fas fa-chart-bar"></i> Financial Reporting</a></li>
+                <h6 class="dropdown-header mt-2">IT &amp; Digital</h6>
+                <li><a class="dropdown-item" href="{{PREFIX}}software-solutions/index.html"><i class="fas fa-laptop-code"></i> Software Solutions</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}digital-marketing-service/index.html"><i class="fas fa-bullhorn"></i> Digital Marketing</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}ecommerce-solutions/index.html"><i class="fas fa-shopping-cart"></i> E-Commerce</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}data-analytics-as-a-service/index.html"><i class="fas fa-chart-line"></i> Data Analytics</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}crm-software-services/index.html"><i class="fas fa-users"></i> CRM Services</a></li>
+              </div>
+              <!-- Col 4: More Services + View All -->
+              <div>
+                <h6 class="dropdown-header">More Services</h6>
+                <li><a class="dropdown-item" href="{{PREFIX}}logistics-services/index.html"><i class="fas fa-truck"></i> Logistics</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}title-settlement/index.html"><i class="fas fa-home"></i> Title &amp; Settlement</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}mortgage-escrow/index.html"><i class="fas fa-landmark"></i> Mortgage &amp; Escrow</a></li>
+                <li><a class="dropdown-item" href="{{PREFIX}}background-verification-service/index.html"><i class="fas fa-user-check"></i> Background Verification</a></li>
+                <h6 class="dropdown-header mt-2">View All</h6>
+                <li><a class="dropdown-item" href="{{PREFIX}}service.html" style="font-weight:700;color:#CC2228;"><i class="fas fa-th-large"></i> All Services</a></li>
+              </div>
+            </div>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" href="{{PREFIX}}careers.html">Careers</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{PREFIX}}blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{PREFIX}}contact.html">Contact</a></li>
+      </ul>
+
+      <!-- Phone info -->
+      <div class="d-none d-xl-flex align-items-center navbar-phone-info">
+        <div>
+          <div class="pn-number">
+            <i class="fas fa-phone-alt" style="color:#CC2228;font-size:11px;margin-right:5px;"></i>+91-8308906690
+          </div>
+          <div class="pn-number">
+            <i class="fas fa-phone-alt" style="color:#CC2228;font-size:11px;margin-right:5px;"></i>1-307-205-0681
+          </div>
+          <div class="pn-hours">Mon–Sat &nbsp;9AM – 6PM IST</div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <a href="{{PREFIX}}contact.html"
+         class="nav-link nav-cta ms-3 d-none d-lg-inline-flex align-items-center gap-2 magnetic">
+        <i class="fas fa-paper-plane"></i> Get Free Quote
+      </a>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>

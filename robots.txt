@@ -1,0 +1,68 @@
+# Vortexsoft Group — robots.txt
+# Updated for Ultra Pro Max SEO/AEO/GEO Optimization
+
+# ─── STANDARD CRAWLERS ─────────────────────────────────────────────────────────
+User-agent: *
+Allow: /
+Disallow: /assets/partials/
+Disallow: /career/
+Crawl-delay: 1
+
+# ─── GOOGLE ────────────────────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Disallow: /assets/partials/
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+# ─── BING ──────────────────────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Disallow: /assets/partials/
+
+# ─── AI / LLM CRAWLERS — Allow for AEO/GEO Optimization ───────────────────────
+# ChatGPT / OpenAI
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google Gemini / Bard
+User-agent: Google-Extended
+Allow: /
+
+# Meta Llama
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Applebot
+User-agent: Applebot
+Allow: /
+
+# ─── SITEMAP ───────────────────────────────────────────────────────────────────
+Sitemap: https://www.vortexsoftinnovations.com/sitemap.xml
+Sitemap: https://www.vortexsoftinnovations.com/sitemap-images.xml

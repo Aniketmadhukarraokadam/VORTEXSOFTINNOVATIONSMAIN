@@ -1,0 +1,111 @@
+================================================================================
+          VORTEXSOFT GROUP WEBSITE - COMPLETE ADVANCED DETAILS
+================================================================================
+
+1. COMPANY OVERVIEW & PROFILE
+--------------------------------------------------------------------------------
+Name: Vortexsoft Innovations Pvt. Ltd. (Vortexsoft Group)
+Established: 2020
+Team Size: 200+ professionals
+Clients & Projects: 150+ global clients, 200+ projects delivered
+Credentials: ISO 27001:2013 Certified (International ISMS standard)
+Core Values: Integrity, Innovation, Excellence, Client-First, Sustainability, 
+             Collaboration, Security, and Reliability.
+
+
+2. THEME & STYLING (UI/UX DESIGN SYSTEM)
+--------------------------------------------------------------------------------
+Typography:
+  - Body Text: 'Inter', sans-serif (Clean, modern readability)
+  - Headings (H1-H6) & Logos: 'Poppins', sans-serif (Bold, geometric)
+
+Color Palette (CSS Variables):
+  - Primary Base: #1c2280 (Deep Corporate Navy Blue)
+  - Primary Glow/Dark: #13175e / #2d35c4
+  - Accent / Highlights: #cc2228 (Vibrant Corporate Red)
+  - Secondary/Cyan: #5ba8d4 (Light Blueish Cyan)
+  - Dark Theme Backgrounds: #080b1a to #0d1035 (Deep Midnight Blue)
+  - Background Light/Neutral: #f0f2ff (Slightly blue tinted gray/white)
+
+Visual Styling & Effects:
+  - Glassmorphism: Used prominently on sticky navigation bars (backdrop-filter: blur) 
+  - Gradients: Heavy usage of linear and radial gradients (e.g., Primary Gradient: #1c2280 to #5ba8d4)
+  - Shadows & Glows: Dynamic drop-shadows with primary/accent color blending for hover states.
+  - Micro-animations: Cards float up on hover, buttons have ripple effects, maps have bouncing pins, and the page loader features rotating lines with a progress bar filling in gradient colors.
+
+
+3. GLOBAL LOCATIONS & ADDRESSES
+--------------------------------------------------------------------------------
+- Bengaluru (HQ): Second Floor No.125, Ranganath Complex, above Greenline Travels, 
+  Madiwala, Venkatapura, HSR Layout 5th Sector, Bengaluru, Karnataka 560068, India
+- Pune Office: 502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk, 
+  Pune, Maharashtra 411041, India
+- USA Office: 30 N Gould St Ste 100, Sheridan, WY 82801, USA
+- Registered Office: Nanded, Maharashtra 431808, India
+
+
+4. CONTACT INFORMATION & SLAs (SERVICE LEVEL AGREEMENTS)
+--------------------------------------------------------------------------------
+- Phone (India & WhatsApp): +91-8308906690
+- Phone (USA): +1-307-205-0681
+- Support Email: support@vortexsoftinnovations.com
+- Info Email: info@vortexsoftinnovations.in
+- HR Email: hr@vortexsoftinnovations.in
+- Working Hours: Mon-Sat, 9:00 AM - 6:00 PM IST (Global time zone coverage)
+- Response Times:
+    * WhatsApp / Phone: < 30 Mins / Immediate
+    * Email/Form: 2 - 24 Hours
+    * Project Proposals: 48 Hours
+
+
+5. COMPLETE SERVICE PORTFOLIO (9 DOMAINS / 65+ SERVICES)
+--------------------------------------------------------------------------------
+A. IT & Software Services (it@vortexsoftinnovations.com)
+   - Custom Software & Development
+   - IT Consulting & AI-Based Training
+   - Web & Mobile App Development
+   - Digital Marketing, CRM, Cloud Solutions, Cybersecurity, E-Commerce.
+
+B. Publishing & Editorial Services (publishing@vortexsoftinnovations.com)
+   - Prepress, Typesetting, Proofreading & Copyediting
+   - eBook & S1000D XML Conversion
+   - Document & PDF Accessibility (WCAG Compliance), Alt-Text Writing
+
+C. Health Care Services (healthcare@vortexsoftinnovations.com)
+   - Medical Coding & Billing
+   - AR Recovery, Denial Management & Payment Posting
+   - Prior Authorization & Insurance Eligibility Verification
+   - Patient Demographics & Medical Records Indexing
+
+D. Real Estate & Title Services (realestate@vortexsoftinnovations.com)
+   - Title Search, Settlement, Mortgage & Escrow
+   - Easement Plotting
+   - Lease Administration & Abstraction
+   - CAM Audits, Property Management & Accounting
+
+E. Data Annotation Services (annotation@vortexsoftinnovations.com)
+   - Image, Video, Audio & Text Annotation
+   - LiDAR Point Cloud Annotation
+   - Chatbot Training Data, Data Extraction, Cleansing & Validation
+
+F. Accounting & Finance Services (accounts@vortexsoftinnovations.com)
+   - Bookkeeping, Payroll Processing
+   - Accounts Receivable/Payable
+   - Financial Reporting & Tax Preparation Support
+
+G. Logistics & Supply Chain Services (logistics@vortexsoftinnovations.com)
+   - Logistics Management & Freight Data Support
+   - Inventory Management
+   - Shipping Document Processing & Supply Chain Analytics
+
+H. Technical Publications & Writing (techpub@vortexsoftinnovations.com)
+   - Technical & Regulatory Manual Writing
+   - Illustrated Parts Catalog (IPC) Mapping
+   - Multilingual Translation & Localization
+
+I. BPO & KPO Contact Center Services
+   - Inbound / Outbound Call Centers
+   - Live Chat, Tech Support & Email Support
+   - Lead Generation & Sales
+   - Back-Office Operations, HR Process Outsourcing (HRO)
+   - Market Research (KPO)
