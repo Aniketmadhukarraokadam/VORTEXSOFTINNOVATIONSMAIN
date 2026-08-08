@@ -28,24 +28,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $db = getDB();
         if ($db) {
-            $stmt = $db->prepare("SELECT * FROM admin_users WHERE (username = :u OR email = :u) AND is_active = 1 LIMIT 1");
-            $stmt->execute([':u' => $username]);
-            $admin = $stmt->fetch();
+            try {
+                $stmt = $db->prepare("SELECT * FROM admin_users WHERE (username = :u OR email = :u) AND is_active = 1 LIMIT 1");
+                $stmt->execute([':u' => $username]);
+                $admin = $stmt->fetch();
 
-            if ($admin && password_verify($password, $admin['password_hash'])) {
-                $_SESSION[ADMIN_SESSION]  = true;
-                $_SESSION[ADMIN_USER_KEY] = $admin['id'];
-                $_SESSION['admin_name']   = $admin['full_name'] ?? $admin['username'];
-                $_SESSION['admin_role']   = $admin['role'];
+                if ($admin && password_verify($password, $admin['password_hash'])) {
+                    $_SESSION[ADMIN_SESSION]  = true;
+                    $_SESSION[ADMIN_USER_KEY] = $admin['id'];
+                    $_SESSION['admin_name']   = $admin['full_name'] ?? $admin['username'];
+                    $_SESSION['admin_role']   = $admin['role'];
 
-                $db->prepare("UPDATE admin_users SET last_login=NOW(), login_count=login_count+1 WHERE id=:id")
-                   ->execute([':id' => $admin['id']]);
+                    $db->prepare("UPDATE admin_users SET last_login=NOW(), login_count=login_count+1 WHERE id=:id")
+                       ->execute([':id' => $admin['id']]);
 
-                header('Location: /admin/dashboard.php');
-                exit;
-            } else {
-                $error = 'Invalid username or password.';
-                error_log("Failed admin login attempt for user: $username from IP: " . get_client_ip());
+                    header('Location: /admin/dashboard.php');
+                    exit;
+                } else {
+                    $error = 'Invalid username or password.';
+                    error_log("Failed admin login attempt for user: $username from IP: " . get_client_ip());
+                }
+            } catch (Throwable $e) {
+                $error = 'Database tables not found. Please import database/setup.sql into phpMyAdmin on Hostinger.';
+                error_log('Admin login error: ' . $e->getMessage());
             }
         } else {
             $error = 'Database unavailable. Please try again later.';
