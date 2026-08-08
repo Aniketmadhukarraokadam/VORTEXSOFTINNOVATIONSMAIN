@@ -30,9 +30,6 @@ ServerSignature Off
     RewriteRule ^careers\.html$ /careers.php [L,R=301]
     RewriteRule ^blog\.html$ /blog.php [L,R=301]
 
-    # Allow generate_hash.php during initial setup
-    # RewriteRule ^admin/generate_hash\.php$ - [F,L]
-
     # Custom 404
     ErrorDocument 404 /404.php
 </IfModule>

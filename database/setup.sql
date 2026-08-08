@@ -135,8 +135,7 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 
 -- Default admin user (password: ShivaG@1437)
 INSERT IGNORE INTO `admin_users` (`username`, `password_hash`, `email`, `full_name`, `role`) VALUES
-('admin', '$2y$12$R.92S25xYp1hCgE1gK6bxe6v34uD4t/GgJ2K.U3J.L4u.V1M1N1P', 'careers@vortexsoftinnovations.in', 'Vortexsoft Admin', 'super_admin');
--- ⚠️ IMPORTANT: Generate a real hash with: password_hash('YourPassword', PASSWORD_BCRYPT, ['cost'=>12])
+('admin', '$2y$10$Y0XP/OdpmbuvJ9a5wy1psOn3OUVhtz37EEEtRFLoH6lGgXMlAdULe', 'careers@vortexsoftinnovations.in', 'Vortexsoft Admin', 'super_admin');
 
 -- Sample blog post
 INSERT IGNORE INTO `blog_posts` (`title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES
