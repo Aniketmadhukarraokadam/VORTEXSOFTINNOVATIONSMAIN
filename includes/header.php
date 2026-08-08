@@ -6,8 +6,8 @@
  * Pass $page_title, $page_desc, $canonical_url, $prefix (default './')
  */
 
-if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
-    @ob_start('ob_gzhandler');
+if (!ob_get_level() && !headers_sent()) {
+    ob_start();
 }
 
 if (!defined('SITE_NAME')) {
