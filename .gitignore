@@ -1,0 +1,9 @@
+﻿# Private config (never commit)
+config/private.php
+*.env
+.env
+*.log
+node_modules/
+uploads/resumes/*.pdf
+uploads/resumes/*.doc
+uploads/resumes/*.docx
