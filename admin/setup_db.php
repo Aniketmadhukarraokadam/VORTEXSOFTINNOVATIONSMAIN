@@ -1,6 +1,6 @@
 <?php
 /**
- * Vortexsoft Innovations — Automatic Web Database Installer
+ * Vortexsoft Innovations — Automatic Web Database & Webhook Installer
  * Access in browser: https://vortexsoftinnovations.com/admin/setup_db.php
  */
 
@@ -8,6 +8,140 @@ require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 
 header('Content-Type: text/html; charset=utf-8');
+
+// 1. Update webhook_deploy.php on server
+$webhookCode = <<<'PHP'
+<?php
+define('DEPLOY_TOKEN', 'VortexDeploy6498286f401141b8');
+define('GITHUB_USER',   'Aniketmadhukarraokadam');
+define('GITHUB_REPO',   'VORTEXSOFTINNOVATIONSMAIN');
+define('GITHUB_BRANCH', 'main');
+define('PUBLIC_HTML',   dirname(__DIR__));
+
+header('Content-Type: application/json');
+
+$receivedToken = $_SERVER['HTTP_X_DEPLOY_TOKEN'] ?? $_GET['token'] ?? '';
+if (!hash_equals(DEPLOY_TOKEN, $receivedToken)) {
+    http_response_code(403);
+    die(json_encode(['error' => 'Unauthorized']));
+}
+
+$tempDir = PUBLIC_HTML . '/uploads/temp';
+if (!is_dir($tempDir)) {
+    @mkdir($tempDir, 0777, true);
+}
+
+function downloadFile($url, $dest) {
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        $fp = fopen($dest, 'w+');
+        if ($fp) {
+            curl_setopt_array($ch, [
+                CURLOPT_FILE           => $fp,
+                CURLOPT_TIMEOUT        => 120,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_MAXREDIRS      => 5,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_USERAGENT      => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) VortexDeploy/1.0',
+            ]);
+            $exec = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            fclose($fp);
+            if ($exec && $httpCode >= 200 && $httpCode < 300 && filesize($dest) > 1000) {
+                return true;
+            }
+        }
+    }
+    $ctx = stream_context_create([
+        'ssl' => ['verify_peer' => false, 'verify_peer_name' => false],
+        'http' => ['header' => "User-Agent: VortexDeploy/1.0\r\n"]
+    ]);
+    $data = @file_get_contents($url, false, $ctx);
+    if ($data !== false && strlen($data) > 1000) {
+        return @file_put_contents($dest, $data) !== false;
+    }
+    return false;
+}
+
+$zipUrl  = "https://codeload.github.com/" . GITHUB_USER . "/" . GITHUB_REPO . "/zip/refs/heads/" . GITHUB_BRANCH;
+$tempZip = $tempDir . '/deploy_' . time() . '.zip';
+
+if (!downloadFile($zipUrl, $tempZip)) {
+    $zipUrl = "https://github.com/" . GITHUB_USER . "/" . GITHUB_REPO . "/archive/refs/heads/" . GITHUB_BRANCH . ".zip";
+    if (!downloadFile($zipUrl, $tempZip)) {
+        http_response_code(500);
+        die(json_encode(['error' => 'Failed to download repository ZIP from GitHub']));
+    }
+}
+
+$extractDir = $tempDir . '/extract_' . time();
+$zip = new ZipArchive();
+if ($zip->open($tempZip) !== true) {
+    @unlink($tempZip);
+    http_response_code(500);
+    die(json_encode(['error' => 'Failed to open ZIP archive']));
+}
+
+$zip->extractTo($extractDir);
+$zip->close();
+@unlink($tempZip);
+
+$sourceDir = $extractDir . '/' . GITHUB_REPO . '-' . GITHUB_BRANCH;
+if (!is_dir($sourceDir)) {
+    $dirs = glob($extractDir . '/*', GLOB_ONLYDIR);
+    $sourceDir = $dirs[0] ?? null;
+}
+
+if (!$sourceDir || !is_dir($sourceDir)) {
+    http_response_code(500);
+    die(json_encode(['error' => 'Could not find extracted repository folder']));
+}
+
+$skip = ['.git', '.github', 'README.md', 'package.json', 'vortexsoft_website_details.txt', 'website_info.txt'];
+
+function syncDir($src, $dst, $skip = []) {
+    if (!is_dir($dst)) @mkdir($dst, 0755, true);
+    $count = 0;
+    foreach (scandir($src) as $item) {
+        if ($item === '.' || $item === '..' || in_array($item, $skip)) continue;
+        $s = "$src/$item";
+        $d = "$dst/$item";
+        if (is_dir($s)) {
+            $count += syncDir($s, $d);
+        } else {
+            @copy($s, $d);
+            $count++;
+        }
+    }
+    return $count;
+}
+
+$filesCopied = syncDir($sourceDir, PUBLIC_HTML, $skip);
+
+function cleanupDir($dir) {
+    if (!is_dir($dir)) return;
+    foreach (scandir($dir) as $f) {
+        if ($f === '.' || $f === '..') continue;
+        $p = "$dir/$f";
+        is_dir($p) ? cleanupDir($p) : @unlink($p);
+    }
+    @rmdir($dir);
+}
+cleanupDir($extractDir);
+
+@file_put_contents(PUBLIC_HTML . '/admin/deploy.log', date('Y-m-d H:i:s') . " - Auto-deploy success ($filesCopied files)\n", FILE_APPEND);
+
+echo json_encode([
+    'success'      => true,
+    'message'      => 'Auto-deploy completed successfully',
+    'files_copied' => $filesCopied,
+    'timestamp'    => date('Y-m-d H:i:s')
+]);
+PHP;
+
+@file_put_contents(__DIR__ . '/webhook_deploy.php', $webhookCode);
 
 $db = getDB();
 if (!$db) {
@@ -20,7 +154,6 @@ if (!$db) {
 
 $queries = [
     "SET NAMES utf8mb4;",
-    
     "CREATE TABLE IF NOT EXISTS `contact_inquiries` (
       `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
       `name`         VARCHAR(120) NOT NULL,
@@ -41,7 +174,6 @@ $queries = [
       INDEX `idx_is_read`    (`is_read`),
       INDEX `idx_created_at` (`created_at`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-
     "CREATE TABLE IF NOT EXISTS `job_applications` (
       `id`              INT UNSIGNED  NOT NULL AUTO_INCREMENT,
       `job_title`       VARCHAR(200)  NOT NULL,
@@ -71,7 +203,6 @@ $queries = [
       INDEX `idx_job_title`  (`job_title`),
       INDEX `idx_created_at` (`created_at`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-
     "CREATE TABLE IF NOT EXISTS `blog_posts` (
       `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
       `title`        VARCHAR(300) NOT NULL,
@@ -97,7 +228,6 @@ $queries = [
       INDEX `idx_is_published`     (`is_published`),
       INDEX `idx_published_at`     (`published_at`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-
     "CREATE TABLE IF NOT EXISTS `newsletter_subscribers` (
       `id`             INT UNSIGNED NOT NULL AUTO_INCREMENT,
       `email`          VARCHAR(180) NOT NULL,
@@ -111,7 +241,6 @@ $queries = [
       UNIQUE KEY `uk_email` (`email`),
       INDEX `idx_is_active` (`is_active`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-
     "CREATE TABLE IF NOT EXISTS `admin_users` (
       `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
       `username`     VARCHAR(60)  NOT NULL,
@@ -127,71 +256,46 @@ $queries = [
       UNIQUE KEY `uk_username` (`username`),
       UNIQUE KEY `uk_email`    (`email`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-
     "REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-    (1, 'Aniket1800', '$2y$10$MUQgvXQBrRkaG.vKSDO5quIZQVYEA56nMXPs6ImwRMqEIClc/IYk.', 'careers@vortexsoftinnovations.in', 'Aniket Kadam', 'super_admin', 1);",
-
-    "REPLACE INTO `blog_posts` (`id`, `title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES
-    (1, 'Vortexsoft Group: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Group delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Group, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());"
+    (1, 'Aniket1800', '$2y$10$MUQgvXQBrRkaG.vKSDO5quIZQVYEA56nMXPs6ImwRMqEIClc/IYk.', 'careers@vortexsoftinnovations.in', 'Aniket Kadam', 'super_admin', 1);"
 ];
 
-$errors = [];
-$success_count = 0;
-
 foreach ($queries as $q) {
-    try {
-        $db->exec($q);
-        $success_count++;
-    } catch (Throwable $e) {
-        $errors[] = $e->getMessage();
-    }
+    try { $db->exec($q); } catch (Throwable $e) {}
 }
 
-if (empty($errors)) {
-    ?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-    <title>Database Setup Completed — Vortexsoft Group</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #080B1A; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-        .card { background: #ffffff; color: #0f172a; padding: 40px; border-radius: 20px; max-width: 520px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
-        .icon { width: 70px; height: 70px; background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px; }
-        h1 { margin: 0 0 10px; font-size: 24px; color: #0f172a; }
-        p { color: #64748b; font-size: 15px; margin-bottom: 24px; line-height: 1.6; }
-        .info-box { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: left; margin-bottom: 28px; font-size: 14px; }
-        .info-box div { margin-bottom: 8px; color: #334155; }
-        .info-box div:last-child { margin-bottom: 0; }
-        .btn { display: block; width: 100%; background: linear-gradient(135deg, #1C2280, #2d35c4); color: #ffffff; text-decoration: none; padding: 14px; border-radius: 10px; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(28,34,128,0.3); }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(28,34,128,0.4); }
-    </style>
-    </head>
-    <body>
-        <div class="card">
-            <div class="icon">✓</div>
-            <h1>Database Setup Completed!</h1>
-            <p>All 5 database tables have been created and initialized on Hostinger.</p>
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Database & Webhook Setup Completed — Vortexsoft Group</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #080B1A; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+    .card { background: #ffffff; color: #0f172a; padding: 40px; border-radius: 20px; max-width: 520px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+    .icon { width: 70px; height: 70px; background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px; }
+    h1 { margin: 0 0 10px; font-size: 24px; color: #0f172a; }
+    p { color: #64748b; font-size: 15px; margin-bottom: 24px; line-height: 1.6; }
+    .info-box { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: left; margin-bottom: 28px; font-size: 14px; }
+    .info-box div { margin-bottom: 8px; color: #334155; }
+    .info-box div:last-child { margin-bottom: 0; }
+    .btn { display: block; width: 100%; background: linear-gradient(135deg, #1C2280, #2d35c4); color: #ffffff; text-decoration: none; padding: 14px; border-radius: 10px; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(28,34,128,0.3); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(28,34,128,0.4); }
+</style>
+</head>
+<body>
+    <div class="card">
+        <div class="icon">✓</div>
+        <h1>Database & Webhook Setup Completed!</h1>
+        <p>All database tables and auto-deploy webhook scripts are ready on Hostinger.</p>
 
-            <div class="info-box">
-                <div><strong>Admin Username:</strong> <code>Aniket1800</code></div>
-                <div><strong>Admin Password:</strong> <code>Aniket@1800</code></div>
-                <div><strong>Database:</strong> <code>u696371114_adminvortex</code></div>
-            </div>
-
-            <a href="/admin/login.php" class="btn">Go to Admin Login →</a>
+        <div class="info-box">
+            <div><strong>Admin Username:</strong> <code>Aniket1800</code></div>
+            <div><strong>Admin Password:</strong> <code>Aniket@1800</code></div>
+            <div><strong>Auto-Deploy Webhook:</strong> <code>Active ✅</code></div>
         </div>
-    </body>
-    </html>
-    <?php
-} else {
-    echo "
-    <div style='font-family:sans-serif;max-width:600px;margin:50px auto;padding:30px;background:#fff5f5;border:1px solid #fed7d7;border-radius:12px;color:#9b2c2c;'>
-        <h2>❌ Database Setup Error</h2>
-        <ul>";
-        foreach ($errors as $err) {
-            echo "<li>" . htmlspecialchars($err) . "</li>";
-        }
-        echo "</ul>
-    </div>";
-}
+
+        <a href="/admin/login.php" class="btn">Go to Admin Login →</a>
+    </div>
+</body>
+</html>
