@@ -1,4 +1,4 @@
-﻿name: 🚀 Auto Deploy to Hostinger (Webhook)
+﻿name: 🚀 Auto Deploy to Hostinger
 
 on:
   push:
@@ -13,10 +13,26 @@ jobs:
     steps:
       - name: 📡 Ping Hostinger Deploy Webhook
         run: |
-          curl -s -X POST \
+          RESPONSE=$(curl -s -X POST \
             "https://vortexsoftinnovations.com/admin/webhook_deploy.php" \
             -H "Content-Type: application/json" \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_TOKEN }}" \
             -d '{"ref":"refs/heads/main"}' \
-            --max-time 30 \
-            -w "\nHTTP Status: %{http_code}"
+            --max-time 60 \
+            -w "\nHTTP_STATUS:%{http_code}")
+          
+          HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS:" | cut -d: -f2)
+          BODY=$(echo "$RESPONSE" | grep -v "HTTP_STATUS:")
+          
+          echo "Response: $BODY"
+          echo "HTTP Status: $HTTP_STATUS"
+          
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "✅ Webhook triggered successfully! Deploy running in background on Hostinger."
+          elif [ "$HTTP_STATUS" = "403" ]; then
+            echo "❌ Auth failed - check DEPLOY_TOKEN secret"
+            exit 1
+          else
+            echo "⚠️ Unexpected status: $HTTP_STATUS - check webhook script on server"
+            exit 1
+          fi
