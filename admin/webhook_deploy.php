@@ -10,43 +10,7 @@ define('GITHUB_REPO',   'VORTEXSOFTINNOVATIONSMAIN');
 define('GITHUB_BRANCH', 'main');
 define('PUBLIC_HTML',   '/home/u696371114/domains/vortexsoftinnovations.com/public_html');
 
-// Clean all output buffering
-while (ob_get_level() > 0) {
-    @ob_end_clean();
-}
-
-header('Content-Type: application/json');
-
-// 1. Verify token
-$receivedToken = $_SERVER['HTTP_X_DEPLOY_TOKEN'] ?? $_GET['token'] ?? '';
-if (!hash_equals(DEPLOY_TOKEN, $receivedToken)) {
-    http_response_code(403);
-    die(json_encode(['error' => 'Unauthorized']));
-}
-
-// 2. Prepare success payload
-$payload = json_encode([
-    'success' => true,
-    'message' => 'Deploy started in background',
-    'timestamp' => date('Y-m-d H:i:s')
-]);
-
-// 3. Send HTTP response immediately (under 50ms)
-header('Content-Length: ' . strlen($payload));
-header('Connection: close');
-echo $payload;
-
-if (function_exists('fastcgi_finish_request')) {
-    fastcgi_finish_request();
-} else {
-    @flush();
-}
-
-// 4. Continue background deployment
-ignore_user_abort(true);
-set_time_limit(300);
-
-// Helper function to download with cURL
+// Helper function to download with cURL (using direct codeload URL)
 function downloadZip($url, $dest) {
     $ch = curl_init($url);
     $fp = fopen($dest, 'w+');
@@ -56,9 +20,10 @@ function downloadZip($url, $dest) {
         CURLOPT_FILE           => $fp,
         CURLOPT_TIMEOUT        => 120,
         CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_MAXREDIRS      => 5,
         CURLOPT_SSL_VERIFYPEER => false,
         CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_USERAGENT      => 'VortexDeploy/1.0',
+        CURLOPT_USERAGENT      => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     ]);
 
     $res = curl_exec($ch);
@@ -68,13 +33,24 @@ function downloadZip($url, $dest) {
     return ($res && $code >= 200 && $code < 300);
 }
 
-$zipUrl = "https://github.com/" . GITHUB_USER . "/" . GITHUB_REPO . "/archive/refs/heads/" . GITHUB_BRANCH . ".zip";
-$tempZip = sys_get_temp_dir() . '/vortex_' . time() . '.zip';
+// Check security token
+$receivedToken = $_SERVER['HTTP_X_DEPLOY_TOKEN'] ?? $_GET['token'] ?? '';
+if (!hash_equals(DEPLOY_TOKEN, $receivedToken)) {
+    http_response_code(403);
+    die(json_encode(['error' => 'Unauthorized']));
+}
 
-if (!downloadZip($zipUrl, $tempZip)) {
-    error_log("[VortexDeploy] cURL download failed: $zipUrl");
+$tempZip = sys_get_temp_dir() . '/vortex_' . time() . '.zip';
+// Use direct codeload URL to avoid 302 redirects
+$zipUrl  = "https://codeload.github.com/" . GITHUB_USER . "/" . GITHUB_REPO . "/zip/refs/heads/" . GITHUB_BRANCH;
+
+if (!downloadZip($zipUrl, $tempZip) || !file_exists($tempZip) || filesize($tempZip) < 1000) {
     @unlink($tempZip);
-    exit;
+    http_response_code(500);
+    die(json_encode([
+        'error' => 'Failed to download repository ZIP from GitHub',
+        'url'   => $zipUrl
+    ]));
 }
 
 $extractDir = sys_get_temp_dir() . '/vortex_ex_' . time();
@@ -95,22 +71,34 @@ if ($zip->open($tempZip) === true) {
         
         function syncDir($src, $dst, $skip = []) {
             if (!is_dir($dst)) @mkdir($dst, 0755, true);
+            $count = 0;
             foreach (scandir($src) as $item) {
                 if ($item === '.' || $item === '..' || in_array($item, $skip)) continue;
                 $s = "$src/$item";
                 $d = "$dst/$item";
-                is_dir($s) ? syncDir($s, $d) : @copy($s, $d);
+                if (is_dir($s)) {
+                    $count += syncDir($s, $d);
+                } else {
+                    @copy($s, $d);
+                    $count++;
+                }
             }
+            return $count;
         }
         
-        syncDir($sourceDir, PUBLIC_HTML, $skip);
-
-        // Write deploy log
-        @file_put_contents(PUBLIC_HTML . '/admin/deploy.log', date('Y-m-d H:i:s') . " - Auto-deploy success\n", FILE_APPEND);
+        $filesCopied = syncDir($sourceDir, PUBLIC_HTML, $skip);
+        @file_put_contents(PUBLIC_HTML . '/admin/deploy.log', date('Y-m-d H:i:s') . " - Auto-deploy success ($filesCopied files)\n", FILE_APPEND);
+        
+        echo json_encode([
+            'success'      => true,
+            'message'      => 'Auto-deploy completed successfully',
+            'files_copied' => $filesCopied,
+            'timestamp'    => date('Y-m-d H:i:s')
+        ]);
+        exit;
     }
 }
 
-// Cleanup
 function cleanTmp($dir) {
     if (!is_dir($dir)) return;
     foreach (scandir($dir) as $f) {
@@ -121,3 +109,6 @@ function cleanTmp($dir) {
     @rmdir($dir);
 }
 cleanTmp($extractDir);
+
+http_response_code(500);
+echo json_encode(['error' => 'Failed to extract ZIP archive']);
