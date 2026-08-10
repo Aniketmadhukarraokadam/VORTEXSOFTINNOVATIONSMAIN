@@ -234,13 +234,20 @@ $prefix = $prefix ?? './';
 <script>
 // ── Loader ──────────────────────────────────────────────────
 (function(){
-  var pct = document.getElementById('loader-pct');
   var loader = document.getElementById('page-loader');
   if (!loader) return;
+  var pct = document.querySelector('.loading-pct') || document.getElementById('loader-pct');
   if (pct) pct.textContent = '100%';
-  setTimeout(function(){ loader.classList.add('hide'); }, 100);
-  setTimeout(function(){ if (loader.parentNode) loader.parentNode.removeChild(loader); }, 400);
+  setTimeout(function(){ loader.classList.add('hide'); }, 50);
+  setTimeout(function(){ if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 350);
 })();
+window.addEventListener('load', function(){
+  var loader = document.getElementById('page-loader');
+  if (loader) {
+    loader.classList.add('hide');
+    setTimeout(function(){ if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 300);
+  }
+});
 
 // ── Newsletter Submission ───────────────────────────────────
 function submitNewsletter(e) {

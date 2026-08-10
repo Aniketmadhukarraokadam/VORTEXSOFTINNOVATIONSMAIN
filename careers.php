@@ -278,12 +278,16 @@ require_once __DIR__ . '/includes/header.php';
 $extra_scripts = '
 <script>
 function openApplyModal(title, dept) {
-  document.getElementById("modal-job-title").textContent = title;
-  document.getElementById("applyModalLabel").innerHTML = \'<i class="fas fa-briefcase me-2"></i>Apply for \' + title;
+  var label = document.getElementById("applyModalLabel");
+  if (label) {
+    label.innerHTML = '<i class="fas fa-briefcase me-2"></i> Apply for <span id="modal-job-title">' + title + '</span>';
+  }
   document.getElementById("form-job-title").value = title;
   document.getElementById("form-department").value = dept;
-  document.getElementById("apply-feedback").className = "d-none";
-  document.getElementById("applyForm").reset();
+  var fb = document.getElementById("apply-feedback");
+  if (fb) fb.className = "d-none";
+  var form = document.getElementById("applyForm");
+  if (form) form.reset();
   new bootstrap.Modal(document.getElementById("applyModal")).show();
 }
 (function(){
