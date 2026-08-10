@@ -75,8 +75,9 @@ $prefix = $prefix ?? './';
       <!-- Brand Column -->
       <div class="col-lg-3 col-md-6 scroll-reveal">
         <a href="<?= $prefix ?>index.php">
-          <img src="<?= $prefix ?>logo-footer-new.png" alt="Vortexsoft Innovations" class="footer-logo">
+          <img src="<?= $prefix ?>logo-footer.png" alt="Vortexsoft Innovations" class="footer-logo">
         </a>
+
         <p class="footer-desc">
           Vortexsoft Innovations Pvt. Ltd. is a proud member of the
           <strong style="color:rgba(255,255,255,0.85);">Vortexsoft Group</strong>
