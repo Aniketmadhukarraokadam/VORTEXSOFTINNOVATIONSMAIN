@@ -200,7 +200,6 @@ function nav_active(string $page, string $path): string {
 </head>
 <body>
 
-<!-- ═══════ PAGE LOADER ═══════ -->
 <div id="page-loader">
     <div class="loader-content">
         <div class="loader-brand">
@@ -209,7 +208,7 @@ function nav_active(string $page, string $path): string {
         <div class="loader-sub">INNOVATIONS</div>
         <div class="loader-status">
             <span>INITIALIZING</span>
-            <span class="loading-pct" id="loader-pct">0%</span>
+            <span class="loading-pct" id="loader-pct">100%</span>
         </div>
         <div class="loader-track-new">
             <div class="loader-bar-new"></div>
@@ -217,6 +216,24 @@ function nav_active(string $page, string $path): string {
         <div class="loader-tagline">YOUR GLOBAL AI &amp; BPO PARTNER</div>
     </div>
 </div>
+<script>
+(function(){
+  function dismissLoader(){
+    var l = document.getElementById('page-loader');
+    if (l && !l.classList.contains('hide')) {
+      l.classList.add('hide');
+      setTimeout(function(){ if (l && l.parentNode) l.parentNode.removeChild(l); }, 400);
+    }
+  }
+  setTimeout(dismissLoader, 150);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    dismissLoader();
+  } else {
+    document.addEventListener('DOMContentLoaded', dismissLoader);
+    window.addEventListener('load', dismissLoader);
+  }
+})();
+</script>
 
 <!-- ═══════ SITE HEADER ═══════ -->
 <div id="site-header">
