@@ -280,7 +280,7 @@ $extra_scripts = '
 function openApplyModal(title, dept) {
   var label = document.getElementById("applyModalLabel");
   if (label) {
-    label.innerHTML = '<i class="fas fa-briefcase me-2"></i> Apply for <span id="modal-job-title">' + title + '</span>';
+    label.innerHTML = \'<i class="fas fa-briefcase me-2"></i> Apply for <span id="modal-job-title">\' + title + \'</span>\';
   }
   document.getElementById("form-job-title").value = title;
   document.getElementById("form-department").value = dept;
