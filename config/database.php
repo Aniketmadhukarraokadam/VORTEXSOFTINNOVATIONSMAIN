@@ -25,9 +25,16 @@ function getDB(): ?PDO {
         try {
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (Throwable $e) {
-            // Log error but don't expose credentials
-            error_log('Database connection failed: ' . $e->getMessage());
-            return null;
+            // Local dev fallback to SQLite if MySQL server is not running locally
+            try {
+                $sqlitePath = __DIR__ . '/../sqlite_dev.db';
+                $pdo = new PDO("sqlite:" . $sqlitePath);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            } catch (Throwable $e2) {
+                error_log('Database connection failed: ' . $e->getMessage());
+                return null;
+            }
         }
     }
     return $pdo;

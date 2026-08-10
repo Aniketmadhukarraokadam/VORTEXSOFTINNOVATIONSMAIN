@@ -347,8 +347,24 @@ $queries = [
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
 ];
 
+$is_sqlite = ($db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite');
+
 foreach ($queries as $q) {
-    try { $db->exec($q); } catch (Throwable $e) {}
+    try {
+        if ($is_sqlite) {
+            $q = preg_replace('/ENGINE=InnoDB[^;]*/i', '', $q);
+            $q = str_replace('INT UNSIGNED NOT NULL AUTO_INCREMENT', 'INTEGER PRIMARY KEY AUTOINCREMENT', $q);
+            $q = str_replace('AUTO_INCREMENT', 'INTEGER PRIMARY KEY AUTOINCREMENT', $q);
+            $q = preg_replace('/ENUM\([^)]+\)/i', 'TEXT', $q);
+            $q = preg_replace('/INDEX `[^`]+` \([^)]+\),?/i', '', $q);
+            $q = preg_replace('/UNIQUE KEY `[^`]+` \([^)]+\),?/i', '', $q);
+            $q = preg_replace('/KEY `[^`]+` \([^)]+\),?/i', '', $q);
+            $q = str_replace('ON UPDATE CURRENT_TIMESTAMP', '', $q);
+            $q = rtrim(trim($q), ',');
+            if (!str_contains($q, ')')) { $q .= ')'; }
+        }
+        $db->exec($q);
+    } catch (Throwable $e) {}
 }
 
 try {
