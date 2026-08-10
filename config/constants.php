@@ -11,11 +11,12 @@ define('SITE_TAGLINE', 'Your Global AI, IT & BPO Partner');
 
 // ── Email Addresses ────────────────────────────────────────
 define('EMAIL_SUPPORT',   'support@vortexsoftinnovations.com');
-define('EMAIL_INFO',      'info@vortexsoftinnovations.in');
+define('EMAIL_INFO',      'support@vortexsoftinnovations.com');
 define('EMAIL_HR',        'careers@vortexsoftinnovations.in');
-define('EMAIL_IT',        'it@vortexsoftinnovations.com');
-define('EMAIL_CONTACT',   'contact@vortexsoftinnovations.in');
+define('EMAIL_IT',        'support@vortexsoftinnovations.com');
+define('EMAIL_CONTACT',   'support@vortexsoftinnovations.com');
 define('EMAIL_FROM_NAME', 'Vortexsoft Group');
+
 
 // ── Phone Numbers ──────────────────────────────────────────
 define('PHONE_INDIA', '+91-8308906690');

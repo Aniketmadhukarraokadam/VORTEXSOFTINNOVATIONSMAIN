@@ -3,8 +3,8 @@
  * Vortexsoft Innovations — Contact Page (contact.php)
  */
 
-$page_title   = 'Contact Us — Vortexsoft Group | IT & BPO Outsourcing India';
-$page_desc    = 'Contact Vortexsoft Group for IT outsourcing, BPO, healthcare, publishing, or AI solutions. Call +91-8308906690 or email contact@vortexsoftinnovations.in. Offices in Bengaluru, Pune, and USA.';
+$page_title   = 'Contact Us — Vortexsoft Group | Pune Headquarters | IT & BPO Outsourcing India';
+$page_desc    = 'Contact Vortexsoft Group for IT outsourcing, BPO, healthcare, publishing, or AI solutions. Call +91-8308906690 or email support@vortexsoftinnovations.com. Headquartered in Pune with offices in Bengaluru and USA.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/contact.php';
 $prefix       = './';
 
@@ -18,7 +18,9 @@ require_once __DIR__ . '/includes/header.php';
 .page-hero .breadcrumb-item,.page-hero .breadcrumb-item a{color:rgba(255,255,255,.6);font-size:14px}
 .page-hero .breadcrumb-item.active{color:rgba(255,255,255,.9)}
 .page-hero .breadcrumb-item+.breadcrumb-item::before{color:rgba(255,255,255,.4)}
-.contact-card{background:#fff;border-radius:20px;padding:36px;box-shadow:0 4px 20px rgba(28,34,128,.1);border:1px solid rgba(28,34,128,.06);height:100%}
+.contact-card{background:#fff;border-radius:20px;padding:32px 24px;box-shadow:0 4px 20px rgba(28,34,128,.08);border:1px solid rgba(28,34,128,.06);height:100%;transition:transform .3s ease;}
+.contact-card:hover{transform:translateY(-4px);}
+.contact-card.hq-card{border:2px solid #CC2228;background:linear-gradient(180deg,#fff 0%,#fff5f5 100%);box-shadow:0 8px 24px rgba(204,34,40,.12);}
 .contact-icon-box{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
 .map-container{width:100%;height:400px;border-radius:20px;overflow:hidden;border:1px solid var(--border-light)}
 .form-control:focus,.form-select:focus{border-color:#1C2280;box-shadow:0 0 0 3px rgba(28,34,128,.1)}
@@ -31,8 +33,13 @@ require_once __DIR__ . '/includes/header.php';
 <div class="page-hero">
   <div class="container">
     <nav aria-label="breadcrumb" class="mb-3"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="index.php">Home</a></li><li class="breadcrumb-item active">Contact</li></ol></nav>
-    <h1>Contact <span style="color:#CC2228;">Vortexsoft Group</span></h1>
-    <p style="color:rgba(255,255,255,.7);font-size:16px;margin-top:12px;max-width:550px;">Submit an inquiry anytime &mdash; we respond within 24 hours on business days. Our team is available Mon&ndash;Sat, 9AM&ndash;6PM IST.</p>
+    <h1>Let's Work Together</h1>
+    <p style="color:rgba(255,255,255,.85);font-size:17px;margin-top:12px;max-width:620px;line-height:1.7;">
+      Tell us about your project and we'll get back to you within 24 hours with a detailed proposal.
+    </p>
+    <div class="d-flex gap-3 flex-wrap mt-3" style="font-size:14px;color:rgba(255,255,255,.9);">
+      <span><i class="fas fa-clock text-success me-1"></i> <strong>24/7 Digital Inquiry &amp; Client Support Available</strong></span>
+    </div>
   </div>
 </div>
 
@@ -40,38 +47,42 @@ require_once __DIR__ . '/includes/header.php';
 <section class="py-5" style="background:var(--bg-light,#f0f2ff);">
   <div class="container">
     <div class="row g-4">
+      <!-- Call Us -->
       <div class="col-lg-3 col-md-6 scroll-reveal">
         <div class="contact-card text-center">
           <div class="contact-icon-box mx-auto" style="background:rgba(28,34,128,.08);color:#1C2280;"><i class="fas fa-phone-alt"></i></div>
-          <h5 style="font-family:'Poppins',sans-serif;font-weight:700;margin-bottom:8px;">Call Us</h5>
-          <p style="font-size:13px;color:#64748b;margin-bottom:4px;">Mon&ndash;Sat, 9AM&ndash;6PM IST</p>
-          <p style="font-size:12px;color:#10b981;font-weight:600;margin-bottom:12px;"><i class="fas fa-circle" style="font-size:8px;margin-right:4px;"></i>Online Inquiries: 24/7</p>
-          <a href="tel:+918308906690" style="display:block;font-weight:700;color:#1C2280;font-size:15px;margin-bottom:4px;"><?= PHONE_INDIA ?></a>
+          <h5 style="font-family:'Poppins',sans-serif;font-weight:700;margin-bottom:8px;">Phone (India)</h5>
+          <p style="font-size:12.5px;color:#64748b;margin-bottom:4px;">Inquiries &amp; Support</p>
+          <a href="tel:+918308906690" style="display:block;font-weight:800;color:#1C2280;font-size:16px;margin-bottom:8px;"><?= PHONE_INDIA ?></a>
+          <p style="font-size:11.5px;color:#10b981;font-weight:600;margin:0;"><i class="fas fa-circle me-1" style="font-size:8px;"></i>24/7 Online Response</p>
         </div>
       </div>
+      <!-- Email Us -->
       <div class="col-lg-3 col-md-6 scroll-reveal" style="transition-delay:.1s">
         <div class="contact-card text-center">
           <div class="contact-icon-box mx-auto" style="background:rgba(204,34,40,.08);color:#CC2228;"><i class="fas fa-envelope"></i></div>
           <h5 style="font-family:'Poppins',sans-serif;font-weight:700;margin-bottom:8px;">Email Us</h5>
-          <p style="font-size:13px;color:#64748b;margin-bottom:12px;">We reply within 24 hours</p>
-          <a href="mailto:<?= EMAIL_SUPPORT ?>" style="display:block;font-weight:600;color:#CC2228;font-size:13px;margin-bottom:4px;word-break:break-all;"><?= EMAIL_SUPPORT ?></a>
-          <a href="mailto:<?= EMAIL_INFO ?>" style="display:block;font-weight:500;color:#64748b;font-size:13px;word-break:break-all;"><?= EMAIL_INFO ?></a>
+          <p style="font-size:12.5px;color:#64748b;margin-bottom:8px;">Official Inquiries &amp; Proposals</p>
+          <a href="mailto:support@vortexsoftinnovations.com" style="display:block;font-weight:700;color:#CC2228;font-size:13.5px;margin-bottom:4px;word-break:break-all;">support@vortexsoftinnovations.com</a>
         </div>
       </div>
+      <!-- WhatsApp -->
       <div class="col-lg-3 col-md-6 scroll-reveal" style="transition-delay:.2s">
         <div class="contact-card text-center">
           <div class="contact-icon-box mx-auto" style="background:rgba(37,211,102,.08);color:#25d366;"><i class="fab fa-whatsapp"></i></div>
           <h5 style="font-family:'Poppins',sans-serif;font-weight:700;margin-bottom:8px;">WhatsApp</h5>
-          <p style="font-size:13px;color:#64748b;margin-bottom:12px;">Quick response in &lt;30 min</p>
+          <p style="font-size:12.5px;color:#64748b;margin-bottom:12px;">Fast Business Chat (&lt;30 min)</p>
           <a href="<?= SOCIAL_WHATSAPP ?>" target="_blank" class="btn" style="background:#25d366;color:#fff;border-radius:8px;font-size:13px;font-weight:700;padding:8px 20px;"><i class="fab fa-whatsapp me-1"></i> Chat Now</a>
         </div>
       </div>
+      <!-- Primary Head Office Card (Pune) -->
       <div class="col-lg-3 col-md-6 scroll-reveal" style="transition-delay:.3s">
-        <div class="contact-card text-center">
-          <div class="contact-icon-box mx-auto" style="background:rgba(91,168,212,.08);color:#5BA8D4;"><i class="fas fa-map-marker-alt"></i></div>
-          <h5 style="font-family:'Poppins',sans-serif;font-weight:700;margin-bottom:8px;">Headquarters</h5>
-          <p style="font-size:13px;color:#64748b;">No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" style="font-size:13px;color:#5BA8D4;font-weight:600;"><i class="fas fa-directions me-1"></i>Get Directions</a>
+        <div class="contact-card hq-card text-center">
+          <div class="contact-icon-box mx-auto" style="background:rgba(204,34,40,.12);color:#CC2228;"><i class="fas fa-building"></i></div>
+          <span class="badge mb-2" style="background:#CC2228;color:#fff;font-size:10px;padding:4px 10px;">HEAD OFFICE</span>
+          <h5 style="font-family:'Poppins',sans-serif;font-weight:800;margin-bottom:6px;color:#1e293b;">Pune Headquarters</h5>
+          <p style="font-size:12px;color:#475569;margin-bottom:10px;line-height:1.5;">502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune 411041</p>
+          <a href="https://share.google/XKt2SVYsKfiNqrVGx" target="_blank" class="btn btn-sm" style="background:#CC2228;color:#fff;font-size:12px;font-weight:600;"><i class="fas fa-map-marked-alt me-1"></i>View Pune Map</a>
         </div>
       </div>
     </div>
@@ -89,7 +100,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="section-tag">Get In Touch</div>
             <h2 class="section-title">Send Us a <span class="highlight">Message</span></h2>
             <div class="section-divider"></div>
-            <p style="color:var(--text-muted);font-size:15px;">Fill in the form below and our specialist team will provide a tailored response within 24 hours.</p>
+            <p style="color:var(--text-muted);font-size:15px;">Tell us about your project and we'll get back to you within 24 hours with a detailed proposal.</p>
           </div>
           <div id="form-feedback" class="d-none mb-4" role="alert"></div>
           <form id="contactForm" novalidate>
@@ -145,37 +156,69 @@ require_once __DIR__ . '/includes/header.php';
       <!-- Info + Map -->
       <div class="col-lg-6 scroll-reveal-right">
         <div class="mb-4">
-          <div class="section-tag">Our Offices</div>
-          <h2 class="section-title">Visit <span class="highlight">Our Offices</span></h2>
+          <div class="section-tag">Company Locations</div>
+          <h2 class="section-title">Headquarters &amp; <span class="highlight">Global Offices</span></h2>
           <div class="section-divider"></div>
         </div>
-        <!-- Office Cards -->
-        <?php $offices = [
-          ['name'=>'Bengaluru HQ','flag'=>'🇮🇳','addr'=>'No.125, Ranganath Complex, above Greenline Travels, Madiwala, HSR Layout 5th Sector, Bengaluru 560068','map'=>'https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068','phone'=>PHONE_INDIA,'email'=>EMAIL_CONTACT],
-          ['name'=>'Pune Office','flag'=>'🇮🇳','addr'=>'502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk, Pune 411041','map'=>'https://www.google.com/maps/search/?api=1&query=502+4th+Floor+Dangat+Patil+Empire+Vadgaon+Budruk+Pune+411041','phone'=>PHONE_INDIA,'email'=>EMAIL_INFO],
-          ['name'=>'USA Office','flag'=>'🇺🇸','addr'=>'30 N Gould St Ste 100, Sheridan, WY 82801, United States','map'=>'https://maps.google.com/?cid=4698826826648482061','phone'=>'+1 (307) 218-0000','email'=>EMAIL_IT],
-        ]; ?>
 
-        <?php foreach($offices as $o): ?>
-        <div style="background:var(--bg-light,#f0f2ff);border-radius:16px;padding:20px 24px;margin-bottom:16px;border:1px solid var(--border-light,#dde2f5);display:flex;gap:18px;align-items:flex-start;">
-          <div style="font-size:30px;flex-shrink:0;margin-top:2px;"><?= $o['flag'] ?></div>
+        <!-- #1 Primary Highlighted Pune HQ -->
+        <div style="background:linear-gradient(135deg,#fff 0%,#fff5f5 100%);border-radius:18px;padding:24px;margin-bottom:16px;border:2px solid #CC2228;box-shadow:0 6px 20px rgba(204,34,40,.08);display:flex;gap:18px;align-items:flex-start;">
+          <div style="font-size:32px;flex-shrink:0;margin-top:2px;">🇮🇳</div>
           <div style="flex:1;">
-            <h6 style="font-family:'Poppins',sans-serif;font-weight:700;color:#1C2280;margin-bottom:4px;"><?= $o['name'] ?></h6>
-            <p style="font-size:13px;color:#475569;margin-bottom:8px;"><?= $o['addr'] ?></p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;">
-              <a href="<?= $o['map'] ?>" target="_blank" style="font-size:12px;font-weight:600;color:#CC2228;text-decoration:none;"><i class="fas fa-directions me-1"></i>Directions</a>
-              <a href="tel:<?= preg_replace('/[^+0-9]/','',$o['phone']) ?>" style="font-size:12px;font-weight:600;color:#1C2280;text-decoration:none;"><i class="fas fa-phone-alt me-1"></i><?= $o['phone'] ?></a>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span class="badge" style="background:#CC2228;color:#fff;font-size:10px;padding:3px 8px;">HEAD OFFICE</span>
+              <h5 style="font-family:'Poppins',sans-serif;font-weight:800;color:#1C2280;margin:0;">Pune Headquarters</h5>
+            </div>
+            <p style="font-size:13.5px;color:#334155;margin-bottom:10px;line-height:1.6;font-weight:500;">
+              502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune, Maharashtra 411041, India
+            </p>
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+              <a href="https://share.google/XKt2SVYsKfiNqrVGx" target="_blank" style="font-size:13px;font-weight:700;color:#CC2228;text-decoration:none;"><i class="fas fa-map-marked-alt me-1"></i>Open Google Map Link</a>
+              <a href="tel:+918308906690" style="font-size:12.5px;font-weight:600;color:#1C2280;text-decoration:none;"><i class="fas fa-phone-alt me-1"></i>+91-8308906690</a>
             </div>
           </div>
         </div>
-        <?php endforeach; ?>
 
-        <!-- Map -->
-        <div class="map-container mt-4">
+        <!-- #2 Secondary Bengaluru Branch -->
+        <div style="background:var(--bg-light,#f0f2ff);border-radius:16px;padding:20px 24px;margin-bottom:16px;border:1px solid var(--border-light,#dde2f5);display:flex;gap:18px;align-items:flex-start;">
+          <div style="font-size:28px;flex-shrink:0;margin-top:2px;">🇮🇳</div>
+          <div style="flex:1;">
+            <h6 style="font-family:'Poppins',sans-serif;font-weight:700;color:#475569;margin-bottom:4px;">Bengaluru Branch Office</h6>
+            <p style="font-size:13px;color:#64748b;margin-bottom:8px;">No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068</p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <a href="https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" style="font-size:12px;font-weight:600;color:#64748b;text-decoration:none;"><i class="fas fa-directions me-1"></i>Directions</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- #3 USA Office -->
+        <div style="background:var(--bg-light,#f0f2ff);border-radius:16px;padding:20px 24px;margin-bottom:16px;border:1px solid var(--border-light,#dde2f5);display:flex;gap:18px;align-items:flex-start;">
+          <div style="font-size:28px;flex-shrink:0;margin-top:2px;">🇺🇸</div>
+          <div style="flex:1;">
+            <h6 style="font-family:'Poppins',sans-serif;font-weight:700;color:#475569;margin-bottom:4px;">USA Office</h6>
+            <p style="font-size:13px;color:#64748b;margin-bottom:8px;">30 N Gould St Ste 100, Sheridan, WY 82801, United States</p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <a href="https://maps.google.com/?cid=4698826826648482061" target="_blank" style="font-size:12px;font-weight:600;color:#64748b;text-decoration:none;"><i class="fas fa-directions me-1"></i>Directions</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Hours Box -->
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;margin-bottom:20px;">
+          <h6 style="font-family:'Poppins',sans-serif;font-weight:700;color:#1e293b;margin-bottom:8px;"><i class="fas fa-clock text-success me-2"></i>Business Hours &amp; Inquiry Availability</h6>
+          <div style="font-size:13.5px;color:#475569;line-height:1.6;">
+            <div><strong class="text-success">Website Inquiries &amp; Digital Intake:</strong> 24/7 Available (365 days)</div>
+            <div><strong>Physical Office Hours (Pune HQ):</strong> Monday &ndash; Saturday, 9:00 AM &ndash; 6:00 PM IST</div>
+            <small class="text-muted mt-1 d-block"><em>Note: Digital inquiries &amp; client support operate 24/7 globally; physical office visits are available during office hours.</em></small>
+          </div>
+        </div>
+
+        <!-- Pune Head Office Map Embed -->
+        <div class="map-container">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.599766835388!2d77.6141!3d12.9141!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU0JzUwLjciTiA3N8KwMzYnNTEuOCJF!5e0!3m2!1sen!2sin!4v1700000000000"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.923832104593!2d73.8329!3d18.4792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfaf7a26f8d1%3A0x6b093256037e42d7!2sDangat%20Patil%20Empire%2C%20Vadgaon%20Budruk%2C%20Pune%2C%20Maharashtra%20411041!5e0!3m2!1sen!2sin!4v1700000000000"
             width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade" title="Vortexsoft Group Bengaluru HQ Map">
+            referrerpolicy="no-referrer-when-downgrade" title="Vortexsoft Group Pune Headquarters Map">
           </iframe>
         </div>
       </div>
@@ -184,6 +227,7 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <?php
+
 $extra_scripts = '
 <script>
 (function(){

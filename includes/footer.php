@@ -124,41 +124,53 @@ $prefix = $prefix ?? './';
 
       <!-- Contact Info -->
       <div class="col-lg-4 col-md-6 scroll-reveal" style="transition-delay:0.3s">
-        <h6 class="footer-title">Contact Us</h6>
-        <div class="footer-contact-item">
-          <i class="fas fa-map-marker-alt" style="color:var(--accent);flex-shrink:0;margin-top:3px;"></i>
+        <h6 class="footer-title">Headquarters &amp; Offices</h6>
+        <!-- Highlighted Pune HQ -->
+        <div class="footer-contact-item" style="background:rgba(204,34,40,0.12);padding:10px 14px;border-radius:10px;border:1px solid rgba(204,34,40,0.3);margin-bottom:12px;">
+          <i class="fas fa-building" style="color:#ff6b6b;flex-shrink:0;margin-top:3px;font-size:16px;"></i>
           <span>
-            <a href="https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" style="color:#fff;font-weight:700;display:block;text-decoration:none;">Bengaluru (HQ) <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.6;"></i></a>
+            <a href="https://share.google/XKt2SVYsKfiNqrVGx" target="_blank" style="color:#fff;font-weight:800;display:block;text-decoration:none;font-size:14px;">
+              <span class="badge me-1" style="background:#CC2228;color:#fff;font-size:10px;padding:3px 7px;vertical-align:middle;">HEAD OFFICE</span> Pune Headquarters <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.8;"></i>
+            </a>
+            502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune, Maharashtra 411041
+          </span>
+        </div>
+        <!-- Secondary Bengaluru Branch -->
+        <div class="footer-contact-item" style="margin-bottom:10px;">
+          <i class="fas fa-map-marker-alt" style="color:rgba(255,255,255,0.6);flex-shrink:0;margin-top:3px;"></i>
+          <span>
+            <a href="https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" style="color:rgba(255,255,255,0.85);font-weight:600;display:block;text-decoration:none;font-size:13px;">Bengaluru Branch Office <i class="fas fa-external-link-alt" style="font-size:9px;opacity:0.5;"></i></a>
             No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068
           </span>
         </div>
-        <div class="footer-contact-item">
-          <i class="fas fa-map-marker-alt" style="color:var(--accent);flex-shrink:0;margin-top:3px;"></i>
+        <!-- USA Office -->
+        <div class="footer-contact-item" style="margin-bottom:10px;">
+          <i class="fas fa-globe-americas" style="color:rgba(255,255,255,0.6);flex-shrink:0;margin-top:3px;"></i>
           <span>
-            <a href="https://www.google.com/maps/search/?api=1&query=502+4th+Floor+Dangat+Patil+Empire+Vadgaon+Budruk+Pune+411041" target="_blank" style="color:#fff;font-weight:700;display:block;text-decoration:none;">Pune Office <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.6;"></i></a>
-            502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune 411041
-          </span>
-        </div>
-        <div class="footer-contact-item">
-          <i class="fas fa-map-marker-alt" style="color:var(--accent);flex-shrink:0;margin-top:3px;"></i>
-          <span>
-            <a href="https://maps.google.com/?cid=4698826826648482061" target="_blank" style="color:#fff;font-weight:700;display:block;text-decoration:none;">USA Office <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.6;"></i></a>
-            30 N Gould St Ste 100, Sheridan, WY 82801
+            <a href="https://maps.google.com/?cid=4698826826648482061" target="_blank" style="color:rgba(255,255,255,0.85);font-weight:600;display:block;text-decoration:none;font-size:13px;">USA Office <i class="fas fa-external-link-alt" style="font-size:9px;opacity:0.5;"></i></a>
+            30 N Gould St Ste 100, Sheridan, WY 82801, USA
           </span>
         </div>
         <div class="footer-contact-item mt-2">
-          <i class="fas fa-envelope"></i>
+          <i class="fas fa-envelope" style="color:var(--accent);"></i>
           <span>
-            <a href="mailto:<?= EMAIL_SUPPORT ?>"><?= EMAIL_SUPPORT ?></a><br>
-            <a href="mailto:<?= EMAIL_INFO ?>"><?= EMAIL_INFO ?></a>
+            <a href="mailto:support@vortexsoftinnovations.com" style="color:#fff;font-weight:600;">support@vortexsoftinnovations.com</a>
           </span>
         </div>
         <div class="footer-contact-item">
-          <i class="fas fa-phone-alt"></i>
+          <i class="fas fa-phone-alt" style="color:var(--accent);"></i>
           <span>
-            <a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>"><?= PHONE_INDIA ?></a>
+            <a href="tel:+918308906690" style="color:#fff;font-weight:600;"><?= PHONE_INDIA ?></a>
           </span>
         </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-clock" style="color:#10b981;"></i>
+          <span>
+            <strong style="color:#10b981;">24/7 Digital Inquiries &amp; Support</strong><br>
+            <small style="color:rgba(255,255,255,0.6);">Physical Office: Mon–Sat, 9 AM – 6 PM IST</small>
+          </span>
+        </div>
+
 
         <!-- Newsletter Form -->
         <div class="mt-4">
