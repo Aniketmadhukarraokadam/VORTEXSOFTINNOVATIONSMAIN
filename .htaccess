@@ -1,8 +1,14 @@
 ## Vortexsoft Group — Apache/.htaccess
-## Root level — handles URL rewriting, PHP pages, security headers
+## Root level — security hardening, URL rewriting, PHP pages
 
 Options -Indexes -MultiViews
 ServerSignature Off
+
+# ── Remove PHP version header ─────────────────────────────────
+<IfModule mod_headers.c>
+    Header unset X-Powered-By
+    Header always unset X-Powered-By
+</IfModule>
 
 # ── PHP Routing (html → php redirect) ────────────────────────────
 <IfModule mod_rewrite.c>
@@ -33,6 +39,12 @@ ServerSignature Off
 
     # Custom 404
     ErrorDocument 404 /404.php
+
+    # Block common attack patterns in query strings
+    RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+    RewriteRule .* - [F,L]
 </IfModule>
 
 # ── Security Headers ──────────────────────────────────────────────
@@ -46,8 +58,8 @@ ServerSignature Off
     Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; frame-src 'self' https://www.google.com; connect-src 'self' https:;"
 </IfModule>
 
-# ── Protect Sensitive Files ───────────────────────────────────────
-<FilesMatch "\.(sql|log|env|json|lock|git|md|htpasswd)$">
+# ── Protect Sensitive File Extensions ─────────────────────────────
+<FilesMatch "\.(sql|log|env|ini|conf|lock|htpasswd|bak|old|tmp|sh|bash|rb|py|pl|db)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -57,11 +69,23 @@ ServerSignature Off
     </IfModule>
 </FilesMatch>
 
-# ── Block Direct Access to config & includes ──────────────────────
+# ── Protect .env specifically ─────────────────────────────────────
+<FilesMatch "^\.env">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ── Block Direct Access to sensitive directories ──────────────────
 <IfModule mod_rewrite.c>
-    RewriteRule ^config/.*$ - [F,L]
-    RewriteRule ^includes/.*$ - [F,L]
-    RewriteRule ^database/.*$ - [F,L]
+    RewriteRule ^config/.*$          - [F,L]
+    RewriteRule ^includes/.*$        - [F,L]
+    RewriteRule ^database/.*$        - [F,L]
+    RewriteRule ^backups/.*$         - [F,L]
     RewriteRule ^uploads/resumes/.*$ - [F,L]
 </IfModule>
 

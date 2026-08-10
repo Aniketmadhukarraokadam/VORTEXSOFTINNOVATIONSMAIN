@@ -1,9 +1,35 @@
-﻿# Private config (never commit)
+# ── Private credentials — NEVER commit these ───────────────
+config/.env
 config/private.php
 *.env
 .env
+
+# ── Log files ───────────────────────────────────────────────
 *.log
+error_log
+
+# ── Node ────────────────────────────────────────────────────
 node_modules/
-uploads/resumes/*.pdf
-uploads/resumes/*.doc
-uploads/resumes/*.docx
+
+# ── Uploaded resumes & files ────────────────────────────────
+uploads/resumes/
+uploads/temp/
+
+# ── SQLite dev database ─────────────────────────────────────
+*.db
+sqlite_dev.db
+
+# ── OS generated files ──────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor temp / backup files ──────────────────────────────
+*.bak
+*.old
+*.tmp
+*.swp
+*~
+
+# ── Backup directory (never push backups to git) ────────────
+backups/

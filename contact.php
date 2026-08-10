@@ -93,6 +93,7 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div id="form-feedback" class="d-none mb-4" role="alert"></div>
           <form id="contactForm" novalidate>
+            <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
             <input type="text" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
             <div class="row g-3">
               <div class="col-md-6">
@@ -152,8 +153,9 @@ require_once __DIR__ . '/includes/header.php';
         <?php $offices = [
           ['name'=>'Bengaluru HQ','flag'=>'🇮🇳','addr'=>'No.125, Ranganath Complex, above Greenline Travels, Madiwala, HSR Layout 5th Sector, Bengaluru 560068','map'=>'https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068','phone'=>PHONE_INDIA,'email'=>EMAIL_CONTACT],
           ['name'=>'Pune Office','flag'=>'🇮🇳','addr'=>'502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk, Pune 411041','map'=>'https://www.google.com/maps/search/?api=1&query=502+4th+Floor+Dangat+Patil+Empire+Vadgaon+Budruk+Pune+411041','phone'=>PHONE_INDIA,'email'=>EMAIL_INFO],
-          ['name'=>'USA Office','flag'=>'🇺🇸','addr'=>'30 N Gould St Ste 100, Sheridan, WY 82801, United States','map'=>'https://maps.google.com/?cid=4698826826648482061','phone'=>PHONE_USA,'email'=>EMAIL_IT],
+          ['name'=>'USA Office','flag'=>'🇺🇸','addr'=>'30 N Gould St Ste 100, Sheridan, WY 82801, United States','map'=>'https://maps.google.com/?cid=4698826826648482061','phone'=>'+1 (307) 218-0000','email'=>EMAIL_IT],
         ]; ?>
+
         <?php foreach($offices as $o): ?>
         <div style="background:var(--bg-light,#f0f2ff);border-radius:16px;padding:20px 24px;margin-bottom:16px;border:1px solid var(--border-light,#dde2f5);display:flex;gap:18px;align-items:flex-start;">
           <div style="font-size:30px;flex-shrink:0;margin-top:2px;"><?= $o['flag'] ?></div>

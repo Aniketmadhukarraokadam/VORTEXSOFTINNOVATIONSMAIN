@@ -4,10 +4,48 @@
  * /admin/login.php
  */
 
+// ── Secure session settings ──────────────────────────────────
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', 1);
+ini_set('session.use_strict_mode', 1);
+ini_set('session.cookie_samesite', 'Lax');
 session_start();
+
 require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
+
+// ── Brute-force lockout helper ────────────────────────────────
+function is_locked_out(string $ip): bool {
+    $key   = 'bf_lock_' . md5($ip);
+    $data  = $_SESSION[$key] ?? ['count' => 0, 'locked_until' => 0];
+    if ($data['locked_until'] > time()) return true;
+    if ($data['locked_until'] !== 0 && $data['locked_until'] <= time()) {
+        // Reset after lockout expires
+        $_SESSION[$key] = ['count' => 0, 'locked_until' => 0];
+    }
+    return false;
+}
+
+function record_failed_attempt(string $ip): void {
+    $key  = 'bf_lock_' . md5($ip);
+    $data = $_SESSION[$key] ?? ['count' => 0, 'locked_until' => 0];
+    $data['count']++;
+    if ($data['count'] >= 5) {
+        $data['locked_until'] = time() + 900; // 15-minute lockout
+        $data['count'] = 0;
+    }
+    $_SESSION[$key] = $data;
+}
+
+function reset_failed_attempts(string $ip): void {
+    $_SESSION['bf_lock_' . md5($ip)] = ['count' => 0, 'locked_until' => 0];
+}
+
+// ── CSRF token for login form ─────────────────────────────────
+if (empty($_SESSION['login_csrf'])) {
+    $_SESSION['login_csrf'] = bin2hex(random_bytes(32));
+}
 
 function auto_install_tables(PDO $db): void {
     $queries = [
@@ -138,59 +176,82 @@ function auto_install_tables(PDO $db): void {
 }
 
 $error = '';
+$ip = get_client_ip();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-
-    if (empty($username) || empty($password)) {
-        $error = 'Please enter username/email and password.';
+    // CSRF check
+    $csrf_ok = hash_equals($_SESSION['login_csrf'] ?? '', $_POST['login_csrf'] ?? '');
+    if (!$csrf_ok) {
+        $error = 'Security validation failed. Please refresh the page and try again.';
+    }
+    // Brute-force lockout check
+    elseif (is_locked_out($ip)) {
+        $error = 'Too many failed attempts. This IP is locked out for 15 minutes. Please try again later.';
+        error_log("Admin login lockout for IP: $ip");
     } else {
-        $db = getDB();
-        if ($db) {
-            try {
-                $stmt = $db->prepare("SELECT * FROM admin_users WHERE (LOWER(username) = LOWER(:u) OR LOWER(email) = LOWER(:e)) AND is_active = 1 LIMIT 1");
-                $stmt->execute([':u' => $username, ':e' => $username]);
-                $admin = $stmt->fetch();
-            } catch (Throwable $e) {
-                // Auto-create missing tables on the fly
-                auto_install_tables($db);
+        $username = trim($_POST['username'] ?? '');
+        $password = $_POST['password'] ?? '';
+
+        if (empty($username) || empty($password)) {
+            $error = 'Please enter username/email and password.';
+        } else {
+            $db = getDB();
+            if ($db) {
                 try {
                     $stmt = $db->prepare("SELECT * FROM admin_users WHERE (LOWER(username) = LOWER(:u) OR LOWER(email) = LOWER(:e)) AND is_active = 1 LIMIT 1");
                     $stmt->execute([':u' => $username, ':e' => $username]);
                     $admin = $stmt->fetch();
-                } catch (Throwable $e2) {
-                    $admin = false;
+                } catch (Throwable $e) {
+                    // Auto-create missing tables on the fly
+                    auto_install_tables($db);
+                    try {
+                        $stmt = $db->prepare("SELECT * FROM admin_users WHERE (LOWER(username) = LOWER(:u) OR LOWER(email) = LOWER(:e)) AND is_active = 1 LIMIT 1");
+                        $stmt->execute([':u' => $username, ':e' => $username]);
+                        $admin = $stmt->fetch();
+                    } catch (Throwable $e2) {
+                        $admin = false;
+                    }
                 }
-            }
 
-            if ($admin && password_verify($password, $admin['password_hash'])) {
-                $_SESSION[ADMIN_SESSION]       = true;
-                $_SESSION[ADMIN_USER_KEY]      = $admin['id'];
-                $_SESSION['admin_id']          = $admin['id'];
-                $_SESSION['admin_username']    = $admin['username'];
-                $_SESSION['vortex_admin_id']   = $admin['id'];
-                $_SESSION['vortex_admin_user'] = $admin['username'];
-                $_SESSION['admin_name']        = $admin['full_name'] ?? $admin['username'];
-                $_SESSION['admin_role']        = $admin['role'];
-                $_SESSION['vortex_admin_role'] = $admin['role'];
+                if ($admin && password_verify($password, $admin['password_hash'])) {
+                    // Reset failed attempts on success
+                    reset_failed_attempts($ip);
 
-                try {
-                    $db->prepare("UPDATE admin_users SET last_login=NOW(), login_count=login_count+1 WHERE id=:id")
-                       ->execute([':id' => $admin['id']]);
-                } catch (Throwable $e3) {}
+                    // Regenerate session ID to prevent session fixation
+                    session_regenerate_id(true);
 
-                log_admin_activity('Admin Login', "User '{$admin['username']}' logged in successfully.");
+                    $_SESSION[ADMIN_SESSION]       = true;
+                    $_SESSION[ADMIN_USER_KEY]      = $admin['id'];
+                    $_SESSION['admin_id']          = $admin['id'];
+                    $_SESSION['admin_username']    = $admin['username'];
+                    $_SESSION['vortex_admin_id']   = $admin['id'];
+                    $_SESSION['vortex_admin_user'] = $admin['username'];
+                    $_SESSION['admin_name']        = $admin['full_name'] ?? $admin['username'];
+                    $_SESSION['admin_role']        = $admin['role'];
+                    $_SESSION['vortex_admin_role'] = $admin['role'];
+                    $_SESSION['admin_login_time']  = time();
+                    $_SESSION['admin_login_ip']    = $ip;
 
-                header('Location: /admin/dashboard.php');
-                exit;
+                    try {
+                        $db->prepare("UPDATE admin_users SET last_login=NOW(), login_count=login_count+1 WHERE id=:id")
+                           ->execute([':id' => $admin['id']]);
+                    } catch (Throwable $e3) {}
+
+                    log_admin_activity('Admin Login', "User '{$admin['username']}' logged in successfully.");
+
+                    header('Location: /admin/dashboard.php');
+                    exit;
+                } else {
+                    record_failed_attempt($ip);
+                    log_admin_activity('Failed Login', "Failed login attempt for username/email: '{$username}'.");
+                    $error = 'Invalid credentials or inactive account.';
+                    error_log("Failed admin login attempt for user: $username from IP: $ip");
+                    // Rotate CSRF token after failed attempt
+                    $_SESSION['login_csrf'] = bin2hex(random_bytes(32));
+                }
             } else {
-                log_admin_activity('Failed Login', "Failed login attempt for username/email: '{$username}'.");
-                $error = 'Invalid credentials or inactive account.';
-                error_log("Failed admin login attempt for user: $username from IP: " . get_client_ip());
+                $error = 'Database unavailable. Please try again later.';
             }
-        } else {
-            $error = 'Database unavailable. Please try again later.';
         }
     }
 }
@@ -243,6 +304,7 @@ body::before{content:'';position:absolute;inset:0;background-image:linear-gradie
   <?php endif; ?>
 
   <form method="POST" action="" id="loginForm">
+    <input type="hidden" name="login_csrf" value="<?= htmlspecialchars($_SESSION['login_csrf'] ?? '') ?>">
     <div class="mb-4">
       <label class="form-label" for="username">Username or Email</label>
       <div class="input-group-icon">

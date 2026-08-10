@@ -20,6 +20,13 @@ require_once __DIR__ . '/includes/header.php';
 .breadcrumb-item.active{color:rgba(255,255,255,.9)}
 .breadcrumb-item+.breadcrumb-item::before{color:rgba(255,255,255,.4)}
 
+/* Category Filter */
+.svc-filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;justify-content:center}
+.svc-filter-btn{background:#fff;border:1.5px solid #dde2f5;color:#475569;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:8px 20px;border-radius:100px;cursor:pointer;transition:.3s;white-space:nowrap;outline:none}
+.svc-filter-btn:hover{border-color:#1C2280;color:#1C2280;background:#f0f2ff}
+.svc-filter-btn.active{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(28,34,128,.3)}
+.svc-item.hidden{display:none!important}
+
 .service-card-lg{background:#fff;border-radius:20px;padding:32px;border:1px solid #e8ecff;box-shadow:0 4px 20px rgba(28,34,128,.06);transition:all .3s;height:100%;display:flex;flex-direction:column}
 .service-card-lg:hover{transform:translateY(-6px);box-shadow:0 15px 40px rgba(28,34,128,.14);border-color:transparent}
 .service-card-lg .icon-box{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
@@ -29,6 +36,7 @@ require_once __DIR__ . '/includes/header.php';
 .service-sublist li{padding:4px 0;display:flex;align-items:center;gap:8px}
 .service-sublist li i{color:#CC2228;font-size:11px}
 </style>
+
 
 <!-- Hero -->
 <div class="page-hero">
@@ -44,10 +52,24 @@ require_once __DIR__ . '/includes/header.php';
     <!-- GEO Citable Fact Block -->
     <?= render_geo_fact_block() ?>
 
-    <div class="text-center mb-5 scroll-reveal">
+    <div class="text-center mb-4 scroll-reveal">
       <div class="section-tag">65+ Offerings</div>
       <h2 class="section-title">Specialized <span class="highlight">Service Domains</span></h2>
       <div class="section-divider"></div>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <div class="svc-filter-bar scroll-reveal" id="svcFilterBar">
+      <button class="svc-filter-btn active" data-filter="All" onclick="filterSvc(this)">All Services</button>
+      <button class="svc-filter-btn" data-filter="Healthcare BPO" onclick="filterSvc(this)">Healthcare BPO</button>
+      <button class="svc-filter-btn" data-filter="Publishing" onclick="filterSvc(this)">Publishing &amp; Media</button>
+      <button class="svc-filter-btn" data-filter="Real Estate" onclick="filterSvc(this)">Real Estate</button>
+      <button class="svc-filter-btn" data-filter="IT & Software" onclick="filterSvc(this)">IT &amp; Software</button>
+      <button class="svc-filter-btn" data-filter="AI & Data" onclick="filterSvc(this)">AI &amp; Data</button>
+      <button class="svc-filter-btn" data-filter="Accounting" onclick="filterSvc(this)">Accounting &amp; Finance</button>
+      <button class="svc-filter-btn" data-filter="Logistics" onclick="filterSvc(this)">Logistics</button>
+      <button class="svc-filter-btn" data-filter="Digital Marketing" onclick="filterSvc(this)">Digital Marketing</button>
+      <button class="svc-filter-btn" data-filter="Technical Publications" onclick="filterSvc(this)">Tech Publications</button>
     </div>
 
     <div class="row g-4">
@@ -55,6 +77,7 @@ require_once __DIR__ . '/includes/header.php';
       $domains = [
         [
           'title'=>'Healthcare BPO',
+          'cat'=>'Healthcare BPO',
           'icon'=>'fa-heartbeat',
           'color'=>'rgba(204,34,40,.08)',
           'text_color'=>'#CC2228',
@@ -64,6 +87,7 @@ require_once __DIR__ . '/includes/header.php';
         ],
         [
           'title'=>'Publishing & Digital Media',
+          'cat'=>'Publishing',
           'icon'=>'fa-book',
           'color'=>'rgba(28,34,128,.08)',
           'text_color'=>'#1C2280',
@@ -73,6 +97,7 @@ require_once __DIR__ . '/includes/header.php';
         ],
         [
           'title'=>'Real Estate & Title Services',
+          'cat'=>'Real Estate',
           'icon'=>'fa-building',
           'color'=>'rgba(16,185,129,.08)',
           'text_color'=>'#10b981',
@@ -82,6 +107,7 @@ require_once __DIR__ . '/includes/header.php';
         ],
         [
           'title'=>'IT & Software Solutions',
+          'cat'=>'IT & Software',
           'icon'=>'fa-laptop-code',
           'color'=>'rgba(91,168,212,.08)',
           'text_color'=>'#5BA8D4',
@@ -91,6 +117,7 @@ require_once __DIR__ . '/includes/header.php';
         ],
         [
           'title'=>'Data Annotation & AI',
+          'cat'=>'AI & Data',
           'icon'=>'fa-tags',
           'color'=>'rgba(245,158,11,.08)',
           'text_color'=>'#f59e0b',
@@ -100,6 +127,7 @@ require_once __DIR__ . '/includes/header.php';
         ],
         [
           'title'=>'Accounting & Finance BPO',
+          'cat'=>'Accounting',
           'icon'=>'fa-calculator',
           'color'=>'rgba(139,92,246,.08)',
           'text_color'=>'#8b5cf6',
@@ -109,6 +137,7 @@ require_once __DIR__ . '/includes/header.php';
         ],
         [
           'title'=>'Logistics & Supply Chain',
+          'cat'=>'Logistics',
           'icon'=>'fa-truck',
           'color'=>'rgba(236,72,153,.08)',
           'text_color'=>'#ec4899',
@@ -118,6 +147,7 @@ require_once __DIR__ . '/includes/header.php';
         ],
         [
           'title'=>'Digital Marketing & Growth',
+          'cat'=>'Digital Marketing',
           'icon'=>'fa-bullhorn',
           'color'=>'rgba(28,34,128,.08)',
           'text_color'=>'#1C2280',
@@ -127,6 +157,7 @@ require_once __DIR__ . '/includes/header.php';
         ],
         [
           'title'=>'Technical Publications',
+          'cat'=>'Technical Publications',
           'icon'=>'fa-file-alt',
           'color'=>'rgba(204,34,40,.08)',
           'text_color'=>'#CC2228',
@@ -135,8 +166,9 @@ require_once __DIR__ . '/includes/header.php';
           'link'=>'technical-publication-service/index.php'
         ]
       ];
+
       foreach($domains as $i=>$d): ?>
-      <div class="col-lg-4 col-md-6 scroll-reveal" style="transition-delay:<?= ($i%3)*0.1 ?>s">
+      <div class="col-lg-4 col-md-6 scroll-reveal svc-item" style="transition-delay:<?= ($i%3)*0.1 ?>s" data-category="<?= htmlspecialchars($d['cat'] ?? $d['title']) ?>">
         <div class="service-card-lg">
           <div class="icon-box" style="background:<?= $d['color'] ?>;color:<?= $d['text_color'] ?>;"><i class="fas <?= $d['icon'] ?>"></i></div>
           <h4><?= $d['title'] ?></h4>
@@ -164,3 +196,17 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
+<script>
+function filterSvc(btn) {
+  var filter = btn.getAttribute('data-filter');
+  document.querySelectorAll('.svc-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.svc-item').forEach(function(item){
+    if (filter === 'All' || item.getAttribute('data-category') === filter) {
+      item.classList.remove('hidden');
+    } else {
+      item.classList.add('hidden');
+    }
+  });
+}
+</script>

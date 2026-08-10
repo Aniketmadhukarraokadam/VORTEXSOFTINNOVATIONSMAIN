@@ -23,6 +23,15 @@ if (!empty($_POST['website_hp'])) {
     json_response(true, 'Thank you! Your message has been sent.');
 }
 
+// CSRF verification
+if (session_status() === PHP_SESSION_NONE) session_start();
+$csrf_token = $_POST['csrf_token'] ?? '';
+if (!empty($_SESSION['csrf_token']) && !hash_equals($_SESSION['csrf_token'], $csrf_token)) {
+    // Log potential CSRF attempt but don't reveal reason to attacker
+    error_log('CSRF check failed on contact form from IP: ' . get_client_ip());
+    json_response(false, 'Security validation failed. Please refresh the page and try again.');
+}
+
 // Rate limiting: max 5 submissions per 5 minutes per IP
 $ip = get_client_ip();
 if (!check_rate_limit('contact_' . md5($ip), 5, 300)) {

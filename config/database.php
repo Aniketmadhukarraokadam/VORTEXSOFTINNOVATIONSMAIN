@@ -2,13 +2,25 @@
 /**
  * Vortexsoft Innovations — MySQL Database Connection (PDO)
  * Hostinger: u696371114_vortexsoftcom
+ *
+ * Credentials are loaded from config/.env (never committed to Git).
+ * See config/.env.example for the template.
  */
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'u696371114_vortexsoftcom');
-define('DB_USER', 'u696371114_vortexsoftcom');
-define('DB_PASS', 'ShivaG@1437'); // Hostinger DB Password
+// ── Load .env if it exists ──────────────────────────────────
+$_env_file = __DIR__ . '/.env';
+$_env = [];
+if (file_exists($_env_file)) {
+    $_env = @parse_ini_file($_env_file, false, INI_SCANNER_RAW) ?: [];
+}
+unset($_env_file);
+
+define('DB_HOST',    $_env['DB_HOST']    ?? 'localhost');
+define('DB_NAME',    $_env['DB_NAME']    ?? 'u696371114_vortexsoftcom');
+define('DB_USER',    $_env['DB_USER']    ?? 'u696371114_vortexsoftcom');
+define('DB_PASS',    $_env['DB_PASS']    ?? '');   // Must be set in .env on production!
 define('DB_CHARSET', 'utf8mb4');
+unset($_env);
 
 function getDB(): ?PDO {
     static $pdo = null;
