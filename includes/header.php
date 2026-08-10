@@ -253,7 +253,7 @@ function nav_active(string $page, string $path): string {
 #mainNavbar{background:rgba(255,255,255,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.9);padding:0;position:sticky;top:15px;z-index:1030;box-shadow:0 12px 40px rgba(28,34,128,.08);transition:all .4s ease;width:96%;max-width:1320px;margin:0 auto 15px;border-radius:20px}
 #mainNavbar.scrolled{top:10px;background:rgba(255,255,255,0.96);box-shadow:0 15px 50px rgba(28,34,128,.12)}
 #mainNavbar .container{min-height:72px;display:flex;align-items:center}
-.navbar-brand img{height:58px;object-fit:contain}
+.navbar-brand img{height:54px;max-height:58px;width:auto;object-fit:contain;transition:all .3s ease;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.05))}
 #mainNavbar .nav-link{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;color:#1a1d3a !important;padding:8px 15px !important;border-radius:8px;position:relative;transition:color .2s,background .2s;letter-spacing:.1px}
 #mainNavbar .nav-link::after{content:'';position:absolute;bottom:3px;left:15px;right:15px;height:2.5px;background:#CC2228;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
 #mainNavbar .nav-link:hover,#mainNavbar .nav-link.active{color:#1C2280 !important;background:rgba(28,34,128,.05)}
@@ -301,8 +301,9 @@ function nav_active(string $page, string $path): string {
 <nav class="navbar navbar-expand-lg" id="mainNavbar">
   <div class="container">
     <a class="navbar-brand" href="<?= $prefix ?>index.php">
-      <img src="<?= $prefix ?>logo-header.png" alt="Vortexsoft Innovations — Global IT &amp; BPO Company">
+      <img src="<?= $prefix ?>logo-header.png?v=20260810" alt="Vortexsoft Innovations — Global IT &amp; BPO Company">
     </a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
             aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars" style="color:#1C2280;font-size:22px;"></i>
