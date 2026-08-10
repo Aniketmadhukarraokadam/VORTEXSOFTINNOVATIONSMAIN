@@ -58,17 +58,49 @@ require_once __DIR__ . '/includes/header.php';
       <div class="section-divider"></div>
     </div>
 
+    <!-- Strategic Positioning Framework -->
+    <div class="row g-3 mb-5 scroll-reveal">
+      <div class="col-md-6 col-lg-3">
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:20px;height:100%;">
+          <div style="font-size:20px;color:var(--primary);margin-bottom:8px;"><i class="fas fa-brain"></i></div>
+          <h6 style="font-weight:700;margin-bottom:4px;color:var(--text-dark);">AI + Automation + Human Expertise</h6>
+          <p style="font-size:12px;color:var(--text-muted);margin:0;">Synergizing autonomous AI agents with domain-certified expert human validation.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:20px;height:100%;">
+          <div style="font-size:20px;color:#10b981;margin-bottom:8px;"><i class="fas fa-cubes"></i></div>
+          <h6 style="font-weight:700;margin-bottom:4px;color:var(--text-dark);">Tech + Operations + Workforce</h6>
+          <p style="font-size:12px;color:var(--text-muted);margin:0;">Full-stack software engineering, 24/7 BPO operations & staffing under one roof.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:20px;height:100%;">
+          <div style="font-size:20px;color:#f59e0b;margin-bottom:8px;"><i class="fas fa-cogs"></i></div>
+          <h6 style="font-weight:700;margin-bottom:4px;color:var(--text-dark);">Business Process Automation</h6>
+          <p style="font-size:12px;color:var(--text-muted);margin:0;">RPA, Intelligent Document Processing (IDP) & friction-free workflow orchestration.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:20px;height:100%;">
+          <div style="font-size:20px;color:#ec4899;margin-bottom:8px;"><i class="fas fa-rocket"></i></div>
+          <h6 style="font-weight:700;margin-bottom:4px;color:var(--text-dark);">Digital Transformation</h6>
+          <p style="font-size:12px;color:var(--text-muted);margin:0;">Cloud modernization, SAP/ERP integrations & predictive analytics solutions.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- Category Filter Bar -->
     <div class="svc-filter-bar scroll-reveal" id="svcFilterBar">
       <button class="svc-filter-btn active" data-filter="All" onclick="filterSvc(this)">All Services</button>
+      <button class="svc-filter-btn" data-filter="AI & Data" onclick="filterSvc(this)">AI &amp; Automation</button>
+      <button class="svc-filter-btn" data-filter="IT & Software" onclick="filterSvc(this)">Custom Software &amp; ERP</button>
       <button class="svc-filter-btn" data-filter="Healthcare BPO" onclick="filterSvc(this)">Healthcare BPO</button>
       <button class="svc-filter-btn" data-filter="Publishing" onclick="filterSvc(this)">Publishing &amp; Media</button>
       <button class="svc-filter-btn" data-filter="Real Estate" onclick="filterSvc(this)">Real Estate</button>
-      <button class="svc-filter-btn" data-filter="IT & Software" onclick="filterSvc(this)">IT &amp; Software</button>
-      <button class="svc-filter-btn" data-filter="AI & Data" onclick="filterSvc(this)">AI &amp; Data</button>
       <button class="svc-filter-btn" data-filter="Accounting" onclick="filterSvc(this)">Accounting &amp; Finance</button>
+      <button class="svc-filter-btn" data-filter="Digital Marketing" onclick="filterSvc(this)">Marketing Automation</button>
       <button class="svc-filter-btn" data-filter="Logistics" onclick="filterSvc(this)">Logistics</button>
-      <button class="svc-filter-btn" data-filter="Digital Marketing" onclick="filterSvc(this)">Digital Marketing</button>
       <button class="svc-filter-btn" data-filter="Technical Publications" onclick="filterSvc(this)">Tech Publications</button>
     </div>
 
@@ -76,13 +108,53 @@ require_once __DIR__ . '/includes/header.php';
       <?php
       $domains = [
         [
-          'title'=>'Healthcare BPO',
+          'title'=>'AI & Automation Services',
+          'cat'=>'AI & Data',
+          'icon'=>'fa-robot',
+          'color'=>'rgba(204,34,40,.08)',
+          'text_color'=>'#CC2228',
+          'desc'=>'Autonomous AI solutions, business process automation (BPA), Intelligent Document Processing (IDP), and RPA workflow automation.',
+          'items'=>['Custom AI Solutions & AI Automation','Intelligent Document Processing (IDP)','AI Data Annotation & Dataset Training','RPA & Business Process Automation','AI-Assisted Operations & Custom AI Integrations'],
+          'link'=>'data-annotation-services/index.php'
+        ],
+        [
+          'title'=>'Custom Software & Portals',
+          'cat'=>'IT & Software',
+          'icon'=>'fa-laptop-code',
+          'color'=>'rgba(91,168,212,.08)',
+          'text_color'=>'#5BA8D4',
+          'desc'=>'Custom software development, enterprise CRM, ERP, HRMS systems, customer portals, internal business portals, and RESTful API integrations.',
+          'items'=>['Custom Software & Web Application Development','CRM, ERP & HRMS System Engineering','Executive Dashboards & Business Management Systems','Customer Portals & Internal Business Portals','Custom API Integrations & Microservices'],
+          'link'=>'software-solutions/index.php'
+        ],
+        [
+          'title'=>'ERP & SAP Enterprise Solutions',
+          'cat'=>'IT & Software',
+          'icon'=>'fa-network-wired',
+          'color'=>'rgba(28,34,128,.08)',
+          'text_color'=>'#1C2280',
+          'desc'=>'ERP implementation, customization, SAP consulting, enterprise workflow automation, and custom enterprise application management.',
+          'items'=>['ERP Solutions & Implementation','ERP Customization & Integration','SAP Consulting & System Migration','Business Workflow & Enterprise Automation','Custom Enterprise Applications'],
+          'link'=>'software-solutions/index.php'
+        ],
+        [
+          'title'=>'Marketing Automation & MarTech',
+          'cat'=>'Digital Marketing',
+          'icon'=>'fa-bullhorn',
+          'color'=>'rgba(245,158,11,.08)',
+          'text_color'=>'#f59e0b',
+          'desc'=>'Lead generation automation, CRM & email workflows, campaign automation, customer workflow automation, and reporting dashboards.',
+          'items'=>['Marketing & Lead Generation Automation','CRM Automation & Email Campaign Workflows','Multi-Channel Campaign Automation','Customer Workflow & Funnel Automation','Real-Time Executive Reporting Dashboards'],
+          'link'=>'digital-marketing-service/index.php'
+        ],
+        [
+          'title'=>'Healthcare BPO & RCM',
           'cat'=>'Healthcare BPO',
           'icon'=>'fa-heartbeat',
           'color'=>'rgba(204,34,40,.08)',
           'text_color'=>'#CC2228',
-          'desc'=>'End-to-end revenue cycle management (RCM), medical coding, billing, denial management, and prior authorization services.',
-          'items'=>['Medical Coding (ICD-10, CPT)','Medical Billing & AR Recovery','Denial Management & Appeals','Payment Posting & Verification'],
+          'desc'=>'End-to-end revenue cycle management (RCM), medical coding (ICD-10/CPT), billing, denial management, and prior authorization services.',
+          'items'=>['Medical Coding (ICD-10, CPT, HCPCS)','Medical Billing & AR Recovery','Denial Management & Appeals','Payment Posting & Verification'],
           'link'=>'health-care-services/index.php'
         ],
         [
@@ -106,26 +178,6 @@ require_once __DIR__ . '/includes/header.php';
           'link'=>'real-estate-services/index.php'
         ],
         [
-          'title'=>'IT & Software Solutions',
-          'cat'=>'IT & Software',
-          'icon'=>'fa-laptop-code',
-          'color'=>'rgba(91,168,212,.08)',
-          'text_color'=>'#5BA8D4',
-          'desc'=>'Custom web/mobile software development, cloud infrastructure management, ERP integration, and AI app engineering.',
-          'items'=>['Custom Web & Mobile Apps','ERP & CRM Customization','Cloud Maintenance & Helpdesk','Data Analytics as a Service'],
-          'link'=>'software-solutions/index.php'
-        ],
-        [
-          'title'=>'Data Annotation & AI',
-          'cat'=>'AI & Data',
-          'icon'=>'fa-tags',
-          'color'=>'rgba(245,158,11,.08)',
-          'text_color'=>'#f59e0b',
-          'desc'=>'High-precision image, video, audio, LiDAR, and text dataset labeling for computer vision and LLM model training.',
-          'items'=>['Image Bounding Boxes & Polygons','Video Tracking & Action Tagging','Text & Audio NLP Annotation','Medical Image Labeling'],
-          'link'=>'data-annotation-services/index.php'
-        ],
-        [
           'title'=>'Accounting & Finance BPO',
           'cat'=>'Accounting',
           'icon'=>'fa-calculator',
@@ -146,16 +198,6 @@ require_once __DIR__ . '/includes/header.php';
           'link'=>'logistics-services/index.php'
         ],
         [
-          'title'=>'Digital Marketing & Growth',
-          'cat'=>'Digital Marketing',
-          'icon'=>'fa-bullhorn',
-          'color'=>'rgba(28,34,128,.08)',
-          'text_color'=>'#1C2280',
-          'desc'=>'Search engine optimization (SEO), Google/Meta ads management, content marketing, and e-commerce solutions.',
-          'items'=>['Technical & On-Page SEO','PPC & Social Media Campaigns','E-Commerce Platform Setup','CRM Strategy & Automation'],
-          'link'=>'digital-marketing-service/index.php'
-        ],
-        [
           'title'=>'Technical Publications',
           'cat'=>'Technical Publications',
           'icon'=>'fa-file-alt',
@@ -166,6 +208,7 @@ require_once __DIR__ . '/includes/header.php';
           'link'=>'technical-publication-service/index.php'
         ]
       ];
+
 
 
 

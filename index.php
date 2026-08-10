@@ -245,8 +245,56 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
+<!-- ═══════ STRATEGIC VALUE POSITIONING SECTION ═══════ -->
+<section class="section-pad" style="background:#fff;" id="positioning">
+  <div class="container">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag"><i class="fas fa-layer-group me-1"></i> Strategic Value Framework</div>
+      <h2 class="section-title">Innovative Positioning <span class="highlight">Built For Scale</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Combining cutting-edge technology, operational excellence, and agile workforce solutions to drive complete digital transformation.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Pillar 1 -->
+      <div class="col-md-6 col-lg-3 scroll-reveal delay-1">
+        <div style="background:var(--bg-light);border:1px solid var(--border-light);border-radius:20px;padding:32px 24px;height:100%;transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--primary)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.borderColor='var(--border-light)';this.style.boxShadow='none'">
+          <div style="width:56px;height:56px;border-radius:14px;background:rgba(204,34,40,.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;"><i class="fas fa-brain"></i></div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">AI + Automation + Human Expertise</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Harmonizing autonomous AI agents, machine learning automation, and subject-matter expert human oversight to deliver 99.9% operational accuracy.</p>
+        </div>
+      </div>
+      <!-- Pillar 2 -->
+      <div class="col-md-6 col-lg-3 scroll-reveal delay-2">
+        <div style="background:var(--bg-light);border:1px solid var(--border-light);border-radius:20px;padding:32px 24px;height:100%;transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--primary)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.borderColor='var(--border-light)';this.style.boxShadow='none'">
+          <div style="width:56px;height:56px;border-radius:14px;background:rgba(28,34,128,.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;"><i class="fas fa-cubes"></i></div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Technology + Operations + Workforce</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Integrated full-stack solutions uniting custom software engineering, 24/7 business BPO operations, and on-demand global staffing augmentation.</p>
+        </div>
+      </div>
+      <!-- Pillar 3 -->
+      <div class="col-md-6 col-lg-3 scroll-reveal delay-3">
+        <div style="background:var(--bg-light);border:1px solid var(--border-light);border-radius:20px;padding:32px 24px;height:100%;transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--primary)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.borderColor='var(--border-light)';this.style.boxShadow='none'">
+          <div style="width:56px;height:56px;border-radius:14px;background:rgba(91,168,212,.1);color:#5BA8D4;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;"><i class="fas fa-cogs"></i></div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Business Process Automation</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Eliminating operational bottlenecks with Intelligent Document Processing (IDP), Robotic Process Automation (RPA), and automated enterprise workflows.</p>
+        </div>
+      </div>
+      <!-- Pillar 4 -->
+      <div class="col-md-6 col-lg-3 scroll-reveal delay-4">
+        <div style="background:var(--bg-light);border:1px solid var(--border-light);border-radius:20px;padding:32px 24px;height:100%;transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--primary)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.borderColor='var(--border-light)';this.style.boxShadow='none'">
+          <div style="width:56px;height:56px;border-radius:14px;background:rgba(16,185,129,.1);color:#10b981;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;"><i class="fas fa-rocket"></i></div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Digital Transformation</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Accelerating enterprise modernization through custom cloud applications, SAP/ERP integrations, predictive analytics, and marketing technology.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ AI & ENTERPRISE AUTOMATION SECTION ═══════ -->
 <section class="section-pad" style="background:linear-gradient(135deg,#080B1A 0%,#1C2280 60%,#0D1035 100%);color:#fff;" id="ai-automation">
+
   <div class="container">
     <div class="row align-items-center gy-5">
       <div class="col-lg-6 scroll-reveal-left">
@@ -316,8 +364,71 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
+<!-- ═══════ ENTERPRISE SOFTWARE, ERP & MARKETING AUTOMATION ═══════ -->
+<section class="section-pad" style="background:#f8fafc;" id="enterprise-tech">
+  <div class="container">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag"><i class="fas fa-microchip me-1"></i> Digital Engineering</div>
+      <h2 class="section-title">Enterprise Software, <span class="highlight">ERP &amp; Automation</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Empowering organizations with custom enterprise platforms, SAP integrations, and omnichannel marketing technology.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Card 1: Custom Software & Portals -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:20px;padding:32px 28px;height:100%;transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--primary)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.borderColor='var(--border-light)';this.style.boxShadow='none'">
+          <div style="width:60px;height:60px;border-radius:16px;background:rgba(28,34,128,.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;"><i class="fas fa-laptop-code"></i></div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:12px;">Custom Software &amp; Portals</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:16px;">Tailor-made web applications, internal business management portals, and client-facing dashboards designed to streamline core operations.</p>
+          <ul class="check-list" style="font-size:13px;">
+            <li><i class="fas fa-check-circle me-1" style="color:var(--primary);"></i> Custom Software &amp; Web Applications</li>
+            <li><i class="fas fa-check-circle me-1" style="color:var(--primary);"></i> Enterprise CRM, ERP &amp; HRMS Systems</li>
+            <li><i class="fas fa-check-circle me-1" style="color:var(--primary);"></i> Interactive Executive Dashboards</li>
+            <li><i class="fas fa-check-circle me-1" style="color:var(--primary);"></i> Customer &amp; Internal Business Portals</li>
+            <li><i class="fas fa-check-circle me-1" style="color:var(--primary);"></i> Seamless RESTful API Integrations</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Card 2: ERP & SAP Solutions -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:20px;padding:32px 28px;height:100%;transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--primary)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.borderColor='var(--border-light)';this.style.boxShadow='none'">
+          <div style="width:60px;height:60px;border-radius:16px;background:rgba(204,34,40,.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;"><i class="fas fa-network-wired"></i></div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:12px;">ERP &amp; SAP Systems</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:16px;">Comprehensive ERP consulting, implementation, module customization, and SAP integration for end-to-end enterprise workflow automation.</p>
+          <ul class="check-list" style="font-size:13px;">
+            <li><i class="fas fa-check-circle me-1" style="color:#CC2228;"></i> ERP Implementation &amp; Customization</li>
+            <li><i class="fas fa-check-circle me-1" style="color:#CC2228;"></i> SAP Integration &amp; Migration Services</li>
+            <li><i class="fas fa-check-circle me-1" style="color:#CC2228;"></i> Business Workflow Systems</li>
+            <li><i class="fas fa-check-circle me-1" style="color:#CC2228;"></i> Enterprise Process Automation</li>
+            <li><i class="fas fa-check-circle me-1" style="color:#CC2228;"></i> Custom Enterprise Applications</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Card 3: Marketing Automation & Tech -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-3">
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:20px;padding:32px 28px;height:100%;transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--primary)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.borderColor='var(--border-light)';this.style.boxShadow='none'">
+          <div style="width:60px;height:60px;border-radius:16px;background:rgba(245,158,11,.08);color:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;"><i class="fas fa-bullhorn"></i></div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:12px;">Marketing Automation</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:16px;">Automated lead generation pipelines, email workflows, CRM sync, and multi-channel campaign analytics driving predictable growth.</p>
+          <ul class="check-list" style="font-size:13px;">
+            <li><i class="fas fa-check-circle me-1" style="color:#f59e0b;"></i> Lead Generation &amp; Nurturing Automation</li>
+            <li><i class="fas fa-check-circle me-1" style="color:#f59e0b;"></i> CRM &amp; Email Marketing Automation</li>
+            <li><i class="fas fa-check-circle me-1" style="color:#f59e0b;"></i> Multi-Channel Campaign Automation</li>
+            <li><i class="fas fa-check-circle me-1" style="color:#f59e0b;"></i> Customer Workflow Automation</li>
+            <li><i class="fas fa-check-circle me-1" style="color:#f59e0b;"></i> Real-Time Marketing Dashboards</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ ABOUT SECTION ═══════ -->
 <section class="section-pad" style="background:#fff;">
+
   <div class="container">
     <div class="row align-items-center gy-5">
       <div class="col-lg-6 scroll-reveal-left">
