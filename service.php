@@ -93,14 +93,14 @@ require_once __DIR__ . '/includes/header.php';
     <!-- Category Filter Bar -->
     <div class="svc-filter-bar scroll-reveal" id="svcFilterBar">
       <button class="svc-filter-btn active" data-filter="All" onclick="filterSvc(this)">All Services</button>
+      <button class="svc-filter-btn" data-filter="Healthcare BPO" onclick="filterSvc(this)">Healthcare BPO</button>
+      <button class="svc-filter-btn" data-filter="Real Estate" onclick="filterSvc(this)">Real Estate &amp; Title</button>
+      <button class="svc-filter-btn" data-filter="Publishing" onclick="filterSvc(this)">STM Publishing</button>
       <button class="svc-filter-btn" data-filter="AI & Data" onclick="filterSvc(this)">AI &amp; Automation</button>
       <button class="svc-filter-btn" data-filter="IT & Software" onclick="filterSvc(this)">Custom Software &amp; ERP</button>
-      <button class="svc-filter-btn" data-filter="Healthcare BPO" onclick="filterSvc(this)">Healthcare BPO</button>
-      <button class="svc-filter-btn" data-filter="Publishing" onclick="filterSvc(this)">Publishing &amp; Media</button>
-      <button class="svc-filter-btn" data-filter="Real Estate" onclick="filterSvc(this)">Real Estate</button>
-      <button class="svc-filter-btn" data-filter="Accounting" onclick="filterSvc(this)">Accounting &amp; Finance</button>
       <button class="svc-filter-btn" data-filter="Digital Marketing" onclick="filterSvc(this)">Marketing Automation</button>
-      <button class="svc-filter-btn" data-filter="Logistics" onclick="filterSvc(this)">Logistics</button>
+      <button class="svc-filter-btn" data-filter="Accounting" onclick="filterSvc(this)">Accounting BPO</button>
+      <button class="svc-filter-btn" data-filter="Logistics" onclick="filterSvc(this)">Logistics BPO</button>
       <button class="svc-filter-btn" data-filter="Technical Publications" onclick="filterSvc(this)">Tech Publications</button>
     </div>
 
@@ -108,128 +108,159 @@ require_once __DIR__ . '/includes/header.php';
       <?php
       $domains = [
         [
-          'title'=>'AI & Automation Services',
+          'title'=>'Healthcare BPO & Revenue Cycle Management',
+          'cat'=>'Healthcare BPO',
+          'badge'=>'FLAGSHIP TITLE SERVICE',
+          'badge_color'=>'#CC2228',
+          'icon'=>'fa-heartbeat',
+          'color'=>'rgba(204,34,40,.08)',
+          'text_color'=>'#CC2228',
+          'featured'=>true,
+          'desc'=>'Full-lifecycle HIPAA-compliant revenue cycle management (RCM), medical coding (ICD-10, CPT, HCPCS), billing, denial management, and prior authorization services.',
+          'items'=>['Medical Coding (ICD-10-CM, CPT-4, HCPCS Level II)','Revenue Cycle Management & AR Recovery','Claims Denial Management & Appeals','Provider Credentialing & Prior Authorization','Payment Posting & Charge Entry Verification'],
+          'link'=>'health-care-services/index.php'
+        ],
+        [
+          'title'=>'Real Estate, Title & Settlement Services',
+          'cat'=>'Real Estate',
+          'badge'=>'FLAGSHIP TITLE SERVICE',
+          'badge_color'=>'#10b981',
+          'icon'=>'fa-building',
+          'color'=>'rgba(16,185,129,.08)',
+          'text_color'=>'#10b981',
+          'featured'=>true,
+          'desc'=>'Commercial lease administration, CAM audits, property accounting, title search, commitment typing, policy preparation, and mortgage settlement support.',
+          'items'=>['Commercial Lease Abstraction & Administration','CAM Expense Reconciliation & Audit','Title Search, Examination & Policy Typing','Property Accounting & Rent Roll Verification','Mortgage Closing & Settlement Support'],
+          'link'=>'real-estate-services/index.php'
+        ],
+        [
+          'title'=>'STM Publishing & Media Prepress',
+          'cat'=>'Publishing',
+          'badge'=>'FLAGSHIP TITLE SERVICE',
+          'badge_color'=>'#1C2280',
+          'icon'=>'fa-book',
+          'color'=>'rgba(28,34,128,.08)',
+          'text_color'=>'#1C2280',
+          'featured'=>true,
+          'desc'=>'Digital prepress, automated journal typesetting, eBook conversion (ePUB3, NIMAS, XML), WCAG accessibility tagging, and copyediting production.',
+          'items'=>['Academic Journal & STM Book Typesetting','ePUB3, Fixed Layout & XML Conversion','Alt-Text Writing & Mathematical Image Description','WCAG 2.1 AA PDF/eBook Accessibility Tagging','Copyediting & Proofreading Production'],
+          'link'=>'publishing-services/index.php'
+        ],
+        [
+          'title'=>'AI & Intelligent Automation Services',
           'cat'=>'AI & Data',
+          'badge'=>'CORE ENTERPRISE DOMAIN',
+          'badge_color'=>'#CC2228',
           'icon'=>'fa-robot',
           'color'=>'rgba(204,34,40,.08)',
           'text_color'=>'#CC2228',
-          'desc'=>'Autonomous AI solutions, business process automation (BPA), Intelligent Document Processing (IDP), and RPA workflow automation.',
-          'items'=>['Custom AI Solutions & AI Automation','Intelligent Document Processing (IDP)','AI Data Annotation & Dataset Training','RPA & Business Process Automation','AI-Assisted Operations & Custom AI Integrations'],
+          'featured'=>true,
+          'desc'=>'Autonomous AI solutions, business process automation (BPA), Intelligent Document Processing (IDP), and high-precision AI data annotation datasets.',
+          'items'=>['Custom AI Solutions & Autonomous AI Agents','Intelligent Document Processing (IDP) with OCR & NLP','Image, Video, Text & 3D LiDAR AI Data Annotation','RPA & Business Process Automation (BPA)','AI-Assisted Operations & Human-in-the-Loop Validation'],
           'link'=>'data-annotation-services/index.php'
         ],
         [
-          'title'=>'Custom Software & Portals',
+          'title'=>'Custom Software & Business Portals',
           'cat'=>'IT & Software',
+          'badge'=>'CORE ENTERPRISE DOMAIN',
+          'badge_color'=>'#5BA8D4',
           'icon'=>'fa-laptop-code',
           'color'=>'rgba(91,168,212,.08)',
           'text_color'=>'#5BA8D4',
-          'desc'=>'Custom software development, enterprise CRM, ERP, HRMS systems, customer portals, internal business portals, and RESTful API integrations.',
-          'items'=>['Custom Software & Web Application Development','CRM, ERP & HRMS System Engineering','Executive Dashboards & Business Management Systems','Customer Portals & Internal Business Portals','Custom API Integrations & Microservices'],
+          'featured'=>true,
+          'desc'=>'Bespoke custom software engineering, enterprise CRM, ERP, HRMS platforms, customer portals, internal management dashboards, and microservices.',
+          'items'=>['Custom Software & Scalable Web Application Development','Enterprise CRM, ERP & HRMS System Engineering','Executive Dashboards & Real-Time Business Management','Customer Portals & Internal Employee Portals','Custom RESTful & GraphQL API Integrations'],
           'link'=>'software-solutions/index.php'
         ],
         [
           'title'=>'ERP & SAP Enterprise Solutions',
           'cat'=>'IT & Software',
+          'badge'=>'CORE ENTERPRISE DOMAIN',
+          'badge_color'=>'#1C2280',
           'icon'=>'fa-network-wired',
           'color'=>'rgba(28,34,128,.08)',
           'text_color'=>'#1C2280',
-          'desc'=>'ERP implementation, customization, SAP consulting, enterprise workflow automation, and custom enterprise application management.',
-          'items'=>['ERP Solutions & Implementation','ERP Customization & Integration','SAP Consulting & System Migration','Business Workflow & Enterprise Automation','Custom Enterprise Applications'],
+          'featured'=>true,
+          'desc'=>'ERP implementation, customization, SAP consulting, enterprise workflow automation systems, and enterprise cloud application management.',
+          'items'=>['ERP Solutions & End-to-End Implementation','ERP Customization & Legacy System Integration','SAP Consulting & Cloud Migration Services','Business Workflow & Enterprise Automation Systems','Custom Enterprise Applications'],
           'link'=>'software-solutions/index.php'
         ],
         [
           'title'=>'Marketing Automation & MarTech',
           'cat'=>'Digital Marketing',
+          'badge'=>'ENTERPRISE SERVICE',
+          'badge_color'=>'#f59e0b',
           'icon'=>'fa-bullhorn',
           'color'=>'rgba(245,158,11,.08)',
           'text_color'=>'#f59e0b',
-          'desc'=>'Lead generation automation, CRM & email workflows, campaign automation, customer workflow automation, and reporting dashboards.',
-          'items'=>['Marketing & Lead Generation Automation','CRM Automation & Email Campaign Workflows','Multi-Channel Campaign Automation','Customer Workflow & Funnel Automation','Real-Time Executive Reporting Dashboards'],
+          'desc'=>'Automated lead generation, CRM & email campaign workflows, omnichannel marketing automation, customer funnel tracking, and analytics dashboards.',
+          'items'=>['Marketing & Automated Lead Generation Systems','CRM Automation & Email Campaign Sequences','Multi-Channel Campaign Automation','Customer Workflow & Funnel Tracking','Real-Time Executive Reporting Dashboards'],
           'link'=>'digital-marketing-service/index.php'
         ],
         [
-          'title'=>'Healthcare BPO & RCM',
-          'cat'=>'Healthcare BPO',
-          'icon'=>'fa-heartbeat',
-          'color'=>'rgba(204,34,40,.08)',
-          'text_color'=>'#CC2228',
-          'desc'=>'End-to-end revenue cycle management (RCM), medical coding (ICD-10/CPT), billing, denial management, and prior authorization services.',
-          'items'=>['Medical Coding (ICD-10, CPT, HCPCS)','Medical Billing & AR Recovery','Denial Management & Appeals','Payment Posting & Verification'],
-          'link'=>'health-care-services/index.php'
-        ],
-        [
-          'title'=>'Publishing & Digital Media',
-          'cat'=>'Publishing',
-          'icon'=>'fa-book',
-          'color'=>'rgba(28,34,128,.08)',
-          'text_color'=>'#1C2280',
-          'desc'=>'Digital prepress, typesetting, eBook conversion (ePUB3, XML), accessibility tagging, and editorial production.',
-          'items'=>['ePUB3 & Kindle Conversion','Digital Prepress & Typesetting','Alt-Text Writing & Image Description','WCAG PDF/eBook Accessibility'],
-          'link'=>'publishing-services/index.php'
-        ],
-        [
-          'title'=>'Real Estate & Title Services',
-          'cat'=>'Real Estate',
-          'icon'=>'fa-building',
-          'color'=>'rgba(16,185,129,.08)',
-          'text_color'=>'#10b981',
-          'desc'=>'Lease administration, CAM audits, property accounting, title searches, policy typing, and mortgage settlement support.',
-          'items'=>['CAM Reconciliation & Audit','Lease Abstraction & Administration','Property Accounting & Rent Roll','Title Search & Settlement Typing'],
-          'link'=>'real-estate-services/index.php'
-        ],
-        [
-          'title'=>'Accounting & Finance BPO',
+          'title'=>'Accounting & Financial BPO',
           'cat'=>'Accounting',
+          'badge'=>'ENTERPRISE SERVICE',
+          'badge_color'=>'#8b5cf6',
           'icon'=>'fa-calculator',
           'color'=>'rgba(139,92,246,.08)',
           'text_color'=>'#8b5cf6',
-          'desc'=>'Full-cycle bookkeeping, payroll processing, accounts payable/receivable management, and financial reporting.',
-          'items'=>['Bookkeeping & Ledger Setup','Payroll Processing & Compliance','Accounts Payable / Receivable','Financial Reporting & Tax Support'],
+          'desc'=>'Full-cycle bookkeeping, payroll processing, accounts payable/receivable management, and financial audit & tax preparation support.',
+          'items'=>['Bookkeeping & Ledger Setup','Payroll Processing & Compliance','Accounts Payable / Receivable Management','Financial Audit & Tax Filing Support'],
           'link'=>'accounting-services/index.php'
         ],
         [
-          'title'=>'Logistics & Supply Chain',
+          'title'=>'Logistics & Supply Chain Operations',
           'cat'=>'Logistics',
+          'badge'=>'ENTERPRISE SERVICE',
+          'badge_color'=>'#ec4899',
           'icon'=>'fa-truck',
           'color'=>'rgba(236,72,153,.08)',
           'text_color'=>'#ec4899',
-          'desc'=>'Freight document processing, bill of lading entry, dispatch coordination, and supply chain data entry.',
-          'items'=>['Bill of Lading Processing','Freight Audit & Data Entry','Inventory Tagging & Tracking','Shipping Logistics Analytics'],
+          'desc'=>'Freight document processing, bill of lading entry, dispatch coordination, inventory tracking, and supply chain logistics analytics.',
+          'items'=>['Bill of Lading Processing & Verification','Freight Audit & Data Entry','Inventory Tagging & Warehouse Tracking','Shipping Logistics Analytics'],
           'link'=>'logistics-services/index.php'
         ],
         [
-          'title'=>'Technical Publications',
+          'title'=>'Technical Publications & S1000D',
           'cat'=>'Technical Publications',
+          'badge'=>'ENTERPRISE SERVICE',
+          'badge_color'=>'#CC2228',
           'icon'=>'fa-file-alt',
           'color'=>'rgba(204,34,40,.08)',
           'text_color'=>'#CC2228',
-          'desc'=>'Technical writing, XML conversion (S1000D/DITA), maintenance manuals, and illustrated parts catalogs for aerospace & defense.',
-          'items'=>['Technical Manual Writing','S1000D / DITA XML Conversion','Illustrated Parts Catalogs (IPC)','Multi-lingual Documentation'],
+          'desc'=>'Technical writing, S1000D / DITA XML conversion, equipment maintenance manuals, and illustrated parts catalogs (IPC) for defense & aerospace.',
+          'items'=>['Technical Manual Writing & Authoring','S1000D / DITA XML Modular Conversion','Illustrated Parts Catalogs (IPC) Creation','Multi-lingual Technical Documentation'],
           'link'=>'technical-publication-service/index.php'
         ]
       ];
 
-
-
-
-      foreach($domains as $i=>$d): ?>
+      foreach($domains as $i=>$d): 
+        $is_featured = !empty($d['featured']);
+      ?>
       <div class="col-lg-4 col-md-6 scroll-reveal svc-item" style="transition-delay:<?= ($i%3)*0.1 ?>s" data-category="<?= htmlspecialchars($d['cat'] ?? $d['title']) ?>">
-        <div class="service-card-lg">
-          <div class="icon-box" style="background:<?= $d['color'] ?>;color:<?= $d['text_color'] ?>;"><i class="fas <?= $d['icon'] ?>"></i></div>
-          <h4><?= $d['title'] ?></h4>
+        <div class="service-card-lg" style="<?= $is_featured ? 'border:1.5px solid rgba(28,34,128,0.25);box-shadow:0 8px 25px rgba(28,34,128,0.08);background:linear-gradient(180deg,#ffffff 0%,#fcfdfe 100%);' : '' ?>">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="icon-box mb-0" style="background:<?= $d['color'] ?>;color:<?= $d['text_color'] ?>;"><i class="fas <?= $d['icon'] ?>"></i></div>
+            <?php if (!empty($d['badge'])): ?>
+              <span class="badge" style="background:<?= $d['badge_color'] ?>;color:#fff;font-size:10px;padding:5px 10px;font-weight:700;letter-spacing:0.5px;"><?= $d['badge'] ?></span>
+            <?php endif; ?>
+          </div>
+          <h4 style="font-weight:800;"><?= $d['title'] ?></h4>
           <p><?= $d['desc'] ?></p>
           <ul class="service-sublist">
             <?php foreach($d['items'] as $item): ?>
-            <li><i class="fas fa-check"></i> <?= $item ?></li>
+            <li><i class="fas fa-check-circle" style="color:<?= $d['badge_color'] ?>;"></i> <?= $item ?></li>
             <?php endforeach; ?>
           </ul>
-          <a href="<?= $d['link'] ?>" class="btn" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-radius:10px;font-size:13px;font-weight:700;padding:10px;text-align:center;">Learn More →</a>
+          <a href="<?= $d['link'] ?>" class="btn mt-auto" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-radius:10px;font-size:13px;font-weight:700;padding:12px;text-align:center;">Explore Title Service →</a>
         </div>
       </div>
       <?php endforeach; ?>
     </div>
   </div>
 </section>
+
 
 <!-- CTA -->
 <section class="py-5" style="background:#fff;">
