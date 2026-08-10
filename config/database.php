@@ -1,12 +1,12 @@
 <?php
 /**
  * Vortexsoft Innovations — MySQL Database Connection (PDO)
- * Hostinger: u696371114_adminvortex
+ * Hostinger: u696371114_vortexsoftcom
  */
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'u696371114_adminvortex');
-define('DB_USER', 'u696371114_adminvortex');
+define('DB_NAME', 'u696371114_vortexsoftcom');
+define('DB_USER', 'u696371114_vortexsoftcom');
 define('DB_PASS', 'ShivaG@1437'); // Hostinger DB Password
 define('DB_CHARSET', 'utf8mb4');
 

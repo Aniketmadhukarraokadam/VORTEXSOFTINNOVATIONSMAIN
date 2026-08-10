@@ -148,7 +148,7 @@ if (!$db) {
     die("
     <div style='font-family:sans-serif;max-width:600px;margin:50px auto;padding:30px;background:#fff5f5;border:1px solid #fed7d7;border-radius:12px;color:#9b2c2c;'>
         <h2>❌ Database Connection Failed</h2>
-        <p>Could not connect to MySQL server. Please verify database credentials in <code>config/database.php</code>.</p>
+        <p>Could not connect to MySQL server database <code>u696371114_vortexsoftcom</code>. Please verify database credentials in <code>config/database.php</code>.</p>
     </div>");
 }
 
@@ -257,7 +257,9 @@ $queries = [
       UNIQUE KEY `uk_email`    (`email`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
     "REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-    (1, 'Aniket1800', '$2y$10$MUQgvXQBrRkaG.vKSDO5quIZQVYEA56nMXPs6ImwRMqEIClc/IYk.', 'careers@vortexsoftinnovations.in', 'Aniket Kadam', 'super_admin', 1);"
+    (1, 'admin@vortexsoftinnovations.in', '$2y$12$8IpMP6IJeshSPurTe5.baubMZF5rGtkdX4KDIAWiwN6tSSGiwR5SW', 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1);",
+    "REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
+    (2, 'Aniket@vortexsoftinnovations.in', '$2y$12$AmQgvWVp/eQKMCnDzD3TK.a.0GwTVdoRcE4rS6i0VnA9cAWdP5Xta', 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1);"
 ];
 
 foreach ($queries as $q) {
@@ -272,12 +274,12 @@ foreach ($queries as $q) {
 <title>Database & Webhook Setup Completed — Vortexsoft Group</title>
 <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #080B1A; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-    .card { background: #ffffff; color: #0f172a; padding: 40px; border-radius: 20px; max-width: 520px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+    .card { background: #ffffff; color: #0f172a; padding: 40px; border-radius: 20px; max-width: 540px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
     .icon { width: 70px; height: 70px; background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px; }
     h1 { margin: 0 0 10px; font-size: 24px; color: #0f172a; }
     p { color: #64748b; font-size: 15px; margin-bottom: 24px; line-height: 1.6; }
     .info-box { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: left; margin-bottom: 28px; font-size: 14px; }
-    .info-box div { margin-bottom: 8px; color: #334155; }
+    .info-box div { margin-bottom: 10px; color: #334155; }
     .info-box div:last-child { margin-bottom: 0; }
     .btn { display: block; width: 100%; background: linear-gradient(135deg, #1C2280, #2d35c4); color: #ffffff; text-decoration: none; padding: 14px; border-radius: 10px; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(28,34,128,0.3); }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(28,34,128,0.4); }
@@ -287,11 +289,11 @@ foreach ($queries as $q) {
     <div class="card">
         <div class="icon">✓</div>
         <h1>Database & Webhook Setup Completed!</h1>
-        <p>All database tables and auto-deploy webhook scripts are ready on Hostinger.</p>
+        <p>All database tables and auto-deploy webhook scripts are ready on Hostinger database <code>u696371114_vortexsoftcom</code>.</p>
 
         <div class="info-box">
-            <div><strong>Admin Username:</strong> <code>Aniket1800</code></div>
-            <div><strong>Admin Password:</strong> <code>Aniket@1800</code></div>
+            <div><strong>Super Admin:</strong> <code>admin@vortexsoftinnovations.in</code> | Pass: <code>Mrunal@9996</code></div>
+            <div><strong>Admin:</strong> <code>Aniket@vortexsoftinnovations.in</code> | Pass: <code>ShivaG@1437</code></div>
             <div><strong>Auto-Deploy Webhook:</strong> <code>Active ✅</code></div>
         </div>
 
