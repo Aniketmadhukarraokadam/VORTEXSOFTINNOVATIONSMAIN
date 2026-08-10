@@ -67,8 +67,10 @@ if (isset($_GET['edit']) && $db) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog Posts — Vortexsoft Admin Panel</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="/assets/vendor/bootstrap.min.css">
@@ -79,8 +81,8 @@ if (isset($_GET['edit']) && $db) {
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--dark:#080B1A;--primary:#1C2280;--accent:#CC2228;--sidebar-w:260px}
 body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:100vh;display:flex}
-.admin-sidebar{width:var(--sidebar-w);background:var(--dark);min-height:100vh;position:fixed;top:0;left:0;z-index:1000;display:flex;flex-direction:column}
-.sidebar-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.admin-sidebar{width:var(--sidebar-w);background:var(--dark);min-height:100vh;position:fixed;top:0;left:0;z-index:1000;display:flex;flex-direction:column;transition:.3s}
+.sidebar-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
 .sidebar-logo img{height:44px;object-fit:contain}
 .sidebar-logo .sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-top:6px}
 .sidebar-nav{flex:1;padding:16px 0;overflow-y:auto}
@@ -93,7 +95,8 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 .sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.06)}
 .btn-logout{background:rgba(204,34,40,.15);border:1px solid rgba(204,34,40,.3);color:#CC2228;width:100%;padding:9px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:block;transition:.2s}
 .btn-logout:hover{background:#CC2228;color:#fff}
-.admin-main{margin-left:var(--sidebar-w);flex:1;padding:28px}
+.admin-main{margin-left:var(--sidebar-w);flex:1;padding:28px;transition:.3s}
+.mobile-header{display:none;background:var(--dark);padding:14px 20px;align-items:center;justify-content:space-between;color:#fff}
 .table-card{background:#fff;border-radius:16px;border:1px solid #e8ecff;overflow:hidden}
 .table-card-header{padding:18px 24px;border-bottom:1px solid #f0f4ff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .table-card-header h5{font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:#1e293b;margin:0}
@@ -106,11 +109,30 @@ tr:hover td{background:#fafbff}
 .badge-published{background:#f0fdf4;color:#10b981}
 .badge-draft{background:#fff0f0;color:#CC2228}
 .action-btn{font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-right:4px}
+@media(max-width:1024px){
+  body{flex-direction:column}
+  .admin-sidebar{transform:translateX(-100%)}
+  .admin-sidebar.show{transform:translateX(0)}
+  .admin-main{margin-left:0;padding:20px}
+  .mobile-header{display:flex}
+}
 </style>
 </head>
 <body>
-<aside class="admin-sidebar">
-  <div class="sidebar-logo"><img src="/logo-header.png" alt="Vortexsoft"><div class="sub">Admin Panel</div></div>
+
+<div class="mobile-header">
+  <img src="/logo-header.png" alt="Vortexsoft" style="height:32px;">
+  <button class="btn text-white p-0" id="sidebarToggleBtn" style="font-size:20px;"><i class="fas fa-bars"></i></button>
+</div>
+
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-logo">
+    <div>
+      <img src="/logo-header.png" alt="Vortexsoft">
+      <div class="sub">Admin Panel</div>
+    </div>
+    <button class="btn text-white p-0 d-lg-none" id="sidebarCloseBtn"><i class="fas fa-times"></i></button>
+  </div>
   <nav class="sidebar-nav">
     <div class="nav-section">Main</div>
     <a href="dashboard.php" class="sidebar-link"><span class="icon"><i class="fas fa-tachometer-alt"></i></span> Dashboard</a>
@@ -120,6 +142,7 @@ tr:hover td{background:#fafbff}
     <a href="blog-posts.php" class="sidebar-link active"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
     <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
     <div class="nav-section">System</div>
+    <a href="settings.php" class="sidebar-link"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a>
     <a href="/index.php" target="_blank" class="sidebar-link"><span class="icon"><i class="fas fa-external-link-alt"></i></span> View Website</a>
   </nav>
   <div class="sidebar-footer">
@@ -128,7 +151,7 @@ tr:hover td{background:#fafbff}
 </aside>
 
 <main class="admin-main">
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
     <div>
       <h1><i class="fas fa-pen-alt me-2" style="color:#CC2228;"></i> Blog Posts Manager</h1>
       <div style="font-size:13px;color:#64748b;">Create, edit, and publish blog posts to your website.</div>
@@ -226,4 +249,13 @@ tr:hover td{background:#fafbff}
   </div>
 </main>
 <script src="/assets/vendor/bootstrap.bundle.min.js"></script>
-</body></html>
+<script>
+document.getElementById('sidebarToggleBtn')?.addEventListener('click', function(){
+  document.getElementById('adminSidebar').classList.toggle('show');
+});
+document.getElementById('sidebarCloseBtn')?.addEventListener('click', function(){
+  document.getElementById('adminSidebar').classList.remove('show');
+});
+</script>
+</body>
+</html>

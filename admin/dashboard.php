@@ -14,6 +14,9 @@ $db = getDB();
 
 // Fetch dashboard stats
 $stats = ['contacts'=>0,'new_contacts'=>0,'applications'=>0,'new_apps'=>0,'blog_posts'=>0,'subscribers'=>0];
+$recent_contacts = [];
+$recent_apps     = [];
+
 if ($db) {
     try {
         $stats['contacts']     = (int)$db->query("SELECT COUNT(*) FROM contact_inquiries")->fetchColumn();
@@ -26,10 +29,9 @@ if ($db) {
         // Recent contacts
         $recent_contacts = $db->query("SELECT id,name,email,service,created_at,is_read FROM contact_inquiries ORDER BY created_at DESC LIMIT 8")->fetchAll();
         // Recent applications
-        $recent_apps = $db->query("SELECT id,applicant_name,email,job_title,status,created_at FROM job_applications ORDER BY created_at DESC LIMIT 8")->fetchAll();
+        $recent_apps     = $db->query("SELECT id,applicant_name,email,job_title,status,created_at FROM job_applications ORDER BY created_at DESC LIMIT 8")->fetchAll();
     } catch (PDOException $e) {
-        $recent_contacts = [];
-        $recent_apps     = [];
+        error_log($e->getMessage());
     }
 }
 
@@ -53,12 +55,12 @@ $admin_role = $_SESSION['admin_role'] ?? 'admin';
 body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:100vh;display:flex}
 /* Sidebar */
 .admin-sidebar{width:var(--sidebar-w);background:var(--dark);min-height:100vh;position:fixed;top:0;left:0;z-index:1000;display:flex;flex-direction:column;transition:.3s}
-.sidebar-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sidebar-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
 .sidebar-logo img{height:44px;object-fit:contain}
 .sidebar-logo .sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-top:6px}
 .sidebar-nav{flex:1;padding:16px 0;overflow-y:auto}
 .nav-section{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.3);padding:12px 20px 6px}
-.sidebar-link{display:flex;align-items:center;gap:12px;padding:11px 20px;color:rgba(255,255,255,.6);font-size:13.5px;font-weight:500;text-decoration:none;transition:.2s;position:relative;border-radius:0}
+.sidebar-link{display:flex;align-items:center;gap:12px;padding:11px 20px;color:rgba(255,255,255,.6);font-size:13.5px;font-weight:500;text-decoration:none;transition:.2s;position:relative}
 .sidebar-link:hover,.sidebar-link.active{color:#fff;background:rgba(255,255,255,.07)}
 .sidebar-link.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);border-radius:0 3px 3px 0}
 .sidebar-link .icon{width:20px;text-align:center;font-size:14px;color:rgba(255,255,255,.4)}
@@ -72,8 +74,9 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 .btn-logout{background:rgba(204,34,40,.15);border:1px solid rgba(204,34,40,.3);color:#CC2228;width:100%;padding:9px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;text-align:center;text-decoration:none;display:block}
 .btn-logout:hover{background:#CC2228;color:#fff}
 /* Main Content */
-.admin-main{margin-left:var(--sidebar-w);flex:1;padding:28px;min-height:100vh}
-.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.admin-main{margin-left:var(--sidebar-w);flex:1;padding:28px;min-height:100vh;transition:.3s}
+.mobile-header{display:none;background:var(--dark);padding:14px 20px;align-items:center;justify-content:space-between;color:#fff}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
 .admin-header h1{font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:#1e293b}
 .admin-header .subtitle{font-size:13px;color:#64748b;margin-top:2px}
 .stat-card{background:#fff;border-radius:16px;padding:24px;border:1px solid #e8ecff;transition:.3s;position:relative;overflow:hidden}
@@ -99,17 +102,30 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 .action-btn{font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px;border:none;cursor:pointer;transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
 .action-btn-view{background:rgba(28,34,128,.08);color:#1C2280}
 .action-btn-view:hover{background:#1C2280;color:#fff}
-.action-btn-read{background:rgba(16,185,129,.08);color:#10b981}
-.action-btn-read:hover{background:#10b981;color:#fff}
-@media(max-width:1024px){.admin-sidebar{transform:translateX(-100%)}.admin-main{margin-left:0}}
+@media(max-width:1024px){
+  body{flex-direction:column}
+  .admin-sidebar{transform:translateX(-100%)}
+  .admin-sidebar.show{transform:translateX(0)}
+  .admin-main{margin-left:0;padding:20px}
+  .mobile-header{display:flex}
+}
 </style>
 </head>
 <body>
+
+<div class="mobile-header">
+  <img src="/logo-header.png" alt="Vortexsoft" style="height:32px;">
+  <button class="btn text-white p-0" id="sidebarToggleBtn" style="font-size:20px;"><i class="fas fa-bars"></i></button>
+</div>
+
 <!-- Sidebar -->
 <aside class="admin-sidebar" id="adminSidebar">
   <div class="sidebar-logo">
-    <img src="/logo-header.png" alt="Vortexsoft Group">
-    <div class="sub">Admin Panel</div>
+    <div>
+      <img src="/logo-header.png" alt="Vortexsoft Group">
+      <div class="sub">Admin Panel</div>
+    </div>
+    <button class="btn text-white p-0 d-lg-none" id="sidebarCloseBtn"><i class="fas fa-times"></i></button>
   </div>
 
   <nav class="sidebar-nav">
@@ -236,5 +252,13 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 </main>
 
 <script src="/assets/vendor/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('sidebarToggleBtn')?.addEventListener('click', function(){
+  document.getElementById('adminSidebar').classList.toggle('show');
+});
+document.getElementById('sidebarCloseBtn')?.addEventListener('click', function(){
+  document.getElementById('adminSidebar').classList.remove('show');
+});
+</script>
 </body>
 </html>

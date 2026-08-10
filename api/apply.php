@@ -64,7 +64,7 @@ if (!empty($_FILES['resume']) && $_FILES['resume']['error'] === UPLOAD_ERR_OK) {
     $upload_dir = UPLOADS_PATH . '/resumes/';
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0755, true);
-        file_put_contents($upload_dir . '.htaccess', "Options -Indexes\nDeny from all\n");
+        file_put_contents($upload_dir . '.htaccess', "Options -Indexes\n<FilesMatch \"\.(php|phtml|php3|php4|php5|phps|cgi|pl|exe|sh)$\">\n    Order allow,deny\n    Deny from all\n</FilesMatch>\n");
     }
 
     $safe_name       = preg_replace('/[^a-zA-Z0-9\-_]/', '_', pathinfo($file['name'], PATHINFO_FILENAME));
