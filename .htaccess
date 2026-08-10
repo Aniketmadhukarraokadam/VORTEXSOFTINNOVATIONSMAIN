@@ -24,10 +24,15 @@ ServerSignature Off
     RewriteCond %{HTTP_HOST} !^localhost [NC]
     RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # .html → .php canonical redirects (301 permanent)
+    # Subfolder index.php → index.html fallback if index.php doesn't exist
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+    RewriteRule ^(.+)/index\.php$ /$1/index.html [L]
+
+    # Root .html → .php canonical redirects (301 permanent) for root files only
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.+)\.html$ /$1.php [L,R=301]
+    RewriteRule ^([a-zA-Z0-9_-]+)\.html$ /$1.php [L,R=301]
 
     # index redirect
     RewriteRule ^index\.html$ /index.php [L,R=301]
@@ -39,6 +44,7 @@ ServerSignature Off
 
     # Custom 404
     ErrorDocument 404 /404.php
+
 
     # Block common attack patterns in query strings
     RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]

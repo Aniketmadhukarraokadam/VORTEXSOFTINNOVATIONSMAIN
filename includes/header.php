@@ -325,53 +325,54 @@ function nav_active(string $page, string $path): string {
                 <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-brain"></i> AI Automation Services</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-cogs"></i> Agentic AI Workflows</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-file-contract"></i> Intelligent Doc Processing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>data-annotation-services/index.php"><i class="fas fa-tags"></i> AI Data Annotation</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>data-annotation-services/index.html"><i class="fas fa-tags"></i> AI Data Annotation</a></li>
                 <h6 class="dropdown-header mt-2">Publishing</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>publishing-services/index.php"><i class="fas fa-book"></i> Publishing Services</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>editorial-services/index.php"><i class="fas fa-pencil-alt"></i> Editorial Services</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>digital-prepress-services/index.php"><i class="fas fa-print"></i> Digital Prepress</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>ebook-conversion-services/index.php"><i class="fas fa-tablet-alt"></i> eBook Conversion</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>alt-text-writing-services/index.php"><i class="fas fa-image"></i> Alt Text Writing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>publishing-services/index.html"><i class="fas fa-book"></i> Publishing Services</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>editorial-services/index.html"><i class="fas fa-pencil-alt"></i> Editorial Services</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>digital-prepress-services/index.html"><i class="fas fa-print"></i> Digital Prepress</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>ebook-conversion-services/index.html"><i class="fas fa-tablet-alt"></i> eBook Conversion</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>alt-text-writing-services/index.html"><i class="fas fa-image"></i> Alt Text Writing</a></li>
               </div>
               <!-- Col 2: Health Care + Real Estate -->
               <div>
                 <h6 class="dropdown-header">Health Care</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>medical-coding-services/index.php"><i class="fas fa-code"></i> Medical Coding</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>medical-billing-services/index.php"><i class="fas fa-file-invoice-dollar"></i> Medical Billing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>payment-posting-services/index.php"><i class="fas fa-credit-card"></i> Payment Posting</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>denial-management-services/index.php"><i class="fas fa-ban"></i> Denial Management</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>ar-recovery-services/index.php"><i class="fas fa-undo"></i> AR Recovery</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>medical-coding-services/index.html"><i class="fas fa-code"></i> Medical Coding</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>medical-billing-services/index.html"><i class="fas fa-file-invoice-dollar"></i> Medical Billing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>payment-posting-services/index.html"><i class="fas fa-credit-card"></i> Payment Posting</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>denial-management-services/index.html"><i class="fas fa-ban"></i> Denial Management</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>ar-recovery-services/index.html"><i class="fas fa-undo"></i> AR Recovery</a></li>
                 <h6 class="dropdown-header mt-2">Real Estate</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>cam-audit-services/index.php"><i class="fas fa-search-dollar"></i> CAM Audit</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>cam-reconciliation-services/index.php"><i class="fas fa-balance-scale"></i> CAM Reconciliation</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>lease-administration-services/index.php"><i class="fas fa-file-contract"></i> Lease Administration</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>lease-abstraction-services/index.php"><i class="fas fa-scroll"></i> Lease Abstraction</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>property-accounting-services/index.php"><i class="fas fa-calculator"></i> Property Accounting</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>property-management-service/index.php"><i class="fas fa-building"></i> Property Management</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>cam-audit-services/index.html"><i class="fas fa-search-dollar"></i> CAM Audit</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>cam-reconciliation-services/index.html"><i class="fas fa-balance-scale"></i> CAM Reconciliation</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>lease-administration-services/index.html"><i class="fas fa-file-contract"></i> Lease Administration</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>lease-abstraction-services/index.html"><i class="fas fa-scroll"></i> Lease Abstraction</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>property-accounting-services/index.html"><i class="fas fa-calculator"></i> Property Accounting</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>property-management-service/index.html"><i class="fas fa-building"></i> Property Management</a></li>
               </div>
               <!-- Col 3: Accounting + IT & Digital -->
               <div>
                 <h6 class="dropdown-header">Accounting</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>bookkeeping-services/index.php"><i class="fas fa-book-open"></i> Bookkeeping</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>payroll-processing-services/index.php"><i class="fas fa-money-check-alt"></i> Payroll Processing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>manpower-payroll-services/index.php"><i class="fas fa-users-cog"></i> Manpower &amp; Payroll</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>financial-reporting-services/index.php"><i class="fas fa-chart-bar"></i> Financial Reporting</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>bookkeeping-services/index.html"><i class="fas fa-book-open"></i> Bookkeeping</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>payroll-processing-services/index.html"><i class="fas fa-money-check-alt"></i> Payroll Processing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>manpower-payroll-services/index.html"><i class="fas fa-users-cog"></i> Manpower &amp; Payroll</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>financial-reporting-services/index.html"><i class="fas fa-chart-bar"></i> Financial Reporting</a></li>
                 <h6 class="dropdown-header mt-2">IT &amp; Digital</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>software-solutions/index.php"><i class="fas fa-laptop-code"></i> Software Solutions</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>digital-marketing-service/index.php"><i class="fas fa-bullhorn"></i> Digital Marketing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>ecommerce-solutions/index.php"><i class="fas fa-shopping-cart"></i> E-Commerce</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>data-analytics-as-a-service/index.php"><i class="fas fa-chart-line"></i> Data Analytics</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>crm-software-services/index.php"><i class="fas fa-users"></i> CRM Services</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>software-solutions/index.html"><i class="fas fa-laptop-code"></i> Software Solutions</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>digital-marketing-service/index.html"><i class="fas fa-bullhorn"></i> Digital Marketing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>ecommerce-solutions/index.html"><i class="fas fa-shopping-cart"></i> E-Commerce</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>data-analytics-as-a-service/index.html"><i class="fas fa-chart-line"></i> Data Analytics</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>crm-software-services/index.html"><i class="fas fa-users"></i> CRM Services</a></li>
               </div>
               <!-- Col 4: More Services + View All -->
               <div>
                 <h6 class="dropdown-header">More Services</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>logistics-services/index.php"><i class="fas fa-truck"></i> Logistics</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-home"></i> Title &amp; Settlement</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>mortgage-escrow/index.php"><i class="fas fa-landmark"></i> Mortgage &amp; Escrow</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>background-verification-service/index.php"><i class="fas fa-user-check"></i> Background Verification</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>technical-writing/index.php"><i class="fas fa-file-alt"></i> Technical Writing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>digital-accessibility-services/index.php"><i class="fas fa-universal-access"></i> Digital Accessibility</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>logistics-services/index.html"><i class="fas fa-truck"></i> Logistics</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.html"><i class="fas fa-home"></i> Title &amp; Settlement</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>mortgage-escrow/index.html"><i class="fas fa-landmark"></i> Mortgage &amp; Escrow</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>background-verification-service/index.html"><i class="fas fa-user-check"></i> Background Verification</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>technical-writing/index.html"><i class="fas fa-file-alt"></i> Technical Writing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>digital-accessibility-services/index.html"><i class="fas fa-universal-access"></i> Digital Accessibility</a></li>
+
                 <h6 class="dropdown-header mt-2">View All</h6>
                 <li><a class="dropdown-item" href="<?= $prefix ?>service.php" style="font-weight:700;color:#CC2228;"><i class="fas fa-th-large"></i> All Services</a></li>
               </div>

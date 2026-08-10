@@ -108,16 +108,17 @@ $prefix = $prefix ?? './';
       <div class="col-lg-3 col-md-6 scroll-reveal" style="transition-delay:0.2s">
         <h6 class="footer-title">Our Services</h6>
         <ul class="footer-links">
-          <li><a href="<?= $prefix ?>software-solutions/index.php">Software Solutions</a></li>
-          <li><a href="<?= $prefix ?>publishing-services/index.php">Publishing Services</a></li>
-          <li><a href="<?= $prefix ?>health-care-services/index.php">Health Care Services</a></li>
-          <li><a href="<?= $prefix ?>real-estate-services/index.php">Real Estate Services</a></li>
-          <li><a href="<?= $prefix ?>accounting-services/index.php">Accounting Services</a></li>
-          <li><a href="<?= $prefix ?>manpower-payroll-services/index.php">Manpower &amp; Payroll</a></li>
-          <li><a href="<?= $prefix ?>digital-marketing-service/index.php">Digital Marketing</a></li>
-          <li><a href="<?= $prefix ?>data-annotation-services/index.php">Data Annotation</a></li>
-          <li><a href="<?= $prefix ?>title-settlement/index.php">Title &amp; Settlement</a></li>
+          <li><a href="<?= $prefix ?>software-solutions/index.html">Software Solutions</a></li>
+          <li><a href="<?= $prefix ?>publishing-services/index.html">Publishing Services</a></li>
+          <li><a href="<?= $prefix ?>health-care-services/index.html">Health Care Services</a></li>
+          <li><a href="<?= $prefix ?>real-estate-services/index.html">Real Estate Services</a></li>
+          <li><a href="<?= $prefix ?>accounting-services/index.html">Accounting Services</a></li>
+          <li><a href="<?= $prefix ?>manpower-payroll-services/index.html">Manpower &amp; Payroll</a></li>
+          <li><a href="<?= $prefix ?>digital-marketing-service/index.html">Digital Marketing</a></li>
+          <li><a href="<?= $prefix ?>data-annotation-services/index.html">Data Annotation</a></li>
+          <li><a href="<?= $prefix ?>title-settlement/index.html">Title &amp; Settlement</a></li>
         </ul>
+
       </div>
 
       <!-- Contact Info -->
