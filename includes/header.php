@@ -194,7 +194,8 @@ function nav_active(string $page, string $path): string {
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fontawesome/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fontawesome/all.min.css"></noscript>
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fonts.css">
-    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-shared.css">
+    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-shared.css?v=20260810">
+    <style>.scroll-reveal,.scroll-reveal-left,.scroll-reveal-right{opacity:1;transform:none;}</style>
 
     <?php if (!empty($extra_head)) echo $extra_head; ?>
 </head>

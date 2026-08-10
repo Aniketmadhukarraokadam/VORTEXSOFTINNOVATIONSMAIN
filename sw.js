@@ -1,5 +1,5 @@
-/* Vortexsoft Group — Service Worker v7.0 */
-const CACHE = 'vortexsoft-v9';
+/* Vortexsoft Group — Service Worker v10 */
+const CACHE = 'vortexsoft-v10';
 const CRITICAL = [
   '/',
   '/index.php',

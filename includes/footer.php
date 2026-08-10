@@ -230,7 +230,7 @@ $prefix = $prefix ?? './';
 <!-- Bootstrap JS -->
 <script src="<?= $prefix ?>assets/vendor/bootstrap.bundle.min.js"></script>
 <!-- Shared JS -->
-<script src="<?= $prefix ?>assets/vortex-shared.js"></script>
+<script src="<?= $prefix ?>assets/vortex-shared.js?v=20260810"></script>
 <script>
 // ── Loader ──────────────────────────────────────────────────
 (function(){

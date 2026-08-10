@@ -621,13 +621,6 @@ require_once __DIR__ . '/includes/header.php';
             </div>
           </div>
           <div class="contact-info-item">
-            <div class="icon-wrap"><i class="fas fa-phone-alt"></i></div>
-            <div class="info-text">
-              <div class="label">Phone (USA)</div>
-              <div class="value"><a href="tel:+13072050681" style="color:#fff;"><?= PHONE_USA ?></a></div>
-            </div>
-          </div>
-          <div class="contact-info-item">
             <div class="icon-wrap"><i class="fas fa-envelope"></i></div>
             <div class="info-text">
               <div class="label">Email Us</div>
