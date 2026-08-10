@@ -658,6 +658,23 @@ require_once __DIR__ . '/includes/header.php';
           </ul>
         </div>
       </div>
+
+      <!-- vortexsoftpublishing -->
+      <div class="col-lg-6 scroll-reveal-left">
+        <div style="background:var(--bg-light,#f0f2ff);border-radius:20px;padding:32px;border:1px solid #dde2f5;height:100%;">
+          <div style="width:48px;height:48px;border-radius:12px;background:#8b5cf6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;"><i class="fas fa-book-open"></i></div>
+          <h4 style="font-family:'Poppins',sans-serif;font-weight:800;color:#8b5cf6;margin-bottom:8px;">vortexsoftpublishing</h4>
+          <div style="font-size:12px;font-weight:700;color:#1C2280;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Automated ePUB, XML &amp; PDF Accessibility Engine</div>
+          <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:16px;">
+            <strong>vortexsoftpublishing</strong> is Vortexsoft's proprietary publishing automation platform that automates ePUB3/Kindle conversion, XML restructuring (JATS, BITS, S1000D), WCAG 2.1 AA / Section 508 PDF accessibility tagging, and preflight typesetting — delivering 5x faster publishing turnarounds with 99.9% accuracy.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0;font-size:13px;color:#374151;">
+            <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Automated ePUB3, Kindle &amp; XML (JATS/BITS/S1000D) conversion</li>
+            <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Automated PDF &amp; eBook WCAG 2.1 AA accessibility tagging</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -701,7 +718,9 @@ require_once __DIR__ . '/includes/header.php';
           ['q'=>'What is vortexHire and how does it screen candidates?','a'=>'vortexHire is Vortexsoft\'s AI hiring platform, designed to automate candidate sourcing, resume screening, and initial qualification against role requirements — reducing manual screening time for recruiters and staffing teams while surfacing better-matched candidates faster.'],
           ['q'=>'What is vortexKonnect used for in call centers?','a'=>'vortexKonnect is Vortexsoft\'s call analytics platform, analyzing call center conversations for quality monitoring, agent performance, and customer sentiment — giving call center managers visibility into call outcomes without manual call review.'],
           ['q'=>'How does Vortexreach automate B2B outreach?','a'=>'Vortexreach is Vortexsoft\'s AI outreach automation platform, handling lead research, personalized message drafting, and multi-channel outreach sequencing for B2B sales and business development teams, reducing manual prospecting time while keeping outreach personalized.'],
+          ['q'=>'What is vortexsoftpublishing and how does it automate publishing?','a'=>'vortexsoftpublishing is Vortexsoft\'s proprietary automated publishing platform designed for academic publishers, STM journal editors, and authors. It automates ePUB3/Kindle conversion, XML restructuring (JATS, BITS, S1000D), WCAG 2.1 AA / Section 508 / PDF/UA accessibility tagging, and preflight typesetting — delivering 5x faster publishing turnarounds with 99.9% accuracy.'],
         ];
+
         foreach($faqs as $i=>$faq): ?>
         <div class="faq-item" id="faq-<?= $i ?>">
           <button class="faq-question" onclick="toggleFAQ('faq-<?= $i ?>')">
