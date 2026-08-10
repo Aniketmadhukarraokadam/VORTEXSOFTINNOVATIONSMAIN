@@ -114,14 +114,27 @@ function auto_install_tables(PDO $db): void {
           UNIQUE KEY `uk_username` (`username`),
           UNIQUE KEY `uk_email`    (`email`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-        "REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-        (1, 'admin@vortexsoftinnovations.in', '$2y$12$8IpMP6IJeshSPurTe5.baubMZF5rGtkdX4KDIAWiwN6tSSGiwR5SW', 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1);",
-        "REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-        (2, 'Aniket@vortexsoftinnovations.in', '$2y$12$AmQgvWVp/eQKMCnDzD3TK.a.0GwTVdoRcE4rS6i0VnA9cAWdP5Xta', 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1);"
+        "CREATE TABLE IF NOT EXISTS `system_settings` (
+          `setting_key`   VARCHAR(100) NOT NULL,
+          `setting_value` TEXT         DEFAULT NULL,
+          `updated_at`    DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          PRIMARY KEY (`setting_key`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
     ];
+
     foreach ($queries as $q) {
         try { $db->exec($q); } catch (Throwable $t) {}
     }
+
+    try {
+        $p1 = password_hash('Mrunal@9996', PASSWORD_BCRYPT, ['cost' => 10]);
+        $p2 = password_hash('ShivaG@1437', PASSWORD_BCRYPT, ['cost' => 10]);
+
+        $stmt = $db->prepare("REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
+            (1, 'admin@vortexsoftinnovations.in', :p1, 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1),
+            (2, 'Aniket@vortexsoftinnovations.in', :p2, 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1)");
+        $stmt->execute([':p1' => $p1, ':p2' => $p2]);
+    } catch (Throwable $t) {}
 }
 
 $error = '';
@@ -130,23 +143,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    if (!check_rate_limit('admin_login_' . md5(get_client_ip()), 30, 300)) {
-        $error = 'Too many login attempts. Please wait 5 minutes.';
-    } elseif (empty($username) || empty($password)) {
+    if (empty($username) || empty($password)) {
         $error = 'Please enter username/email and password.';
     } else {
         $db = getDB();
         if ($db) {
             try {
-                $stmt = $db->prepare("SELECT * FROM admin_users WHERE (LOWER(username) = LOWER(:u) OR LOWER(email) = LOWER(:u)) AND is_active = 1 LIMIT 1");
-                $stmt->execute([':u' => $username]);
+                $stmt = $db->prepare("SELECT * FROM admin_users WHERE (LOWER(username) = LOWER(:u) OR LOWER(email) = LOWER(:e)) AND is_active = 1 LIMIT 1");
+                $stmt->execute([':u' => $username, ':e' => $username]);
                 $admin = $stmt->fetch();
             } catch (Throwable $e) {
                 // Auto-create missing tables on the fly
                 auto_install_tables($db);
                 try {
-                    $stmt = $db->prepare("SELECT * FROM admin_users WHERE (LOWER(username) = LOWER(:u) OR LOWER(email) = LOWER(:u)) AND is_active = 1 LIMIT 1");
-                    $stmt->execute([':u' => $username]);
+                    $stmt = $db->prepare("SELECT * FROM admin_users WHERE (LOWER(username) = LOWER(:u) OR LOWER(email) = LOWER(:e)) AND is_active = 1 LIMIT 1");
+                    $stmt->execute([':u' => $username, ':e' => $username]);
                     $admin = $stmt->fetch();
                 } catch (Throwable $e2) {
                     $admin = false;

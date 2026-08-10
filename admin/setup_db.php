@@ -89,7 +89,7 @@ $zip->close();
 @unlink($tempZip);
 
 $sourceDir = $extractDir . '/' . GITHUB_REPO . '-' . GITHUB_BRANCH;
-if (!is_dir($sourceDir)) {
+if (!$sourceDir || !is_dir($sourceDir)) {
     $dirs = glob($extractDir . '/*', GLOB_ONLYDIR);
     $sourceDir = $dirs[0] ?? null;
 }
@@ -256,15 +256,27 @@ $queries = [
       UNIQUE KEY `uk_username` (`username`),
       UNIQUE KEY `uk_email`    (`email`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-    "REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-    (1, 'admin@vortexsoftinnovations.in', '$2y$12$8IpMP6IJeshSPurTe5.baubMZF5rGtkdX4KDIAWiwN6tSSGiwR5SW', 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1);",
-    "REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-    (2, 'Aniket@vortexsoftinnovations.in', '$2y$12$AmQgvWVp/eQKMCnDzD3TK.a.0GwTVdoRcE4rS6i0VnA9cAWdP5Xta', 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1);"
+    "CREATE TABLE IF NOT EXISTS `system_settings` (
+      `setting_key`   VARCHAR(100) NOT NULL,
+      `setting_value` TEXT         DEFAULT NULL,
+      `updated_at`    DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (`setting_key`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
 ];
 
 foreach ($queries as $q) {
     try { $db->exec($q); } catch (Throwable $e) {}
 }
+
+try {
+    $p1 = password_hash('Mrunal@9996', PASSWORD_BCRYPT, ['cost' => 10]);
+    $p2 = password_hash('ShivaG@1437', PASSWORD_BCRYPT, ['cost' => 10]);
+
+    $stmt = $db->prepare("REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
+        (1, 'admin@vortexsoftinnovations.in', :p1, 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1),
+        (2, 'Aniket@vortexsoftinnovations.in', :p2, 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1)");
+    $stmt->execute([':p1' => $p1, ':p2' => $p2]);
+} catch (Throwable $t) {}
 
 ?>
 <!DOCTYPE html>
