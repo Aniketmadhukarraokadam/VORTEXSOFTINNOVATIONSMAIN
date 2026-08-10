@@ -71,6 +71,34 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
+
+    // Update Global Site Settings
+    if ($action === 'update_settings') {
+        $site_name     = sanitize($_POST['site_name'] ?? '');
+        $contact_email = sanitize_email($_POST['contact_email'] ?? '');
+        $careers_email = sanitize_email($_POST['careers_email'] ?? '');
+        $contact_phone = sanitize($_POST['contact_phone'] ?? '');
+        $address       = sanitize($_POST['office_address'] ?? '');
+
+        try {
+            $db->exec("CREATE TABLE IF NOT EXISTS `system_settings` (`setting_key` VARCHAR(100) PRIMARY KEY, `setting_value` TEXT, `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+            
+            $settings = [
+                'site_name'      => $site_name,
+                'contact_email'  => $contact_email,
+                'careers_email'  => $careers_email,
+                'contact_phone'  => $contact_phone,
+                'office_address' => $address,
+            ];
+            $stmt = $db->prepare("REPLACE INTO system_settings (setting_key, setting_value) VALUES (:k, :v)");
+            foreach ($settings as $k => $v) {
+                $stmt->execute([':k' => $k, ':v' => $v]);
+            }
+            $success = 'Global website settings updated successfully.';
+        } catch (PDOException $e) {
+            $error = 'Failed to save website settings: ' . $e->getMessage();
+        }
+    }
 }
 
 // Fetch current user details
@@ -84,8 +112,25 @@ if ($db) {
     } catch (PDOException $e) {}
 }
 
+// Fetch global site settings
+$site_settings = [
+    'site_name'      => 'Vortexsoft Innovations Pvt. Ltd.',
+    'contact_email'  => 'info@vortexsoftinnovations.in',
+    'careers_email'  => 'careers@vortexsoftinnovations.in',
+    'contact_phone'  => '+91 8308906690',
+    'office_address' => '125 Ranganath Complex, Madiwala, Bengaluru, Karnataka 560068',
+];
+if ($db) {
+    try {
+        $rows = $db->query("SELECT setting_key, setting_value FROM system_settings")->fetchAll();
+        foreach ($rows as $r) {
+            $site_settings[$r['setting_key']] = $r['setting_value'];
+        }
+    } catch (PDOException $e) {}
+}
+
 // System stats
-$db_connected  = ($db !== null);
+$db_connected     = ($db !== null);
 $uploads_writable = is_writable(UPLOADS_PATH . '/resumes/') || is_writable(UPLOADS_PATH);
 ?>
 <!DOCTYPE html>
@@ -165,7 +210,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 <main class="admin-main">
   <div class="mb-4">
     <h1><i class="fas fa-cog me-2" style="color:#CC2228;"></i> Admin Settings</h1>
-    <div style="font-size:13px;color:#64748b;">Manage profile details, security credentials, and system diagnostics.</div>
+    <div style="font-size:13px;color:#64748b;">Manage profile details, security credentials, global website settings, and system diagnostics.</div>
   </div>
 
   <?php if ($error): ?>
@@ -181,11 +226,11 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
     <div class="col-lg-7">
       <!-- Edit Profile -->
       <div class="card-box">
-        <h5><i class="fas fa-user-edit text-primary"></i> Edit Profile Information</h5>
+        <h5><i class="fas fa-user-edit text-primary"></i> Edit Admin Profile</h5>
         <form method="POST" action="settings.php">
           <input type="hidden" name="action" value="update_profile">
           <div class="mb-3">
-            <label class="form-label font-weight-semibold">Username</label>
+            <label class="form-label font-weight-semibold">Username / Email</label>
             <input type="text" class="form-control" value="<?= htmlspecialchars($user_info['username']) ?>" disabled readonly style="background:#f8fafc;">
           </div>
           <div class="mb-3">
@@ -193,10 +238,41 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
             <input type="text" name="full_name" class="form-control" value="<?= htmlspecialchars($user_info['full_name'] ?? '') ?>" required>
           </div>
           <div class="mb-3">
-            <label class="form-label font-weight-semibold">Email Address</label>
+            <label class="form-label font-weight-semibold">Contact Email</label>
             <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user_info['email'] ?? '') ?>" required>
           </div>
           <button type="submit" class="btn" style="background:#1C2280;color:#fff;border-radius:8px;font-weight:700;padding:10px 24px;">Save Profile</button>
+        </form>
+      </div>
+
+      <!-- Global Website Settings -->
+      <div class="card-box">
+        <h5><i class="fas fa-sliders-h text-success"></i> Global Website Settings</h5>
+        <form method="POST" action="settings.php">
+          <input type="hidden" name="action" value="update_settings">
+          <div class="mb-3">
+            <label class="form-label font-weight-semibold">Company / Site Name</label>
+            <input type="text" name="site_name" class="form-control" value="<?= htmlspecialchars($site_settings['site_name'] ?? '') ?>" required>
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label font-weight-semibold">General Contact Email</label>
+              <input type="email" name="contact_email" class="form-control" value="<?= htmlspecialchars($site_settings['contact_email'] ?? '') ?>" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label font-weight-semibold">HR / Careers Email</label>
+              <input type="email" name="careers_email" class="form-control" value="<?= htmlspecialchars($site_settings['careers_email'] ?? '') ?>" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label font-weight-semibold">Contact Phone Number</label>
+            <input type="text" name="contact_phone" class="form-control" value="<?= htmlspecialchars($site_settings['contact_phone'] ?? '') ?>" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label font-weight-semibold">HQ Office Address</label>
+            <textarea name="office_address" class="form-control" rows="2" required><?= htmlspecialchars($site_settings['office_address'] ?? '') ?></textarea>
+          </div>
+          <button type="submit" class="btn" style="background:#10b981;color:#fff;border-radius:8px;font-weight:700;padding:10px 24px;">Save Website Settings</button>
         </form>
       </div>
 

@@ -130,18 +130,33 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ────────────────────────────────────────────────────────────
--- 6. SEED ADMIN ACCOUNTS
+-- 6. SYSTEM SETTINGS
+-- ────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS `system_settings` (
+  `setting_key`   VARCHAR(100) NOT NULL,
+  `setting_value` TEXT         DEFAULT NULL,
+  `updated_at`    DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`setting_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ────────────────────────────────────────────────────────────
+-- 7. SEED INITIAL DATA
 -- ────────────────────────────────────────────────────────────
 
--- 1. Super Admin (Username/Email: admin@vortexsoftinnovations.in | Password: Mrunal@9996)
+-- Admin Accounts
 REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-(1, 'admin@vortexsoftinnovations.in', '$2y$12$8IpMP6IJeshSPurTe5.baubMZF5rGtkdX4KDIAWiwN6tSSGiwR5SW', 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1);
-
--- 2. Admin (Username/Email: Aniket@vortexsoftinnovations.in | Password: ShivaG@1437)
-REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
+(1, 'admin@vortexsoftinnovations.in', '$2y$12$8IpMP6IJeshSPurTe5.baubMZF5rGtkdX4KDIAWiwN6tSSGiwR5SW', 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1),
 (2, 'Aniket@vortexsoftinnovations.in', '$2y$12$AmQgvWVp/eQKMCnDzD3TK.a.0GwTVdoRcE4rS6i0VnA9cAWdP5Xta', 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1);
 
--- Sample blog post
+-- Default Settings
+REPLACE INTO `system_settings` (`setting_key`, `setting_value`) VALUES
+('site_name', 'Vortexsoft Innovations Pvt. Ltd.'),
+('contact_email', 'info@vortexsoftinnovations.in'),
+('careers_email', 'careers@vortexsoftinnovations.in'),
+('contact_phone', '+91 8308906690'),
+('office_address', '125 Ranganath Complex, Madiwala, Bengaluru, Karnataka 560068');
+
+-- Sample Blog Post
 REPLACE INTO `blog_posts` (`id`, `title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES
 (1, 'Vortexsoft Group: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Group delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Group, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
 
