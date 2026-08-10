@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    if (!check_rate_limit('admin_login_' . md5(get_client_ip()), 10, 300)) {
+    if (!check_rate_limit('admin_login_' . md5(get_client_ip()), 30, 300)) {
         $error = 'Too many login attempts. Please wait 5 minutes.';
     } elseif (empty($username) || empty($password)) {
         $error = 'Please enter username/email and password.';
