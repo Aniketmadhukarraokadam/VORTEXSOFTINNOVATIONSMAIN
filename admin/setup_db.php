@@ -261,6 +261,24 @@ $queries = [
       `setting_value` TEXT         DEFAULT NULL,
       `updated_at`    DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
       PRIMARY KEY (`setting_key`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+    "CREATE TABLE IF NOT EXISTS `jobs` (
+      `id`               INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `title`            VARCHAR(200) NOT NULL,
+      `department`       VARCHAR(100) NOT NULL,
+      `type`             VARCHAR(60)  NOT NULL DEFAULT 'Full Time',
+      `location`         VARCHAR(120) NOT NULL,
+      `experience_range` VARCHAR(60)  DEFAULT NULL,
+      `skills_json`      TEXT         DEFAULT NULL,
+      `description`      TEXT         NOT NULL,
+      `is_urgent`        TINYINT(1)   NOT NULL DEFAULT 0,
+      `is_active`        TINYINT(1)   NOT NULL DEFAULT 1,
+      `sort_order`       INT UNSIGNED NOT NULL DEFAULT 0,
+      `created_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `updated_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      INDEX `idx_is_active`  (`is_active`),
+      INDEX `idx_sort_order` (`sort_order`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
 ];
 
@@ -276,6 +294,25 @@ try {
         (1, 'admin@vortexsoftinnovations.in', :p1, 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1),
         (2, 'Aniket@vortexsoftinnovations.in', :p2, 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1)");
     $stmt->execute([':p1' => $p1, ':p2' => $p2]);
+} catch (Throwable $t) {}
+
+// Seed initial jobs (only if table is empty)
+try {
+    $cnt = $db->query("SELECT COUNT(*) FROM `jobs`")->fetchColumn();
+    if ($cnt == 0) {
+        $seedJobs = [
+            ['Medical Coder','Healthcare BPO','Full Time','Bengaluru','1–3 years','CPC Certified,ICD-10,CPT,E&M Coding','Review and code inpatient/outpatient medical records using ICD-10, CPT, and HCPCS codes. Ensure accuracy and compliance with payer requirements.',1,1],
+            ['PHP Developer','IT & Software','Full Time','Bengaluru/Remote','2–4 years','PHP,Laravel,MySQL,REST APIs','Develop and maintain scalable PHP applications. Work with Laravel framework, MySQL databases, and REST APIs. Build admin panels and client portals.',0,2],
+            ['Data Annotation Specialist','AI / Data','Full Time','Bengaluru','0–2 years','Image Annotation,CVAT,Labelbox,Quality Control','Perform high-quality image, video, audio, and text annotation for AI/ML training datasets. Work with tools like CVAT, Labelbox, and Scale AI.',0,3],
+            ['Publishing Editor','Publishing','Full Time','Bengaluru','2–5 years','InDesign,QuarkXPress,XML,ePUB3','Handle typesetting, layout, ePUB3 conversion, and proofreading of academic and trade books. Work with publishers from USA, UK, and Europe.',0,4],
+            ['Digital Marketing Executive','Marketing','Full Time','Bengaluru','1–3 years','SEO,Google Ads,Meta Ads,Content Marketing','Plan and execute SEO, PPC, and social media campaigns for B2B and B2C clients. Manage monthly performance reports and analytics dashboards.',0,5],
+            ['Lease Administrator','Real Estate BPO','Full Time','Pune','1–4 years','Lease Abstraction,CAM Reconciliation,MRI Software,Excel','Abstract and administer commercial real estate leases. Handle CAM reconciliation, rent roll management, and property accounting for US clients.',0,6],
+            ['HR Executive','Human Resources','Full Time','Bengaluru','1–3 years','Recruitment,Onboarding,HRMS,Labor Law','Manage end-to-end recruitment for IT and BPO roles. Handle onboarding, employee engagement, attendance, payroll coordination, and compliance.',0,7],
+            ['Accounts Executive','Finance & Accounting','Full Time','Bengaluru','1–3 years','Tally,QuickBooks,GST,TDS','Handle bookkeeping, accounts payable/receivable, GST filing, TDS, bank reconciliation, and monthly financial reporting for Indian and US clients.',0,8],
+        ];
+        $ins = $db->prepare("INSERT INTO `jobs` (title,department,type,location,experience_range,skills_json,description,is_urgent,sort_order) VALUES (?,?,?,?,?,?,?,?,?)");
+        foreach ($seedJobs as $j) { $ins->execute($j); }
+    }
 } catch (Throwable $t) {}
 
 ?>

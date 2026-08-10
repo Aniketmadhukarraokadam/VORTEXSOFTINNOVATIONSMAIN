@@ -55,7 +55,7 @@ require_once __DIR__ . '/includes/header.php';
           Vortexsoft Innovations Pvt. Ltd., a flagship company of the <strong>Vortexsoft Group</strong>, is an <strong>ISO 27001:2013 certified</strong> global IT and business process outsourcing firm headquartered in Bengaluru, Karnataka, India.
         </p>
         <p style="color:var(--text-muted);font-size:15px;line-height:1.8;">
-          Since our inception in 2020, we have grown into a multi-disciplinary partner offering 65+ domain-specific services across Healthcare BPO, Publishing & Media Prepress, Real Estate & Title Settlement, IT Software Solutions, Data Annotation for AI/ML, Accounting & Finance, and Digital Marketing.
+          Since our inception in 2020, over <strong>6+ years</strong> we have grown into a multi-disciplinary partner offering 65+ domain-specific services across Healthcare BPO, Publishing &amp; Media Prepress, Real Estate &amp; Title Settlement, IT Software Solutions, Data Annotation for AI/ML, Accounting &amp; Finance, and Digital Marketing.
         </p>
         <div class="row g-3 mt-3">
           <div class="col-6">

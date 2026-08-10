@@ -41,6 +41,7 @@ if (empty($applicant_name)) json_response(false, 'Please enter your full name.')
 if (!is_valid_email($email)) json_response(false, 'Please enter a valid email address.');
 if (empty($phone))           json_response(false, 'Please enter your phone number.');
 if (empty($job_title))       json_response(false, 'Please specify the position you are applying for.');
+// Note: Resume is optional (V2) — applicant can apply without uploading a file
 
 // Handle file upload (resume)
 $resume_filename = null;
@@ -118,11 +119,18 @@ if ($db) {
 
 // Send HR notification
 $email_data = [
-    'job_title'      => $job_title,
-    'applicant_name' => $applicant_name,
-    'email'          => $email,
-    'phone'          => $phone,
-    'cover_letter'   => $cover_letter,
+    'job_title'       => $job_title,
+    'department'      => $department,
+    'applicant_name'  => $applicant_name,
+    'email'           => $email,
+    'phone'           => $phone,
+    'experience_years'=> $experience,
+    'current_company' => $current_company,
+    'notice_period'   => $notice_period,
+    'expected_ctc'    => $expected_ctc,
+    'linkedin_url'    => $linkedin_url,
+    'resume_path'     => $resume_path,
+    'cover_letter'    => $cover_letter,
 ];
 send_application_notification($email_data);
 

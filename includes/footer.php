@@ -86,7 +86,6 @@ $prefix = $prefix ?? './';
           <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="<?= SOCIAL_TWITTER ?>" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
         </div>
       </div>
 
@@ -155,8 +154,7 @@ $prefix = $prefix ?? './';
         <div class="footer-contact-item">
           <i class="fas fa-phone-alt"></i>
           <span>
-            <a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>"><?= PHONE_INDIA ?></a> |
-            <a href="tel:<?= str_replace(['-',' ','+'], '', PHONE_USA) ?>"><?= PHONE_USA ?></a>
+            <a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>"><?= PHONE_INDIA ?></a>
           </span>
         </div>
 

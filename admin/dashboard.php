@@ -13,7 +13,7 @@ admin_check();
 $db = getDB();
 
 // Fetch dashboard stats
-$stats = ['contacts'=>0,'new_contacts'=>0,'applications'=>0,'new_apps'=>0,'blog_posts'=>0,'subscribers'=>0];
+$stats = ['contacts'=>0,'new_contacts'=>0,'applications'=>0,'new_apps'=>0,'blog_posts'=>0,'subscribers'=>0,'jobs_active'=>0];
 $recent_contacts = [];
 $recent_apps     = [];
 
@@ -25,6 +25,7 @@ if ($db) {
         $stats['new_apps']     = (int)$db->query("SELECT COUNT(*) FROM job_applications WHERE status='new'")->fetchColumn();
         $stats['blog_posts']   = (int)$db->query("SELECT COUNT(*) FROM blog_posts WHERE is_published=1")->fetchColumn();
         $stats['subscribers']  = (int)$db->query("SELECT COUNT(*) FROM newsletter_subscribers WHERE is_active=1")->fetchColumn();
+        try { $stats['jobs_active'] = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active=1")->fetchColumn(); } catch(Throwable $e) {}
 
         // Recent contacts
         $recent_contacts = $db->query("SELECT id,name,email,service,created_at,is_read FROM contact_inquiries ORDER BY created_at DESC LIMIT 8")->fetchAll();
@@ -133,6 +134,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
     <a href="dashboard.php" class="sidebar-link active"><span class="icon"><i class="fas fa-tachometer-alt"></i></span> Dashboard</a>
     <a href="contacts.php" class="sidebar-link"><span class="icon"><i class="fas fa-envelope"></i></span> Inquiries <?php if($stats['new_contacts']): ?><span class="badge"><?= $stats['new_contacts'] ?></span><?php endif; ?></a>
     <a href="applications.php" class="sidebar-link"><span class="icon"><i class="fas fa-briefcase"></i></span> Applications <?php if($stats['new_apps']): ?><span class="badge"><?= $stats['new_apps'] ?></span><?php endif; ?></a>
+    <a href="jobs.php" class="sidebar-link"><span class="icon"><i class="fas fa-clipboard-list"></i></span> Jobs <span style="margin-left:auto;background:rgba(28,34,128,.12);color:#1C2280;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;"><?= $stats['jobs_active'] ?> active</span></a>
 
     <div class="nav-section">Content</div>
     <a href="blog-posts.php" class="sidebar-link"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
@@ -167,7 +169,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
     <?php $cards = [
       ['label'=>'Total Inquiries','value'=>$stats['contacts'],'new'=>$stats['new_contacts'],'icon'=>'fa-envelope','bg'=>'rgba(28,34,128,.08)','color'=>'#1C2280','link'=>'contacts.php'],
       ['label'=>'Job Applications','value'=>$stats['applications'],'new'=>$stats['new_apps'],'icon'=>'fa-briefcase','bg'=>'rgba(204,34,40,.08)','color'=>'#CC2228','link'=>'applications.php'],
-      ['label'=>'Published Posts','value'=>$stats['blog_posts'],'new'=>0,'icon'=>'fa-pen-alt','bg'=>'rgba(91,168,212,.08)','color'=>'#5BA8D4','link'=>'blog-posts.php'],
+      ['label'=>'Active Job Postings','value'=>$stats['jobs_active'],'new'=>0,'icon'=>'fa-clipboard-list','bg'=>'rgba(91,168,212,.08)','color'=>'#5BA8D4','link'=>'jobs.php'],
       ['label'=>'Newsletter Subs','value'=>$stats['subscribers'],'new'=>0,'icon'=>'fa-users','bg'=>'rgba(16,185,129,.08)','color'=>'#10b981','link'=>'newsletter.php'],
     ]; ?>
     <?php foreach($cards as $c): ?>

@@ -150,7 +150,7 @@ require_once __DIR__ . '/includes/header.php';
   <div class="container pt-4">
     <div class="row justify-content-center text-center gy-5">
       <div class="col-lg-10 hero-content d-flex flex-column align-items-center" style="animation:float 6s ease-in-out infinite;">
-        <div class="hero-subtitle scroll-reveal"><span>4+ Years of Excellence | ISO 27001 Certified</span></div>
+        <div class="hero-subtitle scroll-reveal"><span>6+ Years of Excellence | ISO 27001 Certified</span></div>
         <h1 class="hero-title scroll-reveal">
           Empowering Businesses<br>with Smart
           <span class="typed-wrapper" id="typed-text"></span><span class="cursor"></span>
@@ -165,7 +165,7 @@ require_once __DIR__ . '/includes/header.php';
           <a href="about.php" class="btn-hero-secondary"><i class="fas fa-play-circle"></i> Learn More</a>
         </div>
         <div class="hero-stats scroll-reveal">
-          <div class="hero-stat"><div class="number" data-counter data-target="4">4<span>+</span></div><div class="label">Years Experience</div></div>
+          <div class="hero-stat"><div class="number" data-counter data-target="6">6<span>+</span></div><div class="label">Years Experience</div></div>
           <div class="hero-stat"><div class="number" data-counter data-target="200">200<span>+</span></div><div class="label">Projects Delivered</div></div>
           <div class="hero-stat"><div class="number" data-counter data-target="150">150<span>+</span></div><div class="label">Happy Clients</div></div>
           <div class="hero-stat"><div class="number" data-counter data-target="65">65<span>+</span></div><div class="label">Service Offerings</div></div>
@@ -334,7 +334,7 @@ require_once __DIR__ . '/includes/header.php';
           <li><i class="fas fa-check-circle"></i> Startup India Registered — Government of India Recognition</li>
           <li><i class="fas fa-check-circle"></i> HIPAA Compliant Healthcare BPO Services</li>
           <li><i class="fas fa-check-circle"></i> 200+ Dedicated Professionals across India & USA</li>
-          <li><i class="fas fa-check-circle"></i> 4+ Years of Global Delivery Excellence</li>
+          <li><i class="fas fa-check-circle"></i> 6+ Years of Global Delivery Excellence</li>
           <li><i class="fas fa-check-circle"></i> 24/7 Support with &lt;30 Min Response Time</li>
         </ul>
         <div class="about-highlight-box">
@@ -357,7 +357,7 @@ require_once __DIR__ . '/includes/header.php';
             ['num'=>'200+','label'=>'Professionals','icon'=>'fa-users','bg'=>'rgba(91,168,212,.06)'],
             ['num'=>'9+','label'=>'Service Domains','icon'=>'fa-layer-group','bg'=>'rgba(16,185,129,.06)'],
             ['num'=>'65+','label'=>'Service Offerings','icon'=>'fa-th-large','bg'=>'rgba(245,158,11,.06)'],
-            ['num'=>'4+','label'=>'Years Experience','icon'=>'fa-award','bg'=>'rgba(139,92,246,.06)'],
+            ['num'=>'6+','label'=>'Years Experience','icon'=>'fa-award','bg'=>'rgba(139,92,246,.06)'],
           ];
           foreach($stats as $s): ?>
           <div class="col-6">

@@ -62,23 +62,33 @@ function send_contact_notification(array $data): bool {
 
 function send_application_notification(array $data): bool {
     $subject = "New Job Application: {$data['job_title']} — {$data['applicant_name']}";
+    $resume_link = !empty($data['resume_path'])
+        ? "<a href='{$data['resume_path']}' style='color:#1C2280;font-weight:700;'>Download Resume</a>"
+        : '<span style="color:#94a3b8;">Not uploaded</span>';
     $body = "
     <html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
-    <div style='max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
+    <div style='max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
         <div style='background:linear-gradient(135deg,#1C2280,#CC2228);padding:30px;text-align:center;'>
             <h2 style='color:#fff;margin:0;font-size:22px;'>New Job Application</h2>
-            <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Role: " . htmlspecialchars($data['job_title']) . "</p>
+            <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Role: " . htmlspecialchars($data['job_title']) . " | Dept: " . htmlspecialchars($data['department'] ?? '') . "</p>
         </div>
         <div style='padding:30px;'>
             <table style='width:100%;border-collapse:collapse;'>
-                <tr><td style='padding:10px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;width:140px;'>Name</td><td style='padding:10px 0;border-bottom:1px solid #eee;'>" . htmlspecialchars($data['applicant_name']) . "</td></tr>
-                <tr><td style='padding:10px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Email</td><td style='padding:10px 0;border-bottom:1px solid #eee;'><a href='mailto:{$data['email']}'>" . htmlspecialchars($data['email']) . "</a></td></tr>
-                <tr><td style='padding:10px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Phone</td><td style='padding:10px 0;border-bottom:1px solid #eee;'>" . htmlspecialchars($data['phone'] ?? 'Not provided') . "</td></tr>
-                <tr><td style='padding:10px 0;font-weight:600;color:#1C2280;vertical-align:top;'>Cover Letter</td><td style='padding:10px 0;'>" . nl2br(htmlspecialchars($data['cover_letter'] ?? '')) . "</td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;width:160px;'>Applicant Name</td><td style='padding:9px 0;border-bottom:1px solid #eee;'>" . htmlspecialchars($data['applicant_name']) . "</td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Email</td><td style='padding:9px 0;border-bottom:1px solid #eee;'><a href='mailto:{$data['email']}'>" . htmlspecialchars($data['email']) . "</a></td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Phone</td><td style='padding:9px 0;border-bottom:1px solid #eee;'>" . htmlspecialchars($data['phone'] ?? 'Not provided') . "</td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Experience</td><td style='padding:9px 0;border-bottom:1px solid #eee;'>" . htmlspecialchars($data['experience_years'] ?? '—') . " years</td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Current Company</td><td style='padding:9px 0;border-bottom:1px solid #eee;'>" . htmlspecialchars($data['current_company'] ?? 'Not provided') . "</td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Notice Period</td><td style='padding:9px 0;border-bottom:1px solid #eee;'>" . htmlspecialchars($data['notice_period'] ?? 'Not provided') . "</td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Expected CTC</td><td style='padding:9px 0;border-bottom:1px solid #eee;'>" . htmlspecialchars($data['expected_ctc'] ?? 'Not provided') . "</td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>LinkedIn</td><td style='padding:9px 0;border-bottom:1px solid #eee;'>" . (!empty($data['linkedin_url']) ? "<a href='{$data['linkedin_url']}'>{$data['linkedin_url']}</a>" : '—') . "</td></tr>
+                <tr><td style='padding:9px 0;border-bottom:1px solid #eee;font-weight:600;color:#1C2280;'>Resume</td><td style='padding:9px 0;border-bottom:1px solid #eee;'>" . $resume_link . "</td></tr>
+                <tr><td style='padding:9px 0;font-weight:600;color:#1C2280;vertical-align:top;'>Cover Letter</td><td style='padding:9px 0;'>" . nl2br(htmlspecialchars($data['cover_letter'] ?? '—')) . "</td></tr>
             </table>
         </div>
         <div style='background:#f8f9ff;padding:20px 30px;text-align:center;'>
-            <p style='margin:0;color:#666;font-size:13px;'>Login to Admin Panel to review this application.</p>
+            <p style='margin:0;color:#666;font-size:13px;'>Login to Admin Panel to review and update status.</p>
+            <p style='margin:8px 0 0;color:#999;font-size:12px;'>" . date('d M Y, H:i') . " IST</p>
         </div>
     </div>
     </body></html>";
@@ -86,6 +96,41 @@ function send_application_notification(array $data): bool {
 }
 
 // ── Slug Generation ────────────────────────────────────────
+
+/**
+ * Send a branded auto-acknowledgement email to a contact form submitter.
+ */
+function send_contact_acknowledgement(array $data): bool {
+    $subject = 'We\'ve received your inquiry — Vortexsoft Group';
+    $body = "
+    <html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
+    <div style='max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
+        <div style='background:linear-gradient(135deg,#1C2280,#5BA8D4);padding:30px;text-align:center;'>
+            <h2 style='color:#fff;margin:0;font-size:22px;'>Thank You for Contacting Us!</h2>
+            <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Vortexsoft Group</p>
+        </div>
+        <div style='padding:30px;'>
+            <p style='color:#333;font-size:15px;'>Dear <strong>" . htmlspecialchars($data['name']) . "</strong>,</p>
+            <p style='color:#555;font-size:14px;line-height:1.7;'>We have received your inquiry and our team will review it shortly. We typically respond within <strong>24 hours</strong> on business days (Mon&ndash;Sat, 9AM&ndash;6PM IST).</p>
+            <div style='background:#f0f2ff;border-radius:10px;padding:20px;margin:20px 0;'>
+                <p style='margin:0 0 8px;font-size:13px;font-weight:700;color:#1C2280;'>Your Inquiry Summary:</p>
+                <p style='margin:0;font-size:13px;color:#475569;'><strong>Subject:</strong> " . htmlspecialchars($data['service'] ?? 'General Inquiry') . "</p>
+                <p style='margin:6px 0 0;font-size:13px;color:#475569;'>" . nl2br(htmlspecialchars(mb_strimwidth($data['message'] ?? '', 0, 200, '...'))) . "</p>
+            </div>
+            <p style='color:#555;font-size:14px;'>Need an immediate response? Contact us via:</p>
+            <ul style='color:#475569;font-size:13px;line-height:2;padding-left:20px;'>
+                <li>WhatsApp: <a href='https://wa.me/918308906690' style='color:#1C2280;'>+91-8308906690</a></li>
+                <li>Email: <a href='mailto:" . EMAIL_SUPPORT . "' style='color:#1C2280;'>" . EMAIL_SUPPORT . "</a></li>
+            </ul>
+        </div>
+        <div style='background:#f8f9ff;padding:20px 30px;text-align:center;'>
+            <p style='margin:0;color:#999;font-size:12px;'>Vortexsoft Innovations Pvt. Ltd. | " . SITE_URL . "</p>
+            <p style='margin:4px 0 0;color:#bbb;font-size:11px;'>This is an automated confirmation. Please do not reply to this email.</p>
+        </div>
+    </div>
+    </body></html>";
+    return send_notification_email($data['email'], $subject, $body, EMAIL_FROM_NAME, EMAIL_CONTACT);
+}
 function slugify(string $text): string {
     $text = strtolower(trim($text));
     $text = preg_replace('/[^a-z0-9\s-]/', '', $text);

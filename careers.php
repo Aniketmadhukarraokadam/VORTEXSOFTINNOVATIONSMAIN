@@ -13,17 +13,42 @@ require_once __DIR__ . '/config/constants.php';
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
-// Static job listings (can be moved to DB via admin panel later)
-$jobs = [
-  ['id'=>1,'title'=>'Medical Coder','department'=>'Healthcare BPO','type'=>'Full Time','location'=>'Bengaluru','exp'=>'1–3 years','skills'=>['CPC Certified','ICD-10','CPT','E&M Coding'],'desc'=>'Review and code inpatient/outpatient medical records using ICD-10, CPT, and HCPCS codes. Ensure accuracy and compliance with payer requirements.','urgent'=>true],
-  ['id'=>2,'title'=>'PHP Developer','department'=>'IT & Software','type'=>'Full Time','location'=>'Bengaluru/Remote','exp'=>'2–4 years','skills'=>['PHP','Laravel','MySQL','REST APIs'],'desc'=>'Develop and maintain scalable PHP applications. Work with Laravel framework, MySQL databases, and REST APIs. Build admin panels and client portals.','urgent'=>false],
-  ['id'=>3,'title'=>'Data Annotation Specialist','department'=>'AI / Data','type'=>'Full Time','location'=>'Bengaluru','exp'=>'0–2 years','skills'=>['Image Annotation','CVAT','Labelbox','Quality Control'],'desc'=>'Perform high-quality image, video, audio, and text annotation for AI/ML training datasets. Work with tools like CVAT, Labelbox, and Scale AI.','urgent'=>false],
-  ['id'=>4,'title'=>'Publishing Editor','department'=>'Publishing','type'=>'Full Time','location'=>'Bengaluru','exp'=>'2–5 years','skills'=>['InDesign','QuarkXPress','XML','ePUB3'],'desc'=>'Handle typesetting, layout, ePUB3 conversion, and proofreading of academic and trade books. Work with publishers from USA, UK, and Europe.','urgent'=>false],
-  ['id'=>5,'title'=>'Digital Marketing Executive','department'=>'Marketing','type'=>'Full Time','location'=>'Bengaluru','exp'=>'1–3 years','skills'=>['SEO','Google Ads','Meta Ads','Content Marketing'],'desc'=>'Plan and execute SEO, PPC, and social media campaigns for B2B and B2C clients. Manage monthly performance reports and analytics dashboards.','urgent'=>false],
-  ['id'=>6,'title'=>'Lease Administrator','department'=>'Real Estate BPO','type'=>'Full Time','location'=>'Pune','exp'=>'1–4 years','skills'=>['Lease Abstraction','CAM Reconciliation','MRI Software','Excel'],'desc'=>'Abstract and administer commercial real estate leases. Handle CAM reconciliation, rent roll management, and property accounting for US clients.','urgent'=>false],
-  ['id'=>7,'title'=>'HR Executive','department'=>'Human Resources','type'=>'Full Time','location'=>'Bengaluru','exp'=>'1–3 years','skills'=>['Recruitment','Onboarding','HRMS','Labor Law'],'desc'=>'Manage end-to-end recruitment for IT and BPO roles. Handle onboarding, employee engagement, attendance, payroll coordination, and compliance.','urgent'=>false],
-  ['id'=>8,'title'=>'Accounts Executive','department'=>'Finance & Accounting','type'=>'Full Time','location'=>'Bengaluru','exp'=>'1–3 years','skills'=>['Tally','QuickBooks','GST','TDS'],'desc'=>'Handle bookkeeping, accounts payable/receivable, GST filing, TDS, bank reconciliation, and monthly financial reporting for Indian and US clients.','urgent'=>false],
-];
+
+// Fetch jobs from DB; fall back to static list if DB unavailable or empty
+$jobs = [];
+try {
+    $db = getDB();
+    if ($db) {
+        $rows = $db->query("SELECT * FROM jobs WHERE is_active=1 ORDER BY sort_order ASC, created_at ASC")->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($rows as $r) {
+            $jobs[] = [
+                'id'         => $r['id'],
+                'title'      => $r['title'],
+                'department' => $r['department'],
+                'type'       => $r['type'],
+                'location'   => $r['location'],
+                'exp'        => $r['experience_range'] ?? '',
+                'skills'     => array_map('trim', explode(',', $r['skills_json'] ?? '')),
+                'desc'       => $r['description'],
+                'urgent'     => (bool)$r['is_urgent'],
+            ];
+        }
+    }
+} catch (Throwable $e) { $jobs = []; }
+
+// Static fallback (used if DB has no jobs yet)
+if (empty($jobs)) {
+    $jobs = [
+      ['id'=>1,'title'=>'Medical Coder','department'=>'Healthcare BPO','type'=>'Full Time','location'=>'Bengaluru','exp'=>'1–3 years','skills'=>['CPC Certified','ICD-10','CPT','E&M Coding'],'desc'=>'Review and code inpatient/outpatient medical records using ICD-10, CPT, and HCPCS codes. Ensure accuracy and compliance with payer requirements.','urgent'=>true],
+      ['id'=>2,'title'=>'PHP Developer','department'=>'IT & Software','type'=>'Full Time','location'=>'Bengaluru/Remote','exp'=>'2–4 years','skills'=>['PHP','Laravel','MySQL','REST APIs'],'desc'=>'Develop and maintain scalable PHP applications. Work with Laravel framework, MySQL databases, and REST APIs. Build admin panels and client portals.','urgent'=>false],
+      ['id'=>3,'title'=>'Data Annotation Specialist','department'=>'AI / Data','type'=>'Full Time','location'=>'Bengaluru','exp'=>'0–2 years','skills'=>['Image Annotation','CVAT','Labelbox','Quality Control'],'desc'=>'Perform high-quality image, video, audio, and text annotation for AI/ML training datasets. Work with tools like CVAT, Labelbox, and Scale AI.','urgent'=>false],
+      ['id'=>4,'title'=>'Publishing Editor','department'=>'Publishing','type'=>'Full Time','location'=>'Bengaluru','exp'=>'2–5 years','skills'=>['InDesign','QuarkXPress','XML','ePUB3'],'desc'=>'Handle typesetting, layout, ePUB3 conversion, and proofreading of academic and trade books. Work with publishers from USA, UK, and Europe.','urgent'=>false],
+      ['id'=>5,'title'=>'Digital Marketing Executive','department'=>'Marketing','type'=>'Full Time','location'=>'Bengaluru','exp'=>'1–3 years','skills'=>['SEO','Google Ads','Meta Ads','Content Marketing'],'desc'=>'Plan and execute SEO, PPC, and social media campaigns for B2B and B2C clients. Manage monthly performance reports and analytics dashboards.','urgent'=>false],
+      ['id'=>6,'title'=>'Lease Administrator','department'=>'Real Estate BPO','type'=>'Full Time','location'=>'Pune','exp'=>'1–4 years','skills'=>['Lease Abstraction','CAM Reconciliation','MRI Software','Excel'],'desc'=>'Abstract and administer commercial real estate leases. Handle CAM reconciliation, rent roll management, and property accounting for US clients.','urgent'=>false],
+      ['id'=>7,'title'=>'HR Executive','department'=>'Human Resources','type'=>'Full Time','location'=>'Bengaluru','exp'=>'1–3 years','skills'=>['Recruitment','Onboarding','HRMS','Labor Law'],'desc'=>'Manage end-to-end recruitment for IT and BPO roles. Handle onboarding, employee engagement, attendance, payroll coordination, and compliance.','urgent'=>false],
+      ['id'=>8,'title'=>'Accounts Executive','department'=>'Finance & Accounting','type'=>'Full Time','location'=>'Bengaluru','exp'=>'1–3 years','skills'=>['Tally','QuickBooks','GST','TDS'],'desc'=>'Handle bookkeeping, accounts payable/receivable, GST filing, TDS, bank reconciliation, and monthly financial reporting for Indian and US clients.','urgent'=>false],
+    ];
+}
 
 require_once __DIR__ . '/includes/header.php';
 ?>
@@ -217,7 +242,7 @@ require_once __DIR__ . '/includes/header.php';
               <input type="text" class="form-control" name="expected_ctc" placeholder="e.g. 4.5 LPA or Open to discuss">
             </div>
             <div class="col-12">
-              <label class="form-label fw-semibold">Upload Resume <span class="text-danger">*</span> <span style="color:#64748b;font-weight:400;font-size:12px;">(PDF, DOC, DOCX — max 5MB)</span></label>
+              <label class="form-label fw-semibold">Upload Resume <span style="color:#64748b;font-weight:400;font-size:12px;">(PDF, DOC, DOCX &mdash; max 5MB &mdash; <em>optional but recommended</em>)</span></label>
               <input type="file" class="form-control" name="resume" id="resumeFile" accept=".pdf,.doc,.docx">
             </div>
             <div class="col-12">

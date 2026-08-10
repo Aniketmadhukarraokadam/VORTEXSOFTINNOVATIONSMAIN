@@ -274,7 +274,6 @@ function nav_active(string $page, string $path): string {
         <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
         <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="<?= SOCIAL_TWITTER ?>" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
       </div>
     </div>
   </div>
@@ -371,8 +370,7 @@ function nav_active(string $page, string $path): string {
       <div class="d-none d-xl-flex align-items-center navbar-phone-info">
         <div>
           <div class="pn-number"><i class="fas fa-phone-alt" style="color:#CC2228;font-size:11px;margin-right:5px;"></i><?= PHONE_INDIA ?></div>
-          <div class="pn-number"><i class="fas fa-phone-alt" style="color:#CC2228;font-size:11px;margin-right:5px;"></i><?= PHONE_USA ?></div>
-          <div class="pn-hours">Mon–Sat &nbsp;9AM – 6PM IST</div>
+          <div class="pn-hours">24/7 Online Inquiry &nbsp;|&nbsp; Mon–Sat 9AM–6PM IST</div>
         </div>
       </div>
 

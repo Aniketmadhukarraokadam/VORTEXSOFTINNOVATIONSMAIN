@@ -32,7 +32,7 @@ require_once __DIR__ . '/includes/header.php';
   <div class="container">
     <nav aria-label="breadcrumb" class="mb-3"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="index.php">Home</a></li><li class="breadcrumb-item active">Contact</li></ol></nav>
     <h1>Contact <span style="color:#CC2228;">Vortexsoft Group</span></h1>
-    <p style="color:rgba(255,255,255,.7);font-size:16px;margin-top:12px;max-width:550px;">Let's build something great together. Get in touch for a free consultation — we respond within 24 hours.</p>
+    <p style="color:rgba(255,255,255,.7);font-size:16px;margin-top:12px;max-width:550px;">Submit an inquiry anytime &mdash; we respond within 24 hours on business days. Our team is available Mon&ndash;Sat, 9AM&ndash;6PM IST.</p>
   </div>
 </div>
 
@@ -44,9 +44,9 @@ require_once __DIR__ . '/includes/header.php';
         <div class="contact-card text-center">
           <div class="contact-icon-box mx-auto" style="background:rgba(28,34,128,.08);color:#1C2280;"><i class="fas fa-phone-alt"></i></div>
           <h5 style="font-family:'Poppins',sans-serif;font-weight:700;margin-bottom:8px;">Call Us</h5>
-          <p style="font-size:13px;color:#64748b;margin-bottom:12px;">Mon–Sat, 9AM–6PM IST</p>
+          <p style="font-size:13px;color:#64748b;margin-bottom:4px;">Mon&ndash;Sat, 9AM&ndash;6PM IST</p>
+          <p style="font-size:12px;color:#10b981;font-weight:600;margin-bottom:12px;"><i class="fas fa-circle" style="font-size:8px;margin-right:4px;"></i>Online Inquiries: 24/7</p>
           <a href="tel:+918308906690" style="display:block;font-weight:700;color:#1C2280;font-size:15px;margin-bottom:4px;"><?= PHONE_INDIA ?></a>
-          <a href="tel:+13072050681" style="display:block;font-weight:600;color:#1C2280;font-size:14px;"><?= PHONE_USA ?></a>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 scroll-reveal" style="transition-delay:.1s">

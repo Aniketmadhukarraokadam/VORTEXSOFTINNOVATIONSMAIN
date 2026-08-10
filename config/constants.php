@@ -19,20 +19,21 @@ define('EMAIL_FROM_NAME', 'Vortexsoft Group');
 
 // ── Phone Numbers ──────────────────────────────────────────
 define('PHONE_INDIA', '+91-8308906690');
-define('PHONE_USA',   '+1-307-205-0681');
+// PHONE_USA removed — V2: USA number no longer displayed on public UI
 
 // ── Social Media ───────────────────────────────────────────
 define('SOCIAL_FACEBOOK',  'https://www.facebook.com/profile.php?id=61575505273718');
 define('SOCIAL_INSTAGRAM', 'https://www.instagram.com/vortexsoft_innovations');
 define('SOCIAL_LINKEDIN',  'https://www.linkedin.com/company/vortexsoft-innovations-private-limited/');
-define('SOCIAL_TWITTER',   'https://twitter.com/vortexsoft');
+// SOCIAL_TWITTER removed — V2: Twitter/X account discontinued
 define('SOCIAL_WHATSAPP',  'https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services.');
 
 // ── Company Info ───────────────────────────────────────────
-define('COMPANY_YEAR',     '2020');
-define('COMPANY_CLIENTS',  '150+');
-define('COMPANY_PROJECTS', '200+');
-define('COMPANY_TEAM',     '200+');
+define('COMPANY_YEAR',       '2020');
+define('COMPANY_EXPERIENCE', '6+');   // V2: Updated from 5+ to 6+ years
+define('COMPANY_CLIENTS',    '150+');
+define('COMPANY_PROJECTS',   '200+');
+define('COMPANY_TEAM',       '200+');
 
 // ── Paths ──────────────────────────────────────────────────
 define('ROOT_PATH', dirname(__DIR__));

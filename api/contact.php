@@ -85,31 +85,8 @@ if ($db) {
 $email_data = compact('name', 'email', 'phone', 'service', 'company', 'message');
 $email_sent = send_contact_notification($email_data);
 
-// Auto-reply to user
-$auto_reply_body = "
-<html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
-<div style='max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
-    <div style='background:linear-gradient(135deg,#1C2280,#5BA8D4);padding:30px;text-align:center;'>
-        <img src='" . SITE_URL . "/logo-header.png' alt='Vortexsoft Group' style='height:50px;margin-bottom:16px;'>
-        <h2 style='color:#fff;margin:0;font-size:22px;'>Thank You, " . htmlspecialchars($name) . "!</h2>
-    </div>
-    <div style='padding:30px;'>
-        <p style='color:#333;font-size:16px;'>We've received your inquiry and our team will get back to you within <strong>24 hours</strong>.</p>
-        <p style='color:#666;'>For urgent matters, please call us directly:</p>
-        <div style='background:#f0f2ff;border-radius:10px;padding:16px;margin:16px 0;text-align:center;'>
-            <a href='tel:+918308906690' style='color:#1C2280;font-weight:700;font-size:18px;text-decoration:none;display:block;'>+91-8308906690</a>
-            <a href='tel:+13072050681' style='color:#1C2280;font-weight:600;font-size:15px;text-decoration:none;'>+1-307-205-0681</a>
-            <p style='color:#666;font-size:13px;margin-top:8px;'>Mon–Sat, 9AM–6PM IST</p>
-        </div>
-        <p style='color:#666;font-size:14px;'>Or chat with us on <a href='" . SOCIAL_WHATSAPP . "' style='color:#25d366;font-weight:600;'>WhatsApp</a></p>
-    </div>
-    <div style='background:#f8f9ff;padding:20px 30px;text-align:center;border-top:1px solid #eee;'>
-        <p style='margin:0;color:#999;font-size:12px;'>Vortexsoft Innovations Pvt. Ltd. &nbsp;|&nbsp; ISO 27001:2013 Certified</p>
-        <p style='margin:6px 0 0;color:#999;font-size:12px;'>" . SITE_URL . "</p>
-    </div>
-</div>
-</body></html>";
-send_notification_email($email, 'We received your inquiry — Vortexsoft Group', $auto_reply_body, SITE_NAME, EMAIL_SUPPORT);
+// Send auto-acknowledgement to the submitter (V2: uses branded template)
+send_contact_acknowledgement(compact('name', 'email', 'phone', 'service', 'message'));
 
 json_response(true, 'Thank you! Your message has been sent. Our team will reply within 24 hours.', [
     'inquiry_id' => $inserted_id ?? 0
