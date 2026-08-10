@@ -25,13 +25,121 @@ function is_valid_phone(string $phone): bool {
 }
 
 // ── Email Sending (PHP mail) ────────────────────────────────
-function send_notification_email(string $to, string $subject, string $html_body, string $from_name = SITE_NAME, string $from_email = EMAIL_CONTACT): bool {
+// ── Encryption Helpers (AES-256-GCM for Secrets) ───────────
+define('APP_SECRET_KEY', hash('sha256', 'VortexsoftSecretKey_2026_V2_Secure!'));
+
+function encrypt_secret(string $plaintext): string {
+    if (empty($plaintext)) return '';
+    $iv = openssl_random_pseudo_bytes(12);
+    $tag = '';
+    $ciphertext = openssl_encrypt($plaintext, 'aes-256-gcm', APP_SECRET_KEY, 0, $iv, $tag);
+    return base64_encode($iv . $tag . $ciphertext);
+}
+
+function decrypt_secret(string $encoded): string {
+    if (empty($encoded)) return '';
+    $raw = base64_decode($encoded);
+    if (strlen($raw) < 28) return '';
+    $iv = substr($raw, 0, 12);
+    $tag = substr($raw, 12, 16);
+    $ciphertext = substr($raw, 28);
+    return (string)openssl_decrypt($ciphertext, 'aes-256-gcm', APP_SECRET_KEY, 0, $iv, $tag);
+}
+
+// ── Admin Activity Logging ─────────────────────────────────
+function log_admin_activity(string $action, string $details = '', $record_id = null): bool {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    $admin_id   = $_SESSION['admin_id'] ?? $_SESSION['vortex_admin_id'] ?? null;
+    $admin_name = $_SESSION['admin_username'] ?? $_SESSION['vortex_admin_user'] ?? 'System / Anonymous';
+    $ip         = get_client_ip();
+    $ua         = substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255);
+
+    try {
+        $db = getDB();
+        if ($db) {
+            $stmt = $db->prepare("INSERT INTO admin_activity_logs (admin_id, admin_username, action, details, ip_address, user_agent, created_at) VALUES (?,?,?,?,?,?,NOW())");
+            return $stmt->execute([$admin_id, $admin_name, $action, $details, $ip, $ua]);
+        }
+    } catch (Throwable $e) {}
+    return false;
+}
+
+// ── RBAC Authorization Check ──────────────────────────────
+function admin_require_role(array $allowed_roles): void {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    admin_check();
+    $user_role = $_SESSION['vortex_admin_role'] ?? $_SESSION['admin_role'] ?? 'admin';
+    if ($user_role === 'super_admin') return; // Super admin has full access
+    if (!in_array($user_role, $allowed_roles, true)) {
+        http_response_code(403);
+        echo '<div style="font-family:sans-serif;padding:40px;text-align:center;color:#b91c1c;"><h2>403 Forbidden</h2><p>You do not have permission to access this module.</p><p><a href="dashboard.php">Return to Dashboard</a></p></div>';
+        exit;
+    }
+}
+
+// ── Email Template Helper ──────────────────────────────────
+function get_email_template(string $key, array $vars = []): ?array {
+    try {
+        $db = getDB();
+        if ($db) {
+            $stmt = $db->prepare("SELECT * FROM email_templates WHERE template_key=?");
+            $stmt->execute([$key]);
+            $tpl = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($tpl) {
+                $subject = $tpl['subject'];
+                $body    = $tpl['body_html'];
+                $vars['company_name'] = $vars['company_name'] ?? 'Vortexsoft Group';
+                $vars['submission_date'] = $vars['submission_date'] ?? date('d M Y, H:i') . ' IST';
+
+                foreach ($vars as $k => $v) {
+                    $subject = str_replace('{{' . $k . '}}', (string)$v, $subject);
+                    $body    = str_replace('{{' . $k . '}}', (string)$v, $body);
+                }
+                return ['subject' => $subject, 'body_html' => $body];
+            }
+        }
+    } catch (Throwable $e) {}
+    return null;
+}
+
+// ── Email Sending (PHP mail + Email Logging + Security Rules) ──
+function send_notification_email(string $to, string $subject, string $html_body, string $from_name = SITE_NAME, string $reply_to = EMAIL_CONTACT, ?string $from_email_override = null): bool {
+    // SECURITY RULE #6: Always send from company approved mailbox
+    $from_email = 'contact@vortexsoftinnovations.com';
+    
+    // Check if custom active email account is configured
+    try {
+        $db = getDB();
+        if ($db) {
+            $acc = $db->query("SELECT email_address, display_name FROM email_accounts WHERE is_active=1 ORDER BY is_default DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+            if ($acc && !empty($acc['email_address'])) {
+                $from_email = $acc['email_address'];
+                if (!empty($acc['display_name']) && $from_name === SITE_NAME) {
+                    $from_name = $acc['display_name'];
+                }
+            }
+        }
+    } catch (Throwable $e) {}
+
     $headers  = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
     $headers .= "From: {$from_name} <{$from_email}>\r\n";
-    $headers .= "Reply-To: {$from_email}\r\n";
+    $headers .= "Reply-To: {$reply_to}\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-    return mail($to, $subject, $html_body, $headers);
+
+    $sent = @mail($to, $subject, $html_body, $headers);
+    $status = $sent ? 'sent' : 'failed';
+    $err_msg = $sent ? null : 'Native mail() returned false. Verify server SMTP / Sendmail config.';
+
+    // Log to email_logs table
+    try {
+        if (isset($db) && $db) {
+            $stmtLog = $db->prepare("INSERT INTO email_logs (type, sender, recipient, subject, body_html, status, error_message, created_at) VALUES ('outgoing', ?, ?, ?, ?, ?, ?, NOW())");
+            $stmtLog->execute([$from_email, $to, $subject, $html_body, $status, $err_msg]);
+        }
+    } catch (Throwable $e) {}
+
+    return $sent;
 }
 
 function send_contact_notification(array $data): bool {

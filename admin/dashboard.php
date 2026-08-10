@@ -136,11 +136,18 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
     <a href="applications.php" class="sidebar-link"><span class="icon"><i class="fas fa-briefcase"></i></span> Applications <?php if($stats['new_apps']): ?><span class="badge"><?= $stats['new_apps'] ?></span><?php endif; ?></a>
     <a href="jobs.php" class="sidebar-link"><span class="icon"><i class="fas fa-clipboard-list"></i></span> Jobs <span style="margin-left:auto;background:rgba(28,34,128,.12);color:#1C2280;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;"><?= $stats['jobs_active'] ?> active</span></a>
 
-    <div class="nav-section">Content</div>
+    <div class="nav-section">Email & Security</div>
+    <a href="emails.php" class="sidebar-link"><span class="icon"><i class="fas fa-inbox"></i></span> Email Activity</a>
+    <a href="email-accounts.php" class="sidebar-link"><span class="icon"><i class="fas fa-mail-bulk"></i></span> Mail Accounts</a>
+    <a href="email-templates.php" class="sidebar-link"><span class="icon"><i class="fas fa-file-code"></i></span> Templates</a>
+    <a href="activity-log.php" class="sidebar-link"><span class="icon"><i class="fas fa-history"></i></span> Activity Log</a>
+    <a href="users.php" class="sidebar-link"><span class="icon"><i class="fas fa-users-cog"></i></span> Admin Users</a>
+
+    <div class="nav-section">Content & System</div>
     <a href="blog-posts.php" class="sidebar-link"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
     <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
-
-    <div class="nav-section">System</div>
+    <a href="audit_services.php" class="sidebar-link"><span class="icon"><i class="fas fa-check-circle"></i></span> 65-Service Audit</a>
+    <a href="backup_db.php" class="sidebar-link"><span class="icon"><i class="fas fa-database"></i></span> DB Backup</a>
     <a href="settings.php" class="sidebar-link"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a>
     <a href="/index.php" target="_blank" class="sidebar-link"><span class="icon"><i class="fas fa-external-link-alt"></i></span> View Website</a>
   </nav>

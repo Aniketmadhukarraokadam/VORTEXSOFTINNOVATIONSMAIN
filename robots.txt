@@ -5,6 +5,9 @@
 User-agent: *
 Allow: /
 Disallow: /assets/partials/
+Disallow: /admin/
+Disallow: /uploads/
+Disallow: /backups/
 Disallow: /career/
 Crawl-delay: 1
 

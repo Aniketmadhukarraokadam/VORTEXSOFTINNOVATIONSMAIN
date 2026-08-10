@@ -165,20 +165,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if ($admin && password_verify($password, $admin['password_hash'])) {
-                $_SESSION[ADMIN_SESSION]  = true;
-                $_SESSION[ADMIN_USER_KEY] = $admin['id'];
-                $_SESSION['admin_name']   = $admin['full_name'] ?? $admin['username'];
-                $_SESSION['admin_role']   = $admin['role'];
+                $_SESSION[ADMIN_SESSION]       = true;
+                $_SESSION[ADMIN_USER_KEY]      = $admin['id'];
+                $_SESSION['admin_id']          = $admin['id'];
+                $_SESSION['admin_username']    = $admin['username'];
+                $_SESSION['vortex_admin_id']   = $admin['id'];
+                $_SESSION['vortex_admin_user'] = $admin['username'];
+                $_SESSION['admin_name']        = $admin['full_name'] ?? $admin['username'];
+                $_SESSION['admin_role']        = $admin['role'];
+                $_SESSION['vortex_admin_role'] = $admin['role'];
 
                 try {
                     $db->prepare("UPDATE admin_users SET last_login=NOW(), login_count=login_count+1 WHERE id=:id")
                        ->execute([':id' => $admin['id']]);
                 } catch (Throwable $e3) {}
 
+                log_admin_activity('Admin Login', "User '{$admin['username']}' logged in successfully.");
+
                 header('Location: /admin/dashboard.php');
                 exit;
             } else {
-                $error = 'Invalid username/email or password.';
+                log_admin_activity('Failed Login', "Failed login attempt for username/email: '{$username}'.");
+                $error = 'Invalid credentials or inactive account.';
                 error_log("Failed admin login attempt for user: $username from IP: " . get_client_ip());
             }
         } else {

@@ -18,6 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(false, 'Method not allowed.');
 }
 
+// Honeypot anti-spam check (silent drop for bots)
+if (!empty($_POST['website_hp'])) {
+    json_response(true, 'Thank you! Your message has been sent.');
+}
+
 // Rate limiting: max 5 submissions per 5 minutes per IP
 $ip = get_client_ip();
 if (!check_rate_limit('contact_' . md5($ip), 5, 300)) {

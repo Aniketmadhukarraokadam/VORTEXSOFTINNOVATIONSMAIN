@@ -17,6 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $ip = get_client_ip();
+// Honeypot anti-spam check (silent drop for bots)
+if (!empty($_POST['website_hp'])) {
+    json_response(true, 'Application submitted successfully!');
+}
+
 if (!check_rate_limit('apply_' . md5($ip), 3, 600)) {
     json_response(false, 'Too many applications. Please wait before trying again.');
 }

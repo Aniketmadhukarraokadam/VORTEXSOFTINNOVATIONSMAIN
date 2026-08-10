@@ -279,6 +279,71 @@ $queries = [
       PRIMARY KEY (`id`),
       INDEX `idx_is_active`  (`is_active`),
       INDEX `idx_sort_order` (`sort_order`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+    "CREATE TABLE IF NOT EXISTS `email_accounts` (
+      `id`                INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `email_address`     VARCHAR(180) NOT NULL,
+      `display_name`      VARCHAR(120) DEFAULT 'Vortexsoft Group',
+      `provider`          VARCHAR(60)  DEFAULT 'Hostinger / Custom SMTP',
+      `smtp_host`         VARCHAR(180) DEFAULT NULL,
+      `smtp_port`         INT UNSIGNED DEFAULT 587,
+      `smtp_encryption`   VARCHAR(10)  DEFAULT 'tls',
+      `smtp_username`     VARCHAR(180) DEFAULT NULL,
+      `smtp_password_enc` TEXT         DEFAULT NULL,
+      `imap_host`         VARCHAR(180) DEFAULT NULL,
+      `imap_port`         INT UNSIGNED DEFAULT 993,
+      `imap_encryption`   VARCHAR(10)  DEFAULT 'ssl',
+      `imap_username`     VARCHAR(180) DEFAULT NULL,
+      `imap_password_enc` TEXT         DEFAULT NULL,
+      `is_active`         TINYINT(1)   NOT NULL DEFAULT 1,
+      `is_default`        TINYINT(1)   NOT NULL DEFAULT 0,
+      `created_at`        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `uk_email` (`email_address`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+    "CREATE TABLE IF NOT EXISTS `email_logs` (
+      `id`            INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `account_id`    INT UNSIGNED DEFAULT NULL,
+      `type`          ENUM('outgoing','incoming') NOT NULL DEFAULT 'outgoing',
+      `sender`        VARCHAR(180) NOT NULL,
+      `recipient`     VARCHAR(180) NOT NULL,
+      `subject`       VARCHAR(255) NOT NULL,
+      `body_html`     MEDIUMTEXT   DEFAULT NULL,
+      `status`        ENUM('queued','sending','sent','failed','bounced') NOT NULL DEFAULT 'sent',
+      `error_message` TEXT         DEFAULT NULL,
+      `retry_count`   INT UNSIGNED NOT NULL DEFAULT 0,
+      `last_retry_at` DATETIME     DEFAULT NULL,
+      `related_type`  VARCHAR(50)  DEFAULT NULL,
+      `related_id`    INT UNSIGNED DEFAULT NULL,
+      `created_at`    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      INDEX `idx_status` (`status`),
+      INDEX `idx_type`   (`type`),
+      INDEX `idx_created` (`created_at`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+    "CREATE TABLE IF NOT EXISTS `email_templates` (
+      `id`             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `template_key`   VARCHAR(80)  NOT NULL,
+      `name`           VARCHAR(120) NOT NULL,
+      `subject`        VARCHAR(255) NOT NULL,
+      `body_html`      MEDIUMTEXT   NOT NULL,
+      `variables_json` TEXT         DEFAULT NULL,
+      `updated_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `uk_template_key` (`template_key`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+    "CREATE TABLE IF NOT EXISTS `admin_activity_logs` (
+      `id`             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `admin_id`       INT UNSIGNED DEFAULT NULL,
+      `admin_username` VARCHAR(80)  NOT NULL,
+      `action`         VARCHAR(100) NOT NULL,
+      `details`        TEXT         DEFAULT NULL,
+      `ip_address`     VARCHAR(45)  NOT NULL,
+      `user_agent`     VARCHAR(255) DEFAULT NULL,
+      `created_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      INDEX `idx_action` (`action`),
+      INDEX `idx_created` (`created_at`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
 ];
 
@@ -312,6 +377,76 @@ try {
         ];
         $ins = $db->prepare("INSERT INTO `jobs` (title,department,type,location,experience_range,skills_json,description,is_urgent,sort_order) VALUES (?,?,?,?,?,?,?,?,?)");
         foreach ($seedJobs as $j) { $ins->execute($j); }
+    }
+} catch (Throwable $t) {}
+
+// Alter job_applications if consent_given column doesn't exist
+try {
+    $db->exec("ALTER TABLE `job_applications` ADD COLUMN `consent_given` TINYINT(1) NOT NULL DEFAULT 1");
+} catch (Throwable $t) {}
+try {
+    $db->exec("ALTER TABLE `job_applications` ADD COLUMN `consent_timestamp` DATETIME DEFAULT CURRENT_TIMESTAMP");
+} catch (Throwable $t) {}
+
+// Seed default email templates
+try {
+    $tplCount = (int)$db->query("SELECT COUNT(*) FROM `email_templates`")->fetchColumn();
+    if ($tplCount === 0) {
+        $templates = [
+            [
+                'template_key'   => 'career_candidate_confirmation',
+                'name'           => 'Career Application – Candidate Confirmation',
+                'subject'        => 'Application Received: {{job_title}} — {{company_name}}',
+                'body_html'      => '<h2>Thank you for applying, {{candidate_name}}!</h2><p>We have received your application for the <strong>{{job_title}}</strong> position at {{company_name}}.</p><p>Application Reference ID: <strong>#{{application_id}}</strong><br>Submitted on: {{submission_date}}</p><p>Our recruitment team will review your qualifications and contact you if your experience aligns with our requirements.</p>',
+                'variables_json' => json_encode(['candidate_name','job_title','application_id','submission_date','company_name'])
+            ],
+            [
+                'template_key'   => 'career_hr_notification',
+                'name'           => 'Career Application – HR/Admin Notification',
+                'subject'        => 'New Application: {{job_title}} — {{candidate_name}}',
+                'body_html'      => '<h2>New Candidate Submission</h2><p><strong>Candidate:</strong> {{candidate_name}}<br><strong>Position:</strong> {{job_title}}<br><strong>Application ID:</strong> #{{application_id}}<br><strong>Date:</strong> {{submission_date}}</p><p>Login to the admin portal to review full application details and resume.</p>',
+                'variables_json' => json_encode(['candidate_name','job_title','application_id','submission_date','company_name'])
+            ],
+            [
+                'template_key'   => 'contact_visitor_confirmation',
+                'name'           => 'Contact Inquiry – Visitor Confirmation',
+                'subject'        => 'We\'ve received your inquiry — {{company_name}}',
+                'body_html'      => '<h2>Thank you for contacting {{company_name}}, {{visitor_name}}!</h2><p>We have received your message regarding <strong>{{service_name}}</strong> and our team will get back to you within 24 hours.</p><p>Inquiry ID: <strong>#{{inquiry_id}}</strong></p>',
+                'variables_json' => json_encode(['visitor_name','service_name','inquiry_id','submission_date','company_name'])
+            ],
+            [
+                'template_key'   => 'contact_admin_notification',
+                'name'           => 'Contact Inquiry – Admin Notification',
+                'subject'        => 'New Contact Inquiry: {{service_name}} — {{visitor_name}}',
+                'body_html'      => '<h2>New Visitor Inquiry</h2><p><strong>From:</strong> {{visitor_name}}<br><strong>Email:</strong> {{visitor_email}}<br><strong>Service:</strong> {{service_name}}<br><strong>Inquiry ID:</strong> #{{inquiry_id}}</p>',
+                'variables_json' => json_encode(['visitor_name','visitor_email','service_name','inquiry_id','submission_date','company_name'])
+            ],
+            [
+                'template_key'   => 'job_application_confirmation',
+                'name'           => 'Job Application Status Update',
+                'subject'        => 'Update on your application for {{job_title}} — {{company_name}}',
+                'body_html'      => '<h2>Dear {{candidate_name}},</h2><p>There is an update on your application for <strong>{{job_title}}</strong> (Ref #{{application_id}}).</p><p>Status: <strong>{{status}}</strong></p>',
+                'variables_json' => json_encode(['candidate_name','job_title','application_id','status','company_name'])
+            ],
+            [
+                'template_key'   => 'password_reset',
+                'name'           => 'Password Reset Request',
+                'subject'        => 'Password Reset Request — {{company_name}} Admin',
+                'body_html'      => '<h2>Password Reset Request</h2><p>Hello {{admin_name}},</p><p>We received a request to reset your admin account password. Click the link below to set a new password:</p><p><a href="{{reset_url}}">Reset Password</a></p><p>If you did not request this, please ignore this email.</p>',
+                'variables_json' => json_encode(['admin_name','reset_url','company_name'])
+            ],
+            [
+                'template_key'   => 'admin_system_notification',
+                'name'           => 'Admin / System Notification',
+                'subject'        => 'System Notification: {{notification_subject}}',
+                'body_html'      => '<h2>System Notification</h2><p>{{notification_body}}</p><p>Date: {{submission_date}}</p>',
+                'variables_json' => json_encode(['notification_subject','notification_body','submission_date','company_name'])
+            ]
+        ];
+        $stmtTpl = $db->prepare("INSERT INTO `email_templates` (template_key, name, subject, body_html, variables_json) VALUES (?,?,?,?,?)");
+        foreach ($templates as $t) {
+            $stmtTpl->execute([$t['template_key'], $t['name'], $t['subject'], $t['body_html'], $t['variables_json']]);
+        }
     }
 } catch (Throwable $t) {}
 

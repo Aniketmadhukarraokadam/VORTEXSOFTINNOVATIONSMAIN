@@ -61,6 +61,8 @@ try {
     header('Pragma: public');
     header('Content-Length: ' . filesize($filepath));
 
+    log_admin_activity('Resume Downloaded', "Downloaded resume for application ID: {$id}");
+
     readfile($filepath);
     exit;
 

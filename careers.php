@@ -249,9 +249,18 @@ require_once __DIR__ . '/includes/header.php';
               <label class="form-label fw-semibold">LinkedIn Profile URL</label>
               <input type="url" class="form-control" name="linkedin_url" placeholder="https://linkedin.com/in/yourprofile">
             </div>
+            <input type="text" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
             <div class="col-12">
               <label class="form-label fw-semibold">Cover Letter / Why This Role?</label>
               <textarea class="form-control" name="cover_letter" rows="4" placeholder="Tell us why you're a great fit for this role..."></textarea>
+            </div>
+            <div class="col-12 mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="consent" id="consentCheck" required checked>
+                <label class="form-check-label" for="consentCheck" style="font-size:12.5px;color:#64748b;">
+                  I consent to Vortexsoft Group storing & processing my personal details and resume for recruitment purposes.
+                </label>
+              </div>
             </div>
             <div class="col-12">
               <button type="submit" class="btn-submit-apply magnetic" id="applySubmitBtn">
