@@ -83,7 +83,7 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#CC2228',
           'desc'=>'End-to-end revenue cycle management (RCM), medical coding, billing, denial management, and prior authorization services.',
           'items'=>['Medical Coding (ICD-10, CPT)','Medical Billing & AR Recovery','Denial Management & Appeals','Payment Posting & Verification'],
-          'link'=>'health-care-services/index.html'
+          'link'=>'health-care-services/index.php'
         ],
         [
           'title'=>'Publishing & Digital Media',
@@ -93,7 +93,7 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#1C2280',
           'desc'=>'Digital prepress, typesetting, eBook conversion (ePUB3, XML), accessibility tagging, and editorial production.',
           'items'=>['ePUB3 & Kindle Conversion','Digital Prepress & Typesetting','Alt-Text Writing & Image Description','WCAG PDF/eBook Accessibility'],
-          'link'=>'publishing-services/index.html'
+          'link'=>'publishing-services/index.php'
         ],
         [
           'title'=>'Real Estate & Title Services',
@@ -103,7 +103,7 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#10b981',
           'desc'=>'Lease administration, CAM audits, property accounting, title searches, policy typing, and mortgage settlement support.',
           'items'=>['CAM Reconciliation & Audit','Lease Abstraction & Administration','Property Accounting & Rent Roll','Title Search & Settlement Typing'],
-          'link'=>'real-estate-services/index.html'
+          'link'=>'real-estate-services/index.php'
         ],
         [
           'title'=>'IT & Software Solutions',
@@ -113,7 +113,7 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#5BA8D4',
           'desc'=>'Custom web/mobile software development, cloud infrastructure management, ERP integration, and AI app engineering.',
           'items'=>['Custom Web & Mobile Apps','ERP & CRM Customization','Cloud Maintenance & Helpdesk','Data Analytics as a Service'],
-          'link'=>'software-solutions/index.html'
+          'link'=>'software-solutions/index.php'
         ],
         [
           'title'=>'Data Annotation & AI',
@@ -123,7 +123,7 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#f59e0b',
           'desc'=>'High-precision image, video, audio, LiDAR, and text dataset labeling for computer vision and LLM model training.',
           'items'=>['Image Bounding Boxes & Polygons','Video Tracking & Action Tagging','Text & Audio NLP Annotation','Medical Image Labeling'],
-          'link'=>'data-annotation-services/index.html'
+          'link'=>'data-annotation-services/index.php'
         ],
         [
           'title'=>'Accounting & Finance BPO',
@@ -133,7 +133,7 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#8b5cf6',
           'desc'=>'Full-cycle bookkeeping, payroll processing, accounts payable/receivable management, and financial reporting.',
           'items'=>['Bookkeeping & Ledger Setup','Payroll Processing & Compliance','Accounts Payable / Receivable','Financial Reporting & Tax Support'],
-          'link'=>'accounting-services/index.html'
+          'link'=>'accounting-services/index.php'
         ],
         [
           'title'=>'Logistics & Supply Chain',
@@ -143,7 +143,7 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#ec4899',
           'desc'=>'Freight document processing, bill of lading entry, dispatch coordination, and supply chain data entry.',
           'items'=>['Bill of Lading Processing','Freight Audit & Data Entry','Inventory Tagging & Tracking','Shipping Logistics Analytics'],
-          'link'=>'logistics-services/index.html'
+          'link'=>'logistics-services/index.php'
         ],
         [
           'title'=>'Digital Marketing & Growth',
@@ -153,7 +153,7 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#1C2280',
           'desc'=>'Search engine optimization (SEO), Google/Meta ads management, content marketing, and e-commerce solutions.',
           'items'=>['Technical & On-Page SEO','PPC & Social Media Campaigns','E-Commerce Platform Setup','CRM Strategy & Automation'],
-          'link'=>'digital-marketing-service/index.html'
+          'link'=>'digital-marketing-service/index.php'
         ],
         [
           'title'=>'Technical Publications',
@@ -163,9 +163,10 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#CC2228',
           'desc'=>'Technical writing, XML conversion (S1000D/DITA), maintenance manuals, and illustrated parts catalogs for aerospace & defense.',
           'items'=>['Technical Manual Writing','S1000D / DITA XML Conversion','Illustrated Parts Catalogs (IPC)','Multi-lingual Documentation'],
-          'link'=>'technical-publication-service/index.html'
+          'link'=>'technical-publication-service/index.php'
         ]
       ];
+
 
 
       foreach($domains as $i=>$d): ?>
