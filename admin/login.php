@@ -15,31 +15,36 @@ require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
 
-// ── Brute-force lockout helper ────────────────────────────────
+// ── Brute-force lockout helper (file-based, persists across requests) ────
+function get_bf_file(string $ip): string {
+    return sys_get_temp_dir() . '/vx_bf_' . md5($ip) . '.json';
+}
+
 function is_locked_out(string $ip): bool {
-    $key   = 'bf_lock_' . md5($ip);
-    $data  = $_SESSION[$key] ?? ['count' => 0, 'locked_until' => 0];
-    if ($data['locked_until'] > time()) return true;
-    if ($data['locked_until'] !== 0 && $data['locked_until'] <= time()) {
-        // Reset after lockout expires
-        $_SESSION[$key] = ['count' => 0, 'locked_until' => 0];
-    }
+    $file = get_bf_file($ip);
+    if (!file_exists($file)) return false;
+    $data = json_decode(file_get_contents($file), true);
+    if (!$data) return false;
+    if (($data['locked_until'] ?? 0) > time()) return true;
+    // Lockout expired — delete file to reset
+    if ($data['locked_until'] > 0 && $data['locked_until'] <= time()) @unlink($file);
     return false;
 }
 
 function record_failed_attempt(string $ip): void {
-    $key  = 'bf_lock_' . md5($ip);
-    $data = $_SESSION[$key] ?? ['count' => 0, 'locked_until' => 0];
-    $data['count']++;
+    $file = get_bf_file($ip);
+    $data = file_exists($file) ? (json_decode(file_get_contents($file), true) ?: ['count' => 0, 'locked_until' => 0]) : ['count' => 0, 'locked_until' => 0];
+    $data['count'] = ($data['count'] ?? 0) + 1;
+    $data['last_attempt'] = time();
     if ($data['count'] >= 5) {
         $data['locked_until'] = time() + 900; // 15-minute lockout
         $data['count'] = 0;
     }
-    $_SESSION[$key] = $data;
+    file_put_contents($file, json_encode($data), LOCK_EX);
 }
 
 function reset_failed_attempts(string $ip): void {
-    $_SESSION['bf_lock_' . md5($ip)] = ['count' => 0, 'locked_until' => 0];
+    @unlink(get_bf_file($ip));
 }
 
 // ── CSRF token for login form ─────────────────────────────────

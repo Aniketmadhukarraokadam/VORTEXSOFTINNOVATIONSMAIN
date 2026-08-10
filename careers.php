@@ -121,6 +121,8 @@ require_once __DIR__ . '/includes/header.php';
 .skill-tag{background:rgba(28,34,128,.06);color:#1C2280;font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid rgba(28,34,128,.1)}
 .apply-btn{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:8px;border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:8px}
 .apply-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(28,34,128,.3);color:#fff}
+.job-card.hidden, .job-item.hidden { display: none !important; }
+.hidden { display: none !important; }
 .no-jobs-msg{display:none;text-align:center;padding:40px 20px;color:#64748b;font-size:15px}
 
 /* Application Form Modal */
@@ -373,9 +375,11 @@ function filterJobs(btn) {
   var visible = 0;
   items.forEach(function(item) {
     if (filter === "All" || item.getAttribute("data-category") === filter) {
+      item.style.display = "";
       item.classList.remove("hidden");
       visible++;
     } else {
+      item.style.display = "none";
       item.classList.add("hidden");
     }
   });
