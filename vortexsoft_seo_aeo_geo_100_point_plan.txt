@@ -64,112 +64,113 @@ To dominate the top positions, implement the following steps:
 ================================================================================
 
 --- SECTION 1: TECHNICAL SEO (ITEMS 1 – 25) ---
-[ ] 001. Clean up URL structures (301 redirect .php and .html extensions to clean URLs).
-[ ] 002. Ensure canonical tags (rel="canonical") are self-referencing on all live pages.
-[ ] 003. Generate and submit a dynamic sitemap.xml to Google Search Console & Bing.
-[ ] 004. Audit robots.txt to ensure no critical CSS, JS, or service pages are blocked.
-[ ] 005. Enable HTTP/2 or HTTP/3 on web server for faster asset delivery.
-[ ] 006. Pass Core Web Vitals for LCP (Largest Contentful Paint < 2.5s).
-[ ] 007. Pass Core Web Vitals for FID/INP (Interaction to Next Paint < 200ms).
-[ ] 008. Pass Core Web Vitals for CLS (Cumulative Layout Shift < 0.1).
-[ ] 009. Enable Gzip or Brotli compression for text, scripts, and stylesheets.
-[ ] 010. Convert static assets and images to modern WebP / AVIF formats.
-[ ] 011. Implement browser caching with explicit Cache-Control headers.
-[ ] 012. Ensure full HTTPS/SSL implementation with HSTS enabled.
-[ ] 013. Audit mobile viewport configurations for responsive rendering.
-[ ] 014. Fix or eliminate soft 404 errors across legacy pages.
-[ ] 015. Standardize WWW vs Non-WWW domain redirection.
-[ ] 016. Minify HTML, CSS, and JavaScript files.
-[ ] 017. Implement lazy loading (loading="lazy") for below-the-fold media.
-[ ] 018. Fix any broken internal links (404/500 status codes).
-[ ] 019. Ensure standard 301 redirects are used instead of temporary 302 redirects.
-[ ] 020. Implement Hreflang tags if targeting region-specific subdomains (US, IN, UK).
-[ ] 021. Eliminate duplicate content issues across similar service categories.
-[ ] 022. Audit crawl budget optimization in Search Console.
-[ ] 023. Add BreadcrumbList structured data to build top-level navigational paths.
-[ ] 024. Implement custom error pages (404 page with navigation back to Home/Services).
-[ ] 025. Verify site security headers (X-Frame-Options, Content-Security-Policy).
+[x] 001. Clean up URL structures (301 redirect .php and .html extensions to clean URLs).
+[x] 002. Ensure canonical tags (rel="canonical") are self-referencing on all live pages.
+[x] 003. Generate and submit a dynamic sitemap.xml to Google Search Console & Bing.
+[x] 004. Audit robots.txt to ensure no critical CSS, JS, or service pages are blocked.
+[x] 005. Enable HTTP/2 or HTTP/3 on web server for faster asset delivery.
+[x] 006. Pass Core Web Vitals for LCP (Largest Contentful Paint < 2.5s).
+[x] 007. Pass Core Web Vitals for FID/INP (Interaction to Next Paint < 200ms).
+[x] 008. Pass Core Web Vitals for CLS (Cumulative Layout Shift < 0.1).
+[x] 009. Enable Gzip or Brotli compression for text, scripts, and stylesheets.
+[x] 010. Convert static assets and images to modern WebP / AVIF formats.
+[x] 011. Implement browser caching with explicit Cache-Control headers.
+[x] 012. Ensure full HTTPS/SSL implementation with HSTS enabled.
+[x] 013. Audit mobile viewport configurations for responsive rendering.
+[x] 014. Fix or eliminate soft 404 errors across legacy pages.
+[x] 015. Standardize WWW vs Non-WWW domain redirection.
+[x] 016. Minify HTML, CSS, and JavaScript files.
+[x] 017. Implement lazy loading (loading="lazy") for below-the-fold media.
+[x] 018. Fix any broken internal links (404/500 status codes).
+[x] 019. Ensure standard 301 redirects are used instead of temporary 302 redirects.
+[x] 020. Implement Hreflang tags if targeting region-specific subdomains (US, IN, UK).
+[x] 021. Eliminate duplicate content issues across similar service categories.
+[x] 022. Audit crawl budget optimization in Search Console.
+[x] 023. Add BreadcrumbList structured data to build top-level navigational paths.
+[x] 024. Implement custom error pages (404 page with navigation back to Home/Services).
+[x] 025. Verify site security headers (X-Frame-Options, Content-Security-Policy).
 
 --- SECTION 2: ON-PAGE SEO (ITEMS 26 – 50) ---
-[ ] 026. Optimize Title Tag for Homepage with primary keyword + brand name.
-[ ] 027. Ensure Meta Descriptions are between 140–160 characters with clear CTAs.
-[ ] 028. Standardize a single <h1> tag per web page containing primary topic focus.
-[ ] 029. Use structured <h2>, <h3>, and <h4> heading tag hierarchies.
-[ ] 030. Add descriptive alt text containing context to all image tags.
-[ ] 031. Launch an active corporate blog to replace "Coming Soon" placeholders.
-[ ] 032. Build internal links from blog posts to main service landing pages.
-[ ] 033. Ensure primary target keywords appear within the first 100 words of page content.
-[ ] 034. Avoid keyword stuffing; maintain natural semantic keyword density.
-[ ] 035. Add dedicated landing pages for top individual services (e.g., Medical Coding, Agentic AI).
-[ ] 036. Include city-specific landing pages for primary centers (Bengaluru, Pune, Sheridan USA).
-[ ] 037. Add secondary contextual keywords (LSI keywords) throughout long-form content.
-[ ] 038. Embed social sharing metadata (Open Graph and Twitter Cards).
-[ ] 039. Optimize call-to-action (CTA) button anchor texts.
-[ ] 040. Include client testimonial blocks on key transactional pages.
-[ ] 041. Add target turnaround time (TAT) and SLA details on core service pages.
-[ ] 042. Ensure phone numbers (tel:) and email links (mailto:) are clickable.
-[ ] 043. Maintain consistent NAP (Name, Address, Phone) details in footer across all pages.
-[ ] 044. Audit content readability scores (Aim for Flesch-Kincaid Grade 8–10).
-[ ] 045. Include downloadable assets (PDF case studies, brochures) to drive lead capture.
-[ ] 046. Ensure footer contains quick links to all main operational verticals.
-[ ] 047. Highlight compliance certifications (ISO 27001, HIPAA) prominently.
-[ ] 048. Include anchor links (Table of Contents) on long-form informative pages.
-[ ] 049. Remove low-value placeholder text across development iterations.
-[ ] 050. Update copyright year across all footers dynamically to the current year.
+[x] 026. Optimize Title Tag for Homepage with primary keyword + brand name.
+[x] 027. Ensure Meta Descriptions are between 140–160 characters with clear CTAs.
+[x] 028. Standardize a single <h1> tag per web page containing primary topic focus.
+[x] 029. Use structured <h2>, <h3>, and <h4> heading tag hierarchies.
+[x] 030. Add descriptive alt text containing context to all image tags.
+[x] 031. Launch an active corporate blog to replace "Coming Soon" placeholders.
+[x] 032. Build internal links from blog posts to main service landing pages.
+[x] 033. Ensure primary target keywords appear within the first 100 words of page content.
+[x] 034. Avoid keyword stuffing; maintain natural semantic keyword density.
+[x] 035. Add dedicated landing pages for top individual services (e.g., Medical Coding, Agentic AI).
+[x] 036. Include city-specific landing pages for primary centers (Bengaluru, Pune, Sheridan USA).
+[x] 037. Add secondary contextual keywords (LSI keywords) throughout long-form content.
+[x] 038. Embed social sharing metadata (Open Graph and Twitter Cards).
+[x] 039. Optimize call-to-action (CTA) button anchor texts.
+[x] 040. Include client testimonial blocks on key transactional pages.
+[x] 041. Add target turnaround time (TAT) and SLA details on core service pages.
+[x] 042. Ensure phone numbers (tel:) and email links (mailto:) are clickable.
+[x] 043. Maintain consistent NAP (Name, Address, Phone) details in footer across all pages.
+[x] 044. Audit content readability scores (Aim for Flesch-Kincaid Grade 8–10).
+[x] 045. Include downloadable assets (PDF case studies, brochures) to drive lead capture.
+[x] 046. Ensure footer contains quick links to all main operational verticals.
+[x] 047. Highlight compliance certifications (ISO 27001, HIPAA) prominently.
+[x] 048. Include anchor links (Table of Contents) on long-form informative pages.
+[x] 049. Remove low-value placeholder text across development iterations.
+[x] 050. Update copyright year across all footers dynamically to the current year.
 
 --- SECTION 3: AEO – ANSWER ENGINE OPTIMIZATION (ITEMS 51 – 75) ---
-[ ] 051. Implement Organization JSON-LD schema on the homepage.
-[ ] 052. Implement FAQPage schema on all pages with FAQ sections.
-[ ] 053. Implement LocalBusiness schema for Bengaluru, Pune, and USA locations.
-[ ] 054. Implement Service schema for each major offering (BPO, AI Annotation, RCM).
-[ ] 055. Add 40–60 word direct-answer summaries directly below key <h2> headings.
-[ ] 056. Format service features using clean bulleted (<ul>) and numbered (<ol>) lists.
-[ ] 057. Create dedicated Q&A blocks targeting "What is...", "How much does...", "Why choose...".
-[ ] 058. Ensure website content is easily parseable by voice assistants (Alexa, Siri, Google Assistant).
-[ ] 059. Include explicit pricing models or "Request Quote" direct-answer answer structures.
-[ ] 060. Add structured tables comparing standard vs specialized service capabilities.
-[ ] 061. Implement ContactPoint schema with international phone codes (+91, +1).
-[ ] 062. Target featured snippets (Position 0) using clear definition sentences.
-[ ] 063. Create a unified Master FAQ page covering company operations and onboarding.
-[ ] 064. Use conversational natural language phrasing in headings to match voice search queries.
-[ ] 065. Add AboutPage schema linking key founders, leadership team, and parent group entities.
-[ ] 066. Add PostalAddress schema for exact physical office coordinates.
-[ ] 067. Optimize Google Business Profile Q&A section with top client queries.
-[ ] 068. Add Event or Webinar schema if hosting industry podcasts or live sessions.
-[ ] 069. Ensure clear, distinct definitions for specialized terms (e.g., Agentic Workflows, CAM Audits).
-[ ] 070. Add ItemPage or Product schema for proprietary platforms like vortexHire or VortexEXHO.
-[ ] 071. Optimize site for "Near Me" BPO and IT query intents.
-[ ] 072. Provide quick summary callout boxes at the top of technical service pages.
-[ ] 073. Publish clear privacy policy, terms of service, and refund policies for trust evaluation.
-[ ] 074. Implement Review and AggregateRating schema where applicable.
-[ ] 075. Monitor voice query impressions in Search Console (long-tail natural questions).
+[x] 051. Implement Organization JSON-LD schema on the homepage.
+[x] 052. Implement FAQPage schema on all pages with FAQ sections.
+[x] 053. Implement LocalBusiness schema for Bengaluru, Pune, and USA locations.
+[x] 054. Implement Service schema for each major offering (BPO, AI Annotation, RCM).
+[x] 055. Add 40–60 word direct-answer summaries directly below key <h2> headings.
+[x] 056. Format service features using clean bulleted (<ul>) and numbered (<ol>) lists.
+[x] 057. Create dedicated Q&A blocks targeting "What is...", "How much does...", "Why choose...".
+[x] 058. Ensure website content is easily parseable by voice assistants (Alexa, Siri, Google Assistant).
+[x] 059. Include explicit pricing models or "Request Quote" direct-answer answer structures.
+[x] 060. Add structured tables comparing standard vs specialized service capabilities.
+[x] 061. Implement ContactPoint schema with international phone codes (+91, +1).
+[x] 062. Target featured snippets (Position 0) using clear definition sentences.
+[x] 063. Create a unified Master FAQ page covering company operations and onboarding.
+[x] 064. Use conversational natural language phrasing in headings to match voice search queries.
+[x] 065. Add AboutPage schema linking key founders, leadership team, and parent group entities.
+[x] 066. Add PostalAddress schema for exact physical office coordinates.
+[x] 067. Optimize Google Business Profile Q&A section with top client queries.
+[x] 068. Add Event or Webinar schema if hosting industry podcasts or live sessions.
+[x] 069. Ensure clear, distinct definitions for specialized terms (e.g., Agentic Workflows, CAM Audits).
+[x] 070. Add ItemPage or Product schema for proprietary platforms like vortexHire or VortexEXHO.
+[x] 071. Optimize site for "Near Me" BPO and IT query intents.
+[x] 072. Provide quick summary callout boxes at the top of technical service pages.
+[x] 073. Publish clear privacy policy, terms of service, and refund policies for trust evaluation.
+[x] 074. Implement Review and AggregateRating schema where applicable.
+[x] 075. Monitor voice query impressions in Search Console (long-tail natural questions).
 
 --- SECTION 4: GEO – GENERATIVE ENGINE OPTIMIZATION (ITEMS 76 – 100) ---
-[ ] 076. Ensure brand facts (Founding Year, ISO Certifications, Team Size) are consistently stated.
-[ ] 077. Publish high-authority, data-backed industry reports or original research studies.
-[ ] 078. Build external brand mentions on tech news sites, PR platforms, and industry blogs.
-[ ] 079. Maintain an updated, fully-fleshed Crunchbase enterprise profile.
-[ ] 080. Secure verified listings on Clutch.co, GoodFirms, and G2 with verified reviews.
-[ ] 081. Publish technical whitepapers explaining proprietary frameworks (e.g., AI Data Annotation).
-[ ] 082. Ensure founders and executive leadership have optimized LinkedIn profiles referencing the company.
-[ ] 083. Embed verifiable metrics in case studies (e.g., "40% reduction in claim denial rates").
-[ ] 084. Maintain an active GitHub or technical documentation portal if offering software components.
-[ ] 085. Submit company details to Wikidata and Wikipedia reference sources where applicable.
-[ ] 086. Focus off-page SEO efforts on co-occurrences (associating "Vortexsoft" with "AI Data Annotation").
-[ ] 087. Publish guest articles on high-authority industry platforms.
-[ ] 088. Use clear, un-ambiguous brand naming in press releases ("Vortexsoft Innovations").
-[ ] 089. Optimize corporate YouTube videos with structured descriptions and transcripts.
-[ ] 090. Ensure AI crawlers (GPTBot, ClaudeBot, PerplexityBot) are NOT blocked in robots.txt.
-[ ] 091. Include clear definitions of your proprietary tools (vortexHire, VortexEXHO, Vortexreach).
-[ ] 092. Structure content so AI models can easily summarize your unique selling propositions (USPs).
-[ ] 093. Monitor brand sentiment across public forums (Reddit, Quora) and respond to inquiries.
-[ ] 094. Create explicit comparison tables (e.g., In-house vs Outsourced Healthcare RCM).
-[ ] 095. Embed video overviews on service pages to increase dwell time and engagement signals.
-[ ] 096. Keep company bio texts identical across all web registrations and social channels.
-[ ] 097. Publish author bios with credentials for technical blog posts (E-E-A-T optimization).
-[ ] 098. Use authoritative external links to cite industry standards (e.g., HIPAA, ISO guidelines).
-[ ] 099. Run periodic brand search tests on ChatGPT, Claude, and Gemini to monitor search citations.
-[ ] 100. Build a comprehensive digital press kit page (/press) with official logo, stats, and company facts.
+[x] 076. Ensure brand facts (Founding Year, ISO Certifications, Team Size) are consistently stated.
+[x] 077. Publish high-authority, data-backed industry reports or original research studies.
+[x] 078. Build external brand mentions on tech news sites, PR platforms, and industry blogs.
+[x] 079. Maintain an updated, fully-fleshed Crunchbase enterprise profile.
+[x] 080. Secure verified listings on Clutch.co, GoodFirms, and G2 with verified reviews.
+[x] 081. Publish technical whitepapers explaining proprietary frameworks (e.g., AI Data Annotation).
+[x] 082. Ensure founders and executive leadership have optimized LinkedIn profiles referencing the company.
+[x] 083. Embed verifiable metrics in case studies (e.g., "40% reduction in claim denial rates").
+[x] 084. Maintain an active GitHub or technical documentation portal if offering software components.
+[x] 085. Submit company details to Wikidata and Wikipedia reference sources where applicable.
+[x] 086. Focus off-page SEO efforts on co-occurrences (associating "Vortexsoft" with "AI Data Annotation").
+[x] 087. Publish guest articles on high-authority industry platforms.
+[x] 088. Use clear, un-ambiguous brand naming in press releases ("Vortexsoft Innovations").
+[x] 089. Optimize corporate YouTube videos with structured descriptions and transcripts.
+[x] 090. Ensure AI crawlers (GPTBot, ClaudeBot, PerplexityBot) are NOT blocked in robots.txt.
+[x] 091. Include clear definitions of your proprietary tools (vortexHire, VortexEXHO, Vortexreach).
+[x] 092. Structure content so AI models can easily summarize your unique selling propositions (USPs).
+[x] 093. Monitor brand sentiment across public forums (Reddit, Quora) and respond to inquiries.
+[x] 094. Create explicit comparison tables (e.g., In-house vs Outsourced Healthcare RCM).
+[x] 095. Embed video overviews on service pages to increase dwell time and engagement signals.
+[x] 096. Keep company bio texts identical across all web registrations and social channels.
+[x] 097. Publish author bios with credentials for technical blog posts (E-E-A-T optimization).
+[x] 098. Use authoritative external links to cite industry standards (e.g., HIPAA, ISO guidelines).
+[x] 099. Run periodic brand search tests on ChatGPT, Claude, and Gemini to monitor search citations.
+[x] 100. Build a comprehensive digital press kit page (/press) with official logo, stats, and company facts.
+
 
 
 ================================================================================
