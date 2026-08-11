@@ -123,7 +123,9 @@ function nav_active(string $page, string $path): string {
           "@id": "<?= SITE_URL ?>/#corporation",
           "name": "Vortexsoft Group",
           "legalName": "Vortexsoft Innovations Pvt. Ltd.",
+          "alternateName": ["Vortexsoft", "Vortex Soft", "Vortex Innovations", "Vortex Group", "Vortex", "Vertex"],
           "url": "<?= SITE_URL ?>",
+
           "logo": "<?= SITE_URL ?>/logo-header.png",
           "contactPoint": [
             {
