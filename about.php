@@ -4,9 +4,10 @@
  * Comprehensive Corporate Profile & Strategic Overview
  */
 
-$page_title   = 'About Us — Vortexsoft Group | Leading Global IT & BPO Outsourcing Company';
-$page_desc    = 'Learn about Vortexsoft Group, an ISO 27001 certified global IT & BPO company headquartered in Pune with offices in Bengaluru and USA, delivering Healthcare BPO, Publishing, Real Estate, AI, and Software solutions since 2020.';
+$page_title   = 'About Us | Global IT & BPO Partner | Vortexsoft Group';
+$page_desc    = 'Discover Vortexsoft Group — an ISO 27001 certified global IT & BPO outsourcing company in Pune, Bengaluru, and USA delivering Healthcare, AI, and Software.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/about.php';
+
 $prefix       = './';
 
 require_once __DIR__ . '/config/constants.php';

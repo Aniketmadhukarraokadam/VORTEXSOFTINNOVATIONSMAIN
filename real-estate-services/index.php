@@ -4,9 +4,10 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Real Estate BPO Services | End-to-End Property Outsourcing | Global & India BPO Partner | Vortexsoft Group';
-$page_desc     = 'Vortexsoft real estate BPO: lease admin, CAM, accounting, title support, mortgage escrow — one provider for all your real estate back-office needs.';
+$page_title    = 'Real Estate BPO Services | Vortexsoft Group';
+$page_desc     = 'Vortexsoft real estate BPO: lease administration, CAM reconciliation, property accounting, title settlement, and mortgage escrow outsourcing.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/real-estate-services/';
+
 $prefix        = '../';
 
 require_once __DIR__ . '/../config/constants.php';

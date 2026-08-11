@@ -4,9 +4,10 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Manpower & Payroll Services | Contract Staffing + Payroll | Global & India BPO Partner | Vortexsoft Group';
-$page_desc     = 'Vortexsoft provides end-to-end manpower supply and payroll management — contract staffing, statutory compliance, payroll processing for 1–5000+ employees. Premium Indian & global BPO partner.';
+$page_title    = 'Manpower & Payroll Services | Vortexsoft Group';
+$page_desc     = 'Vortexsoft manpower supply and payroll outsourcing: contract staffing, recruitment, statutory compliance, and payroll processing.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/manpower-payroll-services/';
+
 $prefix        = '../';
 
 require_once __DIR__ . '/../config/constants.php';

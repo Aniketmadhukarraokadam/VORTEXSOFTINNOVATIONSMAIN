@@ -4,9 +4,10 @@
  * Reads published posts from MySQL database
  */
 
-$page_title   = 'Blog — IT, BPO & AI Insights | Vortexsoft Group';
-$page_desc    = 'Explore Vortexsoft Group\'s blog for expert insights on IT outsourcing, healthcare BPO, AI solutions, publishing services, real estate BPO, and digital transformation trends.';
+$page_title   = 'Blog & Industry Insights | Vortexsoft Group';
+$page_desc    = 'Explore Vortexsoft Group\'s blog for expert insights on IT outsourcing, healthcare BPO, AI solutions, publishing services, and digital trends.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/blog.php';
+
 $prefix       = './';
 
 require_once __DIR__ . '/config/constants.php';

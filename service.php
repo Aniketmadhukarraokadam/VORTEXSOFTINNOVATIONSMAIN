@@ -3,9 +3,10 @@
  * Vortexsoft Innovations — Services Directory Page (service.php)
  */
 
-$page_title   = 'All Services — Vortexsoft Group | 65+ IT, BPO, Healthcare & AI Solutions';
-$page_desc    = 'Explore 65+ services by Vortexsoft Group: Healthcare BPO, Publishing, Real Estate, IT Solutions, Data Annotation for AI, Accounting, Logistics, and Digital Marketing.';
+$page_title   = 'IT & BPO Services | Vortexsoft Group';
+$page_desc    = 'Explore 65+ services by Vortexsoft Group: Healthcare BPO, Publishing, Real Estate, IT Solutions, Data Annotation for AI, Accounting, and Digital Marketing.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/service.php';
+
 $prefix       = './';
 
 require_once __DIR__ . '/config/constants.php';

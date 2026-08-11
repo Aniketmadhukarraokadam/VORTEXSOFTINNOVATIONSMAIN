@@ -4,9 +4,10 @@
  * Converted from index.html — Full content preserved
  */
 
-$page_title   = 'Top Global IT & BPO Outsourcing Company in India | AI Services | Vortexsoft Group';
-$page_desc    = 'Vortexsoft Group — ISO 27001 certified global IT & BPO outsourcing company in Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation & 75+ services for 150+ clients worldwide.';
+$page_title   = 'Top Global IT & BPO Company | Vortexsoft Group';
+$page_desc    = 'Vortexsoft Group is an ISO 27001 certified global IT & BPO outsourcing partner specializing in AI solutions, Healthcare BPO, Publishing, and Real Estate.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/';
+
 $prefix       = './';
 
 $extra_head = '
@@ -163,7 +164,8 @@ require_once __DIR__ . '/includes/header.php';
         </p>
         <div class="hero-btns scroll-reveal">
           <a href="contact.php" class="btn-hero-primary magnetic"><i class="fas fa-paper-plane"></i> Get Free Consultation</a>
-          <a href="about.php" class="btn-hero-secondary"><i class="fas fa-play-circle"></i> Learn More</a>
+          <a href="about.php" class="btn-hero-secondary"><i class="fas fa-play-circle"></i> Explore Company Profile</a>
+
         </div>
         <div class="hero-stats scroll-reveal">
           <div class="hero-stat"><div class="number" data-counter data-target="6">6<span>+</span></div><div class="label">Years Experience</div></div>

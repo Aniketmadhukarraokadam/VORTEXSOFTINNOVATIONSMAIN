@@ -291,9 +291,9 @@ function nav_active(string $page, string $path): string {
         <span class="d-none d-xl-inline-flex align-items-center gap-2"><i class="fas fa-map-marker-alt"></i> Bengaluru &amp; Pune, India</span>
       </div>
       <div class="topbar-social d-flex align-items-center gap-1">
-        <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
       </div>
     </div>
   </div>
@@ -303,8 +303,9 @@ function nav_active(string $page, string $path): string {
 <nav class="navbar navbar-expand-lg" id="mainNavbar">
   <div class="container">
     <a class="navbar-brand" href="<?= $prefix ?>index.php">
-      <img src="<?= $prefix ?>logo-header.png?v=20260810" alt="Vortexsoft Innovations — Global IT &amp; BPO Company">
+      <img src="<?= $prefix ?>logo-header.png?v=20260810" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="240" height="70">
     </a>
+
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
             aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">

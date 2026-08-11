@@ -3,9 +3,10 @@
  * Vortexsoft Innovations — Contact Page (contact.php)
  */
 
-$page_title   = 'Contact Us — Vortexsoft Group | Pune Headquarters | IT & BPO Outsourcing India';
-$page_desc    = 'Contact Vortexsoft Group for IT outsourcing, BPO, healthcare, publishing, or AI solutions. Call +91-8308906690 or email support@vortexsoftinnovations.com. Headquartered in Pune with offices in Bengaluru and USA.';
+$page_title   = 'Contact Us | Global IT Support | Vortexsoft Group';
+$page_desc    = 'Contact Vortexsoft Group for IT outsourcing, BPO, healthcare, publishing, or AI solutions. Pune Headquarters & offices in Bengaluru and USA.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/contact.php';
+
 $prefix       = './';
 
 require_once __DIR__ . '/config/constants.php';
@@ -173,7 +174,7 @@ require_once __DIR__ . '/includes/header.php';
               502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune, Maharashtra 411041, India
             </p>
             <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
-              <a href="https://share.google/XKt2SVYsKfiNqrVGx" target="_blank" style="font-size:13px;font-weight:700;color:#CC2228;text-decoration:none;"><i class="fas fa-map-marked-alt me-1"></i>Open Google Map Link</a>
+              <a href="https://share.google/XKt2SVYsKfiNqrVGx" target="_blank" rel="noopener noreferrer" style="font-size:13px;font-weight:700;color:#CC2228;text-decoration:none;"><i class="fas fa-map-marked-alt me-1"></i>Open Google Map Link</a>
               <a href="tel:+918308906690" style="font-size:12.5px;font-weight:600;color:#1C2280;text-decoration:none;"><i class="fas fa-phone-alt me-1"></i>+91-8308906690</a>
             </div>
           </div>
@@ -186,8 +187,9 @@ require_once __DIR__ . '/includes/header.php';
             <h6 style="font-family:'Poppins',sans-serif;font-weight:700;color:#475569;margin-bottom:4px;">Bengaluru Branch Office</h6>
             <p style="font-size:13px;color:#64748b;margin-bottom:8px;">No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068</p>
             <div style="display:flex;gap:12px;flex-wrap:wrap;">
-              <a href="https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" style="font-size:12px;font-weight:600;color:#64748b;text-decoration:none;"><i class="fas fa-directions me-1"></i>Directions</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:600;color:#64748b;text-decoration:none;"><i class="fas fa-directions me-1"></i>Directions</a>
             </div>
+
           </div>
         </div>
 

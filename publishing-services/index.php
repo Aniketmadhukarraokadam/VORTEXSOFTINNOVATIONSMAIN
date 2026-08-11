@@ -4,9 +4,10 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Publishing Services | STM Journals, Books & Reports | Global & India BPO Partner | Vortexsoft Group';
-$page_desc     = 'Full-service publishing BPO by Vortexsoft: copyediting, typesetting, layout, proofreading, peer review support. STM journals, trade books, academic publishing.';
+$page_title    = 'Publishing Services | Vortexsoft Group';
+$page_desc     = 'Full-service publishing BPO by Vortexsoft: copyediting, typesetting, ePUB3, JATS XML, and PDF accessibility for STM journals and publishers.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/publishing-services/';
+
 $prefix        = '../';
 
 require_once __DIR__ . '/../config/constants.php';

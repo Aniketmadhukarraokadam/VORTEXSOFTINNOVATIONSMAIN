@@ -4,9 +4,10 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Accounting Services | Outsourced Bookkeeping & Compliance | Global & India BPO Partner | Vortexsoft Group';
-$page_desc     = 'Vortexsoft provides end-to-end accounting outsourcing — bookkeeping, reconciliation, AP/AR, compliance, MIS reporting. Save 40–60% vs in-house teams. Premium Indian & global BPO partner.';
+$page_title    = 'Accounting & Bookkeeping Services | Vortexsoft Group';
+$page_desc     = 'Vortexsoft provides outsourced accounting, bookkeeping, AP/AR processing, payroll, and financial compliance for global businesses.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/accounting-services/';
+
 $prefix        = '../';
 
 require_once __DIR__ . '/../config/constants.php';

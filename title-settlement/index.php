@@ -4,9 +4,10 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Title & Settlement Services | Title Search & Closing Support | Global & India BPO Partner | Vortexsoft Group';
-$page_desc     = 'Vortexsoft title and settlement: title search, exam, commitment preparation, closing documents, policy issuance. Turnaround cut from 5 days to 48 hours. Premium Indian & global BPO partner.';
+$page_title    = 'Title & Settlement Services | Vortexsoft Group';
+$page_desc     = 'Vortexsoft title & settlement outsourcing: title search, commitment prep, closing documents, and policy issuance for US title agencies.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/title-settlement/';
+
 $prefix        = '../';
 
 require_once __DIR__ . '/../config/constants.php';

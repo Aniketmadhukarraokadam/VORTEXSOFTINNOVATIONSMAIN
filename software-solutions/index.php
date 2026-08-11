@@ -4,9 +4,10 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Custom Software Solutions | Web, Mobile & Enterprise Apps | Global & India BPO Partner | Vortexsoft Group';
-$page_desc     = 'Custom software development by Vortexsoft — web apps, mobile apps, APIs, SaaS and enterprise systems. React, Node.js, Python, Flutter. Free quote available. Premium Indian & global BPO partner.';
+$page_title    = 'Custom Software Solutions | Vortexsoft Group';
+$page_desc     = 'Custom software development by Vortexsoft: enterprise web apps, mobile apps, CRM, ERP, and API integrations with dedicated developer pods.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/software-solutions/';
+
 $prefix        = '../';
 
 require_once __DIR__ . '/../config/constants.php';

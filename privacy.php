@@ -3,9 +3,10 @@
  * Vortexsoft Innovations — Privacy Policy (privacy.php)
  */
 
-$page_title   = 'Privacy Policy — Vortexsoft Group | ISO 27001 Certified Data Security';
-$page_desc    = 'Vortexsoft Group Privacy Policy. Learn how we handle, store, and protect client and website user data under ISO 27001 standards.';
+$page_title   = 'Privacy Policy | Vortexsoft Group';
+$page_desc    = 'Vortexsoft Group Privacy Policy. Learn how we collect, process, and protect client data under ISO 27001 & HIPAA compliance standards.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/privacy.php';
+
 $prefix       = './';
 
 require_once __DIR__ . '/config/constants.php';

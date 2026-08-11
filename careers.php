@@ -5,9 +5,10 @@
  * V3: Category tabs, 20 job openings, general application form
  */
 
-$page_title   = 'Careers at Vortexsoft Group — Join Our Team | IT & BPO Jobs in Bengaluru, India';
-$page_desc    = 'Explore exciting career opportunities at Vortexsoft Group. Join our team of 200+ professionals in Bengaluru & Pune. Apply online for IT, BPO, Healthcare, Publishing, Data Annotation, and more roles.';
+$page_title   = 'Careers & Job Openings | Vortexsoft Group';
+$page_desc    = 'Explore career opportunities at Vortexsoft Group. Join 200+ professionals in Bengaluru & Pune. Apply online for IT, BPO, and Healthcare roles.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/careers.php';
+
 $prefix       = './';
 
 require_once __DIR__ . '/config/constants.php';

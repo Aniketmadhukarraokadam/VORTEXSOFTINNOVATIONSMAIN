@@ -4,9 +4,10 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Digital Marketing Services | SEO, PPC, Social Media | Global & India BPO Partner | Vortexsoft Group';
-$page_desc     = 'Vortexsoft Advanced BPO outsourcing from India for global clients.';
+$page_title    = 'Digital Marketing Services | Vortexsoft Group';
+$page_desc     = 'Vortexsoft Digital Marketing Services: SEO, PPC advertising, social media marketing, content strategy, and lead generation for global businesses.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/digital-marketing-service/';
+
 $prefix        = '../';
 
 require_once __DIR__ . '/../config/constants.php';

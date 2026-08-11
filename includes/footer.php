@@ -75,9 +75,8 @@ $prefix = $prefix ?? './';
       <!-- Brand Column -->
       <div class="col-lg-3 col-md-6 scroll-reveal">
         <a href="<?= $prefix ?>index.php">
-          <img src="<?= $prefix ?>logo-footer.png?v=20260810" alt="Vortexsoft Innovations" class="footer-logo">
+          <img src="<?= $prefix ?>logo-footer.png?v=20260810" alt="Vortexsoft Innovations" class="footer-logo" width="200" height="55">
         </a>
-
 
         <p class="footer-desc">
           Vortexsoft Innovations Pvt. Ltd. is a proud member of the
@@ -85,10 +84,11 @@ $prefix = $prefix ?? './';
           — your trusted global partner for IT and non-IT solutions. ISO 27001 Certified.
         </p>
         <div class="footer-social">
-          <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
+
       </div>
 
       <!-- Quick Links -->
