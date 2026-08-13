@@ -1,0 +1,10 @@
+## Vortexsoft — /admin/blog/.htaccess
+## All files in this directory require admin auth (handled by PHP)
+## Block direct file access to non-PHP files
+
+Options -Indexes
+<FilesMatch "\.(sql|log|env|ini|conf|bak|old|tmp)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>

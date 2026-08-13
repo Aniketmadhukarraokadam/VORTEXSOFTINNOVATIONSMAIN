@@ -140,6 +140,7 @@ tr:hover td{background:#fafbff}
     <a href="applications.php" class="sidebar-link"><span class="icon"><i class="fas fa-briefcase"></i></span> Applications</a>
     <div class="nav-section">Content</div>
     <a href="blog-posts.php" class="sidebar-link active"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
+    <a href="blog/generate.php" class="sidebar-link"><span class="icon"><i class="fas fa-robot"></i></span> AI Blog Generator</a>
     <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
     <div class="nav-section">System</div>
     <a href="settings.php" class="sidebar-link"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a>
@@ -156,10 +157,16 @@ tr:hover td{background:#fafbff}
       <h1><i class="fas fa-pen-alt me-2" style="color:#CC2228;"></i> Blog Posts Manager</h1>
       <div style="font-size:13px;color:#64748b;">Create, edit, and publish blog posts to your website.</div>
     </div>
-    <button class="btn" style="background:#1C2280;color:#fff;border-radius:10px;font-weight:700;font-size:13px;padding:10px 20px;" onclick="document.getElementById('postEditorModal').style.display='block';">
-      <i class="fas fa-plus me-1"></i> New Blog Post
-    </button>
+    <div class="d-flex gap-2 flex-wrap">
+      <a href="blog/generate.php" class="btn" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-radius:10px;font-weight:600;font-size:13px;padding:10px 18px;text-decoration:none;">
+        <i class="fas fa-robot me-1"></i> AI Generate
+      </a>
+      <button class="btn" style="background:#CC2228;color:#fff;border-radius:10px;font-weight:700;font-size:13px;padding:10px 20px;" onclick="document.getElementById('postEditorModal').style.display='block';">
+        <i class="fas fa-plus me-1"></i> New Blog Post
+      </button>
+    </div>
   </div>
+
 
   <?php if (!empty($_GET['msg'])): ?>
   <div class="alert alert-success mb-4" style="border-radius:12px;"><i class="fas fa-check-circle me-2"></i> Post saved/updated successfully.</div>

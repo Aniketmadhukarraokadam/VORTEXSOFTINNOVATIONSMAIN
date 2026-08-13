@@ -140,7 +140,23 @@ CREATE TABLE IF NOT EXISTS `system_settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ────────────────────────────────────────────────────────────
--- 7. SEED INITIAL DATA
+-- 7. AI GENERATION AUDIT LOG
+-- ────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS `ai_generation_logs` (
+  `id`             INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+  `topic`          VARCHAR(500)  NOT NULL,
+  `target_keyword` VARCHAR(255)  NOT NULL,
+  `admin_id`       INT UNSIGNED  DEFAULT NULL,
+  `admin_username` VARCHAR(120)  DEFAULT NULL,
+  `created_at`     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_admin_id`  (`admin_id`),
+  INDEX `idx_created_at`(`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+  COMMENT='Audit log for AI blog generation batches — for cost tracking';
+
+-- ────────────────────────────────────────────────────────────
+-- 8. SEED INITIAL DATA
 -- ────────────────────────────────────────────────────────────
 
 -- Admin Accounts
