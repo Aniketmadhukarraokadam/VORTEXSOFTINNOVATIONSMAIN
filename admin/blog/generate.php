@@ -10,6 +10,10 @@
 
 session_start();
 
+// Allow up to 180 seconds for 3-provider AI API calls
+@set_time_limit(180);
+@ini_set('max_execution_time', '180');
+
 require_once __DIR__ . '/../../config/constants.php';
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../includes/functions.php';
