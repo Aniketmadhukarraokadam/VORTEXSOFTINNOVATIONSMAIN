@@ -101,12 +101,34 @@ function _ai_parse_json_content(string $content): array {
     $content = preg_replace('/\s*```\s*$/i', '', $content);
     $content = trim($content);
 
+    // Try standard decode first
     $decoded = json_decode($content, true);
+
+    // If failed, fix unescaped control chars and newlines in HTML strings
     if (!is_array($decoded)) {
-        throw new RuntimeException('Provider returned malformed JSON: ' . substr($content, 0, 200));
+        $clean = preg_replace_callback('/"body"\s*:\s*"(.*?)"\s*([,}])/s', function($m) {
+            $body_val = str_replace(["\r\n", "\n", "\r", "\t"], ["\\n", "\\n", "\\n", "\\t"], $m[1]);
+            return '"body":"' . $body_val . '"' . $m[2];
+        }, $content);
+        $decoded = json_decode($clean, true);
     }
-    if (empty($decoded['title']) || empty($decoded['body'])) {
-        throw new RuntimeException('Provider JSON missing required fields (title/body).');
+
+    // Fallback: Regex extraction if model returns partially invalid JSON formatting
+    if (!is_array($decoded)) {
+        $title   = '';
+        $excerpt = '';
+        $body    = '';
+        if (preg_match('/"title"\s*:\s*"([^"]+)"/', $content, $m))   $title   = $m[1];
+        if (preg_match('/"excerpt"\s*:\s*"([^"]+)"/', $content, $m)) $excerpt = $m[1];
+        if (preg_match('/"body"\s*:\s*"(.*)"\s*\}?$/s', $content, $m)) $body  = $m[1];
+
+        if ($title && $body) {
+            $decoded = ['title' => $title, 'excerpt' => $excerpt, 'body' => $body];
+        }
+    }
+
+    if (!is_array($decoded) || empty($decoded['title']) || empty($decoded['body'])) {
+        throw new RuntimeException('Provider returned malformed JSON: ' . substr($content, 0, 200));
     }
     return [
         'title'   => (string)($decoded['title']   ?? ''),
@@ -131,7 +153,7 @@ function generateWithGroq(array $prompt): array {
             ['role' => 'user',   'content' => $prompt['user']],
         ],
         'temperature'     => 0.7,
-        'max_tokens'      => 2048,
+        'max_tokens'      => 4096,
         'response_format' => ['type' => 'json_object'],
     ]);
 
@@ -173,7 +195,7 @@ function generateWithGemini(array $prompt): array {
         ],
         'generationConfig' => [
             'temperature'     => 0.7,
-            'maxOutputTokens' => 2048,
+            'maxOutputTokens' => 4096,
             'responseMimeType'=> 'application/json',
         ],
     ]);
@@ -211,7 +233,7 @@ function generateWithOpenRouter(array $prompt): array {
             ['role' => 'user',   'content' => $prompt['user']],
         ],
         'temperature' => 0.7,
-        'max_tokens'  => 2048,
+        'max_tokens'  => 4096,
     ]);
 
     $headers = [
