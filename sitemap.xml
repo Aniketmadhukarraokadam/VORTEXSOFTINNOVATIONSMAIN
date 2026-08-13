@@ -40,6 +40,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://www.vortexsoftinnovations.com/terms.php</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://www.vortexsoftinnovations.com/blog.php</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>weekly</changefreq>

@@ -102,6 +102,7 @@ $prefix = $prefix ?? './';
           <li><a href="<?= $prefix ?>blog.php">Blog</a></li>
           <li><a href="<?= $prefix ?>index.php#faq">FAQ</a></li>
           <li><a href="<?= $prefix ?>privacy.php">Privacy Policy</a></li>
+          <li><a href="<?= $prefix ?>terms.php">Terms of Service</a></li>
           <li><a href="<?= $prefix ?>contact.php">Contact</a></li>
         </ul>
       </div>
@@ -195,6 +196,7 @@ $prefix = $prefix ?? './';
         <p style="margin:0;display:flex;gap:16px;">
           <a href="<?= $prefix ?>index.php#faq" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">FAQ</a>
           <a href="<?= $prefix ?>privacy.php" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">Privacy Policy</a>
+          <a href="<?= $prefix ?>terms.php" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">Terms &amp; Conditions</a>
         </p>
       </div>
     </div>

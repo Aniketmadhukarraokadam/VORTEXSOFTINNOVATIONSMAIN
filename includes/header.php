@@ -21,8 +21,13 @@ $page_desc    = $page_desc ?? 'Vortexsoft Group — ISO 27001 certified global I
 $canonical_url = $canonical_url ?? SITE_URL . '/';
 $og_image     = $og_image ?? SITE_URL . '/logo-header.jpg';
 
-// Detect active page
-$current_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Detect active page & path
+$current_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+$canonical_url = $canonical_url ?? (SITE_URL . $current_path);
+$com_url       = PRIMARY_COM_URL . $current_path;
+$in_url        = PRIMARY_IN_URL . $current_path;
+$og_image     = $og_image ?? SITE_URL . '/logo-header.jpg';
+
 function nav_active(string $page, string $path): string {
     if ($page === 'home' && ($path === '/' || $path === '/index.php' || $path === '')) return 'active';
     return str_contains($path, $page) ? 'active' : '';
@@ -66,10 +71,9 @@ function nav_active(string $page, string $path): string {
     <meta name="language" content="English">
 
     <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
-    <link rel="alternate" hreflang="en" href="<?= htmlspecialchars($canonical_url) ?>">
-    <link rel="alternate" hreflang="en-IN" href="<?= htmlspecialchars($canonical_url) ?>">
-    <link rel="alternate" hreflang="en-US" href="<?= htmlspecialchars($canonical_url) ?>">
-    <link rel="alternate" hreflang="x-default" href="<?= htmlspecialchars($canonical_url) ?>">
+    <link rel="alternate" hreflang="en-IN" href="<?= htmlspecialchars($in_url) ?>">
+    <link rel="alternate" hreflang="en-US" href="<?= htmlspecialchars($com_url) ?>">
+    <link rel="alternate" hreflang="x-default" href="<?= htmlspecialchars($com_url) ?>">
 
     <!-- GEO -->
     <meta name="geo.region" content="IN-KA">
