@@ -196,7 +196,6 @@ function generateWithGemini(array $prompt): array {
         'generationConfig' => [
             'temperature'     => 0.7,
             'maxOutputTokens' => 4096,
-            'responseMimeType'=> 'application/json',
         ],
     ]);
 
