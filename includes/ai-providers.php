@@ -21,7 +21,7 @@ if (!defined('GROQ_API_KEY')) {
     define('OPENROUTER_API_KEY', $_ai_env['OPENROUTER_API_KEY'] ?? '');
     define('OPENROUTER_MODEL',   $_ai_env['OPENROUTER_MODEL']   ?? 'meta-llama/llama-3.3-70b-instruct');
     define('GROQ_MODEL',         $_ai_env['GROQ_MODEL']         ?? 'llama-3.3-70b-versatile');
-    define('GEMINI_MODEL',       $_ai_env['GEMINI_MODEL']       ?? 'gemini-2.5-flash');
+    define('GEMINI_MODEL',       $_ai_env['GEMINI_MODEL']       ?? 'gemini-3.6-flash');
     unset($_ai_env, $_ai_env_file);
 }
 
