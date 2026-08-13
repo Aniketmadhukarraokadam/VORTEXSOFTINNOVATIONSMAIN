@@ -78,6 +78,15 @@ function _ai_curl_post(string $url, array $headers, string $body, int $timeout =
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $curlErr  = curl_error($ch);
+
+    // If SSL cert issue on local dev machine, retry without peer verification
+    if ($curlErr && str_contains(strtolower($curlErr), 'ssl')) {
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlErr  = curl_error($ch);
+    }
     curl_close($ch);
 
     if ($curlErr) {
