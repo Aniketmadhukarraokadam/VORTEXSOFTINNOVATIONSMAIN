@@ -368,15 +368,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         } else {
                             $success = 'OTP sent to your registered email. Enter it below to continue.';
                         }
-                    } else {
-                        record_failed_attempt($ip);
-                        log_admin_activity('Failed Login', "Failed login attempt for: '{$username}'.");
-                        $error = 'Invalid credentials or inactive account.';
-                        error_log("Failed admin login attempt for user: $username from IP: $ip");
-                        $_SESSION['login_csrf'] = bin2hex(random_bytes(32));
-                    }
                 } else {
-                    $error = 'Database unavailable. Please try again later.';
+                    record_failed_attempt($ip);
+                    log_admin_activity('Failed Login', "Failed login attempt for: '{$username}'.");
+                    $error = 'Invalid credentials or inactive account.';
+                    error_log("Failed admin login attempt for user: $username from IP: $ip");
+                    $_SESSION['login_csrf'] = bin2hex(random_bytes(32));
                 }
             }
         }
