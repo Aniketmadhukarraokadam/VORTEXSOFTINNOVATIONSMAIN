@@ -17,7 +17,7 @@ require_once __DIR__ . '/functions.php';
 
 $prefix       = $prefix ?? './';
 $page_title   = $page_title ?? 'Top Global IT & BPO Outsourcing Company in India | AI Services | Vortexsoft Group';
-$page_desc    = $page_desc ?? 'Vortexsoft Group — ISO 27001 certified global IT & BPO outsourcing company in Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation & 75+ services for 150+ clients worldwide.';
+$page_desc    = $page_desc ?? 'Vortexsoft Group — ISO 27001 certified global IT & BPO outsourcing company in Pune & Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation & 75+ services for 150+ clients worldwide.';
 $canonical_url = $canonical_url ?? SITE_URL . '/';
 $og_image     = $og_image ?? SITE_URL . '/logo-header.jpg';
 

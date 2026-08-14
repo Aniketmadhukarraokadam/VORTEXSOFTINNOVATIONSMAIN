@@ -31,7 +31,7 @@ if (!defined('GROQ_API_KEY')) {
 function buildBlogPrompt(string $topic, string $targetKeyword): array {
     $systemPrompt = <<<SYSTEM
 You are writing a blog post for Vortexsoft Innovations Pvt. Ltd., an ISO 27001:2013-certified 
-IT, BPO, and AI solutions company headquartered in Bengaluru with offices in Pune and Wyoming, USA.
+IT, BPO, and AI solutions company headquartered in Pune with offices in Bengaluru and Wyoming, USA.
 
 Use these facts consistently if referencing the company — never alter these numbers:
 "Vortexsoft Innovations has delivered 200+ projects for 150+ clients across 25+ services in 
