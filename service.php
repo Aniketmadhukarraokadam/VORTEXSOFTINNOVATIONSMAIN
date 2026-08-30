@@ -1,289 +1,493 @@
 <?php
 /**
- * Vortexsoft Innovations — Services Directory Page (service.php)
+ * ═══════════════════════════════════════════════════════════════════
+ * Vortexsoft Innovations — Enterprise Services Directory (service.php)
+ * Premium Editorial Layout, Real-Time Interactive Canvas & Motion
+ * ═══════════════════════════════════════════════════════════════════
  */
 
-$page_title   = 'IT & BPO Services | Vortexsoft Group';
-$page_desc    = 'Explore 65+ services by Vortexsoft Group: Healthcare BPO, Publishing, Real Estate, IT Solutions, Data Annotation for AI, Accounting, and Digital Marketing.';
+$page_title   = 'Enterprise IT, BPO & AI Services | Vortexsoft Group';
+$page_desc    = 'Explore enterprise technology, BPO operations, healthcare RCM, publishing, AI automation, and workforce solutions delivered by 200+ professionals globally.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/service.php';
-
 $prefix       = './';
+
+// Inject dedicated services stylesheet
+$extra_head = '<link rel="stylesheet" href="./assets/css/services.css?v=' . time() . '">';
 
 require_once __DIR__ . '/config/constants.php';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<style>
-.page-hero{background:linear-gradient(135deg,#080B1A 0%,#1C2280 55%,#0D1035 100%);padding:80px 0 70px;position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:50px 50px}
-.page-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff}
-.breadcrumb-item,.breadcrumb-item a{color:rgba(255,255,255,.6);font-size:14px}
-.breadcrumb-item.active{color:rgba(255,255,255,.9)}
-.breadcrumb-item+.breadcrumb-item::before{color:rgba(255,255,255,.4)}
+<!-- ═══════ 1. HERO SECTION ═══════ -->
+<section class="services-hero">
+  <canvas id="services-hero-canvas"></canvas>
+  <div class="services-hero-glow"></div>
+  <div class="services-hero-grid"></div>
 
-/* Category Filter */
-.svc-filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;justify-content:center}
-.svc-filter-btn{background:#fff;border:1.5px solid #dde2f5;color:#475569;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:8px 20px;border-radius:100px;cursor:pointer;transition:.3s;white-space:nowrap;outline:none}
-.svc-filter-btn:hover{border-color:#1C2280;color:#1C2280;background:#f0f2ff}
-.svc-filter-btn.active{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(28,34,128,.3)}
-.svc-item.hidden{display:none!important}
-
-.service-card-lg{background:#fff;border-radius:20px;padding:32px;border:1px solid #e8ecff;box-shadow:0 4px 20px rgba(28,34,128,.06);transition:all .3s;height:100%;display:flex;flex-direction:column}
-.service-card-lg:hover{transform:translateY(-6px);box-shadow:0 15px 40px rgba(28,34,128,.14);border-color:transparent}
-.service-card-lg .icon-box{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
-.service-card-lg h4{font-size:18px;font-weight:700;color:#1e293b;margin-bottom:10px}
-.service-card-lg p{font-size:14px;color:#64748b;line-height:1.7;margin-bottom:20px;flex-grow:1}
-.service-sublist{list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:#475569}
-.service-sublist li{padding:4px 0;display:flex;align-items:center;gap:8px}
-.service-sublist li i{color:#CC2228;font-size:11px}
-</style>
-
-
-<!-- Hero -->
-<div class="page-hero">
   <div class="container">
-    <nav aria-label="breadcrumb" class="mb-3"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="index.php">Home</a></li><li class="breadcrumb-item active">Services</li></ol></nav>
-    <h1>Our <span style="color:#5BA8D4;">Services</span> Directory</h1>
-    <p style="color:rgba(255,255,255,.75);font-size:16px;margin-top:12px;max-width:600px;">Comprehensive IT, BPO, Healthcare, Publishing, and AI Data solutions delivered by 200+ professionals worldwide.</p>
+    <div class="services-hero-content">
+      <div class="services-hero-eyebrow">
+        <span>Our Services</span>
+      </div>
+      <h1 class="services-hero-title">
+        Technology, Operations &amp;<br>
+        <span class="highlight-cyan">Intelligence — Working Together.</span>
+      </h1>
+      <p class="services-hero-desc">
+        From AI-powered automation and enterprise software to BPO, publishing, healthcare, logistics, and technical content, Vortexsoft combines technology and operational expertise to deliver scalable business solutions.
+      </p>
+      <div class="services-hero-actions">
+        <a href="#services-showcase" class="btn-svc-primary">
+          <i class="fas fa-layer-group"></i> Explore Services
+        </a>
+        <a href="contact.php" class="btn-svc-secondary">
+          <i class="fas fa-comments"></i> Talk to Our Team
+        </a>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<section class="py-5" style="background:#f0f2ff;">
+<!-- ═══════ 2. STICKY CATEGORY NAVIGATION ═══════ -->
+<nav class="svc-nav-wrapper" id="svcNavWrapper" aria-label="Services Category Filter">
   <div class="container">
-    <!-- GEO Citable Fact Block -->
-    <?= render_geo_fact_block() ?>
+    <div class="svc-nav-scroll">
+      <a href="#svc-healthcare" class="svc-nav-pill active"><i class="fas fa-heartbeat"></i> Healthcare BPO</a>
+      <a href="#svc-realestate" class="svc-nav-pill"><i class="fas fa-building"></i> Real Estate</a>
+      <a href="#svc-publishing" class="svc-nav-pill"><i class="fas fa-book"></i> STM Publishing</a>
+      <a href="#svc-ai-automation" class="svc-nav-pill"><i class="fas fa-robot"></i> AI &amp; Automation</a>
+      <a href="#svc-software" class="svc-nav-pill"><i class="fas fa-laptop-code"></i> Custom Software</a>
+      <a href="#svc-erp" class="svc-nav-pill"><i class="fas fa-network-wired"></i> ERP &amp; SAP</a>
+      <a href="#svc-martech" class="svc-nav-pill"><i class="fas fa-bullhorn"></i> MarTech</a>
+      <a href="#svc-accounting" class="svc-nav-pill"><i class="fas fa-calculator"></i> Accounting BPO</a>
+      <a href="#svc-logistics" class="svc-nav-pill"><i class="fas fa-truck"></i> Logistics BPO</a>
+      <a href="#svc-techpub" class="svc-nav-pill"><i class="fas fa-file-alt"></i> Tech Publications</a>
+    </div>
+  </div>
+</nav>
 
-    <div class="text-center mb-4 scroll-reveal">
-      <div class="section-tag">65+ Offerings</div>
-      <h2 class="section-title">Specialized <span class="highlight">Service Domains</span></h2>
-      <div class="section-divider"></div>
+<!-- ═══════ 3. INTERACTIVE SERVICES SHOWCASE ═══════ -->
+<section class="svc-showcase-section" id="services-showcase">
+  <div class="container">
+
+    <!-- GEO / AEO Citable Knowledge Block -->
+    <div class="mb-5">
+      <?= render_geo_fact_block() ?>
     </div>
 
-    <!-- Strategic Positioning Framework -->
-    <div class="row g-3 mb-5 scroll-reveal">
-      <div class="col-md-6 col-lg-3">
-        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:20px;height:100%;">
-          <div style="font-size:20px;color:var(--primary);margin-bottom:8px;"><i class="fas fa-brain"></i></div>
-          <h6 style="font-weight:700;margin-bottom:4px;color:var(--text-dark);">AI + Automation + Human Expertise</h6>
-          <p style="font-size:12px;color:var(--text-muted);margin:0;">Synergizing autonomous AI agents with domain-certified expert human validation.</p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:20px;height:100%;">
-          <div style="font-size:20px;color:#10b981;margin-bottom:8px;"><i class="fas fa-cubes"></i></div>
-          <h6 style="font-weight:700;margin-bottom:4px;color:var(--text-dark);">Tech + Operations + Workforce</h6>
-          <p style="font-size:12px;color:var(--text-muted);margin:0;">Full-stack software engineering, 24/7 BPO operations & staffing under one roof.</p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:20px;height:100%;">
-          <div style="font-size:20px;color:#f59e0b;margin-bottom:8px;"><i class="fas fa-cogs"></i></div>
-          <h6 style="font-weight:700;margin-bottom:4px;color:var(--text-dark);">Business Process Automation</h6>
-          <p style="font-size:12px;color:var(--text-muted);margin:0;">RPA, Intelligent Document Processing (IDP) & friction-free workflow orchestration.</p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:20px;height:100%;">
-          <div style="font-size:20px;color:#ec4899;margin-bottom:8px;"><i class="fas fa-rocket"></i></div>
-          <h6 style="font-weight:700;margin-bottom:4px;color:var(--text-dark);">Digital Transformation</h6>
-          <p style="font-size:12px;color:var(--text-muted);margin:0;">Cloud modernization, SAP/ERP integrations & predictive analytics solutions.</p>
-        </div>
-      </div>
-    </div>
+    <div class="svc-editorial-grid">
 
-    <!-- Category Filter Bar -->
-    <div class="svc-filter-bar scroll-reveal" id="svcFilterBar">
-      <button class="svc-filter-btn active" data-filter="All" onclick="filterSvc(this)">All Services</button>
-      <button class="svc-filter-btn" data-filter="Healthcare BPO" onclick="filterSvc(this)">Healthcare BPO</button>
-      <button class="svc-filter-btn" data-filter="Real Estate" onclick="filterSvc(this)">Real Estate &amp; Title</button>
-      <button class="svc-filter-btn" data-filter="Publishing" onclick="filterSvc(this)">STM Publishing</button>
-      <button class="svc-filter-btn" data-filter="AI & Data" onclick="filterSvc(this)">AI &amp; Automation</button>
-      <button class="svc-filter-btn" data-filter="IT & Software" onclick="filterSvc(this)">Custom Software &amp; ERP</button>
-      <button class="svc-filter-btn" data-filter="Digital Marketing" onclick="filterSvc(this)">Marketing Automation</button>
-      <button class="svc-filter-btn" data-filter="Accounting" onclick="filterSvc(this)">Accounting BPO</button>
-      <button class="svc-filter-btn" data-filter="Logistics" onclick="filterSvc(this)">Logistics BPO</button>
-      <button class="svc-filter-btn" data-filter="Technical Publications" onclick="filterSvc(this)">Tech Publications</button>
-    </div>
-
-    <div class="row g-4">
-      <?php
-      $domains = [
-        [
-          'title'=>'Healthcare BPO & Revenue Cycle Management',
-          'cat'=>'Healthcare BPO',
-          'badge'=>'FLAGSHIP TITLE SERVICE',
-          'badge_color'=>'#CC2228',
-          'icon'=>'fa-heartbeat',
-          'color'=>'rgba(204,34,40,.08)',
-          'text_color'=>'#CC2228',
-          'featured'=>true,
-          'desc'=>'Full-lifecycle HIPAA-compliant revenue cycle management (RCM), medical coding (ICD-10, CPT, HCPCS), billing, denial management, and prior authorization services.',
-          'items'=>['Medical Coding (ICD-10-CM, CPT-4, HCPCS Level II)','Revenue Cycle Management & AR Recovery','Claims Denial Management & Appeals','Provider Credentialing & Prior Authorization','Payment Posting & Charge Entry Verification'],
-          'link'=>'health-care-services/index.php'
-        ],
-        [
-          'title'=>'Real Estate, Title & Settlement Services',
-          'cat'=>'Real Estate',
-          'badge'=>'FLAGSHIP TITLE SERVICE',
-          'badge_color'=>'#10b981',
-          'icon'=>'fa-building',
-          'color'=>'rgba(16,185,129,.08)',
-          'text_color'=>'#10b981',
-          'featured'=>true,
-          'desc'=>'Commercial lease administration, CAM audits, property accounting, title search, commitment typing, policy preparation, and mortgage settlement support.',
-          'items'=>['Commercial Lease Abstraction & Administration','CAM Expense Reconciliation & Audit','Title Search, Examination & Policy Typing','Property Accounting & Rent Roll Verification','Mortgage Closing & Settlement Support'],
-          'link'=>'real-estate-services/index.php'
-        ],
-        [
-          'title'=>'STM Publishing & Media Prepress',
-          'cat'=>'Publishing',
-          'badge'=>'FLAGSHIP TITLE SERVICE',
-          'badge_color'=>'#1C2280',
-          'icon'=>'fa-book',
-          'color'=>'rgba(28,34,128,.08)',
-          'text_color'=>'#1C2280',
-          'featured'=>true,
-          'desc'=>'Digital prepress, automated journal typesetting, eBook conversion (ePUB3, NIMAS, XML), WCAG accessibility tagging, and copyediting production.',
-          'items'=>['Academic Journal & STM Book Typesetting','ePUB3, Fixed Layout & XML Conversion','Alt-Text Writing & Mathematical Image Description','WCAG 2.1 AA PDF/eBook Accessibility Tagging','Copyediting & Proofreading Production'],
-          'link'=>'publishing-services/index.php'
-        ],
-        [
-          'title'=>'AI & Intelligent Automation Services',
-          'cat'=>'AI & Data',
-          'badge'=>'CORE ENTERPRISE DOMAIN',
-          'badge_color'=>'#CC2228',
-          'icon'=>'fa-robot',
-          'color'=>'rgba(204,34,40,.08)',
-          'text_color'=>'#CC2228',
-          'featured'=>true,
-          'desc'=>'Autonomous AI solutions, business process automation (BPA), Intelligent Document Processing (IDP), and high-precision AI data annotation datasets.',
-          'items'=>['Custom AI Solutions & Autonomous AI Agents','Intelligent Document Processing (IDP) with OCR & NLP','Image, Video, Text & 3D LiDAR AI Data Annotation','RPA & Business Process Automation (BPA)','AI-Assisted Operations & Human-in-the-Loop Validation'],
-          'link'=>'data-annotation-services/index.php'
-        ],
-        [
-          'title'=>'Custom Software & Business Portals',
-          'cat'=>'IT & Software',
-          'badge'=>'CORE ENTERPRISE DOMAIN',
-          'badge_color'=>'#5BA8D4',
-          'icon'=>'fa-laptop-code',
-          'color'=>'rgba(91,168,212,.08)',
-          'text_color'=>'#5BA8D4',
-          'featured'=>true,
-          'desc'=>'Bespoke custom software engineering, enterprise CRM, ERP, HRMS platforms, customer portals, internal management dashboards, and microservices.',
-          'items'=>['Custom Software & Scalable Web Application Development','Enterprise CRM, ERP & HRMS System Engineering','Executive Dashboards & Real-Time Business Management','Customer Portals & Internal Employee Portals','Custom RESTful & GraphQL API Integrations'],
-          'link'=>'software-solutions/index.php'
-        ],
-        [
-          'title'=>'ERP & SAP Enterprise Solutions',
-          'cat'=>'IT & Software',
-          'badge'=>'CORE ENTERPRISE DOMAIN',
-          'badge_color'=>'#1C2280',
-          'icon'=>'fa-network-wired',
-          'color'=>'rgba(28,34,128,.08)',
-          'text_color'=>'#1C2280',
-          'featured'=>true,
-          'desc'=>'ERP implementation, customization, SAP consulting, enterprise workflow automation systems, and enterprise cloud application management.',
-          'items'=>['ERP Solutions & End-to-End Implementation','ERP Customization & Legacy System Integration','SAP Consulting & Cloud Migration Services','Business Workflow & Enterprise Automation Systems','Custom Enterprise Applications'],
-          'link'=>'software-solutions/index.php'
-        ],
-        [
-          'title'=>'Marketing Automation & MarTech',
-          'cat'=>'Digital Marketing',
-          'badge'=>'ENTERPRISE SERVICE',
-          'badge_color'=>'#f59e0b',
-          'icon'=>'fa-bullhorn',
-          'color'=>'rgba(245,158,11,.08)',
-          'text_color'=>'#f59e0b',
-          'desc'=>'Automated lead generation, CRM & email campaign workflows, omnichannel marketing automation, customer funnel tracking, and analytics dashboards.',
-          'items'=>['Marketing & Automated Lead Generation Systems','CRM Automation & Email Campaign Sequences','Multi-Channel Campaign Automation','Customer Workflow & Funnel Tracking','Real-Time Executive Reporting Dashboards'],
-          'link'=>'digital-marketing-service/index.php'
-        ],
-        [
-          'title'=>'Accounting & Financial BPO',
-          'cat'=>'Accounting',
-          'badge'=>'ENTERPRISE SERVICE',
-          'badge_color'=>'#8b5cf6',
-          'icon'=>'fa-calculator',
-          'color'=>'rgba(139,92,246,.08)',
-          'text_color'=>'#8b5cf6',
-          'desc'=>'Full-cycle bookkeeping, payroll processing, accounts payable/receivable management, and financial audit & tax preparation support.',
-          'items'=>['Bookkeeping & Ledger Setup','Payroll Processing & Compliance','Accounts Payable / Receivable Management','Financial Audit & Tax Filing Support'],
-          'link'=>'accounting-services/index.php'
-        ],
-        [
-          'title'=>'Logistics & Supply Chain Operations',
-          'cat'=>'Logistics',
-          'badge'=>'ENTERPRISE SERVICE',
-          'badge_color'=>'#ec4899',
-          'icon'=>'fa-truck',
-          'color'=>'rgba(236,72,153,.08)',
-          'text_color'=>'#ec4899',
-          'desc'=>'Freight document processing, bill of lading entry, dispatch coordination, inventory tracking, and supply chain logistics analytics.',
-          'items'=>['Bill of Lading Processing & Verification','Freight Audit & Data Entry','Inventory Tagging & Warehouse Tracking','Shipping Logistics Analytics'],
-          'link'=>'logistics-services/index.php'
-        ],
-        [
-          'title'=>'Technical Publications & S1000D',
-          'cat'=>'Technical Publications',
-          'badge'=>'ENTERPRISE SERVICE',
-          'badge_color'=>'#CC2228',
-          'icon'=>'fa-file-alt',
-          'color'=>'rgba(204,34,40,.08)',
-          'text_color'=>'#CC2228',
-          'desc'=>'Technical writing, S1000D / DITA XML conversion, equipment maintenance manuals, and illustrated parts catalogs (IPC) for defense & aerospace.',
-          'items'=>['Technical Manual Writing & Authoring','S1000D / DITA XML Modular Conversion','Illustrated Parts Catalogs (IPC) Creation','Multi-lingual Technical Documentation'],
-          'link'=>'technical-publication-service/index.php'
-        ]
-      ];
-
-      foreach($domains as $i=>$d): 
-        $is_featured = !empty($d['featured']);
-      ?>
-      <div class="col-lg-4 col-md-6 scroll-reveal svc-item" style="transition-delay:<?= ($i%3)*0.1 ?>s" data-category="<?= htmlspecialchars($d['cat'] ?? $d['title']) ?>">
-        <div class="service-card-lg" style="<?= $is_featured ? 'border:1.5px solid rgba(28,34,128,0.25);box-shadow:0 8px 25px rgba(28,34,128,0.08);background:linear-gradient(180deg,#ffffff 0%,#fcfdfe 100%);' : '' ?>">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <div class="icon-box mb-0" style="background:<?= $d['color'] ?>;color:<?= $d['text_color'] ?>;"><i class="fas <?= $d['icon'] ?>"></i></div>
-            <?php if (!empty($d['badge'])): ?>
-              <span class="badge" style="background:<?= $d['badge_color'] ?>;color:#fff;font-size:10px;padding:5px 10px;font-weight:700;letter-spacing:0.5px;"><?= $d['badge'] ?></span>
-            <?php endif; ?>
+      <!-- ── 01. Healthcare BPO & Revenue Cycle Management ── -->
+      <article class="svc-card" id="svc-healthcare">
+        <div class="svc-card-inner">
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">01</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(204,34,40,0.08);color:#CC2228;"><i class="fas fa-heartbeat"></i></span>
+              <span class="svc-category-badge">Healthcare Operations</span>
+            </div>
+            <h2 class="svc-card-title">Healthcare BPO &amp; Revenue Cycle Management</h2>
+            <p class="svc-card-desc">
+              End-to-end HIPAA-compliant revenue cycle management and medical billing operations designed to accelerate cash flow, eliminate claim denial backlogs, and maximize net collections.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Medical Coding (ICD-10-CM, CPT-4, HCPCS Level II)</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Revenue Cycle Management &amp; AR Recovery</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Claims Denial Management &amp; Structured Appeals</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Provider Credentialing &amp; Prior Authorization</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Payment Posting &amp; Electronic Remittance Advice</li>
+            </ul>
+            <div>
+              <a href="health-care-services/index.php" class="svc-explore-link">Explore Healthcare Services <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <h4 style="font-weight:800;"><?= $d['title'] ?></h4>
-          <p><?= $d['desc'] ?></p>
-          <ul class="service-sublist">
-            <?php foreach($d['items'] as $item): ?>
-            <li><i class="fas fa-check-circle" style="color:<?= $d['badge_color'] ?>;"></i> <?= $item ?></li>
-            <?php endforeach; ?>
-          </ul>
-          <a href="<?= $d['link'] ?>" class="btn mt-auto" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-radius:10px;font-size:13px;font-weight:700;padding:12px;text-align:center;">Explore Title Service →</a>
+
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-healthcare.jpg" alt="Healthcare medical records and claims documentation workspace" class="svc-media-img" loading="lazy">
+            <canvas id="healthcare-telemetry-canvas" class="svc-canvas-overlay"></canvas>
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot"></span>
+              <span>HIPAA Compliant RCM</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <?php endforeach; ?>
+      </article>
+
+      <!-- ── 02. Real Estate, Title & Settlement Services ── -->
+      <article class="svc-card svc-card-reverse" id="svc-realestate">
+        <div class="svc-card-inner">
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-realestate.jpg" alt="Commercial real estate blueprints and title documents" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot" style="background:#10B981;box-shadow:0 0 8px #10B981;"></span>
+              <span>Title &amp; CAM Reconciliation</span>
+            </div>
+          </div>
+
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">02</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(16,185,129,0.08);color:#10B981;"><i class="fas fa-building"></i></span>
+              <span class="svc-category-badge" style="color:#10B981;background:rgba(16,185,129,0.08);">Commercial Property &amp; Title</span>
+            </div>
+            <h2 class="svc-card-title">Real Estate, Title &amp; Settlement Services</h2>
+            <p class="svc-card-desc">
+              Comprehensive nationwide title examination, commitments, lease administration, and CAM audit reconciliations for property managers, REITs, and settlement agencies.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#10B981;"></i> Commercial Lease Administration &amp; Abstraction</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#10B981;"></i> CAM Expense Reconciliation &amp; Operating Audits</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#10B981;"></i> Title Search, Examination &amp; Commitment Typing</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#10B981;"></i> Property Accounting &amp; Rent Roll Verification</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#10B981;"></i> Mortgage Closing &amp; Settlement Operations</li>
+            </ul>
+            <div>
+              <a href="real-estate-services/index.php" class="svc-explore-link">Explore Real Estate Solutions <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 03. STM Publishing & Media Prepress ── -->
+      <article class="svc-card" id="svc-publishing">
+        <div class="svc-card-inner">
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">03</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(28,34,128,0.08);color:#1C2280;"><i class="fas fa-book"></i></span>
+              <span class="svc-category-badge">Editorial &amp; Prepress</span>
+            </div>
+            <h2 class="svc-card-title">STM Publishing &amp; Media Prepress</h2>
+            <p class="svc-card-desc">
+              High-accuracy scientific, technical, and medical publishing production — delivering automated journal typesetting, XML restructuring, and WCAG accessibility standards.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Academic Journal &amp; STM Book Typesetting</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> ePUB3, Fixed Layout &amp; JATS/BITS XML Conversion</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Alt-Text Writing &amp; Complex STEM Image Description</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> WCAG 2.1 AA PDF &amp; eBook Accessibility Tagging</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Technical Copyediting &amp; Prepress Proofreading</li>
+            </ul>
+            <div>
+              <a href="publishing-services/index.php" class="svc-explore-link">Explore Publishing Services <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-publishing.jpg" alt="Academic scientific publishing and editorial proofing workspace" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot" style="background:#5BA8D4;box-shadow:0 0 8px #5BA8D4;"></span>
+              <span>ePUB3 &amp; WCAG 2.1 AA</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 04. FEATURED FULL-WIDTH SECTION: AI & Intelligent Automation ── -->
+      <article class="svc-featured-ai-card" id="svc-ai-automation">
+        <canvas id="ai-routing-canvas"></canvas>
+        <div class="svc-card-inner">
+          <div class="svc-content-wrap" style="position:relative;z-index:3;">
+            <span class="svc-watermark-number">04</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(91,168,212,0.15);color:#5BA8D4;"><i class="fas fa-robot"></i></span>
+              <span class="svc-category-badge" style="background:rgba(91,168,212,0.15);color:#5BA8D4;border:1px solid rgba(91,168,212,0.3);">Featured AI Platform</span>
+            </div>
+            <h2 class="svc-card-title">AI &amp; Intelligent Automation</h2>
+            <p class="svc-card-desc">
+              Automate complex multi-step business workflows with autonomous agentic architectures, Intelligent Document Processing (IDP), and high-precision AI training datasets.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Custom Autonomous AI Agents &amp; Workflow Orchestration</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Intelligent Document Processing (IDP) for Invoices &amp; EHR</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Precision Image, Video, Text &amp; LiDAR Annotation</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Robotic Process Automation (RPA) for Repetitive Tasks</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Human-in-the-Loop Validation &amp; Quality Benchmarking</li>
+            </ul>
+            <div>
+              <a href="data-annotation-services/index.php" class="svc-explore-link">Explore AI &amp; Automation <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="svc-media-wrap" style="background:transparent;">
+            <img src="assets/images/service-ai-automation.jpg" alt="Autonomous AI pipeline and intelligent workflow system" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge" style="background:rgba(8,11,26,0.85);border-color:#5BA8D4;">
+              <span class="svc-pulse-dot" style="background:#5BA8D4;box-shadow:0 0 10px #5BA8D4;"></span>
+              <span>Agentic AI Core</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 05. Custom Software & Business Portals ── -->
+      <article class="svc-card" id="svc-software">
+        <div class="svc-card-inner">
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">05</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(91,168,212,0.08);color:#5BA8D4;"><i class="fas fa-laptop-code"></i></span>
+              <span class="svc-category-badge">Software Engineering</span>
+            </div>
+            <h2 class="svc-card-title">Custom Software &amp; Business Portals</h2>
+            <p class="svc-card-desc">
+              Tailor-made cloud applications, executive dashboards, client portals, and secure enterprise software architectures designed to scale your operations smoothly.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Custom Web Applications &amp; Enterprise SaaS Engineering</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Real-Time Executive Dashboards &amp; Reporting Portals</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Customer &amp; Vendor Self-Service Management Systems</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Microservices &amp; Secure RESTful API Development</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Cloud Migration &amp; Infrastructure Optimization</li>
+            </ul>
+            <div>
+              <a href="software-solutions/index.php" class="svc-explore-link">Explore Software Solutions <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-software.jpg" alt="Enterprise custom software engineering workstation" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot" style="background:#5BA8D4;box-shadow:0 0 8px #5BA8D4;"></span>
+              <span>Full-Stack &amp; Cloud</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 06. ERP & SAP Enterprise Solutions ── -->
+      <article class="svc-card svc-card-reverse" id="svc-erp">
+        <div class="svc-card-inner">
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-erp.jpg" alt="Enterprise operational systems and manufacturing integration" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot" style="background:#1C2280;box-shadow:0 0 8px #1C2280;"></span>
+              <span>SAP &amp; ERP Integration</span>
+            </div>
+          </div>
+
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">06</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(28,34,128,0.08);color:#1C2280;"><i class="fas fa-network-wired"></i></span>
+              <span class="svc-category-badge">Enterprise Systems</span>
+            </div>
+            <h2 class="svc-card-title">ERP &amp; SAP Enterprise Solutions</h2>
+            <p class="svc-card-desc">
+              End-to-end ERP implementation, module customization, and SAP integration to unify inventory, financial, HR, and supply chain data into single synchronized workflows.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Enterprise ERP Deployment &amp; Legacy Modernization</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> SAP Consulting, Integration &amp; Cloud Migration</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Cross-Departmental Business Workflow Automation</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Custom Enterprise Module Development &amp; Support</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Data Synchronization &amp; Enterprise Data Warehousing</li>
+            </ul>
+            <div>
+              <a href="software-solutions/index.php" class="svc-explore-link">Explore ERP Solutions <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 07. Marketing Automation & MarTech ── -->
+      <article class="svc-card" id="svc-martech">
+        <div class="svc-card-inner">
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">07</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(245,158,11,0.08);color:#F59E0B;"><i class="fas fa-bullhorn"></i></span>
+              <span class="svc-category-badge" style="color:#F59E0B;background:rgba(245,158,11,0.08);">Marketing Technology</span>
+            </div>
+            <h2 class="svc-card-title">Marketing Automation &amp; MarTech</h2>
+            <p class="svc-card-desc">
+              Automated multi-channel conversion funnels, CRM integration, lead nurturing sequences, and data-driven marketing analytics that fuel customer acquisition.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#F59E0B;"></i> Automated Lead Generation &amp; Scoring Pipelines</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#F59E0B;"></i> CRM &amp; Dynamic Email Nurturing Sequences</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#F59E0B;"></i> Omnichannel Campaign Tracking &amp; Attribution</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#F59E0B;"></i> Customer Lifecycle &amp; Retention Workflows</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#F59E0B;"></i> Real-Time MarTech Performance Dashboards</li>
+            </ul>
+            <div>
+              <a href="digital-marketing-service/index.php" class="svc-explore-link">Explore MarTech Services <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-martech.jpg" alt="Marketing technology conversion funnel and acquisition pipeline" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot" style="background:#F59E0B;box-shadow:0 0 8px #F59E0B;"></span>
+              <span>Growth Funnel</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 08. Accounting & Financial BPO ── -->
+      <article class="svc-card svc-card-reverse" id="svc-accounting">
+        <div class="svc-card-inner">
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-accounting.jpg" alt="Professional accounting ledgers and financial management" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot" style="background:#8B5CF6;box-shadow:0 0 8px #8B5CF6;"></span>
+              <span>Cost-Effective BPO</span>
+            </div>
+          </div>
+
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">08</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(139,92,246,0.08);color:#8B5CF6;"><i class="fas fa-calculator"></i></span>
+              <span class="svc-category-badge" style="color:#8B5CF6;background:rgba(139,92,246,0.08);">Finance &amp; Accounting</span>
+            </div>
+            <h2 class="svc-card-title">Accounting &amp; Financial BPO</h2>
+            <p class="svc-card-desc">
+              Accurate general ledger bookkeeping, payroll processing, accounts payable/receivable, and compliance reporting delivering up to 60% operational cost savings.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#8B5CF6;"></i> Full-Cycle Bookkeeping &amp; General Ledger Management</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#8B5CF6;"></i> Multi-State Payroll Processing &amp; Tax Compliance</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#8B5CF6;"></i> Accounts Payable (AP) &amp; Receivable (AR) Management</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#8B5CF6;"></i> Bank Reconciliation &amp; Anomaly Detection</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#8B5CF6;"></i> Monthly Financial Statements &amp; Executive Reporting</li>
+            </ul>
+            <div>
+              <a href="accounting-services/index.php" class="svc-explore-link">Explore Accounting Services <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 09. Logistics & Supply Chain Operations ── -->
+      <article class="svc-card" id="svc-logistics">
+        <div class="svc-card-inner">
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">09</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(236,72,153,0.08);color:#EC4899;"><i class="fas fa-truck"></i></span>
+              <span class="svc-category-badge" style="color:#EC4899;background:rgba(236,72,153,0.08);">Supply Chain &amp; Freight</span>
+            </div>
+            <h2 class="svc-card-title">Logistics &amp; Supply Chain Operations</h2>
+            <p class="svc-card-desc">
+              Freight document entry, bill of lading validation, inventory tracking, and carrier coordination keeping your supply chain lean and transparent 24/7.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#EC4899;"></i> Bill of Lading (BOL) Verification &amp; Data Entry</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#EC4899;"></i> Freight Auditing &amp; Carrier Invoice Reconciliation</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#EC4899;"></i> Warehouse Inventory Tracking &amp; SKUs Indexing</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#EC4899;"></i> Real-Time Shipment Tracking &amp; Exception Handling</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle" style="color:#EC4899;"></i> Global Logistics Performance Analytics</li>
+            </ul>
+            <div>
+              <a href="logistics-services/index.php" class="svc-explore-link">Explore Logistics Services <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-erp.jpg" alt="Logistics warehouse operations and freight distribution system" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot" style="background:#EC4899;box-shadow:0 0 8px #EC4899;"></span>
+              <span>24/7 Supply Chain</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 10. Technical Publications & S1000D ── -->
+      <article class="svc-card svc-card-reverse" id="svc-techpub">
+        <div class="svc-card-inner">
+          <div class="svc-media-wrap">
+            <img src="assets/images/service-publishing.jpg" alt="Aerospace engineering documentation and technical publication manuals" class="svc-media-img" loading="lazy">
+            <div class="svc-media-badge">
+              <span class="svc-pulse-dot" style="background:#CC2228;box-shadow:0 0 8px #CC2228;"></span>
+              <span>S1000D &amp; DITA XML</span>
+            </div>
+          </div>
+
+          <div class="svc-content-wrap">
+            <span class="svc-watermark-number">10</span>
+            <div class="svc-tag-row">
+              <span class="svc-icon-inline" style="background:rgba(204,34,40,0.08);color:#CC2228;"><i class="fas fa-file-alt"></i></span>
+              <span class="svc-category-badge">Aerospace &amp; Engineering</span>
+            </div>
+            <h2 class="svc-card-title">Technical Publications &amp; S1000D</h2>
+            <p class="svc-card-desc">
+              Defense, aerospace, and heavy equipment technical documentation authoring, S1000D/DITA XML conversion, and Illustrated Parts Catalogs (IPC) compliant with global standards.
+            </p>
+            <ul class="svc-capabilities-list">
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> S1000D Issue 4.1/4.2 &amp; DITA XML Modular Authoring</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Illustrated Parts Catalogs (IPC) &amp; 2D/3D Schematics</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Maintenance Manuals (CMM, AMM, SRM) Authoring</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Interactive Electronic Technical Publications (IETP)</li>
+              <li class="svc-capability-item"><i class="fas fa-check-circle"></i> Multi-Lingual Technical Translation &amp; Localization</li>
+            </ul>
+            <div>
+              <a href="technical-publication-service/index.php" class="svc-explore-link">Explore Technical Publications <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
 
-
-<!-- CTA -->
-<section class="py-5" style="background:#fff;">
-  <div class="container text-center">
-    <h3 style="font-family:'Poppins',sans-serif;font-weight:800;color:#1C2280;margin-bottom:12px;">Need a Customized Solution?</h3>
-    <p style="color:#64748b;font-size:16px;max-width:550px;margin:0 auto 24px;">Our engineering and operations team can tailor any workflow to match your exact requirements.</p>
-    <a href="contact.php" class="btn" style="background:linear-gradient(135deg,#CC2228,#9e1a1f);color:#fff;border-radius:10px;padding:14px 32px;font-weight:700;font-size:15px;"><i class="fas fa-paper-plane me-2"></i> Request Custom Quote</a>
+<!-- ═══════ 4. CAPABILITIES & GLOBAL SCALE METRICS ═══════ -->
+<section class="svc-capabilities-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-6 col-lg-3">
+        <div class="svc-stat-card">
+          <div class="svc-stat-num">150<span>+</span></div>
+          <div class="svc-stat-label">Global Clients</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="svc-stat-card">
+          <div class="svc-stat-num">200<span>+</span></div>
+          <div class="svc-stat-label">Projects Delivered</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="svc-stat-card">
+          <div class="svc-stat-num">200<span>+</span></div>
+          <div class="svc-stat-label">Professionals</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="svc-stat-card">
+          <div class="svc-stat-num">6<span>+</span></div>
+          <div class="svc-stat-label">Years of Excellence</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- ═══════ 5. CINEMATIC CALL TO ACTION ═══════ -->
+<section class="svc-cta-section">
+  <div class="svc-cta-glow"></div>
+  <div class="container position-relative" style="z-index: 2;">
+    <h2 class="svc-cta-title">
+      Have a complex business process?<br>
+      Let's simplify it.
+    </h2>
+    <p class="svc-cta-desc">
+      Tell us what you're trying to improve, automate or scale. Our team can help design the right technology and operations solution.
+    </p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="contact.php" class="btn-svc-primary">
+        <i class="fas fa-paper-plane"></i> Start a Conversation
+      </a>
+      <a href="about.php" class="btn-svc-secondary">
+        <i class="fas fa-building"></i> Explore Our Company
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Service Interactive Scripts -->
+<script src="./assets/js/services.js?v=<?= time() ?>"></script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
-<script>
-function filterSvc(btn) {
-  var filter = btn.getAttribute('data-filter');
-  document.querySelectorAll('.svc-filter-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  document.querySelectorAll('.svc-item').forEach(function(item){
-    if (filter === 'All' || item.getAttribute('data-category') === filter) {
-      item.classList.remove('hidden');
-    } else {
-      item.classList.add('hidden');
-    }
-  });
-}
-</script>

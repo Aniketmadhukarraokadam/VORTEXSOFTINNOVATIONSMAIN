@@ -102,38 +102,34 @@ function get_email_template(string $key, array $vars = []): ?array {
     return null;
 }
 
-// ── Email Sending (PHP mail + Email Logging + Security Rules) ──
-function send_notification_email(string $to, string $subject, string $html_body, string $from_name = SITE_NAME, string $reply_to = EMAIL_CONTACT, ?string $from_email_override = null): bool {
-    // SECURITY RULE #6: Always send from company approved mailbox
-    $from_email = 'contact@vortexsoftinnovations.com';
-    
-    // Check if custom active email account is configured
-    try {
-        $db = getDB();
-        if ($db) {
-            $acc = $db->query("SELECT email_address, display_name FROM email_accounts WHERE is_active=1 ORDER BY is_default DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
-            if ($acc && !empty($acc['email_address'])) {
-                $from_email = $acc['email_address'];
-                if (!empty($acc['display_name']) && $from_name === SITE_NAME) {
-                    $from_name = $acc['display_name'];
-                }
-            }
-        }
-    } catch (Throwable $e) {}
+// ── Email Sending (PHP mail + Email Logging + CC Support) ───────────────
+/**
+ * Core email dispatcher.
+ *
+ * From address is ALWAYS no-reply@vortexsoftinnovations.com per company policy.
+ * Pass $cc as a single address or comma-separated list to carbon-copy recipients.
+ */
+function send_notification_email(string $to, string $subject, string $html_body, string $from_name = SITE_NAME, string $reply_to = EMAIL_CONTACT, ?string $cc = null): bool {
+    // SECURITY RULE #6 / POLICY: all transactional mail originates from no-reply
+    $from_email = EMAIL_NOREPLY;
 
     $headers  = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
     $headers .= "From: {$from_name} <{$from_email}>\r\n";
     $headers .= "Reply-To: {$reply_to}\r\n";
+    if (!empty($cc)) {
+        $headers .= "Cc: {$cc}\r\n";
+    }
     $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
-    $sent = @mail($to, $subject, $html_body, $headers);
-    $status = $sent ? 'sent' : 'failed';
+    $sent    = @mail($to, $subject, $html_body, $headers);
+    $status  = $sent ? 'sent' : 'failed';
     $err_msg = $sent ? null : 'Native mail() returned false. Verify server SMTP / Sendmail config.';
 
     // Log to email_logs table
     try {
-        if (isset($db) && $db) {
+        $db = getDB();
+        if ($db) {
             $stmtLog = $db->prepare("INSERT INTO email_logs (type, sender, recipient, subject, body_html, status, error_message, created_at) VALUES ('outgoing', ?, ?, ?, ?, ?, ?, NOW())");
             $stmtLog->execute([$from_email, $to, $subject, $html_body, $status, $err_msg]);
         }
@@ -143,12 +139,12 @@ function send_notification_email(string $to, string $subject, string $html_body,
 }
 
 function send_contact_notification(array $data): bool {
-    $subject = "New Contact Inquiry from {$data['name']} — Vortexsoft";
+    $subject = "New Business Inquiry from {$data['name']} — Vortexsoft";
     $body = "
     <html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
     <div style='max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
         <div style='background:linear-gradient(135deg,#1C2280,#5BA8D4);padding:30px;text-align:center;'>
-            <h2 style='color:#fff;margin:0;font-size:22px;'>New Contact Inquiry</h2>
+            <h2 style='color:#fff;margin:0;font-size:22px;'>New Business Inquiry</h2>
             <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Vortexsoft Group Website</p>
         </div>
         <div style='padding:30px;'>
@@ -165,7 +161,8 @@ function send_contact_notification(array $data): bool {
         </div>
     </div>
     </body></html>";
-    return send_notification_email(EMAIL_SUPPORT, $subject, $body);
+    // CC inquiry@ so the business inbox always gets a copy
+    return send_notification_email(EMAIL_SUPPORT, $subject, $body, EMAIL_FROM_NAME, EMAIL_CONTACT, EMAIL_INQUIRY_CC);
 }
 
 function send_application_notification(array $data): bool {
@@ -200,13 +197,16 @@ function send_application_notification(array $data): bool {
         </div>
     </div>
     </body></html>";
-    return send_notification_email(EMAIL_HR, $subject, $body);
+    // CC careers@ so HR inbox always receives a copy
+    return send_notification_email(EMAIL_HR, $subject, $body, EMAIL_FROM_NAME, EMAIL_HR, EMAIL_CAREERS_CC);
 }
 
 // ── Slug Generation ────────────────────────────────────────
 
 /**
- * Send a branded auto-acknowledgement email to a contact form submitter.
+ * Send a branded auto-acknowledgement email to a contact / business inquiry submitter.
+ * From: no-reply@vortexsoftinnovations.com
+ * CC:   inquiry@vortexsoftinnovations.com
  */
 function send_contact_acknowledgement(array $data): bool {
     $subject = 'We\'ve received your inquiry — Vortexsoft Group';
@@ -237,7 +237,47 @@ function send_contact_acknowledgement(array $data): bool {
         </div>
     </div>
     </body></html>";
-    return send_notification_email($data['email'], $subject, $body, EMAIL_FROM_NAME, EMAIL_CONTACT);
+    // From: no-reply | Reply-To: support | CC: inquiry@
+    return send_notification_email($data['email'], $subject, $body, EMAIL_FROM_NAME, EMAIL_CONTACT, EMAIL_INQUIRY_CC);
+}
+
+/**
+ * Send a branded auto-acknowledgement email to a job applicant.
+ * From: no-reply@vortexsoftinnovations.com
+ * CC:   careers@vortexsoftinnovations.in
+ */
+function send_application_acknowledgement(array $data): bool {
+    $subject = 'Application Received — Vortexsoft Group';
+    $body = "
+    <html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
+    <div style='max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
+        <div style='background:linear-gradient(135deg,#1C2280,#CC2228);padding:30px;text-align:center;'>
+            <h2 style='color:#fff;margin:0;font-size:22px;'>Application Received!</h2>
+            <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Role: " . htmlspecialchars($data['job_title'] ?? 'Open Position') . "</p>
+        </div>
+        <div style='padding:30px;'>
+            <p style='color:#333;font-size:15px;'>Dear <strong>" . htmlspecialchars($data['applicant_name']) . "</strong>,</p>
+            <p style='color:#555;font-size:14px;line-height:1.7;'>Thank you for applying to <strong>Vortexsoft Group</strong>. We have successfully received your application for the position of <strong>" . htmlspecialchars($data['job_title'] ?? 'the role you applied for') . "</strong>.</p>
+            <div style='background:#fff5f5;border-radius:10px;padding:20px;margin:20px 0;border-left:4px solid #CC2228;'>
+                <p style='margin:0 0 6px;font-size:13px;font-weight:700;color:#1C2280;'>Application Summary:</p>
+                <p style='margin:0;font-size:13px;color:#475569;'><strong>Position:</strong> " . htmlspecialchars($data['job_title'] ?? '—') . "</p>
+                <p style='margin:4px 0 0;font-size:13px;color:#475569;'><strong>Department:</strong> " . htmlspecialchars($data['department'] ?? '—') . "</p>
+                <p style='margin:4px 0 0;font-size:13px;color:#475569;'><strong>Submitted:</strong> " . date('d M Y, H:i') . " IST</p>
+            </div>
+            <p style='color:#555;font-size:14px;line-height:1.7;'>Our HR team will review your profile and reach out within <strong>3–5 business days</strong>. For urgent queries, please contact us at:</p>
+            <ul style='color:#475569;font-size:13px;line-height:2;padding-left:20px;'>
+                <li>Email: <a href='mailto:" . EMAIL_HR . "' style='color:#1C2280;'>" . EMAIL_HR . "</a></li>
+                <li>WhatsApp: <a href='https://wa.me/918308906690' style='color:#1C2280;'>+91-8308906690</a></li>
+            </ul>
+        </div>
+        <div style='background:#f8f9ff;padding:20px 30px;text-align:center;'>
+            <p style='margin:0;color:#999;font-size:12px;'>Vortexsoft Innovations Pvt. Ltd. | " . SITE_URL . "</p>
+            <p style='margin:4px 0 0;color:#bbb;font-size:11px;'>This is an automated confirmation. Please do not reply to this email.</p>
+        </div>
+    </div>
+    </body></html>";
+    // From: no-reply | Reply-To: careers@ | CC: careers@
+    return send_notification_email($data['email'], $subject, $body, EMAIL_FROM_NAME, EMAIL_HR, EMAIL_CAREERS_CC);
 }
 function slugify(string $text): string {
     $text = strtolower(trim($text));

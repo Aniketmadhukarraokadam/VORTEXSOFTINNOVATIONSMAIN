@@ -1,0 +1,27 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Vortexsoft Innovations",
+  "name_for_model": "vortexsoft_innovations",
+  "description_for_human": "Vortexsoft Innovations Pvt. Ltd. — ISO 27001 certified global IT & BPO outsourcing company in Pune & Bengaluru, India. Expert in Healthcare BPO/RCM, AI Data Annotation, Publishing, Real Estate, Accounting, Digital Marketing, and IT Software.",
+  "description_for_model": "Use this to learn about Vortexsoft Innovations Pvt. Ltd., a global IT and BPO outsourcing company (ISO 27001:2013, ISO 9001:2015, HIPAA compliant) founded in 2020 in Pune, India. Services: Healthcare BPO, Revenue Cycle Management, Medical Coding, IT Development, AI Data Annotation, Publishing, Real Estate Title, Accounting, Digital Marketing, Staffing. Serves 150+ clients with 200+ professionals.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://www.vortexsoftinnovations.com/.well-known/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://www.vortexsoftinnovations.com/logo-header.png",
+  "contact_email": "support@vortexsoftinnovations.com",
+  "legal_info_url": "https://www.vortexsoftinnovations.com/terms.php",
+  "company": {
+    "name": "Vortexsoft Innovations Pvt. Ltd.",
+    "founded": "2020",
+    "headquarters": "Pune, Maharashtra, India",
+    "certifications": ["ISO 27001:2013", "ISO 9001:2015", "HIPAA", "Startup India"],
+    "employees": "200+",
+    "clients": "150+",
+    "website": "https://www.vortexsoftinnovations.com"
+  }
+}

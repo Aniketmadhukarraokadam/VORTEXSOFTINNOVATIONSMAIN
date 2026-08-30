@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Vortexsoft Innovations — Admin: Jobs Management
  * CRUD for the `jobs` table — feeds careers.php with live postings
@@ -146,10 +146,7 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
 
 <!-- Sidebar -->
 <div class="admin-sidebar">
-    <div class="sidebar-logo">
-        <div class="brand">VORTEX<span>SOFT</span></div>
-        <div class="sub">ADMIN PANEL</div>
-    </div>
+    <div class="sidebar-logo"><a href="/admin/dashboard.php" style="display:block;"><img src="/logo-header.png" alt="Vortexsoft Group" style="height:42px;object-fit:contain;background:#fff;border-radius:8px;padding:5px 10px;max-width:180px;"></a></div>
     <nav class="sidebar-nav">
         <div class="sidebar-section">Main</div>
         <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>

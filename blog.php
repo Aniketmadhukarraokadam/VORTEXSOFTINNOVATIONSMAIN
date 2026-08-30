@@ -64,37 +64,44 @@ $cat_icons = ['Healthcare BPO'=>'fa-heartbeat','Publishing'=>'fa-book','AI & Dat
 require_once __DIR__ . '/includes/header.php';
 ?>
 <style>
-.page-hero{background:linear-gradient(135deg,#080B1A 0%,#1C2280 55%,#0D1035 100%);padding:80px 0 70px;position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:50px 50px}
-.page-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff}
-.breadcrumb-item,.breadcrumb-item a{color:rgba(255,255,255,.6);font-size:14px}
-.breadcrumb-item.active{color:rgba(255,255,255,.9)}
-.breadcrumb-item+.breadcrumb-item::before{color:rgba(255,255,255,.4)}
-.blog-card{background:#fff;border-radius:18px;overflow:hidden;border:1px solid #e8ecff;transition:all .3s;height:100%}
-.blog-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(28,34,128,.14);border-color:transparent}
-.blog-card .card-img{height:200px;object-fit:cover;width:100%}
-.blog-card .card-img-placeholder{height:200px;display:flex;align-items:center;justify-content:center;font-size:48px}
-.blog-card .card-body{padding:24px}
-.blog-cat-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;background:rgba(28,34,128,.07);color:#1C2280;display:inline-block;margin-bottom:12px}
-.blog-card h3{font-size:16px;font-weight:700;color:#1C2280;line-height:1.4;margin-bottom:8px}
-.blog-card p{font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:16px}
-.blog-meta{font-size:12px;color:#94a3b8;display:flex;gap:14px;flex-wrap:wrap}
-.blog-meta i{color:#CC2228;margin-right:4px}
-.read-more{font-size:13px;font-weight:700;color:#1C2280;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.2s}
-.read-more:hover{color:#CC2228;gap:10px}
-.sidebar-card{background:#fff;border-radius:16px;padding:24px;border:1px solid #e8ecff;margin-bottom:20px}
-.sidebar-card h5{font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:#1C2280;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #e8ecff}
-.cat-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f4ff;text-decoration:none;color:#475569;font-size:14px;transition:.2s}
-.cat-item:hover{color:#1C2280;padding-left:6px}
-.cat-badge{background:rgba(28,34,128,.08);color:#1C2280;font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px}
+.blog-card{background:#fff;border-radius:18px;overflow:hidden;border:1px solid #E2E8F0;box-shadow:var(--vs-shadow-sm);transition:all .3s ease;height:100%;}
+.blog-card:hover{transform:translateY(-5px);box-shadow:var(--vs-shadow-md);border-color:rgba(37,99,235,0.25);}
+.blog-card .card-img{height:190px;object-fit:cover;width:100%;}
+.blog-card .card-img-placeholder{height:190px;display:flex;align-items:center;justify-content:center;font-size:42px;}
+.blog-card .card-body{padding:22px;}
+.blog-cat-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;background:rgba(28,34,128,.07);color:#1C2280;display:inline-block;margin-bottom:10px;}
+.blog-card h3{font-size:16px;font-weight:700;color:var(--vs-text-heading);line-height:1.4;margin-bottom:8px;}
+.blog-card p{font-size:13px;color:var(--vs-text-muted);line-height:1.65;margin-bottom:14px;}
+.blog-meta{font-size:12px;color:#94A3B8;display:flex;gap:12px;flex-wrap:wrap;}
+.blog-meta i{color:#CC2228;margin-right:4px;}
+.read-more{font-size:13px;font-weight:700;color:var(--vs-blue-primary);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.2s;}
+.read-more:hover{color:#CC2228;gap:9px;}
+.sidebar-card{background:#fff;border-radius:16px;padding:24px;border:1px solid #E2E8F0;box-shadow:var(--vs-shadow-sm);margin-bottom:20px;}
+.sidebar-card h5{font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:var(--vs-text-heading);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #E2E8F0;}
+.cat-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #F1F5F9;text-decoration:none;color:#475569;font-size:13.5px;transition:.2s;}
+.cat-item:hover{color:#1C2280;padding-left:4px;}
+.cat-badge{background:#F1F5F9;color:#475569;font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;}
 </style>
 
-<!-- Hero -->
+<!-- Hero Section -->
 <div class="page-hero">
-  <div class="container">
-    <nav aria-label="breadcrumb" class="mb-3"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="index.php">Home</a></li><li class="breadcrumb-item active">Blog</li></ol></nav>
-    <h1>Vortexsoft <span style="color:#5BA8D4;">Blog</span></h1>
-    <p style="color:rgba(255,255,255,.75);font-size:16px;margin-top:12px;max-width:560px;">Expert insights on IT outsourcing, AI solutions, healthcare BPO, publishing, and industry trends from the Vortexsoft team.</p>
+  <div class="page-hero-glow"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb mb-2" style="background:transparent;padding:0;font-size:13px;">
+        <li class="breadcrumb-item"><a href="index.php" style="color:rgba(255,255,255,0.6);text-decoration:none;"><i class="fas fa-home me-1"></i> Home</a></li>
+        <li class="breadcrumb-item active" style="color:rgba(255,255,255,0.9);">Blog</li>
+      </ol>
+    </nav>
+    <div class="section-tag mb-3">
+      <i class="fas fa-newspaper"></i> Industry Insights &amp; Tech Trends
+    </div>
+    <h1 style="font-size:clamp(1.9rem,3.8vw,2.9rem);font-weight:800;color:#fff;line-height:1.2;letter-spacing:-0.025em;margin-bottom:14px;">
+      Vortexsoft <span style="background:linear-gradient(135deg,#FFFFFF 30%,#5BA8D4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Insights &amp; Blog</span>
+    </h1>
+    <p style="color:rgba(255,255,255,0.8);font-size:15px;max-width:620px;line-height:1.75;">
+      Expert articles on IT outsourcing, enterprise AI adoption, healthcare revenue cycle management, accessible publishing, and global operational efficiency.
+    </p>
   </div>
 </div>
 

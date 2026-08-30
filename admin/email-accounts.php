@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Vortexsoft Innovations — Admin Email Accounts & Connection Tester
  * Requirements #1 & #3: Mail account settings + SMTP/IMAP testing tools
@@ -157,7 +157,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;margin:0;color:#1e293b}
 </head>
 <body>
 <div class="admin-sidebar">
-    <div class="sidebar-logo">VORTEX<span>SOFT</span></div>
+    <div class="sidebar-logo"><a href="/admin/dashboard.php"><img src="/logo-header.png" alt="Vortexsoft Group" style="height:42px;object-fit:contain;background:#fff;border-radius:8px;padding:5px 10px;"></a></div>
     <nav class="sidebar-nav">
         <div class="sidebar-section">Main</div>
         <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>

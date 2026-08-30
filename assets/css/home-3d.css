@@ -1,0 +1,172 @@
+/* ═══════════════════════════════════════════════════════════════════
+   VORTEXSOFT INNOVATIONS — HOMEPAGE 3D MOTION & DEPTH FRAMEWORK
+   (home-3d.css)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── 3D Container & Card Perspective System ─────────────────────── */
+.perspective-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.card-3d-wrap {
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-3d-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(350px circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.16), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+.card-3d-wrap:hover::after {
+  opacity: 1;
+}
+
+/* ── Enhanced Hero 3D Staging ────────────────────────────────────── */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.hero-3d-gyro {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: 15%;
+  right: 5%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.25;
+  transform-style: preserve-3d;
+  animation: gyroSpin 24s linear infinite;
+}
+
+.gyro-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(28, 34, 128, 0.4);
+  box-shadow: 0 0 20px rgba(91, 168, 212, 0.15);
+}
+
+.gyro-ring:nth-child(1) {
+  transform: rotateX(60deg) rotateY(20deg);
+}
+
+.gyro-ring:nth-child(2) {
+  transform: rotateX(120deg) rotateY(45deg);
+  border-color: rgba(204, 34, 40, 0.35);
+}
+
+.gyro-ring:nth-child(3) {
+  transform: rotateX(30deg) rotateY(90deg);
+  border-color: rgba(91, 168, 212, 0.5);
+}
+
+@keyframes gyroSpin {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg); }
+}
+
+/* ── AI 3D Neural Automation Section ─────────────────────────────── */
+.ai-3d-stage {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #11172A 0%, #080B1A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+#home-ai-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.ai-stage-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ai-stage-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(8, 11, 26, 0.8);
+  border: 1px solid rgba(91, 168, 212, 0.3);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.ai-pulse-light {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5BA8D4;
+  box-shadow: 0 0 10px #5BA8D4;
+  animation: aiPulseGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes aiPulseGlow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.7); opacity: 0.3; }
+}
+
+/* ── 3D Interactive Floating Badges & Metric Depth ───────────────── */
+.stat-3d-box {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.stat-3d-box:hover {
+  transform: perspective(600px) translateY(-6px) translateZ(10px);
+  box-shadow: 0 16px 36px rgba(28, 34, 128, 0.09);
+}
+
+/* ── Reduced Motion ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .card-3d-wrap, .stat-3d-box {
+    transform: none !important;
+    transition: none !important;
+  }
+  .hero-3d-gyro {
+    display: none !important;
+  }
+  #hero-canvas, #home-ai-canvas {
+    display: none !important;
+  }
+}

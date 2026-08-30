@@ -33,3 +33,4 @@ desktop.ini
 
 # ── Backup directory (never push backups to git) ────────────
 backups/
+cookie.txt

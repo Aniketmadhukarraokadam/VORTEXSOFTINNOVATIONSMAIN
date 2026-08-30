@@ -8,6 +8,16 @@
 header('Content-Type: application/json');
 header('X-Content-Type-Options: nosniff');
 
+// Allow cross-origin POST from the .in domain (applications are always saved on .com)
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, ['https://www.vortexsoftinnovations.in', 'https://vortexsoftinnovations.in'], true)) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, X-CSRF-Token');
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
+}
+
+
 require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
@@ -139,26 +149,14 @@ $email_data = [
 ];
 send_application_notification($email_data);
 
-// Auto-reply to applicant
-$body = "
-<html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
-<div style='max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
-    <div style='background:linear-gradient(135deg,#1C2280,#CC2228);padding:30px;text-align:center;'>
-        <h2 style='color:#fff;margin:0;font-size:22px;'>Application Received!</h2>
-        <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Role: " . htmlspecialchars($job_title) . "</p>
-    </div>
-    <div style='padding:30px;'>
-        <p style='color:#333;'>Dear <strong>" . htmlspecialchars($applicant_name) . "</strong>,</p>
-        <p style='color:#555;'>Thank you for applying to Vortexsoft Group. We have received your application for <strong>" . htmlspecialchars($job_title) . "</strong>.</p>
-        <p style='color:#555;'>Our HR team will review your profile and get back to you within <strong>3-5 business days</strong>.</p>
-        <p style='color:#555;'>For queries, contact: <a href='mailto:" . EMAIL_HR . "' style='color:#1C2280;'>" . EMAIL_HR . "</a></p>
-    </div>
-    <div style='background:#f8f9ff;padding:20px;text-align:center;'>
-        <p style='color:#999;font-size:12px;margin:0;'>Vortexsoft Innovations Pvt. Ltd. | " . SITE_URL . "</p>
-    </div>
-</div>
-</body></html>";
-send_notification_email($email, 'Application Received — Vortexsoft Group', $body);
+// Auto-acknowledgement to applicant (branded, from no-reply, CC careers@)
+$ack_data = [
+    'job_title'      => $job_title,
+    'department'     => $department,
+    'applicant_name' => $applicant_name,
+    'email'          => $email,
+];
+send_application_acknowledgement($ack_data);
 
 json_response(true, 'Your application has been submitted successfully! Our HR team will contact you soon.', [
     'application_id' => $inserted_id

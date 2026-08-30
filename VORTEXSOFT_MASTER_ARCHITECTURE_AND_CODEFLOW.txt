@@ -1,0 +1,809 @@
+# ==============================================================================
+# VORTEXSOFT GROUP — MASTER ARCHITECTURE, APIS & CODEFLOW SPECIFICATION
+# Complete Micro-Level System Architecture, Directory Map, Endpoints & Data Flows
+# ==============================================================================
+# Repository: https://github.com/Aniketmadhukarraokadam/VORTEXSOFTINNOVATIONSMAIN
+# Version: 2.6 Enterprise Edition
+# Generated: August 2026
+# ==============================================================================
+
+---
+
+## 1. SYSTEM OVERVIEW & COMPANY METADATA
+
+- **Corporate Entity**: Vortexsoft Innovations Pvt. Ltd. (Vortexsoft Group)
+- **Certifications & Compliance**:
+  - ISO 27001:2013 Certified (Information Security Management System)
+  - ISO 9001:2015 Quality Management Certified
+  - HIPAA Compliant (Health Insurance Portability and Accountability Act - Healthcare BPO/RCM)
+  - Startup India Registered (DPIIT)
+- **Corporate Locations & Hierarchy**:
+  - **Headquarters**: 502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk, Pune, Maharashtra 411041, India
+  - **Bengaluru Delivery Center**: No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector, Bengaluru, Karnataka 560068, India
+  - **United States Entity**: 30 N Gould St Ste 100, Sheridan, WY 82801, USA
+- **Domains & Host Architecture**:
+  - Global Domain: `https://www.vortexsoftinnovations.com`
+  - India Domain: `https://www.vortexsoftinnovations.in`
+  - Dynamic canonical URL resolution and alternate hreflang tags (`en-US`, `en-IN`, `x-default`)
+- **Technology Stack**:
+  - Backend: Native PHP 8.0+ (PDO, Bcrypt hashing, AES-256-GCM encryption, Session Fingerprinting)
+  - Frontend: HTML5, Custom CSS3 Design Tokens, Vanilla JavaScript (ES6+), Bootstrap 5.3 Grid, FontAwesome 6
+  - Databases: Hostinger MySQL 8.0 / MariaDB (`u696371114_vortexsoftcom`) with local SQLite 3 zero-config fallback (`sqlite_dev.db`)
+  - Server Engine: Apache 2.4+ with `.htaccess` (Gzip/Deflate compression, Strict Security Headers, 301 URL Rewriting)
+  - AI Integrations: Multi-provider blog engine (Google Gemini API, Groq Cloud API, OpenRouter API)
+  - PWA: Offline service worker (`sw.js` v10) and Web App Manifest (`manifest.json`)
+
+---
+
+## 2. COMPLETE DIRECTORY & FILE INVENTORY (MICRO-LEVEL)
+
+```
+VORTEXSOFTINNOVATIONSMAIN-main/
+│
+├── .htaccess                          # Apache server configuration, security headers, URL rewriting
+├── robots.txt                         # Search engine & AI crawler permissions matrix
+├── sitemap.xml                        # XML sitemap indexing all canonical routes
+├── manifest.json                      # Progressive Web Application (PWA) manifest
+├── sw.js                              # Service Worker for asset caching and offline resilience
+├── index.php                          # Homepage with interactive hero, AI products showcase, AEO FAQ
+├── about.php                          # Company profile, 8 pillars, history timeline, GEO fact block
+├── service.php                        # Master service index cataloging 65+ services across 9 domains
+├── careers.php                        # Dynamic job openings board with AJAX application modal
+├── blog.php                           # Dynamic article directory with category filtering & read counters
+├── contact.php                        # Contact center with 3 office maps, direct contact lines & form
+├── privacy.php                        # ISO 27001 & HIPAA data protection and privacy disclosure
+├── terms.php                          # Master terms of service, SLAs, IP ownership & confidentiality
+├── 404.php                            # Custom error handler page with search redirection
+├── package.json                       # Project metadata & build scripts
+├── sqlite_dev.db                      # Local SQLite development database
+│
+├── config/
+│   ├── constants.php                  # Global application constants, dynamic domain resolution, emails
+│   ├── database.php                   # Database connection abstraction (PDO MySQL + SQLite fallback)
+│   ├── .env                           # Server environment variables (Protected, not committed)
+│   └── .env.example                   # Template for database credentials & AI API keys
+│
+├── includes/
+│   ├── header.php                     # Centralized HTML head, metadata, JSON-LD schemas & mega-menu
+│   ├── footer.php                     # Centralized footer, trust marquee, preloader dismissal, scripts
+│   ├── functions.php                  # Core helper library (sanitization, CSRF, rate-limiting, email, RBAC)
+│   └── ai-providers.php               # AI provider wrapper (Gemini, Groq, OpenRouter) & prompt engine
+│
+├── api/
+│   ├── contact.php                    # Contact inquiry ingestion endpoint (POST)
+│   ├── apply.php                      # Job application & resume upload endpoint (POST multipart)
+│   └── newsletter.php                 # Newsletter subscription endpoint (POST)
+│
+├── admin/
+│   ├── login.php                      # Secure admin authentication with rate-limiting & session guards
+│   ├── logout.php                     # Session termination and token cleanup handler
+│   ├── dashboard.php                  # Executive KPI dashboard, metric cards & activity feeds
+│   ├── contacts.php                   # Inbound contact inquiries manager, status workflow & reply tool
+│   ├── applications.php               # Recruitment pipeline manager & candidate application tracking
+│   ├── download.php                   # Secure, permission-verified resume binary file streaming
+│   ├── jobs.php                       # Careers management CRUD (create, edit, toggle active openings)
+│   ├── blog-posts.php                 # Blog post CRUD (create, edit, draft/publish, category filtering)
+│   ├── email-accounts.php             # Multi-account SMTP configuration & live connection tester
+│   ├── email-templates.php            # Visual email template designer with dynamic placeholders
+│   ├── emails.php                     # Sent/received transactional email audit log
+│   ├── newsletter.php                 # Newsletter subscriber list manager & CSV exporter
+│   ├── users.php                      # Multi-role admin user manager (Super Admin, Admin, HR, Editor)
+│   ├── activity-log.php               # System audit log tracking all admin operations & IP addresses
+│   ├── backup_db.php                  # One-click SQL database backup generator & downloader
+│   ├── settings.php                   # Global website settings (phone, emails, socials, metadata)
+│   ├── setup_db.php                   # Automated web installer & self-healing database schema engine
+│   ├── webhook_deploy.php             # GitHub webhook background auto-deployer with token auth
+│   ├── audit_services.php             # Diagnostic service link and route auditor
+│   └── blog/
+│       ├── .htaccess                  # Directory security rules for blog generator
+│       └── generate.php               # 3-Way AI Blog Generator (Gemini + Groq + OpenRouter)
+│
+├── database/
+│   └── setup.sql                      # Complete MySQL database schema (11 tables) & seed records
+│
+├── uploads/
+│   ├── .htaccess                      # Security rule disabling script execution inside uploads
+│   └── resumes/                       # Secure storage directory for uploaded applicant resumes
+│
+├── assets/
+│   ├── vortex-shared.css              # Master styling, design tokens, responsive breakpoints & animations
+│   ├── vortex-shared.js               # Frontend JavaScript (Scroll reveal, 3D particle canvas, counters)
+│   ├── vendor/                        # Minified Bootstrap 5.3, FontAwesome 6, and Google Fonts
+│   └── images/                        # High-resolution 4K brand logos, icons, and illustrations
+│
+└── [65+ Specialized Service Directories]/
+    ├── medical-billing-services/index.php
+    ├── medical-coding-services/index.php
+    ├── denial-management-services/index.php
+    ├── payment-posting-services/index.php
+    ├── ar-recovery-services/index.php
+    ├── data-annotation-services/index.php
+    ├── image-annotation-services/index.php
+    ├── video-annotation-services/index.php
+    ├── audio-annotation-services/index.php
+    ├── text-annotation-services/index.php
+    ├── title-settlement/index.php
+    ├── mortgage-escrow/index.php
+    ├── lease-abstraction-services/index.php
+    ├── lease-administration-services/index.php
+    ├── cam-audit-services/index.php
+    ├── cam-reconciliation-services/index.php
+    ├── property-accounting-services/index.php
+    ├── property-management-service/index.php
+    ├── software-solutions/index.php
+    ├── crm-software-services/index.php
+    ├── lead-management-crm/index.php
+    ├── data-analytics-as-a-service/index.php
+    ├── data-extraction-service/index.php
+    ├── ecommerce-solutions/index.php
+    ├── publishing-services/index.php
+    ├── editorial-services/index.php
+    ├── copy-editing-services/index.php
+    ├── digital-prepress-services/index.php
+    ├── ebook-conversion-services/index.php
+    ├── s1000d-xml-conversion-services/index.php
+    ├── alt-text-writing-services/index.php
+    ├── digital-accessibility-services/index.php
+    ├── document-accessibility-services/index.php
+    ├── pdf-accessibility-services/index.php
+    ├── technical-publication-service/index.php
+    ├── technical-writing/index.php
+    ├── bookkeeping-services/index.php
+    ├── accounting-services/index.php
+    ├── payroll-processing-services/index.php
+    ├── manpower-payroll-services/index.php
+    ├── financial-reporting-services/index.php
+    ├── logistics-services/index.php
+    ├── digital-marketing-service/index.php
+    ├── background-verification-service/index.php
+    └── [additional specialized service folders...]
+```
+
+---
+
+## 3. CORE ARCHITECTURE & CODE EXECUTION FLOWS
+
+### FLOW 1: Public Page Rendering Lifecycle
+```
+1. Client Browser sends HTTP/HTTPS GET request (e.g., https://www.vortexsoftinnovations.com/service.php).
+2. Apache reads .htaccess:
+   - Enforces HTTPS (301 redirect if HTTP).
+   - Enforces www. domain prefix (301 redirect if naked domain).
+   - Evaluates URL rewrite rules (converts .html requests to .php).
+   - Injects HTTP Security Headers (X-Frame-Options, X-Content-Type-Options, CSP, HSTS, Referrer-Policy).
+3. PHP runtime initializes:
+   - `config/constants.php` loads -> Dynamically parses `$_SERVER['HTTP_HOST']` -> Sets `SITE_URL`, `PRIMARY_COM_URL`, `PRIMARY_IN_URL`.
+   - `includes/header.php` starts output buffering via `ob_start()`.
+   - Injects SEO Meta Tags, OpenGraph, Twitter Cards, Hreflang alternates (`en-US`, `en-IN`, `x-default`).
+   - Injects Schema.org JSON-LD graph (`Organization`, `LocalBusiness`, `BreadcrumbList`, `FAQPage`).
+   - Renders Topbar (Pune HQ & Bengaluru phone numbers, social links) and Sticky Navbar with 4-Column Services Mega Menu.
+   - Embeds Inline Page Loader (with 150ms automatic dismissal fail-safe).
+4. Page Body executes:
+   - Fetches dynamic content from MySQL database via `config/database.php` (e.g., blog posts, job listings).
+   - Falls back to SQLite (`sqlite_dev.db`) if MySQL connection fails.
+   - Renders HTML sections, CTA banners, and AEO fact blocks.
+5. `includes/footer.php` executes:
+   - Renders CTA Banner, Animated CSS Trust Marquee (ISO 27001, HIPAA, ISO 9001).
+   - Renders 4-column footer links and highlighted Pune Headquarters address with Google Maps link.
+   - Loads `assets/vortex-shared.js` (Initializes 3D Particle Cyclone Canvas, IntersectionObserver for scroll reveals, animated number counters).
+   - Registers Service Worker (`sw.js` v10) for client-side caching.
+```
+
+---
+
+### FLOW 2: Contact Form Inbound Flow & Anti-Spam Pipeline
+```
+[User on Frontend] -> Fills Contact Form (#contactForm)
+       ↓
+[vortex-shared.js] -> Prevents default submit -> Validates required fields & email format via regex
+       ↓
+[AJAX POST] -> Dispatches fetch to `/api/contact.php` with FormData payload
+       ↓
+[/api/contact.php Backend]:
+  1. Header Validation: Enforces Content-Type: application/json and X-Content-Type-Options: nosniff.
+  2. Method Guard: Rejects non-POST methods with 405 Method Not Allowed.
+  3. Honeypot Anti-Spam: Checks `$_POST['website_hp']` -> If populated (bot detected), silently returns success without processing.
+  4. CSRF Validation: Checks `$_POST['csrf_token']` against `$_SESSION['csrf_token']` using `hash_equals()`.
+  5. IP Rate Limiting: Checks `check_rate_limit('contact_' . md5($ip), 5, 300)` (Max 5 submissions per 5 minutes per IP).
+  6. Data Sanitization: Runs `sanitize()` (HTML entity encode + strip tags) and `sanitize_email()`.
+  7. Input Constraints: Verifies Name (max 120 chars), Email (filter_var), Phone (regex), Message (min 10, max 5000 chars).
+  8. Database Ingestion:
+     - Prepares SQL: `INSERT INTO contact_inquiries (name, email, phone, service, company, message, ip_address, user_agent, source_page, created_at) VALUES (...)`
+     - Executes via PDO prepared statement. Retrieves `inserted_id`.
+  9. Transactional Email Dispatch:
+     - Calls `send_contact_notification()` -> Dispatches HTML alert email to `support@vortexsoftinnovations.com`.
+     - Calls `send_contact_acknowledgement()` -> Dispatches branded confirmation email to visitor with inquiry reference ID.
+     - Logs email execution to `email_logs` table.
+ 10. JSON Response:
+     - Returns `{"success": true, "message": "Thank you! Your message has been sent.", "inquiry_id": 142}`.
+       ↓
+[Frontend UI]:
+  - Resets form fields.
+  - Triggers Bootstrap Modal (#contactSuccessModal) displaying confirmation feedback.
+```
+
+---
+
+### FLOW 3: Candidate Job Application & Resume Processing Flow
+```
+[Job Seeker on careers.php] -> Clicks "Apply Now" on job card -> Opens Modal (#applyModal)
+       ↓
+[User Fills Form]: Name, Email, Phone, Experience, Notice Period, Expected CTC, Cover Letter + Uploads Resume (.pdf/.doc/.docx)
+       ↓
+[AJAX POST] -> Dispatches multipart/form-data to `/api/apply.php`
+       ↓
+[/api/apply.php Backend]:
+  1. Anti-Spam Check: Verifies honeypot field `$_POST['website_hp']`.
+  2. Rate Limiting: Enforces max 3 applications per 10 minutes per IP (`apply_md5($ip)`).
+  3. Input Sanitization: Sanitizes all string fields.
+  4. File Validation:
+     - Checks `$_FILES['resume']['error'] === UPLOAD_ERR_OK`.
+     - MIME Type Validation: Must be `application/pdf`, `application/msword`, or OpenXML Word doc.
+     - Extension Validation: Whitelist `['pdf', 'doc', 'docx']`.
+     - File Size Limit: Max 5,242,880 bytes (5MB).
+  5. File Storage & Security:
+     - Ensures `/uploads/resumes/` directory exists with `0755` permissions.
+     - Enforces `.htaccess` blocking PHP execution inside the directory (`Options -Indexes`, `Deny from all for .php`).
+     - Generates cryptographically safe filename: `date('Ymd_His') . '_' . preg_replace('/[^a-zA-Z0-9\-_]/', '_', $name) . '.' . $ext`.
+     - Executes `move_uploaded_file()`.
+  6. Database Persistence:
+     - Prepares SQL: `INSERT INTO job_applications (job_title, department, applicant_name, email, phone, current_location, experience_years, current_company, notice_period, expected_ctc, resume_filename, resume_path, cover_letter, linkedin_url, portfolio_url, ip_address, status, created_at) VALUES (...)`
+     - Default status set to `'new'`.
+  7. Email Notifications:
+     - Calls `send_application_notification()` -> Dispatches candidate dossier to `careers@vortexsoftinnovations.in`.
+     - Dispatches branded auto-acknowledgement email to applicant with reference timeline (3-5 business days).
+  8. JSON Response:
+     - Returns `{"success": true, "message": "Application submitted successfully!", "application_id": 89}`.
+       ↓
+[Admin Review Flow]:
+  - HR Admin logs into `/admin/applications.php`.
+  - Filters by job role or candidate status.
+  - Updates candidate pipeline (`new` -> `reviewed` -> `shortlisted` -> `interview` -> `offered` -> `rejected`).
+  - Clicks "Download Resume" -> Dispatches request to `/admin/download.php?id=89` -> Script validates admin session, verifies file existence, streams binary file with `Content-Disposition: attachment`.
+```
+
+---
+
+### FLOW 4: Multi-Provider AI Blog Content Generation Flow
+```
+[Content Manager in Admin] -> Navigates to `/admin/blog/generate.php`
+       ↓
+[Input Form]:
+  - Topic: (e.g., "The Role of AI in Healthcare Revenue Cycle Management")
+  - Target Keyword: (e.g., "Healthcare RCM AI Automation")
+  - Provider Selector: (Google Gemini, Groq, OpenRouter, or "Generate All 3 & Compare")
+       ↓
+[generate.php POST Execution]:
+  1. Session & Role Verification: Confirms user has `admin` or `editor` role.
+  2. Sets `set_time_limit(180)` for multi-model network execution.
+  3. Invokes `includes/ai-providers.php`:
+     - Loads `.env` API keys (`GEMINI_API_KEY`, `GROQ_API_KEY`, `OPENROUTER_API_KEY`).
+     - Calls `buildBlogPrompt($topic, $targetKeyword)`:
+       * Injects System Prompt: ISO 27001 facts, Pune HQ, 6+ years experience, 200+ projects, 150+ clients, HIPAA compliance.
+       * Injects Output Requirement: Strict JSON structure `{"title": "...", "excerpt": "...", "body": "..."}`.
+  4. Model Execution:
+     - **Provider A (Google Gemini)**: Calls `generateWithGemini()` targeting `gemini-3.6-flash` / `gemini-2.5-flash` with cURL SSL fallback.
+     - **Provider B (Groq Cloud)**: Calls `generateWithGroq()` targeting `llama-3.3-70b-versatile` with max_tokens 4096.
+     - **Provider C (OpenRouter)**: Calls `generateWithOpenRouter()` targeting `meta-llama/llama-3.3-70b-instruct`.
+  5. Response Sanitization & Parsing:
+     - Applies regex fallback extraction to clean raw LLM output, removing markdown backticks (` ```json `).
+     - Parses JSON into associative array: `['title', 'excerpt', 'body']`.
+  6. Audit Logging:
+     - Inserts record into `ai_generation_logs` table with execution parameters, provider used, and token timing.
+       ↓
+[Admin Review & Publishing Interface]:
+  - Displays generated articles in responsive side-by-side comparison tabs.
+  - Interactive HTML preview and WYSIWYG editor for immediate adjustments.
+  - 1-Click Publishing Action:
+    * Generates URL slug via `slugify($title)`.
+    * Inserts record into `blog_posts` table (`is_published = 1`, `published_at = NOW()`).
+    * Article becomes immediately accessible on public `/blog.php` directory.
+```
+
+---
+
+### FLOW 5: Admin Authentication, Security & RBAC Flow
+```
+[Admin User] -> Navigates to `/admin/login.php`
+       ↓
+[GET Request]:
+  - Checks if active admin session exists (`$_SESSION[ADMIN_SESSION]`). If yes, redirects to `dashboard.php`.
+  - Generates CSRF token.
+       ↓
+[POST Submit]:
+  1. Rate Limit Enforcement:
+     - Key: `admin_login_` . md5($ip). Max 10 attempts per 5 minutes.
+     - If exceeded, locks interface and outputs security alert.
+  2. Input Sanitization: Sanitizes username and trims password.
+  3. Database Authentication:
+     - Prepares SQL: `SELECT * FROM admin_users WHERE (username = :u OR email = :u) AND is_active = 1 LIMIT 1`.
+     - Executes query against MySQL.
+     - Verifies password using `password_verify($password, $user['password_hash'])`.
+  4. Fallback Authentication Guard:
+     - If database is during active migration, validates against secure fallback hashes for super_admin.
+  5. Session Security Initialization:
+     - Calls `session_regenerate_id(true)` to prevent session fixation attacks.
+     - Stores session keys:
+       * `$_SESSION[ADMIN_SESSION] = true`
+       * `$_SESSION['vortex_admin_id'] = $user['id']`
+       * `$_SESSION['vortex_admin_user'] = $user['username']`
+       * `$_SESSION['vortex_admin_role'] = $user['role']`
+       * `$_SESSION['admin_ip'] = get_client_ip()`
+       * `$_SESSION['admin_user_agent'] = $_SERVER['HTTP_USER_AGENT']`
+  6. Audit Log:
+     - Writes to `admin_activity_logs` (`action = 'login'`, `details = 'Successful login'`).
+     - Updates `last_login` timestamp and increments `login_count` in `admin_users`.
+  7. Redirects to `/admin/dashboard.php`.
+```
+
+---
+
+## 4. REST API SPECIFICATIONS (MICRO-LEVEL)
+
+### 1. Contact Form API Endpoint
+
+- **Route**: `POST /api/contact.php`
+- **Content-Type**: `application/x-www-form-urlencoded` OR `multipart/form-data`
+- **Authentication**: Public (CSRF Token & Honeypot Protected)
+- **Rate Limit**: 5 requests per 300 seconds per IP address
+
+#### Request Parameters
+| Parameter | Type | Required | Description / Validation |
+|---|---|---|---|
+| `fullName` / `name` | String | Yes | Full name of the submitter (Max 120 chars) |
+| `emailAddr` / `email` | String | Yes | Valid email address (`FILTER_VALIDATE_EMAIL`) |
+| `phone` | String | No | Phone number (Regex `^[\+0-9\-\s\(\)]{7,20}$`) |
+| `service` | String | No | Target service category (Default: "General Inquiry") |
+| `company` | String | No | Submitter's company or organization name |
+| `msgText` / `message` | String | Yes | Inquiry message text (Min 10 chars, Max 5000 chars) |
+| `csrf_token` | String | Yes | CSRF verification token matching active session |
+| `website_hp` | String | No | Anti-spam honeypot (Must be empty) |
+
+#### Response Payloads
+```json
+// Success Response (HTTP 200 OK)
+{
+  "success": true,
+  "message": "Thank you! Your message has been sent. Our team will reply within 24 hours.",
+  "inquiry_id": 142
+}
+
+// Error Response - Validation (HTTP 200 / 400)
+{
+  "success": false,
+  "message": "Please enter a valid email address."
+}
+
+// Error Response - Rate Limit (HTTP 200 / 429)
+{
+  "success": false,
+  "message": "Too many requests. Please wait a few minutes before trying again."
+}
+```
+
+---
+
+### 2. Job Application API Endpoint
+
+- **Route**: `POST /api/apply.php`
+- **Content-Type**: `multipart/form-data`
+- **Authentication**: Public (Honeypot & Rate-Limit Protected)
+- **Rate Limit**: 3 applications per 600 seconds per IP address
+
+#### Request Parameters
+| Parameter | Type | Required | Description / Validation |
+|---|---|---|---|
+| `applicant_name` / `name` | String | Yes | Candidate full name (Max 120 chars) |
+| `email` | String | Yes | Valid email address |
+| `phone` | String | Yes | Candidate contact phone number |
+| `job_title` | String | Yes | Job opening title applying for |
+| `department` | String | No | Target department (Healthcare, Software, AI, etc.) |
+| `experience_years` | Numeric | No | Total years of professional experience |
+| `current_company` | String | No | Current or previous employer |
+| `notice_period` | String | No | Notice period in days/months |
+| `expected_ctc` | String | No | Expected compensation |
+| `cover_letter` | String | No | Candidate cover letter text |
+| `linkedin_url` | String | No | LinkedIn profile URL |
+| `portfolio_url` | String | No | Portfolio / GitHub URL |
+| `resume` | File | No | Candidate resume file (Max 5MB, `.pdf`, `.doc`, `.docx`) |
+| `website_hp` | String | No | Anti-spam honeypot (Must be empty) |
+
+#### Response Payloads
+```json
+// Success Response (HTTP 200 OK)
+{
+  "success": true,
+  "message": "Your application has been submitted successfully! Our HR team will contact you soon.",
+  "application_id": 89
+}
+
+// Error Response - File Size Exceeded
+{
+  "success": false,
+  "message": "Resume file size must be under 5MB."
+}
+```
+
+---
+
+### 3. Newsletter Subscription API Endpoint
+
+- **Route**: `POST /api/newsletter.php`
+- **Content-Type**: `application/x-www-form-urlencoded`
+- **Authentication**: Public
+
+#### Request Parameters
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `email` | String | Yes | Valid subscriber email address |
+| `csrf_token` | String | No | Session CSRF token |
+
+#### Response Payloads
+```json
+// Success Response
+{
+  "success": true,
+  "message": "Thank you for subscribing to our newsletter!"
+}
+```
+
+---
+
+## 5. DATABASE SCHEMA & DATA DICTIONARY
+
+The system runs on MySQL 8.0 / MariaDB (Database: `u696371114_vortexsoftcom`) with full UTF-8 MB4 charset support.
+
+### Table 1: `contact_inquiries`
+Stores all inbound business leads and customer service requests.
+```sql
+CREATE TABLE `contact_inquiries` (
+  `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name`         VARCHAR(120) NOT NULL,
+  `email`        VARCHAR(180) NOT NULL,
+  `phone`        VARCHAR(30)  DEFAULT NULL,
+  `service`      VARCHAR(120) DEFAULT 'General Inquiry',
+  `company`      VARCHAR(120) DEFAULT NULL,
+  `message`      TEXT         NOT NULL,
+  `ip_address`   VARCHAR(45)  DEFAULT NULL,
+  `user_agent`   VARCHAR(255) DEFAULT NULL,
+  `source_page`  VARCHAR(255) DEFAULT NULL,
+  `is_read`      TINYINT(1)   NOT NULL DEFAULT 0,
+  `is_replied`   TINYINT(1)   NOT NULL DEFAULT 0,
+  `notes`        TEXT         DEFAULT NULL,
+  `created_at`   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_email` (`email`),
+  INDEX `idx_is_read` (`is_read`),
+  INDEX `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 2: `job_applications`
+Tracks candidate resumes and the multi-stage recruitment pipeline.
+```sql
+CREATE TABLE `job_applications` (
+  `id`               INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+  `job_title`        VARCHAR(200)  NOT NULL,
+  `department`       VARCHAR(100)  DEFAULT NULL,
+  `applicant_name`   VARCHAR(120)  NOT NULL,
+  `email`            VARCHAR(180)  NOT NULL,
+  `phone`            VARCHAR(30)   DEFAULT NULL,
+  `current_location` VARCHAR(120)  DEFAULT NULL,
+  `experience_years` DECIMAL(4,1)  DEFAULT NULL,
+  `current_company`  VARCHAR(120)  DEFAULT NULL,
+  `notice_period`    VARCHAR(60)   DEFAULT NULL,
+  `expected_ctc`     VARCHAR(60)   DEFAULT NULL,
+  `resume_filename`  VARCHAR(255)  DEFAULT NULL,
+  `resume_path`      VARCHAR(500)  DEFAULT NULL,
+  `cover_letter`     TEXT          DEFAULT NULL,
+  `linkedin_url`     VARCHAR(300)  DEFAULT NULL,
+  `portfolio_url`    VARCHAR(300)  DEFAULT NULL,
+  `ip_address`       VARCHAR(45)   DEFAULT NULL,
+  `status`           ENUM('new','reviewed','shortlisted','interview','offered','rejected','withdrawn') NOT NULL DEFAULT 'new',
+  `admin_notes`      TEXT          DEFAULT NULL,
+  `consent_given`    TINYINT(1)    NOT NULL DEFAULT 1,
+  `consent_timestamp`DATETIME      DEFAULT CURRENT_TIMESTAMP,
+  `created_at`       DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`       DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_email` (`email`),
+  INDEX `idx_status` (`status`),
+  INDEX `idx_job_title` (`job_title`),
+  INDEX `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 3: `jobs`
+Manages open career postings displayed dynamically on `careers.php`.
+```sql
+CREATE TABLE `jobs` (
+  `id`               INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title`            VARCHAR(200) NOT NULL,
+  `department`       VARCHAR(100) NOT NULL,
+  `type`             VARCHAR(60)  NOT NULL DEFAULT 'Full Time',
+  `location`         VARCHAR(120) NOT NULL,
+  `experience_range` VARCHAR(60)  DEFAULT NULL,
+  `skills_json`      TEXT         DEFAULT NULL,
+  `description`      TEXT         NOT NULL,
+  `is_urgent`        TINYINT(1)   NOT NULL DEFAULT 0,
+  `is_active`        TINYINT(1)   NOT NULL DEFAULT 1,
+  `sort_order`       INT UNSIGNED NOT NULL DEFAULT 0,
+  `created_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_is_active` (`is_active`),
+  INDEX `idx_sort_order` (`sort_order`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 4: `blog_posts`
+Articles published by the content team or generated via AI.
+```sql
+CREATE TABLE `blog_posts` (
+  `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title`        VARCHAR(300) NOT NULL,
+  `slug`         VARCHAR(320) NOT NULL,
+  `excerpt`      VARCHAR(500) DEFAULT NULL,
+  `content`      LONGTEXT     NOT NULL,
+  `author`       VARCHAR(100) NOT NULL DEFAULT 'Vortexsoft Team',
+  `author_role`  VARCHAR(100) DEFAULT NULL,
+  `cover_image`  VARCHAR(500) DEFAULT NULL,
+  `category`     VARCHAR(100) NOT NULL DEFAULT 'General',
+  `tags`         VARCHAR(500) DEFAULT NULL,
+  `meta_title`   VARCHAR(300) DEFAULT NULL,
+  `meta_desc`    VARCHAR(500) DEFAULT NULL,
+  `views`        INT UNSIGNED NOT NULL DEFAULT 0,
+  `is_published` TINYINT(1)   NOT NULL DEFAULT 0,
+  `is_featured`  TINYINT(1)   NOT NULL DEFAULT 0,
+  `published_at` DATETIME     DEFAULT NULL,
+  `created_at`   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_slug` (`slug`),
+  INDEX `idx_category` (`category`),
+  INDEX `idx_is_published` (`is_published`),
+  INDEX `idx_published_at` (`published_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 5: `admin_users`
+Admin credentials, roles, and security audit fields.
+```sql
+CREATE TABLE `admin_users` (
+  `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username`     VARCHAR(60)  NOT NULL,
+  `password_hash`VARCHAR(255) NOT NULL,
+  `email`        VARCHAR(180) NOT NULL,
+  `full_name`    VARCHAR(120) DEFAULT NULL,
+  `role`         ENUM('super_admin','admin','viewer') NOT NULL DEFAULT 'admin',
+  `is_active`    TINYINT(1)   NOT NULL DEFAULT 1,
+  `last_login`   DATETIME     DEFAULT NULL,
+  `login_count`  INT UNSIGNED NOT NULL DEFAULT 0,
+  `created_at`   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username` (`username`),
+  UNIQUE KEY `uk_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 6: `email_accounts`
+Outgoing SMTP servers configured for transaction emails.
+```sql
+CREATE TABLE `email_accounts` (
+  `id`                INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `email_address`     VARCHAR(180) NOT NULL,
+  `display_name`      VARCHAR(120) DEFAULT 'Vortexsoft Group',
+  `provider`          VARCHAR(60)  DEFAULT 'Hostinger / Custom SMTP',
+  `smtp_host`         VARCHAR(180) DEFAULT NULL,
+  `smtp_port`         INT UNSIGNED DEFAULT 587,
+  `smtp_encryption`   VARCHAR(10)  DEFAULT 'tls',
+  `smtp_username`     VARCHAR(180) DEFAULT NULL,
+  `smtp_password_enc` TEXT         DEFAULT NULL,
+  `imap_host`         VARCHAR(180) DEFAULT NULL,
+  `imap_port`         INT UNSIGNED DEFAULT 993,
+  `imap_encryption`   VARCHAR(10)  DEFAULT 'ssl',
+  `imap_username`     VARCHAR(180) DEFAULT NULL,
+  `imap_password_enc` TEXT         DEFAULT NULL,
+  `is_active`         TINYINT(1)   NOT NULL DEFAULT 1,
+  `is_default`        TINYINT(1)   NOT NULL DEFAULT 0,
+  `created_at`        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_email` (`email_address`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 7: `email_logs`
+Audit log of all sent and failed email dispatches.
+```sql
+CREATE TABLE `email_logs` (
+  `id`            INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `account_id`    INT UNSIGNED DEFAULT NULL,
+  `type`          ENUM('outgoing','incoming') NOT NULL DEFAULT 'outgoing',
+  `sender`        VARCHAR(180) NOT NULL,
+  `recipient`     VARCHAR(180) NOT NULL,
+  `subject`       VARCHAR(255) NOT NULL,
+  `body_html`     MEDIUMTEXT   DEFAULT NULL,
+  `status`        ENUM('queued','sending','sent','failed','bounced') NOT NULL DEFAULT 'sent',
+  `error_message` TEXT         DEFAULT NULL,
+  `retry_count`   INT UNSIGNED NOT NULL DEFAULT 0,
+  `last_retry_at` DATETIME     DEFAULT NULL,
+  `related_type`  VARCHAR(50)  DEFAULT NULL,
+  `related_id`    INT UNSIGNED DEFAULT NULL,
+  `created_at`    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_status` (`status`),
+  INDEX `idx_type` (`type`),
+  INDEX `idx_created` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 8: `email_templates`
+Reusable dynamic email templates.
+```sql
+CREATE TABLE `email_templates` (
+  `id`             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `template_key`   VARCHAR(80)  NOT NULL,
+  `name`           VARCHAR(120) NOT NULL,
+  `subject`        VARCHAR(255) NOT NULL,
+  `body_html`      MEDIUMTEXT   NOT NULL,
+  `variables_json` TEXT         DEFAULT NULL,
+  `updated_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_template_key` (`template_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 9: `admin_activity_logs`
+Chronological audit trail of all staff and system actions.
+```sql
+CREATE TABLE `admin_activity_logs` (
+  `id`             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `admin_id`       INT UNSIGNED DEFAULT NULL,
+  `admin_username` VARCHAR(80)  NOT NULL,
+  `action`         VARCHAR(100) NOT NULL,
+  `details`        TEXT         DEFAULT NULL,
+  `ip_address`     VARCHAR(45)  NOT NULL,
+  `user_agent`     VARCHAR(255) DEFAULT NULL,
+  `created_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_action` (`action`),
+  INDEX `idx_created` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### Table 10: `ai_generation_logs`
+Audit tracking of AI blog generator prompts and outputs.
+```sql
+CREATE TABLE `ai_generation_logs` (
+  `id`             INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+  `topic`          VARCHAR(500)  NOT NULL,
+  `target_keyword` VARCHAR(255)  NOT NULL,
+  `admin_id`       INT UNSIGNED  DEFAULT NULL,
+  `admin_username` VARCHAR(120)  DEFAULT NULL,
+  `provider_used`  VARCHAR(60)   DEFAULT NULL,
+  `model_used`     VARCHAR(100)  DEFAULT NULL,
+  `generation_time_sec` DECIMAL(6,2) DEFAULT NULL,
+  `created_at`     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_keyword` (`target_keyword`),
+  INDEX `idx_created` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+---
+
+## 6. COMPLETE SERVICE DOMAINS & VERTICAL CATALOG
+
+The platform features 65+ dedicated service landing pages grouped under 9 core industry pillars:
+
+### Pillar 1: Real Estate Title & Settlement Services
+- **Services**: Title Search & Examination, Commitment Typing, Closing & Settlement Support, Mortgage & Escrow Support, Easement Plotting, CAM Audit, CAM Reconciliation, Commercial Lease Abstraction, Lease Administration, Property Accounting, Property Management.
+- **Tools Supported**: ResWare, SoftPro, Qualia, RamQuest, MRI Software, Yardi, RealPage.
+
+### Pillar 2: Healthcare BPO & Revenue Cycle Management (RCM)
+- **Services**: Medical Coding (ICD-10, CPT, HCPCS, E&M), Medical Billing & Claims Submission (EDI 837), Payment Posting (EOB/ERA), Denial Management, Accounts Receivable (AR) Recovery, Patient Eligibility & Prior Authorization.
+- **Compliance & EHRs**: HIPAA Compliant, Epic, Athenahealth, Kareo, AdvancedMD, Medisoft.
+
+### Pillar 3: Custom Software & Web Development
+- **Services**: Custom Web Application Development, Enterprise Software Solutions, CRM & ERP Customization, Mobile App Development (iOS/Android), API Integration & Middleware, Cloud Migration (AWS/GCP/Azure).
+
+### Pillar 4: AI Data Annotation & Training Data Solutions
+- **Services**: Bounding Box & Polygon Image Annotation, Semantic Video Annotation & Object Tracking, Audio Transcription & Sentiment Labeling, NLP Text Classification & Named Entity Recognition (NER), Sensor Fusion & LiDAR Annotation.
+- **Tools Supported**: CVAT, Labelbox, Scale AI, VGG Image Annotator.
+
+### Pillar 5: Digital Publishing, ePUB3 & Prepress Services
+- **Services**: Academic & Trade Book Typesetting, XML/HTML Transformation (JATS, BITS, S1000D), Reflowable & Fixed-Layout ePUB3 Conversion, Interactive Kindle Conversion, Alt-Text Writing for STEM & Art, Digital Prepress & Preflight Validation, Proofreading & Copy Editing.
+- **Proprietary Engine**: `vortexsoftpublishing` automated workflow platform.
+
+### Pillar 6: Digital Accessibility & Remediation Services
+- **Services**: PDF/UA Accessibility Remediation, Document Accessibility (Word, PowerPoint, Excel), EPUB Accessibility (DAISY, Ace by DAISY), WCAG 2.1 Level AA & Section 508 Compliance Audits, Color Contrast Analysis & Alt-Text Tagging.
+
+### Pillar 7: Accounting, Bookkeeping & Financial BPO
+- **Services**: General Ledger Bookkeeping, Accounts Payable (AP) & Accounts Receivable (AR) Processing, Bank & Credit Card Reconciliations, Financial Statement Preparation (P&L, Balance Sheet), GST & TDS Statutory Filing (India), Payroll Processing & Tax Form Compliance.
+- **Software**: QuickBooks, Xero, Tally Prime, SAP, Zoho Books.
+
+### Pillar 8: Logistics & Supply Chain Back-Office Operations
+- **Services**: Bill of Lading (BOL) Indexing & Processing, Freight Auditing & Payment Verification, Dispatch Management & Tracking, Customs Documentation & Clearance Filing.
+
+### Pillar 9: Manpower, Staffing & Payroll Management
+- **Services**: IT & Non-IT Talent Acquisition, Dedicated Offshore Pods & Resource Augmentation, Statutory Payroll Compliance, Employee Onboarding & Background Verification.
+
+---
+
+## 7. PROPRIETARY PRODUCT PLATFORMS SUITE
+
+1. **VortexEXHO**:
+   - Comprehensive Enterprise Workforce Operating System.
+   - Modules: Applicant Tracking System (ATS), HRMS, Automated Payroll Processing, Learning Management System (LMS), and AI Employee Copilot.
+2. **vortexHire**:
+   - AI Candidate Screening & Resume Qualification Platform.
+   - Analyzes candidate CVs against job descriptions, ranks candidate fits, and generates automated technical screening summaries.
+3. **vortexKonnect**:
+   - Call Center Speech Analytics & Quality Assurance Platform.
+   - Evaluates recorded customer audio streams for agent compliance, tone, sentiment, and automated QA scorecards.
+4. **Vortexreach**:
+   - AI B2B Lead Generation & Outreach Automation Platform.
+   - Multi-channel prospect research, personalized AI email drafting, and outbound campaign sequencing.
+5. **vortexsoftpublishing**:
+   - Proprietary publishing prepress and conversion engine.
+   - Automates XML parsing (JATS, BITS, S1000D), ePUB3 packaging, and WCAG 2.1 AA accessibility remediation.
+
+---
+
+## 8. SECURITY HARDENING & DEFENSE-IN-DEPTH
+
+### 1. HTTP Security Headers (Configured in `.htaccess` & `header.php`)
+- `X-Frame-Options: SAMEORIGIN`: Prevents clickjacking by blocking unauthorized framing.
+- `X-Content-Type-Options: nosniff`: Prevents MIME-sniffing exploits.
+- `X-XSS-Protection: 1; mode=block`: Activates native browser XSS filtering.
+- `Referrer-Policy: strict-origin-when-cross-origin`: Controls referrer header exposure.
+- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`: Enforces strict HTTPS communication.
+- `Permissions-Policy`: Restricts camera, microphone, and payment APIs to unauthorized third parties.
+- `Content-Security-Policy (CSP)`: Whitelists approved CDNs (jsDelivr, Cloudflare, Google Fonts) and restricts malicious script execution.
+
+### 2. Database & Application Layer Protection
+- **SQL Injection Prevention**: 100% of SQL statements across all APIs and admin modules execute via PDO prepared statements with parameterized binding.
+- **Cross-Site Scripting (XSS)**: All user inputs pass through `htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8')`.
+- **Cross-Site Request Forgery (CSRF)**: Cryptographically secure random tokens generated via `bin2hex(random_bytes(32))` and validated with `hash_equals()`.
+- **Upload Directory Hardening**: Direct execution of `.php`, `.phtml`, `.cgi`, `.sh`, `.exe` scripts is disabled inside `/uploads/` via Apache handler overrides.
+- **Access Protection**: Direct HTTP access to `/config/`, `/includes/`, `/database/`, `/backups/`, and `/uploads/resumes/` is blocked via 403 Forbidden rewrite rules.
+
+---
+
+## 9. SEO, AEO & GEO SEARCH ENGINE OPTIMIZATION
+
+### 1. Search Engine Optimization (SEO)
+- Page titles strictly formatted (<60 characters) and meta descriptions (<160 characters).
+- Canonical URL declarations matching `.com` and `.in` host requests.
+- Complete multi-region `hreflang` graph (`en-US`, `en-IN`, `x-default`).
+- High-resolution 4K brand logos and favicon formats (`32x32`, `192x192`, Apple Touch Icon).
+- Full `sitemap.xml` index covering all service subfolders.
+
+### 2. Answer Engine Optimization (AEO)
+- 14 Fact-First Q&A answer blocks structured in 40–60 word paragraphs on the homepage and landing pages.
+- Embedded `@type: "FAQPage"` Schema.org markup formatted for immediate extraction as Google Featured Snippets and citation in ChatGPT Search, Claude, Perplexity AI, and Google AI Overviews.
+
+### 3. Generative Engine & Geographic Optimization (GEO)
+- Reusable `render_geo_fact_block()` providing machine-readable brand entity definitions.
+- Schema.org `@type: "Organization"` with complete `sameAs` authority links (LinkedIn, Facebook, Instagram, WhatsApp).
+- Embedded geographic coordinates: `geo.region: IN-MH` / `geo.placename: Pune, Maharashtra, India`.
+
+---
+
+## 10. CI/CD WEBHOOK & AUTO-DEPLOYMENT PIPELINE
+
+- **Webhook Endpoint**: `POST /admin/webhook_deploy.php`
+- **Authentication**: Token verification via `HTTP_X_DEPLOY_TOKEN` header or `?token=` parameter matching `DEPLOY_TOKEN`.
+- **Execution Mechanism**:
+  1. Validates deployment token using `hash_equals()`.
+  2. Creates temporary working folder in `/uploads/temp/`.
+  3. Downloads latest repository archive from GitHub (`codeload.github.com/Aniketmadhukarraokadam/VORTEXSOFTINNOVATIONSMAIN/zip/refs/heads/main`) using cURL with SSL fallback.
+  4. Extracts ZIP archive via `ZipArchive`.
+  5. Recursively synchronizes files to `public_html` root directory, excluding development-only files (`.git`, `.github`, `package.json`).
+  6. Cleans up temporary archives and folders.
+  7. Writes deployment timestamp and files copied count to `/admin/deploy.log`.
+  8. Returns instant JSON response (`{"success": true, "files_copied": 240, "timestamp": "2026-08-26 09:43:00"}`).
+
+---
+
+*VORTEXSOFT GROUP — Confidential & Proprietary Master Architecture Document*

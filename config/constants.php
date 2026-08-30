@@ -16,13 +16,24 @@ define('SITE_TAGLINE', 'Your Global AI, IT & BPO Partner');
 define('PRIMARY_COM_URL', 'https://www.vortexsoftinnovations.com');
 define('PRIMARY_IN_URL',  'https://www.vortexsoftinnovations.in');
 
+// ── Domain Detection (.com vs .in) ───────────────────────────
+// IS_DOT_IN = true when the site is running on the .in domain
+// COM_URL   = always points to the .com domain (used for cross-domain links)
+define('IS_DOT_IN', str_ends_with(strtolower($raw_host), '.in'));
+define('COM_URL',   'https://www.vortexsoftinnovations.com');
+
 // ── Email Addresses ────────────────────────────────────────
-define('EMAIL_SUPPORT',   'support@vortexsoftinnovations.com');
-define('EMAIL_INFO',      'support@vortexsoftinnovations.com');
-define('EMAIL_HR',        'careers@vortexsoftinnovations.in');
-define('EMAIL_IT',        'support@vortexsoftinnovations.com');
-define('EMAIL_CONTACT',   'support@vortexsoftinnovations.com');
-define('EMAIL_FROM_NAME', 'Vortexsoft Group');
+define('EMAIL_SUPPORT',      'support@vortexsoftinnovations.com');
+define('EMAIL_INFO',         'support@vortexsoftinnovations.com');
+define('EMAIL_HR',           'careers@vortexsoftinnovations.in');
+define('EMAIL_IT',           'support@vortexsoftinnovations.com');
+define('EMAIL_CONTACT',      'support@vortexsoftinnovations.com');
+define('EMAIL_FROM_NAME',    'Vortexsoft Group');
+// All outgoing transactional mails must originate from this address
+define('EMAIL_NOREPLY',      'no-reply@vortexsoftinnovations.com');
+// CC addresses for internal routing
+define('EMAIL_INQUIRY_CC',   'inquiry@vortexsoftinnovations.com');
+define('EMAIL_CAREERS_CC',   'careers@vortexsoftinnovations.in');
 
 
 // ── Phone Numbers ──────────────────────────────────────────

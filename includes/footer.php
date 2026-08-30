@@ -9,6 +9,25 @@ if (!defined('SITE_NAME')) {
 $prefix = $prefix ?? './';
 ?>
 
+<style>
+/* Footer logo — white pill so logo is always visible on dark background */
+.footer-logo {
+    height: 60px !important;
+    object-fit: contain;
+    margin-bottom: 20px;
+    display: block;
+    background: #ffffff !important;
+    border-radius: 10px;
+    padding: 8px 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.footer-logo:hover {
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    transform: translateY(-2px);
+}
+</style>
+
 <!-- ═══════ CTA BANNER ═══════ -->
 <div class="cta-banner scroll-reveal">
   <div class="container text-center position-relative" style="z-index:2">
@@ -75,7 +94,7 @@ $prefix = $prefix ?? './';
       <!-- Brand Column -->
       <div class="col-lg-3 col-md-6 scroll-reveal">
         <a href="<?= $prefix ?>index.php">
-          <img src="<?= $prefix ?>logo-footer.png?v=20260810" alt="Vortexsoft Innovations" class="footer-logo" width="200" height="55">
+          <img src="<?= $prefix ?>logo-header.png?v=20260830" alt="Vortexsoft Innovations" class="footer-logo" width="220" height="60" style="background:#fff;border-radius:10px;padding:8px 16px;object-fit:contain;">
         </a>
 
         <p class="footer-desc">
@@ -192,11 +211,11 @@ $prefix = $prefix ?? './';
   <div class="footer-bottom">
     <div class="container">
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-        <p>Copyright &copy; <?= date('Y') ?> Vortexsoft Group. Vortexsoft Innovations Pvt. Ltd. All rights reserved.</p>
+        <p>Copyright &copy; <?= date('Y') ?> Vortexsoft Group. Vortexsoft Innovations Pvt. Ltd. All rights reserved. <span style="opacity:0.6;margin-left:8px;">Engineering the intelligent future.</span></p>
         <p style="margin:0;display:flex;gap:16px;">
-          <a href="<?= $prefix ?>index.php#faq" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">FAQ</a>
           <a href="<?= $prefix ?>privacy.php" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">Privacy Policy</a>
           <a href="<?= $prefix ?>terms.php" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">Terms &amp; Conditions</a>
+          <a href="<?= $prefix ?>contact.php" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">Contact</a>
         </p>
       </div>
     </div>
@@ -292,5 +311,13 @@ function submitNewsletter(e) {
 }
 </script>
 <?php if (!empty($extra_scripts)) echo $extra_scripts; ?>
+<?php
+// AEO / GEO Entity Grounding + Local Business schema on every page
+if (!function_exists('render_entity_grounding')) {
+    require_once __DIR__ . '/aeo_schema.php';
+}
+render_entity_grounding();
+render_local_business_schema();
+?>
 </body>
 </html>

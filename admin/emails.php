@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Vortexsoft Innovations — Admin Sent & Received Email Viewer + Failure Monitor
  * Requirements #2 & #4: Mailbox activity viewer, failure logs & retry actions
@@ -91,7 +91,7 @@ th{background:#f8fafc;font-size:12px;color:#64748b;text-transform:uppercase;lett
 </head>
 <body>
 <div class="admin-sidebar">
-    <div class="sidebar-logo">VORTEX<span>SOFT</span></div>
+    <div class="sidebar-logo"><a href="/admin/dashboard.php"><img src="/logo-header.png" alt="Vortexsoft Group" style="height:42px;object-fit:contain;background:#fff;border-radius:8px;padding:5px 10px;"></a></div>
     <nav class="sidebar-nav">
         <div class="sidebar-section">Main</div>
         <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>

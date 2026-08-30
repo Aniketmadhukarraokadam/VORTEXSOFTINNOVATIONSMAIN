@@ -1,0 +1,12 @@
+## Vortexsoft Admin Panel — .htaccess
+## Restricts admin panel access to the .com domain only.
+## If someone visits /admin/* from the .in domain, they are
+## permanently redirected to the same path on the .com domain.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect .in domain admin access → .com domain
+    RewriteCond %{HTTP_HOST} \.in$ [NC]
+    RewriteRule ^(.*)$ https://www.vortexsoftinnovations.com/admin/$1 [R=301,L]
+</IfModule>

@@ -15,6 +15,11 @@ require_once __DIR__ . '/config/constants.php';
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
+// When hosted on .in, always submit job applications to the .com database
+$apply_api_url = IS_DOT_IN
+    ? COM_URL . '/api/apply.php'
+    : 'api/apply.php';
+
 
 // Fetch jobs from DB; fall back to static list if DB unavailable or empty
 $jobs = [];
@@ -95,57 +100,59 @@ foreach ($jobs as $j) {
 require_once __DIR__ . '/includes/header.php';
 ?>
 <style>
-.page-hero{background:linear-gradient(135deg,#080B1A 0%,#1C2280 55%,#CC2228 100%);padding:80px 0 70px;position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:50px 50px}
-.page-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff}
-.breadcrumb-item,.breadcrumb-item a{color:rgba(255,255,255,.6);font-size:14px}
-.breadcrumb-item.active{color:rgba(255,255,255,.9)}
-.breadcrumb-item+.breadcrumb-item::before{color:rgba(255,255,255,.4)}
-
 /* Category Filter Tabs */
-.filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;padding:20px 0 0}
-.filter-btn{background:#fff;border:1.5px solid #dde2f5;color:#475569;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:8px 20px;border-radius:100px;cursor:pointer;transition:.3s;white-space:nowrap;outline:none}
-.filter-btn:hover{border-color:#1C2280;color:#1C2280;background:#f0f2ff}
-.filter-btn.active{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(28,34,128,.3)}
-.job-count-badge{background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;margin-left:4px}
-.filter-btn.active .job-count-badge{background:rgba(255,255,255,.2)}
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;padding:16px 0 0;}
+.filter-btn{background:#FFFFFF;border:1.5px solid #E2E8F0;color:#475569;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:8px 20px;border-radius:100px;cursor:pointer;transition:all 0.2s ease;white-space:nowrap;outline:none;}
+.filter-btn:hover{border-color:#1C2280;color:#1C2280;background:#F8FAFC;}
+.filter-btn.active{background:linear-gradient(135deg,#1C2280,#2563EB);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(37,99,235,0.3);}
+.job-count-badge{background:rgba(0,0,0,0.06);color:#475569;font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;margin-left:4px;}
+.filter-btn.active .job-count-badge{background:rgba(255,255,255,0.25);color:#fff;}
 
 /* Job Cards */
-.job-card{background:#fff;border-radius:18px;padding:28px;border:1.5px solid #e8ecff;transition:all .3s;position:relative;overflow:hidden}
-.job-card::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(180deg,#1C2280,#CC2228);transform:scaleY(0);transform-origin:top;transition:.3s}
-.job-card:hover{border-color:transparent;box-shadow:0 12px 40px rgba(28,34,128,.14);transform:translateY(-4px)}
-.job-card:hover::before{transform:scaleY(1)}
-.job-card.hidden{display:none!important}
-.job-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.5px}
-.urgent-badge{background:#fff0f0;color:#CC2228;border:1px solid rgba(204,34,40,.2)}
-.type-badge{background:rgba(28,34,128,.07);color:#1C2280}
-.skill-tag{background:rgba(28,34,128,.06);color:#1C2280;font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid rgba(28,34,128,.1)}
-.apply-btn{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:8px;border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:8px}
-.apply-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(28,34,128,.3);color:#fff}
+.job-card{background:#fff;border-radius:18px;padding:28px;border:1px solid #E2E8F0;box-shadow:var(--vs-shadow-sm);transition:all .3s ease;position:relative;overflow:hidden;}
+.job-card:hover{border-color:rgba(37,99,235,0.3);box-shadow:var(--vs-shadow-md);transform:translateY(-4px);}
+.job-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.5px;}
+.urgent-badge{background:#FFF5F5;color:#CC2228;border:1px solid rgba(204,34,40,.2);}
+.type-badge{background:rgba(28,34,128,.07);color:#1C2280;}
+.skill-tag{background:#F1F5F9;color:#334155;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid #E2E8F0;}
+.apply-btn{background:var(--vs-grad-primary);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:8px;border:none;cursor:pointer;transition:all 0.2s ease;display:inline-flex;align-items:center;gap:8px;}
+.apply-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,.35);color:#fff;}
 .job-card.hidden, .job-item.hidden { display: none !important; }
-.hidden { display: none !important; }
-.no-jobs-msg{display:none;text-align:center;padding:40px 20px;color:#64748b;font-size:15px}
+.no-jobs-msg{display:none;text-align:center;padding:40px 20px;color:#64748b;font-size:15px;}
 
 /* Application Form Modal */
-#applyModal .modal-content{border-radius:20px;border:none;overflow:hidden}
-#applyModal .modal-header{background:linear-gradient(135deg,#1C2280,#CC2228);padding:24px 28px;border:none}
-#applyModal .modal-header .modal-title{color:#fff;font-size:18px;font-weight:700}
-#applyModal .btn-close{filter:invert(1)}
-.btn-submit-apply{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;padding:14px;border:none;border-radius:10px;width:100%;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-submit-apply:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(28,34,128,.3);color:#fff}
-.resume-optional-note{background:#f0f7ff;border-left:3px solid #1C2280;border-radius:4px;padding:10px 14px;font-size:12.5px;color:#475569;margin-top:6px}
+#applyModal .modal-content{border-radius:20px;border:none;overflow:hidden;}
+#applyModal .modal-header{background:linear-gradient(135deg,#060914,#1C2280);padding:22px 28px;border:none;}
+#applyModal .modal-header .modal-title{color:#fff;font-size:18px;font-weight:700;}
+#applyModal .btn-close{filter:invert(1);}
+.btn-submit-apply{background:var(--vs-grad-primary);color:#fff;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;padding:13px;border:none;border-radius:10px;width:100%;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-submit-apply:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(37,99,235,.35);color:#fff;}
+.resume-optional-note{background:#F8FAFC;border-left:3px solid #1C2280;border-radius:4px;padding:10px 14px;font-size:12.5px;color:#475569;margin-top:6px;}
 </style>
 
-<!-- Hero -->
+<!-- Hero Section -->
 <div class="page-hero">
-  <div class="container">
-    <nav aria-label="breadcrumb" class="mb-3"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="index.php">Home</a></li><li class="breadcrumb-item active">Careers</li></ol></nav>
-    <h1>Join the <span style="color:#5BA8D4;">Vortexsoft</span> Team</h1>
-    <p style="color:rgba(255,255,255,.75);font-size:16px;margin-top:12px;max-width:560px;">Be part of a fast-growing global IT &amp; BPO company. We're hiring passionate professionals across Bengaluru, Pune, and Remote positions.</p>
-    <div class="d-flex gap-3 mt-4 flex-wrap">
-      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;color:#fff;font-size:13px;font-weight:600;"><i class="fas fa-users me-2" style="color:#5BA8D4;"></i> 200+ Team Members</div>
-      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;color:#fff;font-size:13px;font-weight:600;"><i class="fas fa-map-marker-alt me-2" style="color:#CC2228;"></i> Bengaluru, Pune &amp; Remote</div>
-      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 20px;color:#fff;font-size:13px;font-weight:600;"><i class="fas fa-rocket me-2" style="color:#f59e0b;"></i> <?= count($jobs) ?>+ Open Positions</div>
+  <div class="page-hero-glow"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb mb-2" style="background:transparent;padding:0;font-size:13px;">
+        <li class="breadcrumb-item"><a href="index.php" style="color:rgba(255,255,255,0.6);text-decoration:none;"><i class="fas fa-home me-1"></i> Home</a></li>
+        <li class="breadcrumb-item active" style="color:rgba(255,255,255,0.9);">Careers</li>
+      </ol>
+    </nav>
+    <div class="section-tag mb-3">
+      <i class="fas fa-users"></i> We Are Hiring Global Talent
+    </div>
+    <h1 style="font-size:clamp(1.9rem,3.8vw,2.9rem);font-weight:800;color:#fff;line-height:1.2;letter-spacing:-0.025em;margin-bottom:14px;">
+      Join the <span style="background:linear-gradient(135deg,#FFFFFF 30%,#5BA8D4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Vortexsoft</span> Team
+    </h1>
+    <p style="color:rgba(255,255,255,0.8);font-size:15px;margin-top:8px;max-width:620px;line-height:1.75;margin-bottom:24px;">
+      Be part of a high-growth global technology and BPO organization. We are hiring passionate innovators across Bengaluru, Pune, and Remote positions.
+    </p>
+    <div class="d-flex gap-2 flex-wrap">
+      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:5px 14px;color:#fff;font-size:12px;font-weight:600;"><i class="fas fa-users me-1" style="color:#5BA8D4;"></i> 200+ Team Members</span>
+      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:5px 14px;color:#fff;font-size:12px;font-weight:600;"><i class="fas fa-map-marker-alt me-1" style="color:#CC2228;"></i> Bengaluru, Pune &amp; Remote</span>
+      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:5px 14px;color:#fff;font-size:12px;font-weight:600;"><i class="fas fa-rocket me-1" style="color:#F59E0B;"></i> <?= count($jobs) ?>+ Open Positions</span>
     </div>
   </div>
 </div>
@@ -414,7 +421,7 @@ function openApplyModal(title, dept) {
     btn.innerHTML = \'<i class="fas fa-spinner fa-spin"></i> Submitting...\';
     btn.disabled = true;
     fb.className = "d-none";
-    fetch("api/apply.php", {method:"POST", body: new FormData(form)})
+    fetch("<?= $apply_api_url ?>", {method:"POST", body: new FormData(form)})
       .then(r => r.json())
       .then(res => {
         if (res.success) {

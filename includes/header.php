@@ -38,53 +38,67 @@ function nav_active(string $page, string $path): string {
 <head>
     <meta charset="UTF-8">
     <style id="critical-css">
-        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        html{scroll-behavior:smooth}
-        body{font-family:'Inter',sans-serif;color:#0D0F2B;background:#fff;overflow-x:hidden;line-height:1.7}
-        h1,h2,h3,h4,h5,h6{font-family:'Poppins',sans-serif;font-weight:700;line-height:1.25}
-        #page-loader{position:fixed;inset:0;background:#0A0D1F;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;transition:opacity .5s ease,visibility .5s ease;overflow:hidden}
-        #page-loader.hide{opacity:0;visibility:hidden}
-        .loader-content{position:relative;z-index:2;text-align:center;width:100%;max-width:480px;padding:0 20px}
-        .loader-brand{font-family:'Poppins',sans-serif;font-size:clamp(32px,6vw,56px);font-weight:900;letter-spacing:4px;line-height:1;margin-bottom:12px;display:flex;justify-content:center}
-        .l-blue{color:#3544C4}.l-red{color:#DE252A}
-        .loader-sub{font-size:clamp(10px,2vw,15px);font-weight:400;letter-spacing:6px;color:#8F949F;margin-bottom:50px}
-        .loader-status{display:flex;justify-content:space-between;font-size:13px;font-weight:600;letter-spacing:2px;color:#565C6B;margin-bottom:12px;font-family:'Inter',sans-serif;padding:0 4px}
-        .loader-track-new{width:100%;height:5px;background:#181B34;border-radius:6px;overflow:hidden;margin-bottom:24px}
-        .loader-bar-new{height:100%;width:0;background:linear-gradient(90deg,#3544C4,#943BA8,#DE252A);border-radius:6px;animation:loaderFillNew 1s cubic-bezier(.4,0,.2,1) forwards;box-shadow:0 0 10px rgba(148,59,168,.5)}
-        @keyframes loaderFillNew{0%{width:0}100%{width:100%}}
-        .loader-tagline{font-size:13px;font-weight:500;letter-spacing:4px;color:#414757;font-family:'Inter',sans-serif}
-        .topbar{background:#080B1A;padding:9px 0;font-size:13px;font-weight:500;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.05)}
-        .navbar{background:rgba(255,255,255,.98);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(28,34,128,.07);padding:0;position:sticky;top:0;z-index:1030}
-        .navbar-brand img{height:52px;object-fit:contain}
-        .page-hero{background:linear-gradient(135deg,#080B1A 0%,#1C2280 55%,#0D1035 100%);padding:90px 0 80px;position:relative;overflow:hidden}
-        #site-header{min-height:115px}
-        @media(max-width:991px){#site-header{min-height:70px}}
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #334155; background: #FFFFFF; overflow-x: hidden; line-height: 1.7; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; font-weight: 700; color: #0B0F28; line-height: 1.22; }
+        #page-loader { position: fixed; inset: 0; background: #060914; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 99999; transition: opacity .4s ease, visibility .4s ease; }
+        #page-loader.hide { opacity: 0; visibility: hidden; }
+        .loader-content { position: relative; z-index: 2; text-align: center; width: 100%; max-width: 440px; padding: 0 24px; }
+        .loader-brand { font-family: 'Poppins', sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 900; letter-spacing: 3px; line-height: 1; margin-bottom: 8px; }
+        .l-blue { color: #2563EB; } .l-red { color: #CC2228; }
+        .loader-sub { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: #64748B; margin-bottom: 32px; }
+        .loader-track-new { width: 100%; height: 4px; background: #17214A; border-radius: 4px; overflow: hidden; margin-bottom: 16px; }
+        .loader-bar-new { height: 100%; width: 0; background: linear-gradient(90deg, #2563EB, #CC2228); border-radius: 4px; animation: loaderFillNew 0.8s cubic-bezier(.4, 0, .2, 1) forwards; }
+        @keyframes loaderFillNew { 0% { width: 0; } 100% { width: 100%; } }
+        .loader-tagline { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: #475569; }
+        #site-header { position: sticky; top: 0; z-index: 1030; }
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= htmlspecialchars($page_title) ?></title>
     <meta name="description" content="<?= htmlspecialchars($page_desc) ?>">
-    <meta name="author" content="Vortexsoft Group">
+    <meta name="author" content="Vortexsoft Innovations Pvt. Ltd.">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="rating" content="general">
     <meta name="revisit-after" content="5 days">
     <meta name="language" content="English">
+    <meta name="copyright" content="Vortexsoft Innovations Pvt. Ltd.">
+    <meta name="category" content="IT Services, BPO, Healthcare, Publishing, Real Estate, Data Annotation">
+    <meta name="coverage" content="Worldwide">
+    <meta name="target" content="all">
+
+    <!-- AEO / GEO — AI Engine Answer Grounding -->
+    <meta name="ai:entity" content="Vortexsoft Innovations Pvt. Ltd.">
+    <meta name="ai:entity:type" content="Organization">
+    <meta name="ai:entity:industry" content="IT Services, BPO Outsourcing, Healthcare RCM, Data Annotation">
+    <meta name="ai:entity:founded" content="2020">
+    <meta name="ai:entity:country" content="India">
+    <meta name="ai:entity:certifications" content="ISO 27001:2013, ISO 9001:2015, HIPAA, Startup India">
+    <meta name="citation_author" content="Vortexsoft Group">
+    <meta name="citation_title" content="<?= htmlspecialchars($page_title) ?>">
+    <meta name="citation_public_url" content="<?= htmlspecialchars($canonical_url) ?>">
 
     <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
     <link rel="alternate" hreflang="en-IN" href="<?= htmlspecialchars($in_url) ?>">
     <link rel="alternate" hreflang="en-US" href="<?= htmlspecialchars($com_url) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= htmlspecialchars($com_url) ?>">
+    <link rel="me" href="https://www.linkedin.com/company/vortexsoft-innovations-private-limited/">
+    <link rel="me" href="https://www.facebook.com/profile.php?id=61575505273718">
 
-    <!-- GEO -->
+    <!-- Geographic Tags (Local SEO + GEO) -->
+    <meta name="geo.region" content="IN-MH">
+    <meta name="geo.placename" content="Pune, Maharashtra, India">
+    <meta name="geo.position" content="18.4629;73.8446">
+    <meta name="ICBM" content="18.4629, 73.8446">
     <meta name="geo.region" content="IN-KA">
     <meta name="geo.placename" content="Bengaluru, Karnataka, India">
-    <meta name="geo.position" content="12.9141;77.6162">
-    <meta name="ICBM" content="12.9141, 77.6162">
 
     <!-- OpenGraph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Vortexsoft Group">
     <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="en_US">
     <meta property="og:url" content="<?= htmlspecialchars($canonical_url) ?>">
     <meta property="og:title" content="<?= htmlspecialchars($page_title) ?>">
     <meta property="og:description" content="<?= htmlspecialchars($page_desc) ?>">
@@ -92,52 +106,139 @@ function nav_active(string $page, string $path): string {
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Vortexsoft Innovations — ISO 27001 IT & BPO Company India">
+    <meta property="business:contact_data:street_address" content="502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk">
+    <meta property="business:contact_data:locality" content="Pune">
+    <meta property="business:contact_data:region" content="Maharashtra">
+    <meta property="business:contact_data:postal_code" content="411041">
+    <meta property="business:contact_data:country_name" content="India">
+    <meta property="business:contact_data:phone_number" content="+91-8308906690">
+    <meta property="business:contact_data:email" content="support@vortexsoftinnovations.com">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@vortexsoft">
+    <meta name="twitter:creator" content="@vortexsoft">
     <meta name="twitter:title" content="<?= htmlspecialchars($page_title) ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($page_desc) ?>">
     <meta name="twitter:image" content="<?= htmlspecialchars($og_image) ?>">
+    <meta name="twitter:image:alt" content="Vortexsoft Innovations — IT &amp; BPO Company">
 
-    <!-- Sitewide Breadcrumb & Location Schema -->
+    <!-- ═══ AEO / GEO — Structured Data (Schema.org) ═══ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "WebSite",
+          "@id": "<?= COM_URL ?>/#website",
+          "url": "<?= COM_URL ?>",
+          "name": "Vortexsoft Group",
+          "description": "ISO 27001 certified global IT and BPO outsourcing company — Healthcare, Publishing, Data Annotation, Real Estate, Accounting, Digital Marketing.",
+          "publisher": {"@id": "<?= COM_URL ?>/#organization"},
+          "inLanguage": "en-US",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "<?= COM_URL ?>/search.php?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "<?= htmlspecialchars($canonical_url) ?>/#webpage",
+          "url": "<?= htmlspecialchars($canonical_url) ?>",
+          "name": "<?= htmlspecialchars($page_title) ?>",
+          "description": "<?= htmlspecialchars($page_desc) ?>",
+          "isPartOf": {"@id": "<?= COM_URL ?>/#website"},
+          "about": {"@id": "<?= COM_URL ?>/#organization"},
+          "inLanguage": "en-US",
+          "dateModified": "<?= date('Y-m-d') ?>"
+        },
+        {
           "@type": "BreadcrumbList",
           "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "<?= SITE_URL ?>/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "<?= htmlspecialchars(str_replace([' — Vortexsoft Group', ' — Vortexsoft', ' - Vortexsoft Group'], '', $page_title)) ?>",
-              "item": "<?= htmlspecialchars($canonical_url) ?>"
-            }
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "<?= COM_URL ?>/"},
+            {"@type": "ListItem", "position": 2, "name": "<?= htmlspecialchars(str_replace([' — Vortexsoft Group', ' — Vortexsoft', ' - Vortexsoft Group'], '', $page_title)) ?>", "item": "<?= htmlspecialchars($canonical_url) ?>"}
           ]
         },
         {
-          "@type": "Corporation",
-          "@id": "<?= SITE_URL ?>/#corporation",
+          "@type": ["Corporation", "Organization"],
+          "@id": "<?= COM_URL ?>/#organization",
           "name": "Vortexsoft Group",
           "legalName": "Vortexsoft Innovations Pvt. Ltd.",
-          "alternateName": ["Vortexsoft", "Vortex Soft", "Vortex Innovations", "Vortex Group", "Vortex", "Vertex"],
-          "url": "<?= SITE_URL ?>",
-
-          "logo": "<?= SITE_URL ?>/logo-header.png",
+          "alternateName": ["Vortexsoft", "Vortex Soft", "Vortex Innovations", "Vortex Group", "VortexSoft"],
+          "description": "Vortexsoft Innovations Pvt. Ltd. is an ISO 27001:2013 and ISO 9001:2015 certified global IT & BPO outsourcing company founded in 2020, headquartered in Pune, Maharashtra, India. Serving 150+ global clients with 200+ professionals across Healthcare BPO, IT Software, Data Annotation, Publishing, Real Estate, Accounting, Digital Marketing, and Staffing verticals.",
+          "url": "<?= COM_URL ?>",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "<?= COM_URL ?>/logo-header.png",
+            "width": 240,
+            "height": 70
+          },
+          "image": "<?= COM_URL ?>/logo-header.png",
+          "foundingDate": "2020",
+          "foundingLocation": {
+            "@type": "Place",
+            "name": "Pune, Maharashtra, India"
+          },
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 200,
+            "minValue": 200
+          },
+          "areaServed": [
+            {"@type": "Country", "name": "India"},
+            {"@type": "Country", "name": "United States"},
+            {"@type": "Country", "name": "United Kingdom"},
+            {"@type": "Country", "name": "Australia"},
+            {"@type": "Country", "name": "Canada"},
+            {"@type": "Country", "name": "Germany"}
+          ],
+          "knowsAbout": [
+            "Healthcare BPO", "Revenue Cycle Management", "Medical Coding", "Medical Billing",
+            "Denial Management", "Prior Authorization", "HIPAA Compliance",
+            "IT Outsourcing", "Custom Software Development", "PHP Development", "React.js",
+            "Python Development", "Mobile App Development", "AI Solutions", "Machine Learning",
+            "Data Annotation", "Image Annotation", "Video Annotation", "RLHF", "LLM Training Data",
+            "Publishing Services", "Typesetting", "ePUB Conversion", "InDesign", "XML Publishing",
+            "Real Estate BPO", "Title Search", "Lease Abstraction", "CAM Reconciliation",
+            "Accounting Outsourcing", "Bookkeeping", "Payroll Processing",
+            "Digital Marketing", "SEO", "Social Media Marketing",
+            "Staffing Solutions", "Recruitment Process Outsourcing", "Background Verification"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Vortexsoft Outsourcing Services",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Healthcare BPO & Revenue Cycle Management"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "IT Software Development"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI & Data Annotation Services"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Publishing & Prepress Services"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Real Estate & Title Services"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Accounting & Payroll Outsourcing"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Digital Marketing Services"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Staffing & Manpower Solutions"}}
+            ]
+          },
+          "award": [
+            "ISO 27001:2013 Information Security Certified",
+            "ISO 9001:2015 Quality Management Certified",
+            "HIPAA Compliant Organization",
+            "Startup India Registered"
+          ],
+          "telephone": "+91-8308906690",
+          "email": "support@vortexsoftinnovations.com",
           "contactPoint": [
             {
               "@type": "ContactPoint",
               "telephone": "+91-8308906690",
               "contactType": "customer service",
-              "areaServed": ["IN", "US", "GB", "EU", "AU"],
-              "availableLanguage": ["English", "Hindi"]
+              "areaServed": ["IN", "US", "GB", "AU"],
+              "availableLanguage": ["English", "Hindi"],
+              "hoursAvailable": {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "18:00"}
             },
             {
               "@type": "ContactPoint",
@@ -150,18 +251,18 @@ function nav_active(string $page, string $path): string {
           "address": [
             {
               "@type": "PostalAddress",
-              "streetAddress": "No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector",
-              "addressLocality": "Bengaluru",
-              "addressRegion": "Karnataka",
-              "postalCode": "560068",
+              "streetAddress": "502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk",
+              "addressLocality": "Pune",
+              "addressRegion": "Maharashtra",
+              "postalCode": "411041",
               "addressCountry": "IN"
             },
             {
               "@type": "PostalAddress",
-              "streetAddress": "502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk",
-              "addressLocality": "Pune",
-              "addressRegion": "Maharashtra",
-              "postalCode": "411041",
+              "streetAddress": "No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector",
+              "addressLocality": "Bengaluru",
+              "addressRegion": "Karnataka",
+              "postalCode": "560068",
               "addressCountry": "IN"
             },
             {
@@ -172,11 +273,20 @@ function nav_active(string $page, string $path): string {
               "postalCode": "82801",
               "addressCountry": "US"
             }
+          ],
+          "sameAs": [
+            "https://www.linkedin.com/company/vortexsoft-innovations-private-limited/",
+            "https://www.facebook.com/profile.php?id=61575505273718",
+            "https://www.instagram.com/vortexsoft_innovations",
+            "https://www.vortexsoftinnovations.in",
+            "https://www.vortexsoftinnovations.com"
           ]
         }
+
       ]
     }
     </script>
+    <!-- ═══ End Structured Data ═══ -->
 
     <!-- PWA -->
     <link rel="manifest" href="<?= $prefix ?>manifest.json">
@@ -307,7 +417,7 @@ function nav_active(string $page, string $path): string {
 <nav class="navbar navbar-expand-lg" id="mainNavbar">
   <div class="container">
     <a class="navbar-brand" href="<?= $prefix ?>index.php">
-      <img src="<?= $prefix ?>logo-header.png?v=20260810" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="240" height="70">
+      <img src="<?= $prefix ?>logo-header.png?v=20260830" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="240" height="70">
     </a>
 
 
