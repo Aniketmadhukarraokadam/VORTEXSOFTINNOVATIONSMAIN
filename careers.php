@@ -131,9 +131,194 @@ require_once __DIR__ . '/includes/header.php';
 #applyModal .modal-header{background:linear-gradient(135deg,#1C2280,#CC2228);padding:24px 28px;border:none}
 #applyModal .modal-header .modal-title{color:#fff;font-size:18px;font-weight:700}
 #applyModal .btn-close{filter:invert(1)}
-.btn-submit-apply{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;padding:14px;border:none;border-radius:10px;width:100%;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit-apply{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;padding:14px;border:none;border-radius:100px;width:100%;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-submit-apply:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(28,34,128,.3);color:#fff}
 .resume-optional-note{background:#f0f7ff;border-left:3px solid #1C2280;border-radius:4px;padding:10px 14px;font-size:12.5px;color:#475569;margin-top:6px}
+
+/* ── Share Job Opening Styling ───────────────────────────── */
+.btn-job-share{
+  background:#f8f9ff;
+  color:#1C2280;
+  font-family:'Poppins',sans-serif;
+  font-size:13px;
+  font-weight:600;
+  padding:9px 18px;
+  border-radius:8px;
+  border:1.5px solid #dde2f5;
+  cursor:pointer;
+  transition:all .25s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+}
+.btn-job-share:hover{
+  background:#1C2280;
+  color:#fff;
+  border-color:#1C2280;
+  box-shadow:0 6px 18px rgba(28,34,128,.18);
+  transform:translateY(-1px);
+}
+.btn-job-share i{
+  font-size:13px;
+}
+
+#shareJobModal .modal-content{
+  border-radius:20px;
+  border:none;
+  overflow:hidden;
+  box-shadow:0 25px 50px -12px rgba(15,23,42,.3);
+}
+#shareJobModal .modal-header{
+  background:linear-gradient(135deg,#080B1A 0%,#1C2280 60%,#CC2228 100%);
+  padding:22px 28px;
+  border:none;
+}
+#shareJobModal .modal-header .modal-title{
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+}
+#shareJobModal .btn-close{filter:invert(1)}
+
+.share-job-preview{
+  background:#f8faff;
+  border:1.5px solid #e2e8f5;
+  border-left:4px solid #1C2280;
+  border-radius:12px;
+  padding:16px 18px;
+  margin-bottom:22px;
+}
+.share-preview-title{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:16px;
+  color:#1C2280;
+  margin-bottom:6px;
+}
+.share-preview-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  font-size:12.5px;
+  color:#64748b;
+}
+
+.share-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:12px;
+  margin-bottom:22px;
+}
+@media (max-width: 575px) {
+  .share-grid{grid-template-columns:repeat(2, 1fr);}
+}
+.share-channel-btn{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:14px 10px;
+  border-radius:12px;
+  text-decoration:none !important;
+  font-size:12px;
+  font-weight:600;
+  color:#334155;
+  border:1.5px solid #e8ecff;
+  background:#fff;
+  transition:all .25s cubic-bezier(.2,0,0,1);
+  cursor:pointer;
+  outline:none;
+}
+.share-channel-btn i{
+  font-size:22px;
+  transition:transform .25s ease;
+}
+.share-channel-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(28,34,128,.12);
+}
+.share-channel-btn:hover i{
+  transform:scale(1.15);
+}
+.share-channel-btn.btn-wa:hover{background:#25d366;color:#fff !important;border-color:#25d366}
+.share-channel-btn.btn-wa i{color:#25d366}
+.share-channel-btn.btn-wa:hover i{color:#fff}
+
+.share-channel-btn.btn-li:hover{background:#0a66c2;color:#fff !important;border-color:#0a66c2}
+.share-channel-btn.btn-li i{color:#0a66c2}
+.share-channel-btn.btn-li:hover i{color:#fff}
+
+.share-channel-btn.btn-tw:hover{background:#0f1419;color:#fff !important;border-color:#0f1419}
+.share-channel-btn.btn-tw i{color:#0f1419}
+.share-channel-btn.btn-tw:hover i{color:#fff}
+
+.share-channel-btn.btn-tg:hover{background:#229ED9;color:#fff !important;border-color:#229ED9}
+.share-channel-btn.btn-tg i{color:#229ED9}
+.share-channel-btn.btn-tg:hover i{color:#fff}
+
+.share-channel-btn.btn-fb:hover{background:#1877f2;color:#fff !important;border-color:#1877f2}
+.share-channel-btn.btn-fb i{color:#1877f2}
+.share-channel-btn.btn-fb:hover i{color:#fff}
+
+.share-channel-btn.btn-mail:hover{background:#CC2228;color:#fff !important;border-color:#CC2228}
+.share-channel-btn.btn-mail i{color:#CC2228}
+.share-channel-btn.btn-mail:hover i{color:#fff}
+
+.share-channel-btn.btn-native:hover{background:#1C2280;color:#fff !important;border-color:#1C2280}
+.share-channel-btn.btn-native i{color:#1C2280}
+.share-channel-btn.btn-native:hover i{color:#fff}
+
+.share-copy-box{
+  position:relative;
+  display:flex;
+  align-items:center;
+  background:#fff;
+  border:1.5px solid #cbd5e1;
+  border-radius:10px;
+  overflow:hidden;
+  transition:border-color .2s, box-shadow .2s;
+}
+.share-copy-box:focus-within{border-color:#1C2280;box-shadow:0 0 0 3px rgba(28,34,128,.15)}
+.share-copy-input{
+  border:none;
+  background:transparent;
+  padding:12px 14px;
+  font-size:13px;
+  color:#334155;
+  width:100%;
+  outline:none;
+}
+.share-copy-btn{
+  background:#1C2280;
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:all .2s;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.share-copy-btn:hover{background:#2d35c4}
+.share-copy-btn.copied{background:#16a34a !important}
+
+/* Highlight effect when navigated via direct link */
+.job-card-highlighted{
+  animation:jobCardPulse 3s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes jobCardPulse{
+  0%{box-shadow:0 0 0 0 rgba(28,34,128,.7);border-color:#1C2280;transform:translateY(-6px)}
+  20%{box-shadow:0 0 0 16px rgba(28,34,128,0);border-color:#CC2228}
+  40%{box-shadow:0 0 0 8px rgba(28,34,128,.25);border-color:#1C2280;transform:translateY(-4px)}
+  100%{box-shadow:0 12px 40px rgba(28,34,128,.14);border-color:#1C2280;transform:translateY(0)}
+}
 </style>
 
 <!-- Hero -->
@@ -229,7 +414,7 @@ require_once __DIR__ . '/includes/header.php';
 
     <div class="row g-4" id="jobsGrid">
       <?php foreach($jobs as $i=>$job): ?>
-      <div class="col-lg-6 scroll-reveal job-item" style="transition-delay:<?= ($i%2)*0.08 ?>s" data-category="<?= htmlspecialchars($job['category']) ?>">
+      <div class="col-lg-6 scroll-reveal job-item" style="transition-delay:<?= ($i%2)*0.08 ?>s" data-category="<?= htmlspecialchars($job['category']) ?>" id="job-<?= $job['id'] ?>">
         <div class="job-card">
           <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
             <div>
@@ -249,9 +434,21 @@ require_once __DIR__ . '/includes/header.php';
           <div class="d-flex flex-wrap gap-2 mb-4">
             <?php foreach($job['skills'] as $sk): ?><span class="skill-tag"><?= htmlspecialchars($sk) ?></span><?php endforeach; ?>
           </div>
-          <button class="apply-btn magnetic" onclick="openApplyModal('<?= htmlspecialchars($job['title'], ENT_QUOTES) ?>','<?= htmlspecialchars($job['department'], ENT_QUOTES) ?>')">
-            <i class="fas fa-paper-plane"></i> Apply Now
-          </button>
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pt-3 border-top">
+            <button class="apply-btn magnetic" onclick="openApplyModal('<?= htmlspecialchars($job['title'], ENT_QUOTES) ?>','<?= htmlspecialchars($job['department'], ENT_QUOTES) ?>','<?= $job['id'] ?>')">
+              <i class="fas fa-paper-plane"></i> Apply Now
+            </button>
+            <button type="button" class="btn-job-share" onclick="openJobShare(<?= htmlspecialchars(json_encode([
+              'id'         => (string)$job['id'],
+              'title'      => $job['title'],
+              'department' => $job['department'],
+              'location'   => $job['location'],
+              'exp'        => $job['exp'],
+              'type'       => $job['type']
+            ]), ENT_QUOTES, 'UTF-8') ?>)" title="Share opening with friends &amp; family" aria-label="Share <?= htmlspecialchars($job['title']) ?> job opening">
+              <i class="fas fa-share-nodes"></i> <span>Share Opening</span>
+            </button>
+          </div>
         </div>
       </div>
       <?php endforeach; ?>
@@ -286,6 +483,7 @@ require_once __DIR__ . '/includes/header.php';
         <form id="applyForm" enctype="multipart/form-data" novalidate>
           <input type="hidden" name="job_title" id="form-job-title">
           <input type="hidden" name="department" id="form-department">
+          <input type="hidden" name="job_id" id="form-job-id">
           <input type="text" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
           <div class="row g-3">
             <div class="col-md-6">
@@ -356,8 +554,96 @@ require_once __DIR__ . '/includes/header.php';
                 <i class="fas fa-paper-plane"></i> Submit Application
               </button>
             </div>
+            <div class="col-12 mt-2 pt-3 border-top text-center">
+              <span class="text-muted small">Know someone suited for this opening?</span>
+              <button type="button" class="btn btn-link btn-sm text-primary fw-semibold p-0 ms-1" onclick="shareFromApplyModal()" style="text-decoration:none;">
+                <i class="fas fa-share-nodes me-1"></i> Share with friends &amp; family
+              </button>
+            </div>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Share Job Opening Modal -->
+<div class="modal fade" id="shareJobModal" tabindex="-1" aria-labelledby="shareJobModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="shareJobModalLabel">
+          <i class="fas fa-share-nodes me-2" style="color:#5BA8D4;"></i> Share Job Opening
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <!-- Job info summary -->
+        <div class="share-job-preview">
+          <div class="share-preview-title" id="share-modal-title">Position</div>
+          <div class="share-preview-meta">
+            <span id="share-modal-dept"><i class="fas fa-sitemap me-1" style="color:#1C2280;"></i> Department</span>
+            <span id="share-modal-loc"><i class="fas fa-map-marker-alt me-1" style="color:#CC2228;"></i> Location</span>
+            <span id="share-modal-exp" style="display:none;"><i class="fas fa-briefcase me-1" style="color:#f59e0b;"></i> Exp</span>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span style="font-size:11px;font-weight:700;letter-spacing:1px;color:#64748b;text-transform:uppercase;">Share via Social &amp; Messaging</span>
+          <span style="font-size:11px;color:#94a3b8;"><i class="fas fa-user-friends me-1"></i> Quick 1-Click</span>
+        </div>
+
+        <div class="share-grid">
+          <!-- WhatsApp -->
+          <a href="#" id="share-wa" target="_blank" rel="noopener noreferrer" class="share-channel-btn btn-wa" title="Share on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp</span>
+          </a>
+          <!-- LinkedIn -->
+          <a href="#" id="share-li" target="_blank" rel="noopener noreferrer" class="share-channel-btn btn-li" title="Share on LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+            <span>LinkedIn</span>
+          </a>
+          <!-- X / Twitter -->
+          <a href="#" id="share-tw" target="_blank" rel="noopener noreferrer" class="share-channel-btn btn-tw" title="Share on X (Twitter)">
+            <i class="fab fa-x-twitter"></i>
+            <span>X (Twitter)</span>
+          </a>
+          <!-- Telegram -->
+          <a href="#" id="share-tg" target="_blank" rel="noopener noreferrer" class="share-channel-btn btn-tg" title="Share on Telegram">
+            <i class="fab fa-telegram"></i>
+            <span>Telegram</span>
+          </a>
+          <!-- Facebook -->
+          <a href="#" id="share-fb" target="_blank" rel="noopener noreferrer" class="share-channel-btn btn-fb" title="Share on Facebook">
+            <i class="fab fa-facebook-f"></i>
+            <span>Facebook</span>
+          </a>
+          <!-- Email -->
+          <a href="#" id="share-mail" class="share-channel-btn btn-mail" title="Send via Email">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+          </a>
+          <!-- Native Mobile Share Sheet (Visible when supported) -->
+          <button type="button" id="share-native-btn" class="share-channel-btn btn-native d-none" onclick="triggerNativeShare()" title="Open System Share Sheet">
+            <i class="fas fa-arrow-up-from-bracket"></i>
+            <span>More Apps</span>
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span style="font-size:11px;font-weight:700;letter-spacing:1px;color:#64748b;text-transform:uppercase;">Or Copy Job Link</span>
+        </div>
+        <div class="share-copy-box">
+          <input type="text" id="share-link-input" class="share-copy-input" readonly value="">
+          <button type="button" id="share-copy-btn" class="share-copy-btn" onclick="copyShareJobLink()">
+            <i class="fas fa-copy"></i>
+            <span id="copy-btn-text">Copy Link</span>
+          </button>
+        </div>
+        <div id="copy-success-note" class="text-success small mt-2 d-none fw-semibold">
+          <i class="fas fa-check-circle me-1"></i> Direct link copied! Paste it in chats, SMS, or emails to friends &amp; family.
+        </div>
       </div>
     </div>
   </div>
@@ -389,19 +675,192 @@ function filterJobs(btn) {
 }
 
 // ── Apply Modal ─────────────────────────────────────────────────
-function openApplyModal(title, dept) {
+function openApplyModal(title, dept, id) {
   var label = document.getElementById("applyModalLabel");
   if (label) {
     label.innerHTML = \'<i class="fas fa-briefcase me-2"></i> Apply for <span id="modal-job-title">\' + title + \'</span>\';
   }
   document.getElementById("form-job-title").value = title;
   document.getElementById("form-department").value = dept;
+  var idInput = document.getElementById("form-job-id");
+  if (idInput) idInput.value = id || "";
   var fb = document.getElementById("apply-feedback");
   if (fb) fb.className = "d-none";
   var form = document.getElementById("applyForm");
   if (form) form.reset();
   new bootstrap.Modal(document.getElementById("applyModal")).show();
 }
+
+// ── Job Share System ────────────────────────────────────────────
+var currentShareJob = null;
+
+function openJobShare(job) {
+  currentShareJob = job;
+  document.getElementById("share-modal-title").textContent = job.title || "Job Opening";
+  document.getElementById("share-modal-dept").innerHTML = \'<i class="fas fa-sitemap me-1" style="color:#1C2280;"></i> \' + (job.department || "Vortexsoft Group");
+  document.getElementById("share-modal-loc").innerHTML = \'<i class="fas fa-map-marker-alt me-1" style="color:#CC2228;"></i> \' + (job.location || "Pan India");
+  
+  var expEl = document.getElementById("share-modal-exp");
+  if (job.exp) {
+    expEl.innerHTML = \'<i class="fas fa-briefcase me-1" style="color:#f59e0b;"></i> \' + job.exp;
+    expEl.style.display = "inline-flex";
+  } else {
+    expEl.style.display = "none";
+  }
+
+  // Direct canonical link pointing specifically to this job opening
+  var baseUrl = window.location.origin + window.location.pathname;
+  var shareUrl = baseUrl + "?job=" + encodeURIComponent(job.id) + "#job-" + encodeURIComponent(job.id);
+  document.getElementById("share-link-input").value = shareUrl;
+
+  // Reset copy state
+  var copyBtn = document.getElementById("share-copy-btn");
+  if (copyBtn) copyBtn.classList.remove("copied");
+  var copyText = document.getElementById("copy-btn-text");
+  if (copyText) copyText.textContent = "Copy Link";
+  var copyNote = document.getElementById("copy-success-note");
+  if (copyNote) copyNote.classList.add("d-none");
+
+  // WhatsApp share URL with pre-composed message
+  var waMessage = "🚀 *Job Opening at Vortexsoft Innovations*\\n\\n"
+    + "📌 *Role:* " + job.title + "\\n"
+    + "🏢 *Department:* " + job.department + "\\n"
+    + "📍 *Location:* " + job.location + (job.exp ? " (" + job.exp + ")" : "") + "\\n\\n"
+    + "Know someone looking for this opportunity? Explore & apply here:\\n"
+    + shareUrl;
+  document.getElementById("share-wa").href = "https://api.whatsapp.com/send?text=" + encodeURIComponent(waMessage);
+
+  // LinkedIn share URL
+  document.getElementById("share-li").href = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(shareUrl);
+
+  // X / Twitter share URL
+  var twText = "We are hiring: " + job.title + " (" + job.location + ") at @VortexsoftGroup! Apply or share with friends:";
+  document.getElementById("share-tw").href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(twText) + "&url=" + encodeURIComponent(shareUrl);
+
+  // Telegram share URL
+  document.getElementById("share-tg").href = "https://t.me/share/url?url=" + encodeURIComponent(shareUrl) + "&text=" + encodeURIComponent("Job Opening: " + job.title + " at Vortexsoft Group");
+
+  // Facebook share URL
+  document.getElementById("share-fb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareUrl);
+
+  // Email to friends & family
+  var emailSubject = "Job Opening: " + job.title + " at Vortexsoft Group";
+  var emailBody = "Hi,\\n\\nI found this job opening at Vortexsoft Innovations and thought of sharing it with you:\\n\\n"
+    + "Role: " + job.title + "\\n"
+    + "Department: " + job.department + "\\n"
+    + "Location: " + job.location + (job.exp ? " (" + job.exp + ")" : "") + "\\n\\n"
+    + "You can view full details and apply directly here:\\n" + shareUrl + "\\n\\n"
+    + "Best wishes";
+  document.getElementById("share-mail").href = "mailto:?subject=" + encodeURIComponent(emailSubject) + "&body=" + encodeURIComponent(emailBody);
+
+  // Check if native Web Share API is available (phones/tablets/supported browsers)
+  var nativeBtn = document.getElementById("share-native-btn");
+  if (nativeBtn) {
+    if (navigator.share) {
+      nativeBtn.classList.remove("d-none");
+    } else {
+      nativeBtn.classList.add("d-none");
+    }
+  }
+
+  // Open modal
+  new bootstrap.Modal(document.getElementById("shareJobModal")).show();
+}
+
+function triggerNativeShare() {
+  if (!currentShareJob || !navigator.share) return;
+  var shareUrl = document.getElementById("share-link-input").value;
+  navigator.share({
+    title: currentShareJob.title + " — Vortexsoft Group Careers",
+    text: "Check out this job opening: " + currentShareJob.title + " (" + currentShareJob.location + ") at Vortexsoft Innovations!",
+    url: shareUrl
+  }).catch(function(){ /* dismissed */ });
+}
+
+function copyShareJobLink() {
+  var input = document.getElementById("share-link-input");
+  if (!input) return;
+  input.select();
+  input.setSelectionRange(0, 99999);
+
+  function markCopied() {
+    var copyBtn = document.getElementById("share-copy-btn");
+    var copyText = document.getElementById("copy-btn-text");
+    var copyNote = document.getElementById("copy-success-note");
+    if (copyBtn) copyBtn.classList.add("copied");
+    if (copyText) copyText.innerHTML = \'<i class="fas fa-check me-1"></i> Copied!\';
+    if (copyNote) copyNote.classList.remove("d-none");
+    setTimeout(function(){
+      if (copyBtn) copyBtn.classList.remove("copied");
+      if (copyText) copyText.textContent = "Copy Link";
+    }, 2800);
+  }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(input.value).then(markCopied).catch(function(){
+      document.execCommand("copy");
+      markCopied();
+    });
+  } else {
+    document.execCommand("copy");
+    markCopied();
+  }
+}
+
+function shareFromApplyModal() {
+  var title = document.getElementById("form-job-title").value;
+  var dept  = document.getElementById("form-department").value;
+  var id    = document.getElementById("form-job-id").value;
+  var applyModalEl = document.getElementById("applyModal");
+  var applyModalInstance = bootstrap.Modal.getInstance(applyModalEl);
+  if (applyModalInstance) applyModalInstance.hide();
+  setTimeout(function(){
+    openJobShare({
+      id: id || "1",
+      title: title || "Open Position",
+      department: dept || "Vortexsoft Group",
+      location: "Bengaluru / Remote",
+      exp: ""
+    });
+  }, 350);
+}
+
+// ── Direct Link Anchor & Pulse Highlight Listener ───────────────
+(function(){
+  function checkDirectJob() {
+    var params = new URLSearchParams(window.location.search);
+    var jobId = params.get("job");
+    if (!jobId && window.location.hash) {
+      var match = window.location.hash.match(/#job-([a-zA-Z0-9_-]+)/);
+      if (match) jobId = match[1];
+    }
+    if (jobId) {
+      var target = document.getElementById("job-" + jobId);
+      if (target) {
+        var cat = target.getAttribute("data-category");
+        var activeFilter = document.querySelector(".filter-btn.active");
+        if (activeFilter && activeFilter.getAttribute("data-filter") !== "All" && activeFilter.getAttribute("data-filter") !== cat) {
+          var targetFilterBtn = document.querySelector(\'.filter-btn[data-filter="\' + CSS.escape(cat) + \'"]\') || document.querySelector(\'.filter-btn[data-filter="All"]\');
+          if (targetFilterBtn) filterJobs(targetFilterBtn);
+        }
+        setTimeout(function(){
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+          var card = target.querySelector(".job-card");
+          if (card) {
+            card.classList.add("job-card-highlighted");
+            setTimeout(function(){ card.classList.remove("job-card-highlighted"); }, 3500);
+          }
+        }, 400);
+      }
+    }
+  }
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    setTimeout(checkDirectJob, 250);
+  } else {
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(checkDirectJob, 250); });
+  }
+})();
 
 // ── Application Form Submit ─────────────────────────────────────
 (function(){
