@@ -33,3 +33,8 @@ desktop.ini
 
 # ── Backup directory (never push backups to git) ────────────
 backups/
+
+# ── Session & temporary curl files ─────────────────────────
+cookie.txt
+cookies*.txt
+
