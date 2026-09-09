@@ -46,8 +46,7 @@ $extra_head = '
 .hero-stat{text-align:left;padding:16px 20px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;min-width:110px;box-shadow:0 4px 15px rgba(0,0,0,.02)}
 .hero-stat .number{font-family:\'Poppins\',sans-serif;font-size:2rem;font-weight:900;color:var(--primary);line-height:1;margin-bottom:4px}
 .hero-stat .number span{color:var(--accent)}
-.hero-stat .label{font-size:11px;font-weight:600;color:#64748b;letter-spacing:.5px;text-transform:uppercase}
-.hero-scroll-container{width:100%;overflow:hidden;position:relative;padding:10px 0;mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent);display:flex;flex-direction:column;gap:20px}
+.hero-scroll-container{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;max-width:100vw;overflow:hidden;padding:16px 0;mask-image:linear-gradient(to right,transparent,black 6%,black 94%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 6%,black 94%,transparent);display:flex;flex-direction:column;gap:20px}
 .hero-scroll-track{display:flex;flex-direction:row;gap:20px;animation:scroll-horizontal 35s linear infinite;width:max-content}
 .hero-scroll-track.reverse{animation:scroll-horizontal-reverse 40s linear infinite;margin-left:-150px}
 .hero-scroll-container:hover .hero-scroll-track{animation-play-state:paused}
@@ -178,7 +177,7 @@ require_once __DIR__ . '/includes/header.php';
 
       <!-- Hero Scrolling Cards -->
       <div class="col-12 hero-visual d-none d-lg-block mt-5 pt-2">
-        <div class="hero-scroll-container">
+        <div class="hero-scroll-container full-bleed">
           <div class="hero-scroll-track">
             <?php $track1 = [
               ['tag'=>'AI / ML','icon'=>'fa-robot','title'=>'AI Automations','desc'=>'Agentic AI workflows, intelligent document processing & enterprise task automation.'],

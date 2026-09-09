@@ -40,7 +40,8 @@ function nav_active(string $page, string $path): string {
     <style id="critical-css">
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
-        body{font-family:'Inter',sans-serif;color:#0D0F2B;background:#fff;overflow-x:hidden;line-height:1.7}
+        html,body{width:100%;max-width:100%;overflow-x:clip;overflow-x:hidden}
+        body{font-family:'Inter',sans-serif;color:#0D0F2B;background:#fff;line-height:1.7}
         h1,h2,h3,h4,h5,h6{font-family:'Poppins',sans-serif;font-weight:700;line-height:1.25}
         #page-loader{position:fixed;inset:0;background:#0A0D1F;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;transition:opacity .5s ease,visibility .5s ease;overflow:hidden}
         #page-loader.hide{opacity:0;visibility:hidden}
@@ -256,7 +257,8 @@ function nav_active(string $page, string $path): string {
 .topbar-social a{color:#fff !important;width:29px;height:29px;border-radius:7px;background:rgba(255,255,255,.15);display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;transition:background .2s,color .2s}
 .topbar-social a:hover{background:#CC2228;color:#fff !important}
 .topbar-social a i{color:#ffffff !important;font-size:13px}
-#mainNavbar{background:rgba(255,255,255,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.9);padding:0;position:sticky;top:15px;z-index:1030;box-shadow:0 12px 40px rgba(28,34,128,.08);transition:all .4s ease;width:96%;max-width:1320px;margin:0 auto 15px;border-radius:20px}
+#mainNavbar{background:rgba(255,255,255,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.9);padding:0;position:sticky;top:15px;z-index:1030;box-shadow:0 12px 40px rgba(28,34,128,.08);transition:all .4s ease;width:96%;max-width:1740px;margin:0 auto 15px;border-radius:20px}
+@media(min-width:2560px){#mainNavbar{max-width:2100px}}
 #mainNavbar.scrolled{top:10px;background:rgba(255,255,255,0.96);box-shadow:0 15px 50px rgba(28,34,128,.12)}
 #mainNavbar .container{min-height:72px;display:flex;align-items:center}
 .navbar-brand img{height:54px;max-height:58px;width:auto;object-fit:contain;transition:all .3s ease;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.05))}

@@ -96,7 +96,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="row gy-5 align-items-start">
       <!-- Form -->
       <div class="col-lg-6 scroll-reveal-left">
-        <div style="max-width:540px;">
+        <div class="contact-form-wrapper">
           <div class="mb-4">
             <div class="section-tag">Get In Touch</div>
             <h2 class="section-title">Send Us a <span class="highlight">Message</span></h2>
