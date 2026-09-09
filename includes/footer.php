@@ -11,6 +11,11 @@ $prefix = $prefix ?? './';
 
 <!-- ═══════ CTA BANNER ═══════ -->
 <div class="cta-banner scroll-reveal">
+  <!-- Animated floating decorative shapes -->
+  <div class="cta-shape cta-shape-1" aria-hidden="true"></div>
+  <div class="cta-shape cta-shape-2" aria-hidden="true"></div>
+  <div class="cta-shape cta-shape-3" aria-hidden="true"></div>
+  <div class="cta-shape cta-shape-4" aria-hidden="true"></div>
   <div class="container text-center position-relative" style="z-index:2">
     <div class="scroll-reveal">
       <div class="section-tag mb-4">Start Today</div>
@@ -248,7 +253,7 @@ $prefix = $prefix ?? './';
 <!-- Bootstrap JS -->
 <script src="<?= $prefix ?>assets/vendor/bootstrap.bundle.min.js"></script>
 <!-- Shared JS -->
-<script src="<?= $prefix ?>assets/vortex-shared.js?v=20260810"></script>
+<script src="<?= $prefix ?>assets/vortex-shared.js?v=20260909"></script>
 <script>
 // ── Loader ──────────────────────────────────────────────────
 (function(){

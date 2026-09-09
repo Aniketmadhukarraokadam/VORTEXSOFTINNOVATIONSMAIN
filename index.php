@@ -145,6 +145,16 @@ require_once __DIR__ . '/includes/header.php';
 <!-- ═══════ HERO SECTION ═══════ -->
 <section class="hero-section" id="home">
   <canvas id="hero-canvas"></canvas>
+  <!-- Premium animated mesh background layer -->
+  <div class="hero-mesh-layer" aria-hidden="true"></div>
+  <!-- Glowing floating orbs -->
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+  <!-- Geometric orbit rings -->
+  <div class="geo-ring geo-ring-1" aria-hidden="true"></div>
+  <div class="geo-ring geo-ring-2" aria-hidden="true"></div>
+  <div class="geo-ring geo-ring-3" aria-hidden="true"></div>
   <div class="floating-shape shape-1"></div>
   <div class="floating-shape shape-2"></div>
   <div class="floating-shape shape-3"></div>
@@ -153,7 +163,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="col-lg-10 hero-content d-flex flex-column align-items-center" style="animation:float 6s ease-in-out infinite;">
         <div class="hero-subtitle scroll-reveal"><span>6+ Years of Excellence | ISO 27001 Certified</span></div>
         <h1 class="hero-title scroll-reveal">
-          Empowering Businesses<br>with Smart
+          <span data-split-reveal>Empowering Businesses with Smart</span><br>
           <span class="typed-wrapper" id="typed-text"></span><span class="cursor"></span>
         </h1>
         <p class="hero-description scroll-reveal mx-auto">
@@ -296,7 +306,8 @@ require_once __DIR__ . '/includes/header.php';
 
 <!-- ═══════ AI & ENTERPRISE AUTOMATION SECTION ═══════ -->
 <section class="section-pad" style="background:linear-gradient(135deg,#080B1A 0%,#1C2280 60%,#0D1035 100%);color:#fff;" id="ai-automation">
-
+  <!-- Animated scan-line overlay -->
+  <div class="scan-line" aria-hidden="true"></div>
   <div class="container">
     <div class="row align-items-center gy-5">
       <div class="col-lg-6 scroll-reveal-left">
@@ -489,6 +500,8 @@ require_once __DIR__ . '/includes/header.php';
 
 <!-- ═══════ WHY US / STATS ═══════ -->
 <section class="whyus-section section-pad">
+  <!-- Constellation canvas background -->
+  <canvas id="whyus-canvas" aria-hidden="true"></canvas>
   <div class="container" style="position:relative;z-index:2;">
     <div class="text-center mb-5 scroll-reveal">
       <div class="section-tag">Why Choose Us</div>
@@ -833,6 +846,10 @@ $extra_scripts = '
 initTyped(document.getElementById("typed-text"), ["Outsourcing","AI Solutions","Healthcare BPO","Publishing Services","Data Annotation","Digital Marketing","Real Estate BPO"], 80);
 // Particle canvas
 initParticleCanvas("hero-canvas");
+// Constellation canvas (Why Us section)
+initConstellationCanvas("whyus-canvas");
+// Scroll progress bar
+initScrollProgress();
 // Contact form
 (function(){
   var form = document.getElementById("contactForm");
