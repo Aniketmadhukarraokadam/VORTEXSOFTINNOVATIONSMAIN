@@ -7,103 +7,189 @@ function _attachContactForm(formId){var form=document.getElementById(formId);if(
 fetch(form.action,{method:'POST',body:new FormData(form),mode:'no-cors'}).then(function(){form.reset();setTimeout(function(){try{var cModal=document.getElementById('contactSuccessModal');if(cModal&&window.bootstrap){new bootstrap.Modal(cModal).show();if(feedback)feedback.classList.add('d-none');}else if(feedback){feedback.className='mt-3 alert alert-success';feedback.innerHTML='<i class="fas fa-check-circle me-2"></i>Thank you! Your message has been sent. Our team will reply within 24 hours.';feedback.classList.remove('d-none');}}catch(err){if(feedback){feedback.className='mt-3 alert alert-success';feedback.innerHTML='<i class="fas fa-check-circle me-2"></i>Thank you! Your message has been sent. Our team will reply within 24 hours.';feedback.classList.remove('d-none');}}},380);}).catch(function(){if(feedback){feedback.className='mt-3 alert alert-danger';feedback.textContent='Network error — please check your connection and try again, or email us at contact@vortexsoftinnovations.in';feedback.classList.remove('d-none');}}).finally(function(){if(btn){btn.innerHTML=btn.dataset.original;btn.disabled=false;}});})}
 function initContactForm(formId){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){_attachContactForm(formId);});}else{_attachContactForm(formId);}}
 function initParticleCanvas(canvasId){
-    const canvas=document.getElementById(canvasId);
-    if(!canvas)return;
-    const ctx=canvas.getContext('2d');
-    const COLORS=['#1C2280','#2d35c4','#5BA8D4','#87CEEB','#CC2228','#e63940'];
-    let W,H,particles=[];
-    let cx, cy;
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    let targetRotX = 0, targetRotY = 0;
+    let rotX = 0, rotY = 0;
 
     function resize(){
-        W=canvas.width=canvas.offsetWidth || 300;
-        H=canvas.height=canvas.offsetHeight || 300;
-        // Move cyclone slightly to the right so it balances text on the left
-        cx=W*0.65;
-        cy=H*0.5;
+        W = canvas.width = canvas.offsetWidth || window.innerWidth;
+        H = canvas.height = canvas.offsetHeight || 600;
     }
     resize();
-    window.addEventListener('resize',()=>{resize();spawnParticles();},{passive:true});
+    window.addEventListener('resize', resize, {passive: true});
 
-    class VortexParticle{
-        constructor(){this.reset(true);}
-        reset(init){
-            this.angle=Math.random()*Math.PI*2;
-            const maxRad = Math.max(W, H, 100) * 0.8;
-            this.radius=init ? Math.random()*maxRad : maxRad;
-            // The cyclone creates a tornado shape in 3D
-            this.yOffset=(Math.random()-0.5)*H*0.8 * (this.radius / Math.max(maxRad, 1)); 
-            this.size=Math.random()*3+1;
-            this.baseSpeed=Math.random()*0.02 + 0.005;
-            this.color=COLORS[Math.floor(Math.random()*COLORS.length)];
-            this.inwardSpeed=Math.random()*1.5+0.5;
-            this.pullPeriod=Math.random()*100;
-            this.prevX = cx + Math.cos(this.angle) * this.radius;
-            this.prevY = cy + Math.sin(this.angle) * this.radius * 0.35 + this.yOffset;
+    // Track mouse for 3D camera rotation and 8D spatial depth
+    window.addEventListener('mousemove', (e) => {
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        targetRotY = (e.clientX - cx) / cx * 0.8;
+        targetRotX = -(e.clientY - cy) / cy * 0.5;
+    }, {passive: true});
+
+    // 3D Particles on Sphere Surface & Orbital Rings
+    const POINT_COUNT = Math.min(Math.floor((window.innerWidth * 600) / 7500), 160);
+    const points = [];
+    const sphereRadius = Math.min(W * 0.28, 240);
+
+    for (let i = 0; i < POINT_COUNT; i++) {
+        const phi = Math.acos(-1 + (2 * i) / POINT_COUNT);
+        const theta = Math.sqrt(POINT_COUNT * Math.PI) * phi;
+        const rad = sphereRadius * (0.8 + Math.random() * 0.4);
+        points.push({
+            x: rad * Math.cos(theta) * Math.sin(phi),
+            y: rad * Math.sin(theta) * Math.sin(phi),
+            z: rad * Math.cos(phi),
+            color: (i % 3 === 0) ? '#CC2228' : ((i % 2 === 0) ? '#5BA8D4' : '#1C2280'),
+            size: Math.random() * 2.5 + 1.2
+        });
+    }
+
+    // Technology Anchor Nodes in 3D (All 9 Core Service Pillars including Custom Web Dev & Compliance)
+    const TECH_NODES = [
+        { label: 'AI Agentic Workflows', angle: 0, r: sphereRadius * 1.25, color: '#CC2228' },
+        { label: 'Healthcare BPO & RCM', angle: (Math.PI * 2) / 9, r: sphereRadius * 1.34, color: '#0284C7' },
+        { label: 'Custom Web Development', angle: (Math.PI * 4) / 9, r: sphereRadius * 1.28, color: '#6366F1' },
+        { label: 'Enterprise IT & Cloud', angle: (Math.PI * 6) / 9, r: sphereRadius * 1.22, color: '#1C2280' },
+        { label: 'Company Compliance (ISO/HIPAA)', angle: (Math.PI * 8) / 9, r: sphereRadius * 1.32, color: '#10B981' },
+        { label: 'Data Annotation & AI', angle: (Math.PI * 10) / 9, r: sphereRadius * 1.38, color: '#F59E0B' },
+        { label: 'Publishing Services', angle: (Math.PI * 12) / 9, r: sphereRadius * 1.26, color: '#8B5CF6' },
+        { label: 'Real Estate & Title', angle: (Math.PI * 14) / 9, r: sphereRadius * 1.34, color: '#06B6D4' },
+        { label: '24/7 Global BPO Pods', angle: (Math.PI * 16) / 9, r: sphereRadius * 1.24, color: '#EC4899' }
+    ];
+
+    let autoAngle = 0;
+    const FOCAL_LENGTH = 450;
+
+    function project(x, y, z, centerX, centerY) {
+        const perspective = FOCAL_LENGTH / (FOCAL_LENGTH + z + sphereRadius * 1.5);
+        return {
+            px: centerX + x * perspective,
+            py: centerY + y * perspective,
+            scale: perspective,
+            alpha: Math.max(0.12, Math.min(1, (z + sphereRadius) / (sphereRadius * 2) + 0.15))
+        };
+    }
+
+    function render() {
+        ctx.clearRect(0, 0, W, H);
+        
+        rotX += (targetRotX - rotX) * 0.06;
+        rotY += (targetRotY - rotY) * 0.06;
+        autoAngle += 0.007;
+
+        const centerX = (W > 991) ? W * 0.72 : W * 0.5;
+        const centerY = H * 0.5;
+
+        const cosY = Math.cos(rotY + autoAngle);
+        const sinY = Math.sin(rotY + autoAngle);
+        const cosX = Math.cos(rotX);
+        const sinX = Math.sin(rotX);
+
+        const projectedPoints = [];
+        for (let i = 0; i < points.length; i++) {
+            const p = points[i];
+            const x1 = p.x * cosY - p.z * sinY;
+            const z1 = p.z * cosY + p.x * sinY;
+            const y2 = p.y * cosX - z1 * sinX;
+            const z2 = z1 * cosX + p.y * sinX;
+
+            const proj = project(x1, y2, z2, centerX, centerY);
+            projectedPoints.push({
+                x: proj.px,
+                y: proj.py,
+                z: z2,
+                scale: proj.scale,
+                alpha: proj.alpha,
+                color: p.color,
+                size: p.size
+            });
         }
-        update(){
-            // Save previous pos for trail
-            this.prevX = cx + Math.cos(this.angle) * this.radius;
-            this.prevY = cy + Math.sin(this.angle) * this.radius * 0.35 + this.yOffset;
-            
-            // Swirl math: accelerate as radius decreases
-            const speedMultiplier = Math.max(0.5, 300 / (this.radius + 10));
-            this.angle += this.baseSpeed * speedMultiplier;
-            this.radius -= this.inwardSpeed * (speedMultiplier * 0.5);
-            
-            // Vertical undulating
-            this.yOffset += Math.sin(this.pullPeriod) * 1.2;
-            this.pullPeriod += 0.03;
 
-            if(this.radius <= 10){
-                this.reset(false);
+        ctx.lineWidth = 0.75;
+        const maxDist = 65;
+        for (let i = 0; i < projectedPoints.length; i++) {
+            const pi = projectedPoints[i];
+            for (let j = i + 1; j < projectedPoints.length; j++) {
+                const pj = projectedPoints[j];
+                const dx = pi.x - pj.x;
+                const dy = pi.y - pj.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < maxDist) {
+                    const lineAlpha = (1 - d / maxDist) * Math.min(pi.alpha, pj.alpha) * 0.45;
+                    ctx.strokeStyle = `rgba(91, 168, 212, ${lineAlpha})`;
+                    ctx.beginPath();
+                    ctx.moveTo(pi.x, pi.y);
+                    ctx.lineTo(pj.x, pj.y);
+                    ctx.stroke();
+                }
             }
         }
-        draw(){
-            const tilt = 0.35; // 3D flatten
-            const x = cx + Math.cos(this.angle) * this.radius;
-            const y = cy + Math.sin(this.angle) * this.radius * tilt + this.yOffset;
-            
-            // Opacity math
-            const distRatio = this.radius / (Math.max(W,H) * 0.5);
-            let alpha = 1.2 - distRatio;
-            if(this.radius < 60) alpha *= this.radius / 60; // fade into the center hole
-            if(alpha < 0) alpha = 0;
-            if(alpha > 1) alpha = 1;
 
+        for (let i = 0; i < projectedPoints.length; i++) {
+            const p = projectedPoints[i];
             ctx.save();
-            ctx.globalAlpha = alpha * 0.9;
-            ctx.strokeStyle = this.color;
-            ctx.lineWidth = Math.max(0.5, this.size * (1 - distRatio * 0.4));
-            ctx.lineCap = 'round';
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = p.color;
             ctx.beginPath();
-            ctx.moveTo(this.prevX, this.prevY);
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            
-            // Add a glowing ball at the tip for a comet effect
-            if(Math.random() > 0.9) {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(x, y, ctx.lineWidth * 0.8, 0, Math.PI*2);
-                ctx.fill();
-            }
+            ctx.arc(p.x, p.y, Math.max(1, p.size * p.scale), 0, Math.PI * 2);
+            ctx.fill();
             ctx.restore();
         }
-    }
 
-    function spawnParticles(){
-        const count=Math.min(Math.floor((W*H)/9000), 120);
-        particles=Array.from({length:count},()=>new VortexParticle());
-    }
-    spawnParticles();
+        for (let k = 0; k < TECH_NODES.length; k++) {
+            const node = TECH_NODES[k];
+            const angle = node.angle + autoAngle * 1.4;
+            const nx = node.r * Math.cos(angle);
+            const ny = Math.sin(angle * 2) * 40;
+            const nz = node.r * Math.sin(angle);
 
-    function render(){
-        ctx.clearRect(0,0,W,H);
-        
-        // ctx.globalCompositeOperation = 'lighter'; // Makes overlapping layers glow like energy
-        particles.forEach(p=>{p.update();p.draw();});
-        ctx.globalCompositeOperation = 'source-over';
-        
+            const x1 = nx * cosY - nz * sinY;
+            const z1 = nz * cosY + nx * sinY;
+            const y2 = ny * cosX - z1 * sinX;
+            const z2 = z1 * cosX + ny * sinX;
+
+            const proj = project(x1, y2, z2, centerX, centerY);
+
+            if (proj.scale > 0.4) {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0.35, proj.alpha);
+
+                ctx.strokeStyle = node.color;
+                ctx.lineWidth = 2 * proj.scale;
+                ctx.beginPath();
+                ctx.arc(proj.px, proj.py, 10 * proj.scale, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.fillStyle = node.color;
+                ctx.beginPath();
+                ctx.arc(proj.px, proj.py, 4 * proj.scale, 0, Math.PI * 2);
+                ctx.fill();
+
+                if (z2 > -50 && W > 768) {
+                    ctx.font = `600 ${Math.round(11 * proj.scale)}px 'Poppins', sans-serif`;
+                    ctx.fillStyle = '#0D0F2B';
+                    const textWidth = ctx.measureText(node.label).width;
+                    
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.shadowColor = 'rgba(28, 34, 128, 0.2)';
+                    ctx.shadowBlur = 8;
+                    ctx.beginPath();
+                    const px = proj.px + 12 * proj.scale;
+                    const py = proj.py - 10 * proj.scale;
+                    ctx.roundRect(px, py, textWidth + 14, 20 * proj.scale, 6);
+                    ctx.fill();
+
+                    ctx.shadowBlur = 0;
+                    ctx.fillStyle = node.color;
+                    ctx.fillText(node.label, px + 7, py + 14 * proj.scale);
+                }
+                ctx.restore();
+            }
+        }
+
         requestAnimationFrame(render);
     }
     render();
@@ -147,8 +233,237 @@ function injectFooter(rootPrefix) {
   };
   document.head.appendChild(script);
 }
-function initTiltCards(){if(window.innerWidth<992)return;document.querySelectorAll('.service-card').forEach(card=>{card.addEventListener('mousemove',e=>{const rect=card.getBoundingClientRect();const x=(e.clientX-rect.left)/rect.width-0.5;const y=(e.clientY-rect.top)/rect.height-0.5;card.style.transform=`perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-8px)`;});card.addEventListener('mouseleave',()=>{card.style.transform='';card.style.transition='transform 0.5s cubic-bezier(0.4,0,0.2,1)';});card.addEventListener('mouseenter',()=>{card.style.transition='transform 0.12s ease';});});}
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initTiltCards):initTiltCards();function initStaggeredReveal(){document.querySelectorAll('.row .scroll-reveal, .row .scroll-reveal-left, .row .scroll-reveal-right').forEach((el,i)=>{if(!el.style.transitionDelay){const delay=Math.min((i%4)*0.06,0.24);el.style.transitionDelay=delay+'s';}});}
+/* 3D Perspective Card Tilt Engine with Specular Glare */
+function initTiltCards(){
+    if(window.innerWidth < 992) return;
+    const cards = document.querySelectorAll('.service-card, .whyus-card, .tilt-card-3d, .hero-card, [data-tilt-3d]');
+    cards.forEach(card => {
+        card.classList.add('tilt-card-3d');
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            const rotX = (y - 0.5) * -16;
+            const rotY = (x - 0.5) * 16;
+            card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateZ(12px) translateY(-6px)`;
+            card.style.setProperty('--glare-x', `${(x * 100).toFixed(1)}%`);
+            card.style.setProperty('--glare-y', `${(y * 100).toFixed(1)}%`);
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'transform 0.1s ease-out';
+        });
+    });
+}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initTiltCards):initTiltCards();
+
+/* 8D Multi-Axis Spatial Parallax Engine */
+function initSpatialParallax(){
+    const elements = document.querySelectorAll('[data-depth]');
+    if(!elements.length || window.innerWidth < 768) return;
+    let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+    window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+        mouseY = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+    }, {passive: true});
+    function tick(){
+        currentX += (mouseX - currentX) * 0.08;
+        currentY += (mouseY - currentY) * 0.08;
+        elements.forEach(el => {
+            const depth = parseFloat(el.getAttribute('data-depth') || '0.05');
+            const moveX = currentX * depth * 55;
+            const moveY = currentY * depth * 55;
+            const rotate = currentX * depth * 12;
+            el.style.transform = `translate3d(${moveX.toFixed(2)}px, ${moveY.toFixed(2)}px, 0) rotate(${rotate.toFixed(2)}deg)`;
+        });
+        requestAnimationFrame(tick);
+    }
+    tick();
+}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initSpatialParallax):initSpatialParallax();
+
+/* ==========================================================================
+   8D SPATIAL MOTION ENGINE (Service Nodes & 8D Gyroscopic Stage)
+   ========================================================================== */
+/* ==========================================================================
+   8D SPATIAL MOTION ENGINE (Dynamic Laser Web & Service Constellation)
+   ========================================================================== */
+function init8DMotionEngine() {
+    const stage = document.querySelector('.hero-stage-container');
+    const core = document.querySelector('.vortex-8d-core');
+    const nodes = document.querySelectorAll('.service-node-8d');
+    const energyCanvas = document.getElementById('stageEnergyCanvas');
+    if (!stage || !nodes.length) return;
+
+    const eCtx = energyCanvas ? energyCanvas.getContext('2d') : null;
+    let sW = 0, sH = 0;
+
+    function resizeEnergyCanvas() {
+        if (!energyCanvas || !stage) return;
+        sW = energyCanvas.width = stage.offsetWidth || 500;
+        sH = energyCanvas.height = stage.offsetHeight || 520;
+    }
+    resizeEnergyCanvas();
+    window.addEventListener('resize', resizeEnergyCanvas, { passive: true });
+
+    let mouseX = 0, mouseY = 0;
+    let smoothMouseX = 0, smoothMouseY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        mouseX = (e.clientX - cx) / cx;
+        mouseY = (e.clientY - cy) / cy;
+    }, { passive: true });
+
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', (e) => {
+            if (e.gamma !== null && e.beta !== null) {
+                mouseX = Math.min(Math.max(e.gamma / 25, -1), 1);
+                mouseY = Math.min(Math.max(e.beta / 25, -1), 1);
+            }
+        }, { passive: true });
+    }
+
+    const nodeState = Array.from(nodes).map((el, i) => {
+        const depthX = parseFloat(el.getAttribute('data-depth-x') || (0.05 + (i % 4) * 0.02).toFixed(2));
+        const depthY = parseFloat(el.getAttribute('data-depth-y') || (0.05 + ((i + 2) % 4) * 0.02).toFixed(2));
+        const depthZ = parseFloat(el.getAttribute('data-depth-z') || (15 + (i % 3) * 12));
+        const phase = parseFloat(el.getAttribute('data-phase') || (i * (Math.PI * 2 / nodes.length)).toFixed(2));
+        const freqX = 0.65 + (i % 3) * 0.2;
+        const freqY = 0.55 + ((i + 1) % 3) * 0.18;
+        const freqZ = 0.45 + ((i + 2) % 3) * 0.22;
+        const color = el.style.getPropertyValue('--node-color') || '#1C2280';
+
+        el.addEventListener('mouseenter', () => { el.classList.add('active-focus'); });
+        el.addEventListener('mouseleave', () => { el.classList.remove('active-focus'); });
+
+        el.addEventListener('click', () => {
+            const targetSection = document.getElementById('services') || document.getElementById('positioning');
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        return { el, depthX, depthY, depthZ, phase, freqX, freqY, freqZ, color, currentX: 0, currentY: 0 };
+    });
+
+    // Connect left-column service motion chips to right-column 3D nodes
+    document.querySelectorAll('.motion-service-chip').forEach(chip => {
+        const targetId = chip.getAttribute('data-target-service');
+        if (!targetId) return;
+        const targetNode = document.querySelector(`.service-node-8d[data-service="${targetId}"]`);
+        if (!targetNode) return;
+        chip.addEventListener('mouseenter', () => {
+            targetNode.classList.add('active-focus');
+        });
+        chip.addEventListener('mouseleave', () => {
+            targetNode.classList.remove('active-focus');
+        });
+    });
+
+    let startTime = performance.now();
+
+    function animate8D(now) {
+        const t = (now - startTime) * 0.0015;
+
+        smoothMouseX += (mouseX - smoothMouseX) * 0.07;
+        smoothMouseY += (mouseY - smoothMouseY) * 0.07;
+
+        // 3D stage gyroscopic tilt
+        if (stage && window.innerWidth >= 992) {
+            const stageRotX = -smoothMouseY * 13;
+            const stageRotY = smoothMouseX * 17;
+            stage.style.transform = `perspective(1200px) rotateX(${stageRotX.toFixed(2)}deg) rotateY(${stageRotY.toFixed(2)}deg)`;
+        }
+
+        // Center Vortexsoft core 3D tilt
+        if (core) {
+            const coreRotX = -smoothMouseY * 18;
+            const coreRotY = smoothMouseX * 22;
+            const coreScale = 1 + Math.sin(t * 1.5) * 0.03;
+            core.style.transform = `rotateX(${coreRotX.toFixed(2)}deg) rotateY(${coreRotY.toFixed(2)}deg) scale(${coreScale.toFixed(3)})`;
+        }
+
+        // Stage Energy Canvas: Dynamic laser beams & traveling photons
+        if (eCtx && sW > 0 && sH > 0) {
+            eCtx.clearRect(0, 0, sW, sH);
+            const coreCenterX = sW * 0.5;
+            const coreCenterY = sH * 0.5;
+
+            // Draw glowing energy connections between center Vortexsoft core and orbiting nodes
+            for (let i = 0; i < nodeState.length; i++) {
+                const n = nodeState[i];
+                const rect = n.el.getBoundingClientRect();
+                const stageRect = stage.getBoundingClientRect();
+                const nodeCenterX = rect.left - stageRect.left + rect.width * 0.5;
+                const nodeCenterY = rect.top - stageRect.top + rect.height * 0.5;
+
+                const isFocused = n.el.classList.contains('active-focus');
+                const lineAlpha = isFocused ? 0.9 : 0.24 + Math.sin(t * 2 + n.phase) * 0.08;
+
+                // Glowing connecting laser line
+                eCtx.save();
+                eCtx.beginPath();
+                eCtx.moveTo(coreCenterX, coreCenterY);
+                eCtx.lineTo(nodeCenterX, nodeCenterY);
+                eCtx.strokeStyle = isFocused ? n.color : `rgba(91, 168, 212, ${lineAlpha})`;
+                eCtx.lineWidth = isFocused ? 2.5 : 1.2;
+                if (isFocused) {
+                    eCtx.shadowColor = n.color;
+                    eCtx.shadowBlur = 14;
+                }
+                eCtx.stroke();
+
+                // Traveling photon energy pulse
+                const pulseProg = (t * 0.75 + (i / nodeState.length)) % 1;
+                const photonX = coreCenterX + (nodeCenterX - coreCenterX) * pulseProg;
+                const photonY = coreCenterY + (nodeCenterY - coreCenterY) * pulseProg;
+
+                eCtx.beginPath();
+                eCtx.arc(photonX, photonY, isFocused ? 4 : 2.5, 0, Math.PI * 2);
+                eCtx.fillStyle = isFocused ? '#ffffff' : n.color;
+                eCtx.shadowColor = n.color;
+                eCtx.shadowBlur = isFocused ? 12 : 8;
+                eCtx.fill();
+                eCtx.restore();
+            }
+        }
+
+        // 8D Physics for each Service Node
+        for (let i = 0; i < nodeState.length; i++) {
+            const n = nodeState[i];
+            if (n.el.classList.contains('active-focus')) {
+                n.el.style.transform = `translate3d(0, -10px, 60px) scale(1.15)`;
+                continue;
+            }
+
+            // 8 Dimensions of Freedom
+            const posX = Math.cos(t * n.freqX + n.phase) * 12 + (smoothMouseX * n.depthX * 65);
+            const posY = Math.sin(t * n.freqY + n.phase) * 14 + (smoothMouseY * n.depthY * 65);
+            const posZ = Math.sin(t * n.freqZ + n.phase) * 18 + n.depthZ + (-smoothMouseY * 18);
+            const rotX = -smoothMouseY * 10 + Math.sin(t * 0.8 + n.phase) * 5;
+            const rotY = smoothMouseX * 12 + Math.cos(t * 0.7 + n.phase) * 5;
+            const rotZ = Math.sin(t * 0.5 + n.phase) * 3;
+            const scale = 1 + Math.sin(t * 1.2 + n.phase) * 0.03;
+            const glareX = 50 + (smoothMouseX * 32);
+            const glareY = 50 + (smoothMouseY * 32);
+
+            n.el.style.transform = `translate3d(${posX.toFixed(2)}px, ${posY.toFixed(2)}px, ${posZ.toFixed(1)}px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) rotateZ(${rotZ.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+            n.el.style.setProperty('--glare-x', `${glareX.toFixed(1)}%`);
+            n.el.style.setProperty('--glare-y', `${glareY.toFixed(1)}%`);
+        }
+
+        requestAnimationFrame(animate8D);
+    }
+
+    requestAnimationFrame(animate8D);
+}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init8DMotionEngine):init8DMotionEngine();
+function initStaggeredReveal(){document.querySelectorAll('.row .scroll-reveal, .row .scroll-reveal-left, .row .scroll-reveal-right').forEach((el,i)=>{if(!el.style.transitionDelay){const delay=Math.min((i%4)*0.06,0.24);el.style.transitionDelay=delay+'s';}});}
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initStaggeredReveal):initStaggeredReveal();const skillObserver=canObserve?new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.skill-fill').forEach(bar=>{bar.classList.add('animated');});skillObserver.unobserve(e.target);}});},{threshold:0.3}):null;document.querySelectorAll('.skill-bar-wrap').forEach(w=>{if(skillObserver)skillObserver.observe(w.closest('section')||w);else w.querySelectorAll('.skill-fill').forEach(bar=>bar.classList.add('animated'));});document.addEventListener('click',e=>{const btn=e.target.closest('.btn-primary-custom, .btn-cta-white, .btn-submit, .nav-cta');if(!btn)return;const circle=document.createElement('span');const diameter=Math.max(btn.clientWidth,btn.clientHeight);const rect=btn.getBoundingClientRect();circle.style.cssText=`position:absolute;border-radius:50%;width:${diameter}px;height:${diameter}px;left:${e.clientX - rect.left - diameter/2}px;top:${e.clientY - rect.top - diameter/2}px;background:rgba(255,255,255,0.28);transform:scale(0);animation:rippleClick 0.55s linear;pointer-events:none;`;btn.style.position='relative';btn.style.overflow='hidden';btn.appendChild(circle);setTimeout(()=>circle.remove(),560);});const rippleStyle=document.createElement('style');rippleStyle.textContent='@keyframes rippleClick{to{transform:scale(4);opacity:0;}}';document.head.appendChild(rippleStyle);
 // ── SERVICE WORKER REGISTRATION ────────────────────────────
 if ('serviceWorker' in navigator) {

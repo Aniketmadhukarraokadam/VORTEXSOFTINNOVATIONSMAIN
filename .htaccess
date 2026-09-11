@@ -41,6 +41,10 @@ ServerSignature Off
     RewriteRule ^service\.html$ /service.php [L,R=301]
     RewriteRule ^careers\.html$ /careers.php [L,R=301]
     RewriteRule ^blog\.html$ /blog.php [L,R=301]
+    
+    # Blog single post dynamic routing
+    RewriteRule ^blog/([a-zA-Z0-9_\-]+)\.php$ /blog-detail.php?slug=$1 [L,QSA]
+    RewriteRule ^blog/([a-zA-Z0-9_\-]+)/?$ /blog-detail.php?slug=$1 [L,QSA]
 
     # Custom 404
     ErrorDocument 404 /404.php

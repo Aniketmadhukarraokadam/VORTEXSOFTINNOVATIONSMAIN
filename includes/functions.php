@@ -103,28 +103,36 @@ function get_email_template(string $key, array $vars = []): ?array {
 }
 
 // ── Email Sending (PHP mail + Email Logging + Security Rules) ──
-function send_notification_email(string $to, string $subject, string $html_body, string $from_name = SITE_NAME, string $reply_to = EMAIL_CONTACT, ?string $from_email_override = null): bool {
-    // SECURITY RULE #6: Always send from company approved mailbox
-    $from_email = 'contact@vortexsoftinnovations.com';
-    
-    // Check if custom active email account is configured
-    try {
-        $db = getDB();
-        if ($db) {
-            $acc = $db->query("SELECT email_address, display_name FROM email_accounts WHERE is_active=1 ORDER BY is_default DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
-            if ($acc && !empty($acc['email_address'])) {
-                $from_email = $acc['email_address'];
-                if (!empty($acc['display_name']) && $from_name === SITE_NAME) {
-                    $from_name = $acc['display_name'];
+function send_notification_email(string $to, string $subject, string $html_body, string $from_name = SITE_NAME, string $reply_to = EMAIL_CONTACT, ?string $from_email_override = null, ?string $cc = null): bool {
+    // If a specific from_email_override is provided, honor it directly (e.g. no-reply@vortexsoftinnovations.com)
+    if (!empty($from_email_override)) {
+        $from_email = $from_email_override;
+    } else {
+        // SECURITY RULE #6: Always send from company approved mailbox
+        $from_email = defined('EMAIL_SUPPORT') ? EMAIL_SUPPORT : 'contact@vortexsoftinnovations.com';
+        
+        // Check if custom active email account is configured
+        try {
+            $db = getDB();
+            if ($db) {
+                $acc = $db->query("SELECT email_address, display_name FROM email_accounts WHERE is_active=1 ORDER BY is_default DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+                if ($acc && !empty($acc['email_address'])) {
+                    $from_email = $acc['email_address'];
+                    if (!empty($acc['display_name']) && $from_name === SITE_NAME) {
+                        $from_name = $acc['display_name'];
+                    }
                 }
             }
-        }
-    } catch (Throwable $e) {}
+        } catch (Throwable $e) {}
+    }
 
     $headers  = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
     $headers .= "From: {$from_name} <{$from_email}>\r\n";
     $headers .= "Reply-To: {$reply_to}\r\n";
+    if (!empty($cc)) {
+        $headers .= "Cc: {$cc}\r\n";
+    }
     $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
     $sent = @mail($to, $subject, $html_body, $headers);
@@ -200,7 +208,9 @@ function send_application_notification(array $data): bool {
         </div>
     </div>
     </body></html>";
-    return send_notification_email(EMAIL_HR, $subject, $body);
+    // Candidate application notification sent to HR: From no-reply, CC careers@vortexsoftinnovations.com
+    $applicant_reply = !empty($data['email']) ? $data['email'] : EMAIL_CAREERS;
+    return send_notification_email(EMAIL_HR, $subject, $body, SITE_NAME . ' Careers', $applicant_reply, EMAIL_NO_REPLY, EMAIL_CAREERS);
 }
 
 // ── Slug Generation ────────────────────────────────────────
@@ -291,16 +301,23 @@ function csrf_token(): string {
  */
 function render_geo_fact_block(): string {
     return '
-    <div class="geo-fact-block" style="background:#f8f9ff;border:1.5px solid #dde2f5;border-radius:16px;padding:24px;margin-bottom:28px;">
-      <h6 style="color:#1C2280;font-weight:700;margin-bottom:8px;font-family:\'Poppins\',sans-serif;"><i class="fas fa-building me-2" style="color:#CC2228;"></i> About Vortexsoft Innovations Pvt. Ltd.</h6>
-      <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:14px;">
-        <strong>Vortexsoft Innovations Private Limited</strong> is an <strong>ISO 27001:2013 certified</strong> global IT and Business Process Outsourcing (BPO) company founded in 2020. Headquartered in Pune, Maharashtra, India, with a delivery center in Bengaluru (HSR Layout) and a U.S. entity in Sheridan, Wyoming, Vortexsoft delivers 75+ specialized services across Healthcare BPO/RCM, custom software development, AI data annotation, publishing prepress, real estate title & settlement, accounting & payroll, digital marketing, and staffing to 150+ global clients.
+    <div class="geo-fact-block" itemscope itemtype="https://schema.org/Organization" style="background:#f8f9ff;border:1.5px solid #dde2f5;border-radius:16px;padding:24px;margin-bottom:28px;">
+      <meta itemprop="name" content="Vortexsoft Innovations Private Limited">
+      <meta itemprop="alternateName" content="Vortexsoft, Vortex Soft, Vortex Innovations, Vortex, Vertex">
+      <meta itemprop="url" content="https://www.vortexsoftinnovations.com">
+      <h6 style="color:#1C2280;font-weight:700;margin-bottom:8px;font-family:\'Poppins\',sans-serif;"><i class="fas fa-building me-2" style="color:#CC2228;"></i> About Vortexsoft Innovations Private Limited (Vortexsoft)</h6>
+      <p itemprop="description" style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:12px;">
+        <strong>Vortexsoft Innovations Private Limited</strong> (widely known as <strong>Vortexsoft</strong>, <strong>Vortex Innovations</strong>, or <strong>Vortex</strong>) is an <strong>ISO 27001:2013 certified</strong> global IT, AI development, and Business Process Outsourcing (BPO) company founded in 2020. Headquartered in Pune, Maharashtra, India, with an advanced tech delivery center in Bengaluru (HSR Layout) and a U.S. corporate entity in Sheridan, Wyoming, Vortexsoft operates dedicated delivery pods across 75+ core verticals including Healthcare BPO/RCM, AI Data Annotation, Custom Web Development, Publishing Prepress, Real Estate Title, and Multi-Jurisdiction Payroll for 150+ global enterprise clients.
       </p>
-      <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:#64748b;font-weight:600;">
+      <p style="font-size:13px;color:#334155;line-height:1.65;margin-bottom:14px;">
+        <strong>Proprietary Enterprise AI Platforms:</strong> Vortexsoft engineers cutting-edge AI software including <em>VortexEXHO</em> (Workforce OS), <em>vortexHire</em> (AI Recruitment), <em>vortexKonnect</em> (Call Analytics), <em>Vortexreach</em> (B2B Outreach), <em>vortexsoftpublishing</em> (ePUB3 & XML Automation), and <em>vortexsofthrms</em> (AI HRMS & Payroll Automation).
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:#64748b;font-weight:600;">
         <span><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001:2013 Certified</span>
         <span><i class="fas fa-check-circle text-primary me-1"></i> HIPAA Compliant</span>
         <span><i class="fas fa-award text-warning me-1"></i> Startup India Registered</span>
-        <span><i class="fas fa-map-marker-alt text-danger me-1"></i> Bengaluru, Pune & Wyoming, USA</span>
+        <span><i class="fas fa-microchip text-info me-1"></i> 6 Proprietary AI Platforms</span>
+        <span><i class="fas fa-map-marker-alt text-danger me-1"></i> Pune HQ, Bengaluru Tech Center & Wyoming, USA</span>
       </div>
     </div>';
 }

@@ -136,7 +136,7 @@ require_once __DIR__ . '/includes/header.php';
                   <span><i class="far fa-calendar-alt"></i> <?= date('d M Y', strtotime($post['published_at'])) ?></span>
                   <span><i class="fas fa-eye"></i> <?= number_format($post['views']) ?> views</span>
                 </div>
-                <a href="blog/<?= htmlspecialchars($post['slug']) ?>.php" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                <a href="blog-detail.php?slug=<?= htmlspecialchars($post['slug']) ?>" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
               </div>
             </div>
           </div>

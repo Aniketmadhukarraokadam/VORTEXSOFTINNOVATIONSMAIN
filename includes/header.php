@@ -71,6 +71,9 @@ function nav_active(string $page, string $path): string {
     <meta name="revisit-after" content="5 days">
     <meta name="language" content="English">
 
+    <meta name="keywords" content="Vortexsoft, Vortexsoft Innovations, Vortex Innovations Private Limited, Vortex Soft, Vortex, Vertex, IT outsourcing India, BPO company Pune, BPO company Bengaluru, AI solutions company, Healthcare BPO India, Medical Coding outsourcing, AI Data Annotation India, Enterprise Workforce OS, VortexEXHO, vortexHire, vortexKonnect, Vortexreach, vortexsoftpublishing, vortexsofthrms, S1000D conversion, lease abstraction services, offshore development center India, ISO 27001 BPO company">
+    <meta name="news_keywords" content="Vortexsoft Innovations, AI outsourcing, Healthcare RCM, Data Annotation, IT Services Pune Bengaluru">
+
     <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
     <link rel="alternate" hreflang="en-IN" href="<?= htmlspecialchars($in_url) ?>">
     <link rel="alternate" hreflang="en-US" href="<?= htmlspecialchars($com_url) ?>">
@@ -97,15 +100,32 @@ function nav_active(string $page, string $path): string {
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@vortexsoft">
+    <meta name="twitter:creator" content="@vortexsoft">
     <meta name="twitter:title" content="<?= htmlspecialchars($page_title) ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($page_desc) ?>">
     <meta name="twitter:image" content="<?= htmlspecialchars($og_image) ?>">
 
-    <!-- Sitewide Breadcrumb & Location Schema -->
+    <!-- Sitewide Breadcrumb, WebSite, Corporation & Knowledge Graph Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "<?= SITE_URL ?>/#website",
+          "url": "<?= SITE_URL ?>",
+          "name": "Vortexsoft Innovations Private Limited",
+          "alternateName": ["Vortexsoft", "Vortex Soft", "Vortex Innovations", "Vortex", "Vertex"],
+          "description": "Global AI, IT Outsourcing & BPO Services — Healthcare RCM, Data Annotation, Software Engineering",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "<?= SITE_URL ?>/service.php?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
         {
           "@type": "BreadcrumbList",
           "itemListElement": [
@@ -118,7 +138,7 @@ function nav_active(string $page, string $path): string {
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "<?= htmlspecialchars(str_replace([' — Vortexsoft Innovations Private Limited', ' — Vortexsoft Innovations Private Limited', ' — Vortexsoft', ' - Vortexsoft Innovations Private Limited'], '', $page_title)) ?>",
+              "name": "<?= htmlspecialchars(str_replace([' — Vortexsoft Innovations Private Limited', ' — Vortexsoft', ' - Vortexsoft Innovations Private Limited'], '', $page_title)) ?>",
               "item": "<?= htmlspecialchars($canonical_url) ?>"
             }
           ]
@@ -128,10 +148,34 @@ function nav_active(string $page, string $path): string {
           "@id": "<?= SITE_URL ?>/#corporation",
           "name": "Vortexsoft Innovations Private Limited",
           "legalName": "Vortexsoft Innovations Pvt. Ltd.",
-          "alternateName": ["Vortexsoft", "Vortex Soft", "Vortex Innovations", "Vortex", "Vertex"],
+          "alternateName": ["Vortexsoft", "Vortex Soft", "Vortex Innovations", "Vortex", "Vertex", "Vortex Group"],
           "url": "<?= SITE_URL ?>",
-
           "logo": "<?= SITE_URL ?>/logo-header.png",
+          "image": "<?= SITE_URL ?>/logo-header.png",
+          "foundingDate": "2020",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": "500"
+          },
+          "slogan": "Your Global AI, IT & BPO Partner",
+          "description": "Vortexsoft Innovations Private Limited is an ISO 27001:2013 certified and HIPAA-compliant global IT and BPO company delivering 75+ services across AI solutions, Healthcare BPO/RCM, data annotation, custom software development, and publishing.",
+          "sameAs": [
+            "https://www.linkedin.com/company/vortexsoft-innovations-private-limited/",
+            "https://www.facebook.com/profile.php?id=61575505273718",
+            "https://www.instagram.com/vortexsoft_innovations"
+          ],
+          "knowsAbout": [
+            "Healthcare Revenue Cycle Management (RCM)",
+            "Medical Coding ICD-10 & CPT",
+            "AI Data Annotation & Computer Vision",
+            "Custom Web & Software Development",
+            "Agentic AI Automation",
+            "S1000D XML Conversion",
+            "Commercial Real Estate Lease Abstraction",
+            "ISO 27001:2013 Information Security",
+            "HIPAA Compliance Protocols",
+            "Enterprise HRMS & Payroll Automation"
+          ],
           "contactPoint": [
             {
               "@type": "ContactPoint",
@@ -174,6 +218,16 @@ function nav_active(string $page, string $path): string {
               "addressCountry": "US"
             }
           ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": "<?= htmlspecialchars($canonical_url) ?>#webpage",
+          "url": "<?= htmlspecialchars($canonical_url) ?>",
+          "name": "<?= htmlspecialchars($page_title) ?>",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".geo-fact-block", ".hero-title", ".section-subtitle", ".section-title"]
+          }
         }
       ]
     }

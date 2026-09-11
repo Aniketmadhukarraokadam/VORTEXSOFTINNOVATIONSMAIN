@@ -19,7 +19,9 @@ define('PRIMARY_IN_URL',  'https://www.vortexsoftinnovations.in');
 // ── Email Addresses ────────────────────────────────────────
 define('EMAIL_SUPPORT',   'support@vortexsoftinnovations.com');
 define('EMAIL_INFO',      'support@vortexsoftinnovations.com');
-define('EMAIL_HR',        'careers@vortexsoftinnovations.in');
+define('EMAIL_HR',        'careers@vortexsoftinnovations.com');
+define('EMAIL_CAREERS',   'careers@vortexsoftinnovations.com');
+define('EMAIL_NO_REPLY',  'no-reply@vortexsoftinnovations.com');
 define('EMAIL_IT',        'support@vortexsoftinnovations.com');
 define('EMAIL_CONTACT',   'support@vortexsoftinnovations.com');
 define('EMAIL_FROM_NAME', 'Vortexsoft Innovations Private Limited');
@@ -33,8 +35,9 @@ define('PHONE_INDIA', '+91-8308906690');
 define('SOCIAL_FACEBOOK',  'https://www.facebook.com/profile.php?id=61575505273718');
 define('SOCIAL_INSTAGRAM', 'https://www.instagram.com/vortexsoft_innovations');
 define('SOCIAL_LINKEDIN',  'https://www.linkedin.com/company/vortexsoft-innovations-private-limited/');
-// SOCIAL_TWITTER removed — V2: Twitter/X account discontinued
-define('SOCIAL_WHATSAPP',  'https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services.');
+define('SOCIAL_WHATSAPP_SERVICES', 'https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%20Sales%20Team%2C%20I%20am%20looking%20for%20business%20services%20(IT%20%2F%20BPO%20%2F%20AI).%20I%20would%20like%20to%20discuss%20our%20project%20requirements%20and%20request%20a%20quote.');
+define('SOCIAL_WHATSAPP_CAREERS',  'https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%20HR%20Team%2C%20I%20am%20a%20job%20candidate%20inquiring%20about%20career%20opportunities%20and%20openings.%20I%20would%20like%20to%20share%20my%20profile%20for%20review.');
+define('SOCIAL_WHATSAPP',          SOCIAL_WHATSAPP_SERVICES);
 
 // ── Company Info ───────────────────────────────────────────
 define('COMPANY_YEAR',       '2020');

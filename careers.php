@@ -373,7 +373,7 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div style="background:rgba(255,255,255,.1);border-radius:14px;padding:20px;margin-bottom:24px;">
             <div style="font-size:12px;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">WhatsApp HR</div>
-            <a href="<?= SOCIAL_WHATSAPP ?>" target="_blank" style="color:#fff;font-weight:700;font-size:16px;"><?= PHONE_INDIA ?></a>
+            <a href="<?= SOCIAL_WHATSAPP_CAREERS ?>" target="_blank" style="color:#fff;font-weight:700;font-size:16px;"><?= PHONE_INDIA ?></a>
           </div>
           <button class="btn" style="background:#fff;color:#1C2280;font-weight:700;border-radius:10px;padding:14px 28px;width:100%;font-size:15px;" onclick="openApplyModal('General Application','General')">
             <i class="fas fa-paper-plane me-2"></i> Submit General Application

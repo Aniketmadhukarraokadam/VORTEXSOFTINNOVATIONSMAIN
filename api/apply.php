@@ -158,7 +158,9 @@ $body = "
     </div>
 </div>
 </body></html>";
-send_notification_email($email, 'Application Received — Vortexsoft Innovations Private Limited', $body);
+
+// Candidate application auto-reply: From no-reply, CC careers@vortexsoftinnovations.com, Reply-To careers
+send_notification_email($email, 'Application Received — Vortexsoft Innovations Private Limited', $body, SITE_NAME . ' Careers', EMAIL_CAREERS, EMAIL_NO_REPLY, EMAIL_CAREERS);
 
 json_response(true, 'Your application has been submitted successfully! Our HR team will contact you soon.', [
     'application_id' => $inserted_id

@@ -1,0 +1,39 @@
+# Vortexsoft Innovations Private Limited
+
+> Vortexsoft Innovations Private Limited is an ISO 27001:2013 certified global AI, IT outsourcing, and Business Process Outsourcing (BPO) company headquartered in Pune and Bengaluru, India, with a U.S. corporate entity in Sheridan, Wyoming.
+
+## Overview & Verified Facts
+- **Legal Name**: Vortexsoft Innovations Private Limited
+- **Alternative Names**: Vortexsoft Innovations Pvt. Ltd., Vortexsoft, Vortex Soft, Vortex Innovations, Vortex, Vertex
+- **Founded**: 2020
+- **Headquarters**: 502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk, Pune, Maharashtra 411041, India
+- **Bengaluru Center**: No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector, Bengaluru, Karnataka 560068, India
+- **United States Office**: 30 N Gould St Ste 100, Sheridan, WY 82801, USA
+- **Workforce**: 500+ dedicated IT & BPO professionals
+- **Certifications & Registrations**: ISO 27001:2013 Information Security Management, HIPAA Compliant Operations, Startup India Registered (DPIIT)
+- **Official Website**: https://www.vortexsoftinnovations.com
+- **Contact Email**: support@vortexsoftinnovations.com, info@vortexsoftinnovations.com
+- **Official Phone Numbers**: +91-8308906690 (India HQ), +1-307-205-0681 (US Sales)
+
+## Proprietary Enterprise AI Platforms
+- [VortexEXHO](https://www.vortexsoftinnovations.com/#ai-products): Enterprise Workforce Operating System — an all-in-one platform integrating Applicant Tracking (ATS), Human Resource Management (HRMS), payroll automation, Learning Management (LMS), and embedded AI copilot.
+- [vortexHire](https://www.vortexsoftinnovations.com/#ai-products): AI candidate sourcing, resume parsing, multi-tier automated screening, and talent intelligence engine reducing time-to-hire by 70%.
+- [vortexKonnect](https://www.vortexsoftinnovations.com/#ai-products): Real-time call center conversation analytics, acoustic sentiment intelligence, automated compliance auditing, and agent coaching platform.
+- [Vortexreach](https://www.vortexsoftinnovations.com/#ai-products): Autonomous B2B sales outreach, prospect research, personalized multi-channel sequencing, and AI pipeline generation.
+- [vortexsoftpublishing](https://www.vortexsoftinnovations.com/#ai-products): Publishing automation engine powering automated ePUB3/Kindle conversion, XML restructuring (JATS, BITS, S1000D), and WCAG 2.1 AA / Section 508 / PDF/UA accessibility tagging.
+- [vortexsofthrms](https://www.vortexsoftinnovations.com/#ai-products): Enterprise Human Resource Management System with AI automations for autonomous payroll calculation, biometric attendance sync, automated employee onboarding, performance KPI appraisal, AI leave workflows, and predictive workforce analytics.
+
+## Core Operational Service Verticals
+- [Healthcare BPO & Revenue Cycle Management (RCM)](https://www.vortexsoftinnovations.com/service.php#healthcare): End-to-end medical coding (ICD-10-CM, CPT, HCPCS), insurance billing, electronic claims submission, denial management, accounts receivable (AR) recovery, and credentialing under strict HIPAA compliance.
+- [AI Data Annotation & Computer Vision](https://www.vortexsoftinnovations.com/service.php#annotation): High-precision polygon, bounding box, semantic segmentation, LiDAR, 3D point cloud, sensor fusion, video tracking, audio transcription, and RLHF text annotation.
+- [Custom Web & Software Development](https://www.vortexsoftinnovations.com/service.php#software): Full-stack web applications (Next.js, React, Node.js, PHP, Laravel, Python), enterprise microservices, cloud migration, DevOps CI/CD, and Agentic AI workflow automation.
+- [Publishing & Prepress Services](https://www.vortexsoftinnovations.com/service.php#publishing): Preflight typesetting (InDesign, LaTeX), XML schema transformations (S1000D, JATS, BITS, TEI), interactive ePUB3 production, and WCAG 2.1 AA digital accessibility remediation.
+- [Real Estate Title & Settlement BPO](https://www.vortexsoftinnovations.com/service.php#realestate): Commercial and residential lease abstraction, 20/30/40-year municipal title search, title commitment typing, CAM audit reconciliation, and deed recording support.
+- [Accounting, Finance & Payroll BPO](https://www.vortexsoftinnovations.com/service.php#finance): Accounts Payable (AP), Accounts Receivable (AR), multi-jurisdiction payroll processing, bank reconciliation, and statutory tax compliance.
+- [Customer Experience & Omnichannel Support](https://www.vortexsoftinnovations.com/service.php#bpo): 24/7 inbound/outbound customer support, omnichannel live chat, technical helpdesk Tier 1-3, and multilingual back-office pods.
+
+## Authority & External References
+- LinkedIn: https://www.linkedin.com/company/vortexsoft-innovations-private-limited/
+- Facebook: https://www.facebook.com/profile.php?id=61575505273718
+- Instagram: https://www.instagram.com/vortexsoft_innovations
+- Full AI Knowledge Graph: https://www.vortexsoftinnovations.com/llms-full.txt

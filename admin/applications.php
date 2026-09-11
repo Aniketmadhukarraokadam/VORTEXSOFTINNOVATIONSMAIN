@@ -121,7 +121,7 @@ if ($db) {
 </html>";
 
                     $from_name = SITE_NAME . ' Careers';
-                    $sent = send_notification_email($current_app['email'], $email_subject, $html_body, $from_name, EMAIL_HR);
+                    $sent = send_notification_email($current_app['email'], $email_subject, $html_body, $from_name, EMAIL_CAREERS, EMAIL_NO_REPLY, EMAIL_CAREERS);
 
                     if ($sent) {
                         $email_status_param = '&mail=sent';

@@ -204,12 +204,91 @@ $prefix = $prefix ?? './';
 </footer>
 
 <!-- ═══════ FLOATING WIDGETS ═══════ -->
-<a href="<?= SOCIAL_WHATSAPP ?>" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Chat on WhatsApp">
+<!-- WhatsApp Multi-Intent Modal / Popup -->
+<div id="whatsappChoicePopup" style="display:none;position:fixed;bottom:92px;right:24px;width:340px;max-width:calc(100vw - 36px);background:#fff;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,0.25),0 0 0 1px rgba(0,0,0,0.06);z-index:99999;overflow:hidden;font-family:'Inter',sans-serif;animation:waSlideUp .28s cubic-bezier(0.16,1,0.3,1);">
+  <div style="background:linear-gradient(135deg,#075E54 0%,#128C7E 100%);color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">
+        <i class="fab fa-whatsapp"></i>
+      </div>
+      <div>
+        <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:14.5px;line-height:1.2;">Vortexsoft Helpdesk</div>
+        <div style="font-size:11.5px;color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:5px;margin-top:2px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#25d366;box-shadow:0 0 6px #25d366;"></span> Online &bull; Replies in &lt;15 mins
+        </div>
+      </div>
+    </div>
+    <button type="button" onclick="closeWhatsAppModal()" style="background:none;border:none;color:rgba(255,255,255,0.7);font-size:22px;line-height:1;cursor:pointer;padding:2px 6px;" aria-label="Close">&times;</button>
+  </div>
+  
+  <div style="padding:18px 16px;background:#f8fafc;">
+    <div style="font-size:12.5px;color:#64748b;font-weight:600;margin-bottom:12px;">Please select your inquiry type:</div>
+    
+    <!-- Business Option -->
+    <a href="<?= SOCIAL_WHATSAPP_SERVICES ?>" target="_blank" rel="noopener" onclick="closeWhatsAppModal()" style="display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:13px 14px;margin-bottom:10px;text-decoration:none;transition:all .2s ease;" onmouseover="this.style.borderColor='#128C7E';this.style.background='#f0fdf4';this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#e2e8f0';this.style.background='#fff';this.style.transform='translateY(0)';">
+      <div style="width:38px;height:38px;border-radius:10px;background:rgba(28,34,128,0.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
+        <i class="fas fa-briefcase"></i>
+      </div>
+      <div style="flex:1;">
+        <strong style="display:block;font-size:13.5px;color:#0F172A;font-weight:700;">Business &amp; Services Inquiry</strong>
+        <span style="display:block;font-size:11.5px;color:#64748b;margin-top:2px;">I need IT, BPO, AI or Software services for my company</span>
+      </div>
+      <i class="fas fa-chevron-right" style="color:#94a3b8;font-size:11px;"></i>
+    </a>
+
+    <!-- Candidate Option -->
+    <a href="<?= SOCIAL_WHATSAPP_CAREERS ?>" target="_blank" rel="noopener" onclick="closeWhatsAppModal()" style="display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:13px 14px;text-decoration:none;transition:all .2s ease;" onmouseover="this.style.borderColor='#CC2228';this.style.background='#fff1f2';this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#e2e8f0';this.style.background='#fff';this.style.transform='translateY(0)';">
+      <div style="width:38px;height:38px;border-radius:10px;background:rgba(204,34,40,0.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
+        <i class="fas fa-user-graduate"></i>
+      </div>
+      <div style="flex:1;">
+        <strong style="display:block;font-size:13.5px;color:#0F172A;font-weight:700;">Job Careers &amp; HR Recruitment</strong>
+        <span style="display:block;font-size:11.5px;color:#64748b;margin-top:2px;">I am a candidate looking for open roles &amp; submitting my CV</span>
+      </div>
+      <i class="fas fa-chevron-right" style="color:#94a3b8;font-size:11px;"></i>
+    </a>
+  </div>
+</div>
+
+<style>
+@keyframes waSlideUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+</style>
+
+<button type="button" id="whatsappFloatingBtn" class="whatsapp-btn" aria-label="Chat on WhatsApp" onclick="toggleWhatsAppModal(event)">
   <i class="fab fa-whatsapp"></i>
-</a>
+</button>
 <button id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <i class="fas fa-chevron-up"></i>
 </button>
+
+<script>
+function toggleWhatsAppModal(e) {
+  if (e) e.stopPropagation();
+  var popup = document.getElementById('whatsappChoicePopup');
+  if (!popup) return;
+  if (popup.style.display === 'none' || popup.style.display === '') {
+    popup.style.display = 'block';
+  } else {
+    popup.style.display = 'none';
+  }
+}
+function closeWhatsAppModal() {
+  var popup = document.getElementById('whatsappChoicePopup');
+  if (popup) popup.style.display = 'none';
+}
+document.addEventListener('click', function(e) {
+  var popup = document.getElementById('whatsappChoicePopup');
+  var btn = document.getElementById('whatsappFloatingBtn');
+  if (popup && popup.style.display === 'block') {
+    if (!popup.contains(e.target) && (!btn || !btn.contains(e.target))) {
+      popup.style.display = 'none';
+    }
+  }
+});
+</script>
 
 <!-- Contact Success Modal -->
 <div class="modal fade" id="contactSuccessModal" tabindex="-1" aria-labelledby="contactSuccessLabel" aria-hidden="true">
