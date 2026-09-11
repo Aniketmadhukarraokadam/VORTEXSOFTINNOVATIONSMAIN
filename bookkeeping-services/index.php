@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Bookkeeping Services | Cloud Bookkeeping Outsourcing | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Bookkeeping Services | Cloud Bookkeeping Outsourcing | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Accurate bookkeeping by Vortexsoft — daily transaction entry, bank reconciliation, expense categorisation, monthly P&L. Tax-ready financials delivered on time. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/bookkeeping-services/';
 $prefix        = '../';

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Image Annotation Services | Bounding Box, Segmentation | AI Training | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Image Annotation Services | Bounding Box, Segmentation | AI Training | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft Advanced BPO outsourcing from India for global clients.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/image-annotation-services/';
 $prefix        = '../';

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Lease Administration Services | Critical Date Tracking | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Lease Administration Services | Critical Date Tracking | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft lease administration: data abstraction, critical date calendars, rent escalation tracking, occupancy reporting. Manage 500+ leases with zero missed dates. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/lease-administration-services/';
 $prefix        = '../';

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Lead Management & CRM Services | Automate Your Sales Pipeline | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Lead Management & CRM Services | Automate Your Sales Pipeline | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Automated lead capture, scoring, routing and nurturing CRM workflows. Vortexsoft sets up your full lead management system. Free consultation available. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/lead-management-crm/';
 $prefix        = '../';

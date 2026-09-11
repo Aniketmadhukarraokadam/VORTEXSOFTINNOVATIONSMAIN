@@ -31,7 +31,7 @@ This `/docs/` directory is the single source of truth for all technical, product
 | Item | Value |
 |---|---|
 | Company | Vortexsoft Innovations Pvt. Ltd. |
-| Group | Vortexsoft Group |
+| Group | Vortexsoft Innovations Private Limited |
 | Primary domain | vortexsoftinnovations.com |
 | Secondary domain | vortexsoftinnovations.in |
 | Hosting | Hostinger |

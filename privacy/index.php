@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Redirecting to Privacy Policy... | Vortexsoft Group';
+$page_title    = 'Redirecting to Privacy Policy... | Vortexsoft Innovations Private Limited';
 $page_desc     = '';
 $canonical_url = 'https://www.vortexsoftinnovations.com/privacy.html';
 $prefix        = '../';

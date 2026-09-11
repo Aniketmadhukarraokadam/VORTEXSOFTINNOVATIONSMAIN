@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Medical Billing Services | Revenue Cycle Management | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Medical Billing Services | Revenue Cycle Management | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft medical billing: eligibility verification, charge capture, claim submission, payment posting, denial management. Reduce billing errors by 45%. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/medical-billing-services/';
 $prefix        = '../';

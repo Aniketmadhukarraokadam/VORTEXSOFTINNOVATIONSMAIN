@@ -174,6 +174,6 @@ REPLACE INTO `system_settings` (`setting_key`, `setting_value`) VALUES
 
 -- Sample Blog Post
 REPLACE INTO `blog_posts` (`id`, `title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES
-(1, 'Vortexsoft Group: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Group delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Group, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
+(1, 'Vortexsoft Innovations Private Limited: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Innovations Private Limited delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Innovations Private Limited, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
 
 SET FOREIGN_KEY_CHECKS = 1;

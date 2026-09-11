@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'AR Recovery Services | Aged Accounts Receivable Management | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'AR Recovery Services | Aged Accounts Receivable Management | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft AR recovery: analyse aging reports, follow up on outstanding claims, dispute handling and re-submissions. Recover $200K+ in outstanding AR. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/ar-recovery-services/';
 $prefix        = '../';

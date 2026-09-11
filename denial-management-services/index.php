@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Denial Management Services | Reduce Claim Denials | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Denial Management Services | Reduce Claim Denials | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft denial management: identify, appeal and resubmit denied claims. Reduce denial rates from 18% to below 5%. Specialised in all payer types. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/denial-management-services/';
 $prefix        = '../';

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Payroll Processing Services | India Payroll Outsourcing | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Payroll Processing Services | India Payroll Outsourcing | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft payroll outsourcing — salary computation, PF, ESI, TDS, PT deductions, payslip generation, direct bank transfers. 100% on-time. 800+ employees managed. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/payroll-processing-services/';
 $prefix        = '../';

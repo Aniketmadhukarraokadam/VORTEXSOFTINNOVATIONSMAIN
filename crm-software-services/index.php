@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'CRM Software Services | CRM Setup, Customisation & Support | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'CRM Software Services | CRM Setup, Customisation & Support | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft provides CRM implementation, configuration, data migration and training for Salesforce, HubSpot, Zoho and custom CRMs. Boost sales by 48%+. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/crm-software-services/';
 $prefix        = '../';

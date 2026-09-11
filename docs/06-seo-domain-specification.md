@@ -40,7 +40,7 @@ Every page includes the following head elements:
 <title>...</title>
 <meta name="description" content="...">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="author" content="Vortexsoft Group">
+<meta name="author" content="Vortexsoft Innovations Private Limited">
 <meta name="language" content="English">
 <meta name="rating" content="general">
 <meta name="revisit-after" content="5 days">

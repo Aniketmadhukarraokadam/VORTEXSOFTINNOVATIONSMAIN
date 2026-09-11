@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'S1000D XML Conversion Services | Aerospace & Defence | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'S1000D XML Conversion Services | Aerospace & Defence | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft converts technical documentation to S1000D-compliant XML/SGML — DMRL, SNS planning, schema validation, CSDB integration. Aerospace, defence, MRO. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/s1000d-xml-conversion-services/';
 $prefix        = '../';

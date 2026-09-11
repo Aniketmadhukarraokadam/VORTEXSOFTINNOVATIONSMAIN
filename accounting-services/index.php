@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Accounting & Bookkeeping Services | Vortexsoft Group';
+$page_title    = 'Accounting & Bookkeeping Services | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft provides outsourced accounting, bookkeeping, AP/AR processing, payroll, and financial compliance for global businesses.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/accounting-services/';
 

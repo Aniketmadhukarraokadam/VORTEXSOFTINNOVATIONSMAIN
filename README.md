@@ -1,18 +1,18 @@
-# 🚀 Vortexsoft Group — Enterprise Website & Administration System
+# 🚀 Vortexsoft Innovations Private Limited — Enterprise Website & Administration System
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.0%2B-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
 [![Database](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql&logoColor=white)](https://mysql.com)
 [![Security](https://img.shields.io/badge/ISO%2027001-Certified-success?style=flat-square&logo=shield)](https://vortexsoftinnovations.com)
 [![Status](https://img.shields.io/badge/Deployment-Production%20Ready-brightgreen?style=flat-square)](https://vortexsoftinnovations.com)
 
-Welcome to the official source repository for **Vortexsoft Innovations Pvt. Ltd.** (a member company of **Vortexsoft Group**). This repository contains the complete, full-stack PHP & MySQL web application, REST API endpoints, enterprise administration panel, and advanced SEO/AEO/GEO optimization framework.
+Welcome to the official source repository for **Vortexsoft Innovations Pvt. Ltd.** (a member company of **Vortexsoft Innovations Private Limited**). This repository contains the complete, full-stack PHP & MySQL web application, REST API endpoints, enterprise administration panel, and advanced SEO/AEO/GEO optimization framework.
 
 ---
 
 ## 🏢 Executive Overview & Company Profile
 
 - **Company Name**: Vortexsoft Innovations Pvt. Ltd.
-- **Parent Group**: Vortexsoft Group
+- **Parent Group**: Vortexsoft Innovations Private Limited
 - **Certifications**: ISO 27001:2013 Certified (Information Security), HIPAA Compliant, Startup India Registered
 - **Headquarters**: No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector, Bengaluru, Karnataka 560068, India
 - **Delivery Centers**: Bengaluru (HQ), Pune (Maharashtra, India), Sheridan (Wyoming, USA)
@@ -165,4 +165,4 @@ VORTEXSOFTINNOVATIONSMAIN/
 
 ---
 
-© 2026 Vortexsoft Group. Vortexsoft Innovations Pvt. Ltd. All rights reserved.
+© 2026 Vortexsoft Innovations Private Limited. Vortexsoft Innovations Pvt. Ltd. All rights reserved.

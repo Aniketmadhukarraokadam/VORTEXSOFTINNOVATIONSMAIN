@@ -3,8 +3,8 @@
  * Vortexsoft Innovations — Privacy Policy (privacy.php)
  */
 
-$page_title   = 'Privacy Policy | Vortexsoft Group';
-$page_desc    = 'Vortexsoft Group Privacy Policy. Learn how we collect, process, and protect client data under ISO 27001 & HIPAA compliance standards.';
+$page_title   = 'Privacy Policy | Vortexsoft Innovations Private Limited';
+$page_desc    = 'Vortexsoft Innovations Private Limited Privacy Policy. Learn how we collect, process, and protect client data under ISO 27001 & HIPAA compliance standards.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/privacy.php';
 
 $prefix       = './';
@@ -24,7 +24,7 @@ require_once __DIR__ . '/includes/header.php';
   <div class="container" style="max-width:860px;">
     <div style="font-size:15px;color:#475569;line-height:1.8;">
       <h3 style="color:#1C2280;font-weight:700;margin-bottom:12px;">1. Information We Collect</h3>
-      <p>Vortexsoft Innovations Pvt. Ltd. ("Vortexsoft Group") collects minimal information necessary to deliver quality services. This includes:</p>
+      <p>Vortexsoft Innovations Private Limited collects minimal information necessary to deliver quality services. This includes:</p>
       <ul>
         <li>Contact information submitted via forms (Name, Email, Phone, Company name, Service requirement).</li>
         <li>Job application data (Name, Resume files, Experience, Contact details).</li>
@@ -41,7 +41,7 @@ require_once __DIR__ . '/includes/header.php';
       </ul>
 
       <h3 style="color:#1C2280;font-weight:700;margin-top:32px;margin-bottom:12px;">3. Data Security &amp; ISO 27001</h3>
-      <p>As an ISO 27001:2013 certified company, Vortexsoft Group employs enterprise-grade data protection mechanisms. Client data, resumes, and communications are stored on encrypted, access-restricted servers. We never sell or share user data with third-party advertisers.</p>
+      <p>As an ISO 27001:2013 certified company, Vortexsoft Innovations Private Limited employs enterprise-grade data protection mechanisms. Client data, resumes, and communications are stored on encrypted, access-restricted servers. We never sell or share user data with third-party advertisers.</p>
 
       <h3 style="color:#1C2280;font-weight:700;margin-top:32px;margin-bottom:12px;">4. Contact Us Regarding Privacy</h3>
       <p>If you have questions regarding our privacy practices or wish to request data removal, please contact our Data Protection Officer at:</p>

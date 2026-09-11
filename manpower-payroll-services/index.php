@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Manpower & Payroll Services | Vortexsoft Group';
+$page_title    = 'Manpower & Payroll Services | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft manpower supply and payroll outsourcing: contract staffing, recruitment, statutory compliance, and payroll processing.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/manpower-payroll-services/';
 

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Publishing Services | Vortexsoft Group';
+$page_title    = 'Publishing Services | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Full-service publishing BPO by Vortexsoft: copyediting, typesetting, ePUB3, JATS XML, and PDF accessibility for STM journals and publishers.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/publishing-services/';
 

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Video Annotation Services | Frame-Level Object Tracking | AI Data | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Video Annotation Services | Frame-Level Object Tracking | AI Data | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Frame-by-frame video annotation by Vortexsoft — object tracking, action recognition, semantic segmentation. Autonomous vehicles, surveillance, sports analytics. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/video-annotation-services/';
 $prefix        = '../';

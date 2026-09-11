@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Property Accounting Services | Real Estate Bookkeeping | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Property Accounting Services | Real Estate Bookkeeping | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft property accounting: rent roll management, AP/AR, bank reconciliation, owner statements, audit-ready financials. Managing 300+ units. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/property-accounting-services/';
 $prefix        = '../';

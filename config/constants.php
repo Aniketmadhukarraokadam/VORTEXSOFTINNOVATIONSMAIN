@@ -8,7 +8,7 @@ $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || (isset(
 $raw_host = isset($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : 'www.vortexsoftinnovations.com';
 $clean_domain = preg_replace('/^www\./', '', $raw_host);
 
-define('SITE_NAME',    'Vortexsoft Group');
+define('SITE_NAME',    'Vortexsoft Innovations Private Limited');
 define('SITE_DOMAIN',  $clean_domain);
 define('SITE_HOST',    $raw_host);
 define('SITE_URL',     $protocol . $raw_host);
@@ -22,7 +22,7 @@ define('EMAIL_INFO',      'support@vortexsoftinnovations.com');
 define('EMAIL_HR',        'careers@vortexsoftinnovations.in');
 define('EMAIL_IT',        'support@vortexsoftinnovations.com');
 define('EMAIL_CONTACT',   'support@vortexsoftinnovations.com');
-define('EMAIL_FROM_NAME', 'Vortexsoft Group');
+define('EMAIL_FROM_NAME', 'Vortexsoft Innovations Private Limited');
 
 
 // ── Phone Numbers ──────────────────────────────────────────

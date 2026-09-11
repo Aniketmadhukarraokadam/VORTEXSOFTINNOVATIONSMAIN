@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Medical Coding Services | ICD-10, CPT, HCPCS | CPC Certified | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Medical Coding Services | ICD-10, CPT, HCPCS | CPC Certified | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'AAPC-certified medical coders at Vortexsoft. ICD-10, CPT, HCPCS coding for hospitals, clinics, telehealth. 99%+ accuracy, HIPAA compliant. Get a free audit. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/medical-coding-services/';
 $prefix        = '../';

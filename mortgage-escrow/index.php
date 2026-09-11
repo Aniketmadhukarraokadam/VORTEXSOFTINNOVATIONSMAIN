@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Mortgage & Escrow Services | Escrow Analysis & Disbursement | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Mortgage & Escrow Services | Escrow Analysis & Disbursement | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft mortgage escrow: escrow account setup, tax & insurance monitoring, disbursement scheduling, shortage analysis, annual statements. 70% fewer exceptions. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/mortgage-escrow/';
 $prefix        = '../';

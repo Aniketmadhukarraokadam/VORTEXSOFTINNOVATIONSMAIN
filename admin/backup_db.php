@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $filepath = $backup_dir . '/' . $filename;
             
             $tables = $db->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
-            $sql = "-- Vortexsoft Group Database Backup\n-- Generated: " . date('Y-m-d H:i:s') . "\n\nSET FOREIGN_KEY_CHECKS=0;\n\n";
+            $sql = "-- Vortexsoft Innovations Private Limited Database Backup\n-- Generated: " . date('Y-m-d H:i:s') . "\n\nSET FOREIGN_KEY_CHECKS=0;\n\n";
 
             foreach ($tables as $table) {
                 $create = $db->query("SHOW CREATE TABLE `{$table}`")->fetch(PDO::FETCH_ASSOC);

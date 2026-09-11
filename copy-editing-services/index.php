@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Copy Editing Services | Grammar, Style & Consistency | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Copy Editing Services | Grammar, Style & Consistency | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Professional copy editing by Vortexsoft — grammar, punctuation, style consistency, terminology and reference checking for academic, medical and corporate content. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/copy-editing-services/';
 $prefix        = '../';

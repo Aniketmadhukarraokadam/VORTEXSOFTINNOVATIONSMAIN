@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Login — Vortexsoft Group</title>
+<title>Admin Login — Vortexsoft Innovations Private Limited</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="/assets/vendor/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/vendor/fontawesome/all.min.css">
@@ -245,9 +245,9 @@ body::before{content:'';position:absolute;inset:0;background-image:linear-gradie
 <body>
 <div class="login-card">
   <div class="brand">
-    <img src="/logo-header.png" alt="Vortexsoft Group">
+    <img src="/logo-header.png" alt="Vortexsoft Innovations Private Limited">
     <h4>Admin Panel</h4>
-    <p>Vortexsoft Group — Internal Management</p>
+    <p>Vortexsoft Innovations Private Limited — Internal Management</p>
   </div>
 
   <?php if ($error): ?>

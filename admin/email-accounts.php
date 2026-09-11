@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action === 'save_account') {
             $id            = (int)($_POST['account_id'] ?? 0);
             $email_address = sanitize_email($_POST['email_address'] ?? '');
-            $display_name  = sanitize($_POST['display_name'] ?? 'Vortexsoft Group');
+            $display_name  = sanitize($_POST['display_name'] ?? 'Vortexsoft Innovations Private Limited');
             $provider      = sanitize($_POST['provider'] ?? 'Hostinger / Custom SMTP');
             $smtp_host     = sanitize($_POST['smtp_host'] ?? '');
             $smtp_port     = (int)($_POST['smtp_port'] ?? 587);
@@ -291,7 +291,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;margin:0;color:#1e293b}
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Display Name</label>
-                    <input type="text" name="display_name" id="acc_name" class="form-control" value="Vortexsoft Group">
+                    <input type="text" name="display_name" id="acc_name" class="form-control" value="Vortexsoft Innovations Private Limited">
                 </div>
             </div>
             <hr>
@@ -331,7 +331,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;margin:0;color:#1e293b}
 function openAddModal(){
     document.getElementById('accId').value = '0';
     document.getElementById('acc_email').value = '';
-    document.getElementById('acc_name').value = 'Vortexsoft Group';
+    document.getElementById('acc_name').value = 'Vortexsoft Innovations Private Limited';
     document.getElementById('acc_smtp_host').value = 'smtp.hostinger.com';
     document.getElementById('acc_imap_host').value = 'imap.hostinger.com';
     new bootstrap.Modal(document.getElementById('accountModal')).show();

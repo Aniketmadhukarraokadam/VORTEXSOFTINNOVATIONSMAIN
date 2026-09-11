@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Data Extraction Services | Structured Data from Documents | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Data Extraction Services | Structured Data from Documents | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft data extraction: convert unstructured PDFs, scans and legacy records into clean, structured data. 2M+ records extracted. Fast & accurate. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/data-extraction-service/';
 $prefix        = '../';

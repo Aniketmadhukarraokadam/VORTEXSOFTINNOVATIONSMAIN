@@ -283,7 +283,7 @@ $queries = [
     "CREATE TABLE IF NOT EXISTS `email_accounts` (
       `id`                INT UNSIGNED NOT NULL AUTO_INCREMENT,
       `email_address`     VARCHAR(180) NOT NULL,
-      `display_name`      VARCHAR(120) DEFAULT 'Vortexsoft Group',
+      `display_name`      VARCHAR(120) DEFAULT 'Vortexsoft Innovations Private Limited',
       `provider`          VARCHAR(60)  DEFAULT 'Hostinger / Custom SMTP',
       `smtp_host`         VARCHAR(180) DEFAULT NULL,
       `smtp_port`         INT UNSIGNED DEFAULT 587,
@@ -471,7 +471,7 @@ try {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Database & Webhook Setup Completed — Vortexsoft Group</title>
+<title>Database & Webhook Setup Completed — Vortexsoft Innovations Private Limited</title>
 <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #080B1A; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
     .card { background: #ffffff; color: #0f172a; padding: 40px; border-radius: 20px; max-width: 540px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Text Annotation Services | NLP & NER Labelling | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Text Annotation Services | NLP & NER Labelling | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Named entity recognition, intent classification, sentiment labelling and relation extraction by Vortexsoft. Train NLP models with high-quality text datasets. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/text-annotation-services/';
 $prefix        = '../';

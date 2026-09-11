@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Technical Writing Services | User Manuals, API Docs & SOPs | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Technical Writing Services | User Manuals, API Docs & SOPs | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Expert technical writers at Vortexsoft create user manuals, API documentation, SOPs, white papers and product guides. Reduce support tickets by 40%. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/technical-writing/';
 $prefix        = '../';

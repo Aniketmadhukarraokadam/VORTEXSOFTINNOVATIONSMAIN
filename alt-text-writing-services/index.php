@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Alt Text Writing Services | WCAG Compliant Image Descriptions | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Alt Text Writing Services | WCAG Compliant Image Descriptions | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft writes accurate, context-aware alt text for all images to achieve WCAG 2.1 and ADA compliance. E-commerce, publishing, government and healthcare. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/alt-text-writing-services/';
 $prefix        = '../';

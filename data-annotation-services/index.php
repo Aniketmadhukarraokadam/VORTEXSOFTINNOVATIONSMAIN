@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'AI Data Annotation Services | Vortexsoft Group';
+$page_title    = 'AI Data Annotation Services | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Full-spectrum AI data annotation by Vortexsoft: image, text, video, and audio labeling for computer vision and LLM model training pipelines.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/data-annotation-services/';
 

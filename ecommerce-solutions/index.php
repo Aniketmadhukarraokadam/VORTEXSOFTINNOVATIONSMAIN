@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'E-Commerce Solutions | Shopify, WooCommerce, Custom Stores | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'E-Commerce Solutions | Shopify, WooCommerce, Custom Stores | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft builds high-converting e-commerce stores — Shopify, WooCommerce, Magento or custom. Payment integration, product catalogue, SEO setup. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/ecommerce-solutions/';
 $prefix        = '../';

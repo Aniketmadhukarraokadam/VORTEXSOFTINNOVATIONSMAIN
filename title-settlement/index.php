@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Title & Settlement Services | Vortexsoft Group';
+$page_title    = 'Title & Settlement Services | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft title & settlement outsourcing: title search, commitment prep, closing documents, and policy issuance for US title agencies.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/title-settlement/';
 

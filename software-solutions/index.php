@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Custom Software Solutions | Vortexsoft Group';
+$page_title    = 'Custom Software Solutions | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Custom software development by Vortexsoft: enterprise web apps, mobile apps, CRM, ERP, and API integrations with dedicated developer pods.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/software-solutions/';
 

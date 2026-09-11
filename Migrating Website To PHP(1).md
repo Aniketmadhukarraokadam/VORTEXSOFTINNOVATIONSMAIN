@@ -827,7 +827,7 @@ We have implemented an **Advance-Level SEO, AEO (Answer Engine Optimization), an
 ### 2. 🧠 Advanced AEO (Answer Engine Optimization for ChatGPT, Claude, Perplexity, Gemini, SearchGPT)
 - **Schema.org Structured Data Graph**:
   - **`FAQPage` Schema**: Embedded JSON-LD structured data containing all 14 Fact-First Q&A blocks, enabling Search Engines & AI Answer Engines to extract direct answers for featured snippets and AI overviews.
-  - **`Corporation` Schema**: Defines brand entity relationships for **Vortexsoft Group** and **Vortexsoft Innovations Pvt. Ltd.** with founding date (`2020`), certifications (`ISO 27001:2013`, `HIPAA Compliant`, `Startup India`), and contact points.
+  - **`Corporation` Schema**: Defines brand entity relationships for **Vortexsoft Innovations Private Limited** and **Vortexsoft Innovations Pvt. Ltd.** with founding date (`2020`), certifications (`ISO 27001:2013`, `HIPAA Compliant`, `Startup India`), and contact points.
   - **`BreadcrumbList` Schema**: Sitewide navigation hierarchy markup on every page.
 - **Product Entity Knowledge Graph**: Integrated entity data for proprietary AI products (`VortexEXHO`, `vortexHire`, `vortexKonnect`, `Vortexreach`).
 
@@ -999,7 +999,7 @@ We have fully implemented all 5 pillars of the **Vortexsoft Innovations SEO / AE
 
 ### 3. 🤖 GEO Prompts (ChatGPT, Claude, Perplexity, Gemini Vendor Research)
 - Created the reusable `render_geo_fact_block()` function placed prominently on `index.php`, `about.php`, and `service.php`.
-- Provides **Fact-Dense Citable Text** containing exact company name (`Vortexsoft Innovations Pvt. Ltd.`), parent group (`Vortexsoft Group`), ISO 27001:2013 certification, founding year (`2020`), and multi-location NAP consistency across **Bengaluru HQ**, **Pune Center**, and **Wyoming, USA entity**.
+- Provides **Fact-Dense Citable Text** containing exact company name (`Vortexsoft Innovations Pvt. Ltd.`), parent group (`Vortexsoft Innovations Private Limited`), ISO 27001:2013 certification, founding year (`2020`), and multi-location NAP consistency across **Bengaluru HQ**, **Pune Center**, and **Wyoming, USA entity**.
 
 ---
 
@@ -1441,10 +1441,10 @@ INSERT INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_nam
 -- 8. CREATE SAMPLE BLOG POST
 INSERT INTO `blog_posts` (`title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES
 (
-  'Vortexsoft Group: Your Trusted Global IT & BPO Partner',
+  'Vortexsoft Innovations Private Limited: Your Trusted Global IT & BPO Partner',
   'vortexsoft-group-trusted-global-it-bpo-partner',
-  'Discover how Vortexsoft Group delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.',
-  '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Group, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services across Healthcare BPO, Custom Software Development, AI Data Annotation, Publishing Prepress, Real Estate, and Digital Marketing.</p>',
+  'Discover how Vortexsoft Innovations Private Limited delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.',
+  '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Innovations Private Limited, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services across Healthcare BPO, Custom Software Development, AI Data Annotation, Publishing Prepress, Real Estate, and Digital Marketing.</p>',
   'Vortexsoft Team',
   'Company News',
   1,
@@ -1893,7 +1893,7 @@ REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_na
 
 -- 7. SAMPLE BLOG POST
 REPLACE INTO `blog_posts` (`id`, `title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES
-(1, 'Vortexsoft Group: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Group delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Group, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
+(1, 'Vortexsoft Innovations Private Limited: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Innovations Private Limited delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Innovations Private Limited, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
 
 SET FOREIGN_KEY_CHECKS = 1;
 ```
@@ -2065,7 +2065,7 @@ REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_na
 
 -- 7. SAMPLE BLOG POST
 REPLACE INTO `blog_posts` (`id`, `title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES
-(1, 'Vortexsoft Group: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Group delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Group, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
+(1, 'Vortexsoft Innovations Private Limited: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Innovations Private Limited delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Innovations Private Limited, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
 
 SET FOREIGN_KEY_CHECKS = 1;
 ```
@@ -2265,7 +2265,7 @@ REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_na
 
 -- 8. INSERT SAMPLE BLOG POST
 REPLACE INTO `blog_posts` (`id`, `title`, `slug`, `excerpt`, `content`, `author`, `category`, `is_published`, `is_featured`, `published_at`) VALUES
-(1, 'Vortexsoft Group: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Group delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Group, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
+(1, 'Vortexsoft Innovations Private Limited: Your Trusted Global IT & BPO Partner', 'vortexsoft-group-trusted-global-it-bpo-partner', 'Discover how Vortexsoft Innovations Private Limited delivers world-class IT, AI, Healthcare, and BPO services to 150+ clients across the globe.', '<p>Vortexsoft Innovations Pvt. Ltd., a proud member of the Vortexsoft Innovations Private Limited, has been delivering exceptional outsourcing solutions since 2020.</p><p>With ISO 27001:2013 certification, we ensure the highest standards of information security while providing 75+ specialized services.</p>', 'Vortexsoft Team', 'Company News', 1, 1, NOW());
 
 SET FOREIGN_KEY_CHECKS = 1;
 ```

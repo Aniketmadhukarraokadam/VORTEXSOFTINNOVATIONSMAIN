@@ -16,8 +16,8 @@ if (!defined('SITE_NAME')) {
 require_once __DIR__ . '/functions.php';
 
 $prefix       = $prefix ?? './';
-$page_title   = $page_title ?? 'Top Global IT & BPO Outsourcing Company in India | AI Services | Vortexsoft Group';
-$page_desc    = $page_desc ?? 'Vortexsoft Group — ISO 27001 certified global IT & BPO outsourcing company in Pune & Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation & 75+ services for 150+ clients worldwide.';
+$page_title   = $page_title ?? 'Top Global IT & BPO Outsourcing Company in India | AI Services | Vortexsoft Innovations Private Limited';
+$page_desc    = $page_desc ?? 'Vortexsoft Innovations Private Limited — ISO 27001 certified global IT & BPO outsourcing company in Pune & Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation & 75+ services for 150+ clients worldwide.';
 $canonical_url = $canonical_url ?? SITE_URL . '/';
 $og_image     = $og_image ?? SITE_URL . '/logo-header.jpg';
 
@@ -65,7 +65,7 @@ function nav_active(string $page, string $path): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= htmlspecialchars($page_title) ?></title>
     <meta name="description" content="<?= htmlspecialchars($page_desc) ?>">
-    <meta name="author" content="Vortexsoft Group">
+    <meta name="author" content="Vortexsoft Innovations Private Limited">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="rating" content="general">
     <meta name="revisit-after" content="5 days">
@@ -84,7 +84,7 @@ function nav_active(string $page, string $path): string {
 
     <!-- OpenGraph -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Vortexsoft Group">
+    <meta property="og:site_name" content="Vortexsoft Innovations Private Limited">
     <meta property="og:locale" content="en_IN">
     <meta property="og:url" content="<?= htmlspecialchars($canonical_url) ?>">
     <meta property="og:title" content="<?= htmlspecialchars($page_title) ?>">
@@ -118,7 +118,7 @@ function nav_active(string $page, string $path): string {
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "<?= htmlspecialchars(str_replace([' — Vortexsoft Group', ' — Vortexsoft', ' - Vortexsoft Group'], '', $page_title)) ?>",
+              "name": "<?= htmlspecialchars(str_replace([' — Vortexsoft Innovations Private Limited', ' — Vortexsoft Innovations Private Limited', ' — Vortexsoft', ' - Vortexsoft Innovations Private Limited'], '', $page_title)) ?>",
               "item": "<?= htmlspecialchars($canonical_url) ?>"
             }
           ]
@@ -126,9 +126,9 @@ function nav_active(string $page, string $path): string {
         {
           "@type": "Corporation",
           "@id": "<?= SITE_URL ?>/#corporation",
-          "name": "Vortexsoft Group",
+          "name": "Vortexsoft Innovations Private Limited",
           "legalName": "Vortexsoft Innovations Pvt. Ltd.",
-          "alternateName": ["Vortexsoft", "Vortex Soft", "Vortex Innovations", "Vortex Group", "Vortex", "Vertex"],
+          "alternateName": ["Vortexsoft", "Vortex Soft", "Vortex Innovations", "Vortex", "Vertex"],
           "url": "<?= SITE_URL ?>",
 
           "logo": "<?= SITE_URL ?>/logo-header.png",
@@ -288,7 +288,7 @@ function nav_active(string $page, string $path): string {
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center gap-3">
-        <span class="topbar-badge">Vortexsoft Group</span>
+        <span class="topbar-badge">Vortexsoft Innovations Private Limited</span>
         <span class="topbar-sep"></span>
         <a href="mailto:<?= EMAIL_SUPPORT ?>"><i class="fas fa-envelope"></i> <?= EMAIL_SUPPORT ?></a>
         <span class="topbar-sep d-none d-lg-inline-block"></span>

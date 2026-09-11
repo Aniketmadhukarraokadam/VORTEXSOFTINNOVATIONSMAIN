@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Technical Publication Services | Maintenance Manuals & IETPs | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Technical Publication Services | Maintenance Manuals & IETPs | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft technical publications: maintenance manuals, IETPs, parts catalogues, training material — aerospace, defence, automotive, rail, energy. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/technical-publication-service/';
 $prefix        = '../';

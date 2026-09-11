@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'PDF Accessibility Services | Section 508 & PDF/UA | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'PDF Accessibility Services | Section 508 & PDF/UA | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft remediates PDFs to meet Section 508, WCAG 2.1 and PDF/UA standards. Complete tagging, reading order, alt text and metadata. Pass audits first time. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/pdf-accessibility-services/';
 $prefix        = '../';

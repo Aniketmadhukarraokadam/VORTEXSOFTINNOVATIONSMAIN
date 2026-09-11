@@ -123,7 +123,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 <aside class="admin-sidebar" id="adminSidebar">
   <div class="sidebar-logo">
     <div>
-      <img src="/logo-header.png" alt="Vortexsoft Group">
+      <img src="/logo-header.png" alt="Vortexsoft Innovations Private Limited">
       <div class="sub">Admin Panel</div>
     </div>
     <button class="btn text-white p-0 d-lg-none" id="sidebarCloseBtn"><i class="fas fa-times"></i></button>
@@ -166,7 +166,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
   <div class="admin-header">
     <div>
       <h1>Dashboard <span style="font-weight:400;font-size:18px;color:#64748b;">— Welcome, <?= htmlspecialchars($admin_name) ?></span></h1>
-      <div class="subtitle">Vortexsoft Group Admin Panel | <?= date('l, d F Y') ?></div>
+      <div class="subtitle">Vortexsoft Innovations Private Limited Admin Panel | <?= date('l, d F Y') ?></div>
     </div>
     <a href="/contact.php" target="_blank" class="btn" style="background:#1C2280;color:#fff;border-radius:10px;font-size:13px;font-weight:600;padding:10px 20px;"><i class="fas fa-external-link-alt me-2"></i> View Website</a>
   </div>

@@ -88,7 +88,7 @@ function get_email_template(string $key, array $vars = []): ?array {
             if ($tpl) {
                 $subject = $tpl['subject'];
                 $body    = $tpl['body_html'];
-                $vars['company_name'] = $vars['company_name'] ?? 'Vortexsoft Group';
+                $vars['company_name'] = $vars['company_name'] ?? 'Vortexsoft Innovations Private Limited';
                 $vars['submission_date'] = $vars['submission_date'] ?? date('d M Y, H:i') . ' IST';
 
                 foreach ($vars as $k => $v) {
@@ -149,7 +149,7 @@ function send_contact_notification(array $data): bool {
     <div style='max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
         <div style='background:linear-gradient(135deg,#1C2280,#5BA8D4);padding:30px;text-align:center;'>
             <h2 style='color:#fff;margin:0;font-size:22px;'>New Contact Inquiry</h2>
-            <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Vortexsoft Group Website</p>
+            <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Vortexsoft Innovations Private Limited Website</p>
         </div>
         <div style='padding:30px;'>
             <table style='width:100%;border-collapse:collapse;'>
@@ -209,13 +209,13 @@ function send_application_notification(array $data): bool {
  * Send a branded auto-acknowledgement email to a contact form submitter.
  */
 function send_contact_acknowledgement(array $data): bool {
-    $subject = 'We\'ve received your inquiry — Vortexsoft Group';
+    $subject = 'We\'ve received your inquiry — Vortexsoft Innovations Private Limited';
     $body = "
     <html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
     <div style='max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);'>
         <div style='background:linear-gradient(135deg,#1C2280,#5BA8D4);padding:30px;text-align:center;'>
             <h2 style='color:#fff;margin:0;font-size:22px;'>Thank You for Contacting Us!</h2>
-            <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Vortexsoft Group</p>
+            <p style='color:rgba(255,255,255,0.8);margin:8px 0 0;'>Vortexsoft Innovations Private Limited</p>
         </div>
         <div style='padding:30px;'>
             <p style='color:#333;font-size:15px;'>Dear <strong>" . htmlspecialchars($data['name']) . "</strong>,</p>
@@ -232,7 +232,7 @@ function send_contact_acknowledgement(array $data): bool {
             </ul>
         </div>
         <div style='background:#f8f9ff;padding:20px 30px;text-align:center;'>
-            <p style='margin:0;color:#999;font-size:12px;'>Vortexsoft Innovations Pvt. Ltd. | " . SITE_URL . "</p>
+            <p style='margin:0;color:#999;font-size:12px;'>Vortexsoft Innovations Private Limited | " . SITE_URL . "</p>
             <p style='margin:4px 0 0;color:#bbb;font-size:11px;'>This is an automated confirmation. Please do not reply to this email.</p>
         </div>
     </div>
@@ -294,7 +294,7 @@ function render_geo_fact_block(): string {
     <div class="geo-fact-block" style="background:#f8f9ff;border:1.5px solid #dde2f5;border-radius:16px;padding:24px;margin-bottom:28px;">
       <h6 style="color:#1C2280;font-weight:700;margin-bottom:8px;font-family:\'Poppins\',sans-serif;"><i class="fas fa-building me-2" style="color:#CC2228;"></i> About Vortexsoft Innovations Pvt. Ltd.</h6>
       <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:14px;">
-        <strong>Vortexsoft Innovations Pvt. Ltd.</strong> (member of <strong>Vortexsoft Group</strong>) is an <strong>ISO 27001:2013 certified</strong> global IT and Business Process Outsourcing (BPO) company founded in 2020. Headquartered in Pune, Maharashtra, India, with a delivery center in Bengaluru (HSR Layout) and a U.S. entity in Sheridan, Wyoming, Vortexsoft delivers 75+ specialized services across Healthcare BPO/RCM, custom software development, AI data annotation, publishing prepress, real estate title & settlement, accounting & payroll, digital marketing, and staffing to 150+ global clients.
+        <strong>Vortexsoft Innovations Private Limited</strong> is an <strong>ISO 27001:2013 certified</strong> global IT and Business Process Outsourcing (BPO) company founded in 2020. Headquartered in Pune, Maharashtra, India, with a delivery center in Bengaluru (HSR Layout) and a U.S. entity in Sheridan, Wyoming, Vortexsoft delivers 75+ specialized services across Healthcare BPO/RCM, custom software development, AI data annotation, publishing prepress, real estate title & settlement, accounting & payroll, digital marketing, and staffing to 150+ global clients.
       </p>
       <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:#64748b;font-weight:600;">
         <span><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001:2013 Certified</span>

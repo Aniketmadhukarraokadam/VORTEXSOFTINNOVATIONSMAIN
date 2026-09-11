@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Data Analytics as a Service | BI Dashboards & Insights | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Data Analytics as a Service | BI Dashboards & Insights | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft Data Analytics: business intelligence dashboards, data pipeline setup, real-time reporting, predictive analytics. Cut decision time by 60%. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/data-analytics-as-a-service/';
 $prefix        = '../';

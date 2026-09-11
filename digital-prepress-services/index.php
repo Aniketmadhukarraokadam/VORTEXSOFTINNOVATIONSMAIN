@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Digital Prepress Services | Print-Ready PDF & Imposition | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Digital Prepress Services | Print-Ready PDF & Imposition | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft digital prepress: file preflight, page layout, colour correction, imposition, print-ready PDF export. Books, magazines, brochures and packaging. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/digital-prepress-services/';
 $prefix        = '../';

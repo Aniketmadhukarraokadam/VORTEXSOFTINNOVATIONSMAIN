@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Audio Annotation Services | Speech Transcription & Tagging | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Audio Annotation Services | Speech Transcription & Tagging | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft audio annotation: transcription, speaker diarisation, emotion tagging, intent labelling. Improve ASR accuracy with high-quality training data. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/audio-annotation-services/';
 $prefix        = '../';

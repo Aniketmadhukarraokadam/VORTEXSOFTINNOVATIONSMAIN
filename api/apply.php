@@ -149,16 +149,16 @@ $body = "
     </div>
     <div style='padding:30px;'>
         <p style='color:#333;'>Dear <strong>" . htmlspecialchars($applicant_name) . "</strong>,</p>
-        <p style='color:#555;'>Thank you for applying to Vortexsoft Group. We have received your application for <strong>" . htmlspecialchars($job_title) . "</strong>.</p>
+        <p style='color:#555;'>Thank you for applying to Vortexsoft Innovations Private Limited. We have received your application for <strong>" . htmlspecialchars($job_title) . "</strong>.</p>
         <p style='color:#555;'>Our HR team will review your profile and get back to you within <strong>3-5 business days</strong>.</p>
         <p style='color:#555;'>For queries, contact: <a href='mailto:" . EMAIL_HR . "' style='color:#1C2280;'>" . EMAIL_HR . "</a></p>
     </div>
     <div style='background:#f8f9ff;padding:20px;text-align:center;'>
-        <p style='color:#999;font-size:12px;margin:0;'>Vortexsoft Innovations Pvt. Ltd. | " . SITE_URL . "</p>
+        <p style='color:#999;font-size:12px;margin:0;'>Vortexsoft Innovations Private Limited | " . SITE_URL . "</p>
     </div>
 </div>
 </body></html>";
-send_notification_email($email, 'Application Received — Vortexsoft Group', $body);
+send_notification_email($email, 'Application Received — Vortexsoft Innovations Private Limited', $body);
 
 json_response(true, 'Your application has been submitted successfully! Our HR team will contact you soon.', [
     'application_id' => $inserted_id

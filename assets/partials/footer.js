@@ -138,7 +138,7 @@ const VORTEX_FOOTER_TEMPLATE = `<!-- ═══════ CTA BANNER ═══�
         </a>
         <p class="footer-desc">
           Vortexsoft Innovations Pvt. Ltd. is a proud member of the
-          <strong style="color:rgba(255,255,255,0.85);">Vortexsoft Group</strong>
+          <strong style="color:rgba(255,255,255,0.85);">Vortexsoft Innovations Private Limited</strong>
           — your trusted global partner for IT and non-IT solutions. ISO 27001 Certified.
         </p>
         <div class="footer-social">
@@ -227,7 +227,7 @@ const VORTEX_FOOTER_TEMPLATE = `<!-- ═══════ CTA BANNER ═══�
   <div class="footer-bottom">
     <div class="container">
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-        <p>Copyright &copy; 2025 Vortexsoft Group. Vortexsoft Innovations Pvt. Ltd. All rights reserved.</p>
+        <p>Copyright &copy; 2025 Vortexsoft Innovations Private Limited. All rights reserved.</p>
       </div>
     </div>
   </div>

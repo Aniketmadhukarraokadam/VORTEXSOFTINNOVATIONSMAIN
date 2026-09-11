@@ -4,8 +4,8 @@
  * Comprehensive Corporate Profile & Strategic Overview
  */
 
-$page_title   = 'About Us | Global IT & BPO Partner | Vortexsoft Group';
-$page_desc    = 'Discover Vortexsoft Group — an ISO 27001 certified global IT & BPO outsourcing company in Pune, Bengaluru, and USA delivering Healthcare, AI, and Software.';
+$page_title   = 'About Us | Global IT & BPO Partner | Vortexsoft Innovations Private Limited';
+$page_desc    = 'Discover Vortexsoft Innovations Private Limited — an ISO 27001 certified global IT & BPO outsourcing company in Pune, Bengaluru, and USA delivering Healthcare, AI, and Software.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/about.php';
 
 $prefix       = './';
@@ -44,7 +44,7 @@ require_once __DIR__ . '/includes/header.php';
 <div class="page-hero">
   <div class="container">
     <nav aria-label="breadcrumb" class="mb-3"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="index.php">Home</a></li><li class="breadcrumb-item active">About Us</li></ol></nav>
-    <h1>About <span style="color:#5BA8D4;">Vortexsoft Group</span></h1>
+    <h1>About <span style="color:#5BA8D4;">Vortexsoft Innovations Private Limited</span></h1>
     <p style="color:rgba(255,255,255,.85);font-size:18px;margin-top:14px;max-width:700px;line-height:1.7;">
       Empowering global enterprises through the synergy of <strong>AI, Intelligent Automation, and Human Expertise</strong>. Delivering high-precision IT, BPO, Healthcare, Publishing, and AI solutions worldwide.
     </p>
@@ -63,7 +63,7 @@ require_once __DIR__ . '/includes/header.php';
         <h2 class="section-title">Global IT &amp; Business Process <span class="highlight">Outoutsourcing Partner</span></h2>
         <div class="section-divider"></div>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.8;">
-          <strong>Vortexsoft Innovations Pvt. Ltd.</strong>, the primary operating division of the <strong>Vortexsoft Group</strong>, is an <strong>ISO 27001:2013 certified</strong> IT software and business process outsourcing organization headquartered in <strong>Pune, Maharashtra, India</strong> with delivery operations in <strong>Bengaluru</strong> and an international corporate entity in <strong>Sheridan, Wyoming, USA</strong>.
+          <strong>Vortexsoft Innovations Private Limited</strong> is an <strong>ISO 27001:2013 certified</strong> IT software and business process outsourcing organization headquartered in <strong>Pune, Maharashtra, India</strong> with delivery operations in <strong>Bengaluru</strong> and an international corporate entity in <strong>Sheridan, Wyoming, USA</strong>.
         </p>
         <p style="color:var(--text-muted);font-size:15px;line-height:1.8;">
           Founded in <strong>2020</strong>, over <strong>6+ years</strong> of continuous innovation we have grown into a multi-disciplinary technology powerhouse. We manage <strong>65+ specialized service domains</strong>, supporting healthcare providers, commercial real estate firms, global STM publishers, financial institutions, technology startups, and fortune enterprises across North America, Europe, Australia, and Asia-Pacific.
@@ -245,7 +245,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="section-tag">Core Competencies</div>
       <h2 class="section-title">Our <span class="highlight">Key Operational Pillars</span></h2>
       <div class="section-divider"></div>
-      <p style="color:#64748b;font-size:16px;max-width:650px;margin:0 auto;">Vortexsoft Group delivers end-to-end expertise across eight primary operational domains.</p>
+      <p style="color:#64748b;font-size:16px;max-width:650px;margin:0 auto;">Vortexsoft Innovations Private Limited delivers end-to-end expertise across eight primary operational domains.</p>
     </div>
 
     <div class="row g-4">
@@ -325,7 +325,7 @@ require_once __DIR__ . '/includes/header.php';
           <div class="timeline-year">2020</div>
           <div class="timeline-title">Incorporation &amp; Foundation</div>
           <p style="color:#64748b;font-size:14px;line-height:1.7;">
-            Vortexsoft Group was founded in Bengaluru, India, initially launching specialized Publishing &amp; Prepress conversion services alongside custom software engineering consulting for regional clients.
+            Vortexsoft Innovations Private Limited was founded in Bengaluru, India, initially launching specialized Publishing &amp; Prepress conversion services alongside custom software engineering consulting for regional clients.
           </p>
         </div>
         <div class="timeline-item">
@@ -368,7 +368,7 @@ require_once __DIR__ . '/includes/header.php';
 <!-- Call to Action -->
 <section class="py-5" style="background:linear-gradient(135deg,#080B1A,#1C2280);">
   <div class="container text-center text-white scroll-reveal">
-    <h2 style="font-family:'Poppins',sans-serif;font-weight:800;margin-bottom:14px;">Ready to Partner with Vortexsoft Group?</h2>
+    <h2 style="font-family:'Poppins',sans-serif;font-weight:800;margin-bottom:14px;">Ready to Partner with Vortexsoft Innovations Private Limited?</h2>
     <p style="color:rgba(255,255,255,0.85);font-size:16px;max-width:620px;margin:0 auto 28px;">
       Discover how our hybrid AI, software, and BPO operations can help your organization scale faster with guaranteed quality and reduced overhead.
     </p>

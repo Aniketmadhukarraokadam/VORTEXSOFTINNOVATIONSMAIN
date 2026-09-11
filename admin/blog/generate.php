@@ -330,7 +330,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 <aside class="admin-sidebar" id="adminSidebar">
   <div class="sidebar-logo">
     <div>
-      <img src="/logo-header.png" alt="Vortexsoft Group">
+      <img src="/logo-header.png" alt="Vortexsoft Innovations Private Limited">
       <div class="sub">Admin Panel</div>
     </div>
     <button class="btn text-white p-0 d-lg-none" id="sidebarCloseBtn"><i class="fas fa-times"></i></button>

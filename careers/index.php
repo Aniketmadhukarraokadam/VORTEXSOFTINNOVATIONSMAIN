@@ -4,8 +4,8 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Careers & Jobs at Vortexsoft Group | Global & India BPO Hiring';
-$page_desc     = 'Explore exciting careers and IT/BPO jobs at Vortexsoft Group. Join our global team in India as a developer, medical coder, BPO executive, or digital marketer.';
+$page_title    = 'Careers & Jobs at Vortexsoft Innovations Private Limited | Global & India BPO Hiring';
+$page_desc     = 'Explore exciting careers and IT/BPO jobs at Vortexsoft Innovations Private Limited. Join our global team in India as a developer, medical coder, BPO executive, or digital marketer.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/careers/';
 $prefix        = '../';
 
@@ -189,7 +189,7 @@ require_once __DIR__ . '/../includes/header.php';
  style="font-size:15px;padding:14px 28px;"> <i class="fas fa-paper-plane"></i> Submit Resume
  </a> </div> </div> </div> </section> <div class="modal fade apply-modal" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel"
  aria-hidden="true"> <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title" id="applyModalLabel">Apply for: <span id="modalJobTitle"></span></h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div> <div class="modal-body p-4"> <form id="applyForm" action="https://formsubmit.co/career@vortexsoftinnovations.in" method="POST" enctype="multipart/form-data">
-<input type="hidden" name="_autoresponse" value="Thank you for applying to Vortexsoft Group! We have received your application.">
+<input type="hidden" name="_autoresponse" value="Thank you for applying to Vortexsoft Innovations Private Limited! We have received your application.">
 <input type="hidden" name="_template" value="box"> <input type="hidden" name="_captcha" value="false"> <input type="hidden" id="appliedRole" name="Role Applied"> <div class="row g-3"> <div class="col-md-6"> <label class="form-label" for="applicantName">Full Name *</label> <input type="text" class="form-control" id="applicantName" name="Full Name" placeholder="Your full name"
  required> </div> <div class="col-md-6"> <label class="form-label" for="applicantEmail">Email Address *</label> <input type="email" class="form-control" id="applicantEmail" name="Email"
  placeholder="your@email.com" required> </div> <div class="col-md-6"> <label class="form-label" for="applicantPhone">Phone Number *</label> <input type="tel" class="form-control" id="applicantPhone" name="Phone" placeholder="+91 9999999999"

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'IT Development Services | Web & App Development | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'IT Development Services | Web & App Development | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'End-to-end IT development services — front-end, back-end, full-stack, APIs, cloud. Agile delivery, code review, CI/CD. ISO 27001 secure. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/development-services/';
 $prefix        = '../';

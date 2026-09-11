@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Logistics & Supply Chain BPO Services | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Logistics & Supply Chain BPO Services | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Logistics back-office outsourcing by Vortexsoft — shipment tracking, freight data, carrier management, KPI reporting. 40% faster processing. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/logistics-services/';
 $prefix        = '../';

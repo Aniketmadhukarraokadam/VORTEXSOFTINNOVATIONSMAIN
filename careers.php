@@ -5,8 +5,8 @@
  * V3: Category tabs, 20 job openings, general application form
  */
 
-$page_title   = 'Careers & Job Openings | Vortexsoft Group';
-$page_desc    = 'Explore career opportunities at Vortexsoft Group. Join 200+ professionals in Bengaluru & Pune. Apply online for IT, BPO, and Healthcare roles.';
+$page_title   = 'Careers & Job Openings | Vortexsoft Innovations Private Limited';
+$page_desc    = 'Explore career opportunities at Vortexsoft Innovations Private Limited. Join 200+ professionals in Bengaluru & Pune. Apply online for IT, BPO, and Healthcare roles.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/careers.php';
 
 $prefix       = './';
@@ -545,7 +545,7 @@ require_once __DIR__ . '/includes/header.php';
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="consent" id="consentCheck" required checked>
                 <label class="form-check-label" for="consentCheck" style="font-size:12.5px;color:#64748b;">
-                  I consent to Vortexsoft Group storing &amp; processing my personal details and resume for recruitment purposes.
+                  I consent to Vortexsoft Innovations Private Limited storing &amp; processing my personal details and resume for recruitment purposes.
                 </label>
               </div>
             </div>
@@ -697,7 +697,7 @@ var currentShareJob = null;
 function openJobShare(job) {
   currentShareJob = job;
   document.getElementById("share-modal-title").textContent = job.title || "Job Opening";
-  document.getElementById("share-modal-dept").innerHTML = \'<i class="fas fa-sitemap me-1" style="color:#1C2280;"></i> \' + (job.department || "Vortexsoft Group");
+  document.getElementById("share-modal-dept").innerHTML = \'<i class="fas fa-sitemap me-1" style="color:#1C2280;"></i> \' + (job.department || "Vortexsoft Innovations Private Limited");
   document.getElementById("share-modal-loc").innerHTML = \'<i class="fas fa-map-marker-alt me-1" style="color:#CC2228;"></i> \' + (job.location || "Pan India");
   
   var expEl = document.getElementById("share-modal-exp");
@@ -738,13 +738,13 @@ function openJobShare(job) {
   document.getElementById("share-tw").href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(twText) + "&url=" + encodeURIComponent(shareUrl);
 
   // Telegram share URL
-  document.getElementById("share-tg").href = "https://t.me/share/url?url=" + encodeURIComponent(shareUrl) + "&text=" + encodeURIComponent("Job Opening: " + job.title + " at Vortexsoft Group");
+  document.getElementById("share-tg").href = "https://t.me/share/url?url=" + encodeURIComponent(shareUrl) + "&text=" + encodeURIComponent("Job Opening: " + job.title + " at Vortexsoft Innovations Private Limited");
 
   // Facebook share URL
   document.getElementById("share-fb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareUrl);
 
   // Email to friends & family
-  var emailSubject = "Job Opening: " + job.title + " at Vortexsoft Group";
+  var emailSubject = "Job Opening: " + job.title + " at Vortexsoft Innovations Private Limited";
   var emailBody = "Hi,\\n\\nI found this job opening at Vortexsoft Innovations and thought of sharing it with you:\\n\\n"
     + "Role: " + job.title + "\\n"
     + "Department: " + job.department + "\\n"
@@ -771,7 +771,7 @@ function triggerNativeShare() {
   if (!currentShareJob || !navigator.share) return;
   var shareUrl = document.getElementById("share-link-input").value;
   navigator.share({
-    title: currentShareJob.title + " — Vortexsoft Group Careers",
+    title: currentShareJob.title + " — Vortexsoft Innovations Private Limited Careers",
     text: "Check out this job opening: " + currentShareJob.title + " (" + currentShareJob.location + ") at Vortexsoft Innovations!",
     url: shareUrl
   }).catch(function(){ /* dismissed */ });
@@ -818,7 +818,7 @@ function shareFromApplyModal() {
     openJobShare({
       id: id || "1",
       title: title || "Open Position",
-      department: dept || "Vortexsoft Group",
+      department: dept || "Vortexsoft Innovations Private Limited",
       location: "Bengaluru / Remote",
       exp: ""
     });

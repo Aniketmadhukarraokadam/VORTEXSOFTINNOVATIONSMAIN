@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Lease Abstraction Services | Accurate Lease Data Extraction | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Lease Abstraction Services | Accurate Lease Data Extraction | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft lease abstraction: extract key terms, dates, rent, clauses and obligations from any lease. 99.5% accuracy. 500 leases abstracted in 10 days. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/lease-abstraction-services/';
 $prefix        = '../';

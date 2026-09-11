@@ -32,7 +32,7 @@ Vortexsoft Innovations Pvt. Ltd. requires a professional, globally-visible corpo
 
 ## Product Vision
 
-A high-performance, SEO-optimized PHP corporate website serving as the primary digital front for Vortexsoft Group across two domains (`.com` global, `.in` India), with a fully operational admin backend.
+A high-performance, SEO-optimized PHP corporate website serving as the primary digital front for Vortexsoft Innovations Private Limited across two domains (`.com` global, `.in` India), with a fully operational admin backend.
 
 ---
 

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Background Verification Services | BGV | Pre-employment Checks | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Background Verification Services | BGV | Pre-employment Checks | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft BGV services: employment history, education, criminal, credit, reference and address verification. 95% reports in 48 hours. Trusted by 150+ clients. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/background-verification-service/';
 $prefix        = '../';

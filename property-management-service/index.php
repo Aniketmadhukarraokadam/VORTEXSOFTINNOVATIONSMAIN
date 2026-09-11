@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Property Management Services | Tenant & Operations BPO | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Property Management Services | Tenant & Operations BPO | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft property management BPO: tenant communication, maintenance coordination, rent collection, compliance and owner MIS reporting. Vacancy down to 4%.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/property-management-service/';
 $prefix        = '../';

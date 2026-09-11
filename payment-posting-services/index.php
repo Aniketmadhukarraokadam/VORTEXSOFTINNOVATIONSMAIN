@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Payment Posting Services | ERA & EOB Posting | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Payment Posting Services | ERA & EOB Posting | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Accurate ERA/EOB payment posting, adjustment processing, reconciliation and denial identification by Vortexsoft Advanced BPO outsourcing from India for global clients.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/payment-posting-services/';
 $prefix        = '../';

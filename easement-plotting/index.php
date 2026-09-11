@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Easement Plotting Services | GIS & CAD Survey Support | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Easement Plotting Services | GIS & CAD Survey Support | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft easement plotting: legal description review, GIS/CAD plotting, easement area calculation. 500 plots with zero revision requests. Survey company support. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/easement-plotting/';
 $prefix        = '../';

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Digital Marketing Services | Vortexsoft Group';
+$page_title    = 'Digital Marketing Services | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft Digital Marketing Services: SEO, PPC advertising, social media marketing, content strategy, and lead generation for global businesses.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/digital-marketing-service/';
 

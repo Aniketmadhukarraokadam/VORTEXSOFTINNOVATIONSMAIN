@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Healthcare BPO Services | Vortexsoft Group';
+$page_title    = 'Healthcare BPO Services | Vortexsoft Innovations Private Limited';
 $page_desc     = 'HIPAA-compliant healthcare BPO by Vortexsoft: medical billing, coding, payment posting, denial management, and AR recovery for US providers.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/health-care-services/';
 

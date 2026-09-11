@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Data Annotation Services | AI Training Data | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Data Annotation Services | AI Training Data | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Expert data annotation by Vortexsoft: image, video, text and audio labelling for AI and ML models. Scalable, accurate, cost-effective. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/data-annotation-servic/';
 $prefix        = '../';

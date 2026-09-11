@@ -80,7 +80,7 @@ $prefix = $prefix ?? './';
 
         <p class="footer-desc">
           Vortexsoft Innovations Pvt. Ltd. is a proud member of the
-          <strong style="color:rgba(255,255,255,0.85);">Vortexsoft Group</strong>
+          <strong style="color:rgba(255,255,255,0.85);">Vortexsoft Innovations Private Limited</strong>
           — your trusted global partner for IT and non-IT solutions. ISO 27001 Certified.
         </p>
         <div class="footer-social">
@@ -192,7 +192,7 @@ $prefix = $prefix ?? './';
   <div class="footer-bottom">
     <div class="container">
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-        <p>Copyright &copy; <?= date('Y') ?> Vortexsoft Group. Vortexsoft Innovations Pvt. Ltd. All rights reserved.</p>
+        <p>Copyright &copy; <?= date('Y') ?> Vortexsoft Innovations Private Limited. All rights reserved.</p>
         <p style="margin:0;display:flex;gap:16px;">
           <a href="<?= $prefix ?>index.php#faq" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">FAQ</a>
           <a href="<?= $prefix ?>privacy.php" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">Privacy Policy</a>

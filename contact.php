@@ -3,8 +3,8 @@
  * Vortexsoft Innovations — Contact Page (contact.php)
  */
 
-$page_title   = 'Contact Us | Global IT Support | Vortexsoft Group';
-$page_desc    = 'Contact Vortexsoft Group for IT outsourcing, BPO, healthcare, publishing, or AI solutions. Pune Headquarters & offices in Bengaluru and USA.';
+$page_title   = 'Contact Us | Global IT Support | Vortexsoft Innovations Private Limited';
+$page_desc    = 'Contact Vortexsoft Innovations Private Limited for IT outsourcing, BPO, healthcare, publishing, or AI solutions. Pune Headquarters & offices in Bengaluru and USA.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/contact.php';
 
 $prefix       = './';
@@ -220,7 +220,7 @@ require_once __DIR__ . '/includes/header.php';
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.923832104593!2d73.8329!3d18.4792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfaf7a26f8d1%3A0x6b093256037e42d7!2sDangat%20Patil%20Empire%2C%20Vadgaon%20Budruk%2C%20Pune%2C%20Maharashtra%20411041!5e0!3m2!1sen!2sin!4v1700000000000"
             width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade" title="Vortexsoft Group Pune Headquarters Map">
+            referrerpolicy="no-referrer-when-downgrade" title="Vortexsoft Innovations Private Limited Pune Headquarters Map">
           </iframe>
         </div>
       </div>

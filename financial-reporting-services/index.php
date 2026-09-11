@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Financial Reporting Services | MIS & Board Reports | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Financial Reporting Services | MIS & Board Reports | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft financial reporting: P&L, balance sheet, cash flow, variance analysis, management commentary and board-ready dashboards. 2-day report turnaround. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/financial-reporting-services/';
 $prefix        = '../';

@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Digital Accessibility Services | Web WCAG 2.1 Audit & Fix | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Digital Accessibility Services | Web WCAG 2.1 Audit & Fix | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft audits and remediates websites for WCAG 2.1 AA/AAA compliance — accessibility testing, issue fixing, compliance reporting. Scores jump to 97%+. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/digital-accessibility-services/';
 $prefix        = '../';

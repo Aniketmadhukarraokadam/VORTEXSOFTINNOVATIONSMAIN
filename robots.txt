@@ -1,4 +1,4 @@
-# Vortexsoft Group — robots.txt
+# Vortexsoft Innovations Private Limited — robots.txt
 # Updated for Ultra Pro Max SEO/AEO/GEO Optimization
 
 # ─── STANDARD CRAWLERS ─────────────────────────────────────────────────────────

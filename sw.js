@@ -1,4 +1,4 @@
-/* Vortexsoft Group — Service Worker v10 */
+/* Vortexsoft Innovations Private Limited — Service Worker v10 */
 const CACHE = 'vortexsoft-v10';
 const CRITICAL = [
   '/',

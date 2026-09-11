@@ -4,7 +4,7 @@
  * Shared Header & Footer Integration
  */
 
-$page_title    = 'Digital Content Services | Blog, Web Copy & SEO Content | Global & India BPO Partner | Vortexsoft Group';
+$page_title    = 'Digital Content Services | Blog, Web Copy & SEO Content | Global & India BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc     = 'Vortexsoft creates high-quality, SEO-optimised digital content — blogs, web copy, product descriptions, whitepapers, case studies. Content that ranks and converts. Premium Indian & global BPO partner.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/digital-content-services/';
 $prefix        = '../';

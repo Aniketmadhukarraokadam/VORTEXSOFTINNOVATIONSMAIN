@@ -4,7 +4,7 @@
  */
 
 http_response_code(404);
-$page_title    = '404 – Page Not Found | Vortexsoft Group';
+$page_title    = '404 – Page Not Found | Vortexsoft Innovations Private Limited';
 $page_desc     = 'The page you are looking for does not exist or has been moved.';
 $canonical_url = 'https://www.vortexsoftinnovations.com/';
 $prefix        = '/';
