@@ -415,10 +415,11 @@ function nav_active(string $page, string $path): string {
               </div>
               <!-- Col 3: Accounting + IT & Digital -->
               <div>
-                <h6 class="dropdown-header">Accounting</h6>
+                <h6 class="dropdown-header">Accounting &amp; HR Software</h6>
+                <li style="background:rgba(225,29,72,0.08);border-radius:8px;margin:2px 0;"><a class="dropdown-item fw-bold" href="<?= $prefix ?>index.php#ai-products" style="color:#e11d48;"><i class="fas fa-users-cog text-danger"></i> HR &amp; Payroll Software <span class="badge bg-danger ms-1" style="font-size:9px;">AI SOFTWARE</span></a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>bookkeeping-services/index.php"><i class="fas fa-book-open"></i> Bookkeeping</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>payroll-processing-services/index.php"><i class="fas fa-money-check-alt"></i> Payroll Processing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>manpower-payroll-services/index.php"><i class="fas fa-users-cog"></i> Manpower &amp; Payroll</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>manpower-payroll-services/index.php"><i class="fas fa-users"></i> Manpower &amp; Staffing</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>financial-reporting-services/index.php"><i class="fas fa-chart-bar"></i> Financial Reporting</a></li>
                 <h6 class="dropdown-header mt-2">IT &amp; Digital</h6>
                 <li><a class="dropdown-item" href="<?= $prefix ?>software-solutions/index.php"><i class="fas fa-laptop-code"></i> Software Solutions</a></li>
@@ -437,9 +438,13 @@ function nav_active(string $page, string $path): string {
                 <li><a class="dropdown-item" href="<?= $prefix ?>technical-writing/index.php"><i class="fas fa-file-alt"></i> Technical Writing</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>digital-accessibility-services/index.php"><i class="fas fa-universal-access"></i> Digital Accessibility</a></li>
 
-
                 <h6 class="dropdown-header mt-2">View All</h6>
                 <li><a class="dropdown-item" href="<?= $prefix ?>service.php" style="font-weight:700;color:#CC2228;"><i class="fas fa-th-large"></i> All Services</a></li>
+              </div>
+              <!-- Featured Platform Strip -->
+              <div class="pt-2 mt-2 border-top d-flex align-items-center justify-content-between flex-wrap gap-2" style="grid-column: 1 / -1; font-size:12.5px; background:rgba(225,29,72,0.04); padding:8px 12px; border-radius:8px;">
+                <span><i class="fas fa-star text-warning me-1"></i> Featured Platform: <strong style="color:#e11d48;">vortexsofthrms</strong> — Enterprise AI HRMS &amp; Autonomous Payroll Software</span>
+                <a href="<?= $prefix ?>index.php#ai-products" class="btn btn-sm btn-danger py-1 px-3 fw-bold" style="font-size:11px;border-radius:6px;background:#e11d48;border-color:#e11d48;">Explore vortexsofthrms <i class="fas fa-arrow-right ms-1"></i></a>
               </div>
             </div>
           </ul>

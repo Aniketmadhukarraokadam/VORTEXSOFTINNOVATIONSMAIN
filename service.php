@@ -94,6 +94,7 @@ require_once __DIR__ . '/includes/header.php';
     <!-- Category Filter Bar -->
     <div class="svc-filter-bar scroll-reveal" id="svcFilterBar">
       <button class="svc-filter-btn active" data-filter="All" onclick="filterSvc(this)">All Services</button>
+      <button class="svc-filter-btn" data-filter="HRMS & Software" onclick="filterSvc(this)" style="color:#e11d48;font-weight:700;"><i class="fas fa-users-cog me-1"></i> HRMS &amp; Payroll Software</button>
       <button class="svc-filter-btn" data-filter="Healthcare BPO" onclick="filterSvc(this)">Healthcare BPO</button>
       <button class="svc-filter-btn" data-filter="Real Estate" onclick="filterSvc(this)">Real Estate &amp; Title</button>
       <button class="svc-filter-btn" data-filter="Publishing" onclick="filterSvc(this)">STM Publishing</button>
@@ -108,6 +109,25 @@ require_once __DIR__ . '/includes/header.php';
     <div class="row g-4">
       <?php
       $domains = [
+        [
+          'title'=>'Enterprise HRMS &amp; Payroll Software (vortexsofthrms)',
+          'cat'=>'HRMS & Software',
+          'badge'=>'PROPRIETARY AI PLATFORM',
+          'badge_color'=>'#E11D48',
+          'icon'=>'fa-users-cog',
+          'color'=>'rgba(225,29,72,.08)',
+          'text_color'=>'#E11D48',
+          'featured'=>true,
+          'desc'=>'Autonomous cloud HRMS & payroll software designed for modern enterprises: automated one-click payroll calculation, statutory compliance (PF, ESIC, PT, TDS), biometric RFID attendance sync, and AI workforce analytics.',
+          'items'=>[
+            'Autonomous Multi-Tier Salary & Overtime Calculation Engine',
+            'Biometric, Geo-Fence & RFID Attendance Real-Time Sync',
+            'Automated Employee Onboarding & Digital Records Vault',
+            'Statutory Tax & Compliance Deductions (PF, ESIC, TDS, PT)',
+            'Employee Mobile Self-Service Portal & Predictive Attrition AI'
+          ],
+          'link'=>'index.php#ai-products'
+        ],
         [
           'title'=>'Healthcare BPO & Revenue Cycle Management',
           'cat'=>'Healthcare BPO',

@@ -342,6 +342,14 @@ function init8DMotionEngine() {
         el.addEventListener('mouseleave', () => { el.classList.remove('active-focus'); });
 
         el.addEventListener('click', () => {
+            const svc = el.getAttribute('data-service');
+            if (svc === 'hrms') {
+                const aiProducts = document.getElementById('ai-products');
+                if (aiProducts) {
+                    aiProducts.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    return;
+                }
+            }
             const targetSection = document.getElementById('services') || document.getElementById('positioning');
             if (targetSection) {
                 targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -362,6 +370,17 @@ function init8DMotionEngine() {
         });
         chip.addEventListener('mouseleave', () => {
             targetNode.classList.remove('active-focus');
+        });
+        chip.addEventListener('click', () => {
+            if (targetId === 'hrms') {
+                const aiProducts = document.getElementById('ai-products');
+                if (aiProducts) {
+                    aiProducts.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    return;
+                }
+            }
+            const targetSection = document.getElementById('services');
+            if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
 

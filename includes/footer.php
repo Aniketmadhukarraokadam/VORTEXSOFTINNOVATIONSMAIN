@@ -111,6 +111,7 @@ $prefix = $prefix ?? './';
       <div class="col-lg-3 col-md-6 scroll-reveal" style="transition-delay:0.2s">
         <h6 class="footer-title">Our Services</h6>
         <ul class="footer-links">
+          <li><a href="<?= $prefix ?>index.php#ai-products" style="color:#ff8585;font-weight:700;"><i class="fas fa-users-cog me-1"></i> HR &amp; Payroll Software <span class="badge bg-danger ms-1" style="font-size:9px;">vortexsofthrms</span></a></li>
           <li><a href="<?= $prefix ?>software-solutions/index.php">Software Solutions</a></li>
           <li><a href="<?= $prefix ?>publishing-services/index.php">Publishing Services</a></li>
           <li><a href="<?= $prefix ?>health-care-services/index.php">Health Care Services</a></li>

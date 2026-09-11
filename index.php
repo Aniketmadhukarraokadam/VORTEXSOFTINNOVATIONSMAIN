@@ -214,6 +214,7 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div class="strip-chips">
             <span class="motion-service-chip" data-target-service="ai"><i class="fas fa-brain text-danger"></i> AI &amp; Automation</span>
+            <span class="motion-service-chip" data-target-service="hrms" style="border-color:rgba(225,29,72,0.35);background:rgba(225,29,72,0.06);"><i class="fas fa-users-cog" style="color:#E11D48;"></i> HR &amp; Payroll Software</span>
             <span class="motion-service-chip" data-target-service="rcm"><i class="fas fa-heartbeat text-info"></i> Healthcare RCM</span>
             <span class="motion-service-chip" data-target-service="web"><i class="fas fa-code" style="color:#6366F1;"></i> Custom Web Dev</span>
             <span class="motion-service-chip" data-target-service="it"><i class="fas fa-laptop-code text-primary"></i> Enterprise IT</span>
@@ -256,6 +257,18 @@ require_once __DIR__ . '/includes/header.php';
           </a>
 
           <!-- 8D Service Motion Nodes (Core Pillars of Vortexsoft) -->
+          <!-- 10. HR & Payroll Software (vortexsofthrms) -->
+          <div class="service-node-8d" data-service="hrms" data-depth-x="0.02" data-depth-y="0.08" data-depth-z="32" data-phase="3.14" style="top:1%; left:28%; --node-color:#E11D48; --node-glow:rgba(225,29,72,0.35);">
+            <div class="node-icon-core" style="background:rgba(225,29,72,0.14); color:#E11D48;">
+              <i class="fas fa-users-cog"></i>
+              <span class="node-radar-ring" style="border-color:#E11D48;"></span>
+            </div>
+            <div class="node-info">
+              <div class="node-title">HR &amp; Payroll Software</div>
+              <div class="node-sub">vortexsofthrms &bull; AI Payroll</div>
+            </div>
+          </div>
+
           <!-- 1. AI & Automation -->
           <div class="service-node-8d" data-service="ai" data-depth-x="0.08" data-depth-y="0.07" data-depth-z="28" data-phase="0" style="top:2%; left:2%; --node-color:#CC2228; --node-glow:rgba(204,34,40,0.28);">
             <div class="node-icon-core" style="background:rgba(204,34,40,0.12); color:#CC2228;">
@@ -372,6 +385,7 @@ require_once __DIR__ . '/includes/header.php';
   <div class="hero-scroll-container full-bleed mt-3">
     <div class="hero-scroll-track">
       <?php $track1 = [
+        ['tag'=>'Software','icon'=>'fa-users-cog','title'=>'HR &amp; Payroll Software','desc'=>'vortexsofthrms: Autonomous payroll, biometric attendance &amp; AI HRMS.'],
         ['tag'=>'AI / ML','icon'=>'fa-robot','title'=>'AI Automations','desc'=>'Agentic AI workflows, intelligent document processing & enterprise task automation.'],
         ['tag'=>'Tech','icon'=>'fa-laptop-code','title'=>'Custom Software','desc'=>'Scalable web & mobile apps tailored to your unique business workflows.'],
         ['tag'=>'Medical','icon'=>'fa-heartbeat','title'=>'Healthcare BPO','desc'=>'End-to-end medical billing, coding, and denial management maximizing ROI.'],
@@ -384,6 +398,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
     <div class="hero-scroll-track reverse">
       <?php $track2 = [
+        ['tag'=>'AI Payroll','icon'=>'fa-calculator','title'=>'Automated Payroll AI','desc'=>'One-click statutory tax filing, biometric attendance sync &amp; self-service employee portal.'],
         ['tag'=>'Property','icon'=>'fa-building','title'=>'Real Estate Services','desc'=>'Lease abstraction, CAM audits, and proactive property management workflows.'],
         ['tag'=>'AI/ML','icon'=>'fa-tags','title'=>'Data Annotation','desc'=>'High-precision image, video, and text labeling to train state-of-the-art AI models.'],
         ['tag'=>'Growth','icon'=>'fa-bullhorn','title'=>'Digital Marketing','desc'=>'Data-driven SEO, dynamic PPC campaigns, and engaging social media strategies.'],
@@ -410,6 +425,7 @@ require_once __DIR__ . '/includes/header.php';
       <?php
       $services = [
         ['icon'=>'fa-laptop-code','color'=>'rgba(28,34,128,.08)','title'=>'IT & Software Solutions','desc'=>'Custom software development, web & mobile apps, ERP systems, cloud solutions, and AI-based tools tailored to your enterprise needs.','link'=>'software-solutions/index.php'],
+        ['icon'=>'fa-users-cog','color'=>'rgba(225,29,72,.1)','title'=>'HR &amp; Payroll Software (vortexsofthrms)','badge'=>'PROPRIETARY AI SOFTWARE','badge_bg'=>'#E11D48','desc'=>'Cloud-native AI HRMS & payroll software: autonomous salary calculations, biometric attendance sync, automated onboarding, compliance tax filing, and predictive workforce analytics.','link'=>'#ai-products'],
         ['icon'=>'fa-heartbeat','color'=>'rgba(204,34,40,.08)','title'=>'Healthcare BPO','desc'=>'Medical coding, billing, AR recovery, denial management, prior authorization, and insurance eligibility verification services.','link'=>'health-care-services/index.php'],
         ['icon'=>'fa-book','color'=>'rgba(91,168,212,.08)','title'=>'Publishing Services','desc'=>'Digital prepress, typesetting, ePUB3 conversion, PDF accessibility (WCAG), copy editing, and alt-text writing services.','link'=>'publishing-services/index.php'],
         ['icon'=>'fa-building','color'=>'rgba(16,185,129,.08)','title'=>'Real Estate & Title','desc'=>'Title search, settlement, lease administration, CAM audit, property accounting, easement plotting, and mortgage & escrow services.','link'=>'real-estate-services/index.php'],
@@ -421,11 +437,14 @@ require_once __DIR__ . '/includes/header.php';
       ];
       foreach($services as $i=>$s): ?>
       <div class="col-lg-4 col-md-6 scroll-reveal" style="transition-delay:<?= ($i%3)*0.1 ?>s">
-        <div class="service-card">
+        <div class="service-card" style="<?= !empty($s['badge']) ? 'border: 2px solid rgba(225,29,72,0.35); box-shadow: 0 10px 30px rgba(225,29,72,0.08);' : '' ?>">
+          <?php if(!empty($s['badge'])): ?>
+            <div style="display:inline-block;background:<?= $s['badge_bg'] ?? '#E11D48' ?>;color:#fff;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:12px;letter-spacing:0.5px;text-transform:uppercase;"><i class="fas fa-star me-1"></i> <?= $s['badge'] ?></div>
+          <?php endif; ?>
           <div class="service-icon-wrap" style="background:<?= $s['color'] ?>"><i class="fas <?= $s['icon'] ?>"></i></div>
           <h4><?= $s['title'] ?></h4>
           <p><?= $s['desc'] ?></p>
-          <a href="<?= $s['link'] ?>" class="service-link">Explore Service <i class="fas fa-arrow-right"></i></a>
+          <a href="<?= $s['link'] ?>" class="service-link">Explore <?= !empty($s['badge']) ? 'Software' : 'Service' ?> <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
       <?php endforeach; ?>
@@ -866,19 +885,28 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
 
-      <!-- vortexsofthrms (NEW) -->
+      <!-- vortexsofthrms (FLAGSHIP HR & PAYROLL SOFTWARE) -->
       <div class="col-lg-6 scroll-reveal-right">
-        <div class="tilt-card-3d" style="background:var(--bg-light,#f0f2ff);border-radius:20px;padding:32px;border:1px solid #dde2f5;height:100%;">
-          <div style="width:48px;height:48px;border-radius:12px;background:#e11d48;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;"><i class="fas fa-users-cog"></i></div>
-          <h4 style="font-family:'Poppins',sans-serif;font-weight:800;color:#e11d48;margin-bottom:8px;">vortexsofthrms</h4>
-          <div style="font-size:12px;font-weight:700;color:#1C2280;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">AI HRMS &amp; Workforce Automations</div>
+        <div class="tilt-card-3d" style="background:linear-gradient(145deg, #ffffff 0%, #fff1f2 100%);border-radius:20px;padding:32px;border:2px solid #fecdd3;box-shadow:0 12px 36px rgba(225,29,72,0.08);height:100%;position:relative;">
+          <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+            <div style="width:52px;height:52px;border-radius:14px;background:#e11d48;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 6px 18px rgba(225,29,72,0.35);"><i class="fas fa-users-cog"></i></div>
+            <span class="badge" style="background:#e11d48;color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;letter-spacing:0.5px;"><i class="fas fa-star me-1"></i> FEATURED HR &amp; PAYROLL SOFTWARE</span>
+          </div>
+          <h4 style="font-family:'Poppins',sans-serif;font-weight:800;color:#e11d48;margin-bottom:6px;font-size:1.35rem;">HR &amp; Payroll Software <span style="font-size:0.95rem;color:#1C2280;font-weight:600;">(vortexsofthrms)</span></h4>
+          <div style="font-size:12px;font-weight:700;color:#1C2280;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Enterprise AI HRMS &amp; Autonomous Payroll Platform</div>
           <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:16px;">
-            <strong>vortexsofthrms</strong> is Vortexsoft's enterprise Human Resource Management System powered by AI automations — streamlining autonomous payroll calculation, biometric attendance sync, automated employee onboarding, performance KPI appraisal, AI leave workflows, and predictive workforce analytics.
+            <strong>vortexsofthrms</strong> is Vortexsoft's proprietary cloud HR &amp; Payroll Software suite powered by autonomous AI engines — streamlining autonomous monthly salary calculation, biometric attendance integration, digital employee onboarding vaults, statutory compliance (PF, ESIC, PT, TDS), KPI appraisal workflows, and predictive attrition analytics.
           </p>
-          <ul style="list-style:none;padding:0;margin:0;font-size:13px;color:#374151;">
-            <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Autonomous AI payroll, statutory tax &amp; biometric attendance</li>
-            <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Intelligent self-service portal with predictive workforce analytics</li>
+          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:#374151;">
+            <li style="padding:4px 0;"><i class="fas fa-check-circle text-danger me-2"></i> <strong>Autonomous AI Payroll:</strong> 1-click salary computation, overtime, tax &amp; statutory compliance</li>
+            <li style="padding:4px 0;"><i class="fas fa-check-circle text-danger me-2"></i> <strong>Biometric &amp; RFID Attendance:</strong> Real-time shift &amp; attendance reconciliation</li>
+            <li style="padding:4px 0;"><i class="fas fa-check-circle text-danger me-2"></i> <strong>Self-Service Portal:</strong> Employee mobile app for payslips, tax slips &amp; leave requests</li>
+            <li style="padding:4px 0;"><i class="fas fa-check-circle text-danger me-2"></i> <strong>Predictive Workforce AI:</strong> Attrition risk scoring &amp; KPI performance analytics</li>
           </ul>
+          <div class="d-flex gap-2 flex-wrap">
+            <a href="contact.php?inquiry=vortexsofthrms" class="btn btn-sm btn-danger px-3 py-2 fw-bold" style="border-radius:8px;background:#e11d48;border-color:#e11d48;"><i class="fas fa-play-circle me-1"></i> Request Software Demo</a>
+            <a href="service.php#hrms" class="btn btn-sm btn-outline-danger px-3 py-2 fw-bold" style="border-radius:8px;"><i class="fas fa-info-circle me-1"></i> Software Specs</a>
+          </div>
         </div>
       </div>
 
@@ -1080,6 +1108,7 @@ require_once __DIR__ . '/includes/header.php';
                 <label class="form-label" for="service">Service Required</label>
                 <select class="form-select" id="service" name="service">
                   <option value="General Inquiry">General Inquiry</option>
+                  <option value="HR & Payroll Software (vortexsofthrms)">HR &amp; Payroll Software (vortexsofthrms)</option>
                   <option value="IT & Software Solutions">IT & Software Solutions</option>
                   <option value="Healthcare BPO">Healthcare BPO</option>
                   <option value="Publishing Services">Publishing Services</option>
@@ -1113,7 +1142,7 @@ require_once __DIR__ . '/includes/header.php';
 $extra_scripts = '
 <script>
 // Typed text
-initTyped(document.getElementById("typed-text"), ["Outsourcing","AI Solutions","Healthcare BPO","Publishing Services","Data Annotation","Digital Marketing","Real Estate BPO"], 80);
+initTyped(document.getElementById("typed-text"), ["Outsourcing","HR & Payroll Software","AI Solutions","Healthcare BPO","Publishing Services","Data Annotation","Digital Marketing","Real Estate BPO"], 80);
 // Particle canvas
 initParticleCanvas("hero-canvas");
 // Contact form
