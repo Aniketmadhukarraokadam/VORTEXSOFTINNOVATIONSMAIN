@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Vortexsoft Innovations — Admin Panel: Login
  * /admin/login.php
@@ -217,7 +217,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <link rel="stylesheet" href="/assets/vendor/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/vendor/fontawesome/all.min.css">
 <link rel="stylesheet" href="/assets/vendor/fonts.css">
-<link rel="icon" href="/icon.jpg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20260912">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20260912">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260912">
+<link rel="icon" type="image/jpeg" sizes="1024x1024" href="/icon.jpg?v=20260912">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#080B1A 0%,#1C2280 50%,#0D1035 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
@@ -245,7 +248,7 @@ body::before{content:'';position:absolute;inset:0;background-image:linear-gradie
 <body>
 <div class="login-card">
   <div class="brand">
-    <img src="/logo-header.png" alt="Vortexsoft Innovations Private Limited">
+    <img src="/logo-header.png?v=20260912" alt="Vortexsoft Innovations Private Limited">
     <h4>Admin Panel</h4>
     <p>Vortexsoft Innovations Private Limited — Internal Management</p>
   </div>

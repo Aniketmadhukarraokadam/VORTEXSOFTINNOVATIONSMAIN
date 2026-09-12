@@ -92,6 +92,27 @@ foreach ($jobs as $j) {
     }
 }
 
+// Check if a specific job was requested for sharing
+$shared_job_id = isset($_GET['job']) ? (int)$_GET['job'] : 0;
+$shared_job = null;
+if ($shared_job_id > 0) {
+    foreach ($jobs as $jb) {
+        if ((int)$jb['id'] === $shared_job_id) {
+            $shared_job = $jb;
+            break;
+        }
+    }
+}
+
+if ($shared_job) {
+    $page_title    = $shared_job['title'] . ' Opening in ' . $shared_job['location'] . ' | Vortexsoft Innovations Careers';
+    $page_desc     = 'Apply for ' . $shared_job['title'] . ' at Vortexsoft Innovations Private Limited. ' . $shared_job['department'] . ' (' . $shared_job['location'] . '). ISO 27001 Certified Global IT & BPO Leader.';
+    $canonical_url = 'https://www.vortexsoftinnovations.com/careers.php?job=' . $shared_job['id'];
+}
+
+// Standard latest company branding for social sharing across WhatsApp, LinkedIn, Facebook, X, Telegram
+$og_image = 'https://www.vortexsoftinnovations.com/assets/images/vortexsoft-careers-share.png?v=20260912';
+
 require_once __DIR__ . '/includes/header.php';
 ?>
 <style>
@@ -578,8 +599,12 @@ require_once __DIR__ . '/includes/header.php';
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-4">
-        <!-- Job info summary -->
+        <!-- Job info summary with latest company logo -->
         <div class="share-job-preview">
+          <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+            <img src="<?= $prefix ?>logo-header.png?v=20260912" alt="Vortexsoft Innovations Private Limited" style="height:36px;object-fit:contain;">
+            <span class="badge" style="background:#1C2280;color:#fff;font-size:10px;padding:5px 9px;letter-spacing:0.8px;font-weight:700;">OFFICIAL OPENING</span>
+          </div>
           <div class="share-preview-title" id="share-modal-title">Position</div>
           <div class="share-preview-meta">
             <span id="share-modal-dept"><i class="fas fa-sitemap me-1" style="color:#1C2280;"></i> Department</span>

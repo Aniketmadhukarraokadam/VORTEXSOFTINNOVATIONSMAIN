@@ -85,14 +85,17 @@ $csrf = csrf_token();
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="../assets/vendor/bootstrap.min.css">
 <link rel="stylesheet" href="../assets/vendor/fontawesome/all.min.css">
-<link rel="icon" href="../icon.jpg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20260912">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20260912">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260912">
+<link rel="icon" type="image/jpeg" sizes="1024x1024" href="/icon.jpg?v=20260912">
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:'Inter',sans-serif;background:#f0f2ff;color:#1a1d3a}
 .admin-sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:linear-gradient(180deg,#080B1A 0%,#1C2280 100%);padding:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
-.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
-.sidebar-logo .brand{font-size:20px;font-weight:800;letter-spacing:2px;color:#fff}.sidebar-logo .brand span{color:#CC2228}
-.sidebar-logo .sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;margin-top:2px}
+.sidebar-logo{padding:20px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between}
+.sidebar-logo img{height:44px;object-fit:contain}
+.sidebar-logo .sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;margin-top:6px}
 .sidebar-nav{padding:16px 12px;flex:1}
 .sidebar-nav a{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:rgba(255,255,255,.65);text-decoration:none;font-size:13.5px;font-weight:500;margin-bottom:2px;transition:all .2s}
 .sidebar-nav a:hover,.sidebar-nav a.active{background:rgba(255,255,255,.1);color:#fff}
@@ -147,8 +150,10 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
 <!-- Sidebar -->
 <div class="admin-sidebar">
     <div class="sidebar-logo">
-        <div class="brand">VORTEX<span>SOFT</span></div>
-        <div class="sub">ADMIN PANEL</div>
+        <div>
+            <img src="/logo-header.png?v=20260912" alt="Vortexsoft Innovations Private Limited">
+            <div class="sub">Admin Panel</div>
+        </div>
     </div>
     <nav class="sidebar-nav">
         <div class="sidebar-section">Main</div>

@@ -495,7 +495,7 @@ const VORTEX_HEADER_TEMPLATE = `<style>
   <div class="container">
 
     <a class="navbar-brand me-4" href="{{PREFIX}}index.html">
-      <img src="{{PREFIX}}logo-header.jpg" alt="Vortexsoft Innovations Pvt. Ltd." />
+      <img src="{{PREFIX}}logo-header.png?v=20260912" alt="Vortexsoft Innovations Pvt. Ltd." />
     </a>
 
     <button class="navbar-toggler ms-auto" type="button"

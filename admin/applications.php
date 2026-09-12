@@ -423,7 +423,10 @@ if ($db) {
 <link rel="stylesheet" href="/assets/vendor/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/vendor/fontawesome/all.min.css">
 <link rel="stylesheet" href="/assets/vendor/fonts.css">
-<link rel="icon" href="/icon.jpg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20260912">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20260912">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260912">
+<link rel="icon" type="image/jpeg" sizes="1024x1024" href="/icon.jpg?v=20260912">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--dark:#080B1A;--primary:#1C2280;--accent:#CC2228;--sidebar-w:260px}
@@ -482,7 +485,7 @@ tr:hover td{background:#fafbff}
 <aside class="admin-sidebar" id="adminSidebar">
   <div class="sidebar-logo">
     <div>
-      <img src="/logo-header.png" alt="Vortexsoft">
+      <img src="/logo-header.png?v=20260912" alt="Vortexsoft Innovations">
       <div class="sub">Admin Panel</div>
     </div>
     <button class="btn text-white p-0 d-lg-none" id="sidebarCloseBtn"><i class="fas fa-times"></i></button>

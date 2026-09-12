@@ -1,5 +1,5 @@
-/* Vortexsoft Innovations Private Limited — Service Worker v10 */
-const CACHE = 'vortexsoft-v10';
+/* Vortexsoft Innovations Private Limited — Service Worker v11 */
+const CACHE = 'vortexsoft-v11';
 const CRITICAL = [
   '/',
   '/index.php',
@@ -14,8 +14,13 @@ const CRITICAL = [
   '/assets/vendor/bootstrap.bundle.min.js',
   '/assets/vendor/fonts.css',
   '/logo-header.png',
-  '/logo-footer-new.png',
+  '/logo-footer.png',
+  '/favicon.ico',
+  '/favicon.png',
+  '/apple-touch-icon.png',
   '/icon.jpg',
+  '/assets/images/vortexsoft-share-banner.png',
+  '/assets/images/vortexsoft-careers-share.png',
 ];
 
 // Install: cache critical assets

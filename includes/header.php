@@ -19,14 +19,14 @@ $prefix       = $prefix ?? './';
 $page_title   = $page_title ?? 'Top Global IT & BPO Outsourcing Company in India | AI Services | Vortexsoft Innovations Private Limited';
 $page_desc    = $page_desc ?? 'Vortexsoft Innovations Private Limited — ISO 27001 certified global IT & BPO outsourcing company in Pune & Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation & 75+ services for 150+ clients worldwide.';
 $canonical_url = $canonical_url ?? SITE_URL . '/';
-$og_image     = $og_image ?? SITE_URL . '/logo-header.jpg';
+$og_image     = $og_image ?? (SITE_URL . '/assets/images/vortexsoft-share-banner.png');
 
 // Detect active page & path
 $current_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
 $canonical_url = $canonical_url ?? (SITE_URL . $current_path);
 $com_url       = PRIMARY_COM_URL . $current_path;
 $in_url        = PRIMARY_IN_URL . $current_path;
-$og_image     = $og_image ?? SITE_URL . '/logo-header.jpg';
+$og_image     = $og_image ?? (SITE_URL . '/assets/images/vortexsoft-share-banner.png');
 
 function nav_active(string $page, string $path): string {
     if ($page === 'home' && ($path === '/' || $path === '/index.php' || $path === '')) return 'active';
@@ -93,9 +93,11 @@ function nav_active(string $page, string $path): string {
     <meta property="og:title" content="<?= htmlspecialchars($page_title) ?>">
     <meta property="og:description" content="<?= htmlspecialchars($page_desc) ?>">
     <meta property="og:image" content="<?= htmlspecialchars($og_image) ?>">
+    <meta property="og:image:secure_url" content="<?= htmlspecialchars($og_image) ?>">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Vortexsoft Innovations Private Limited — Global AI, IT &amp; BPO Partner">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
@@ -104,6 +106,7 @@ function nav_active(string $page, string $path): string {
     <meta name="twitter:title" content="<?= htmlspecialchars($page_title) ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($page_desc) ?>">
     <meta name="twitter:image" content="<?= htmlspecialchars($og_image) ?>">
+    <meta name="twitter:image:alt" content="Vortexsoft Innovations Private Limited">
 
     <!-- Sitewide Breadcrumb, WebSite, Corporation & Knowledge Graph Schema -->
     <script type="application/ld+json">
@@ -245,10 +248,14 @@ function nav_active(string $page, string $path): string {
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Icons -->
-    <link rel="icon" href="<?= $prefix ?>icon.jpg" sizes="32x32">
-    <link rel="icon" href="<?= $prefix ?>icon.jpg" sizes="192x192">
-    <link rel="apple-touch-icon" href="<?= $prefix ?>icon.jpg">
+    <!-- Favicons & Touch Icons (Latest Company Brand Emblem) -->
+    <link rel="icon" type="image/x-icon" href="<?= $prefix ?>favicon.ico?v=20260912">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= $prefix ?>favicon-32x32.png?v=20260912">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= $prefix ?>favicon-16x16.png?v=20260912">
+    <link rel="icon" type="image/png" sizes="48x48" href="<?= $prefix ?>favicon-48x48.png?v=20260912">
+    <link rel="icon" type="image/png" sizes="192x192" href="<?= $prefix ?>icon-192.png?v=20260912">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $prefix ?>apple-touch-icon.png?v=20260912">
+    <link rel="icon" type="image/jpeg" sizes="1024x1024" href="<?= $prefix ?>icon.jpg?v=20260912">
 
     <!-- CSS -->
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/bootstrap.min.css">
@@ -363,7 +370,7 @@ function nav_active(string $page, string $path): string {
 <nav class="navbar navbar-expand-lg" id="mainNavbar">
   <div class="container">
     <a class="navbar-brand" href="<?= $prefix ?>index.php">
-      <img src="<?= $prefix ?>logo-header.png?v=20260810" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="240" height="70">
+      <img src="<?= $prefix ?>logo-header.png?v=20260912" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="240" height="70">
     </a>
 
 
