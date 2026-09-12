@@ -131,21 +131,181 @@ require_once __DIR__ . '/includes/header.php';
 .job-count-badge{background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;margin-left:4px}
 .filter-btn.active .job-count-badge{background:rgba(255,255,255,.2)}
 
-/* Job Cards */
-.job-card{background:#fff;border-radius:18px;padding:28px;border:1.5px solid #e8ecff;transition:all .3s;position:relative;overflow:hidden}
-.job-card::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(180deg,#1C2280,#CC2228);transform:scaleY(0);transform-origin:top;transition:.3s}
-.job-card:hover{border-color:transparent;box-shadow:0 12px 40px rgba(28,34,128,.14);transform:translateY(-4px)}
-.job-card:hover::before{transform:scaleY(1)}
-.job-card.hidden{display:none!important}
-.job-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.5px}
-.urgent-badge{background:#fff0f0;color:#CC2228;border:1px solid rgba(204,34,40,.2)}
+/* Job List View Styling */
+.job-list-stack{display:flex;flex-direction:column;gap:16px}
+.job-item{width:100%}
+.job-card{
+  background:#fff;
+  border-radius:16px;
+  padding:24px 28px;
+  border:1.5px solid #e8ecff;
+  transition:all .28s cubic-bezier(.2,.8,.4,1);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.job-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:4px;
+  height:100%;
+  background:linear-gradient(180deg,#1C2280,#CC2228);
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:.28s ease;
+}
+.job-card:hover{
+  border-color:#cad4fc;
+  box-shadow:0 10px 30px rgba(28,34,128,.1);
+  transform:translateX(4px);
+}
+.job-card:hover::before{
+  transform:scaleY(1);
+}
+.job-card.hidden, .job-item.hidden{display:none!important}
+.hidden{display:none!important}
+.job-info-main{
+  flex:1 1 auto;
+  min-width:0;
+}
+.job-title-row{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:8px;
+}
+.job-title{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:18px;
+  color:#1C2280;
+  margin:0;
+  transition:color .2s;
+}
+.job-card:hover .job-title{
+  color:#080B1A;
+}
+.job-badge{
+  font-size:11.5px;
+  font-weight:700;
+  padding:4px 10px;
+  border-radius:100px;
+  letter-spacing:.3px;
+  display:inline-flex;
+  align-items:center;
+  line-height:1.2;
+}
+.urgent-badge{background:#fff0f0;color:#CC2228;border:1px solid rgba(204,34,40,.25)}
 .type-badge{background:rgba(28,34,128,.07);color:#1C2280}
-.skill-tag{background:rgba(28,34,128,.06);color:#1C2280;font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid rgba(28,34,128,.1)}
-.apply-btn{background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:8px;border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:8px}
-.apply-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(28,34,128,.3);color:#fff}
-.job-card.hidden, .job-item.hidden { display: none !important; }
-.hidden { display: none !important; }
-.no-jobs-msg{display:none;text-align:center;padding:40px 20px;color:#64748b;font-size:15px}
+.dept-badge{background:rgba(15,23,42,.05);color:#334155;border:1px solid rgba(15,23,42,.08)}
+.job-meta-row{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:18px;
+  font-size:13px;
+  color:#64748b;
+  margin-bottom:10px;
+}
+.job-meta-row span{
+  display:inline-flex;
+  align-items:center;
+}
+.job-meta-row i{
+  margin-right:6px;
+}
+.job-desc-text{
+  font-size:13.5px;
+  color:#475569;
+  line-height:1.65;
+  margin-bottom:12px;
+  max-width:880px;
+}
+.job-skills-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.skill-tag{
+  background:rgba(28,34,128,.05);
+  color:#1C2280;
+  font-size:12px;
+  font-weight:600;
+  padding:3px 10px;
+  border-radius:6px;
+  border:1px solid rgba(28,34,128,.1);
+  transition:all .2s;
+}
+.job-card:hover .skill-tag{
+  background:rgba(28,34,128,.08);
+  border-color:rgba(28,34,128,.18);
+}
+.job-actions-col{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:9px;
+  flex-shrink:0;
+  min-width:170px;
+}
+.apply-btn{
+  background:linear-gradient(135deg,#1C2280,#2d35c4);
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  padding:11px 22px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  transition:all .25s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  white-space:nowrap;
+  text-decoration:none;
+}
+.apply-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(28,34,128,.3);
+  color:#fff;
+}
+.no-jobs-msg{display:none;text-align:center;padding:50px 20px;color:#64748b;font-size:15px;background:#fff;border-radius:16px;border:1.5px dashed #dde2f5;margin-top:10px}
+.job-search-box{position:relative;margin-bottom:20px;max-width:540px}
+.job-search-box i{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:15px;pointer-events:none}
+.job-search-input{padding:12px 18px 12px 44px;border:1.5px solid #dde2f5;border-radius:100px;font-size:14px;background:#fff;transition:.25s;width:100%;font-family:'Inter',sans-serif}
+.job-search-input:focus{outline:none;border-color:#1C2280;box-shadow:0 0 0 3px rgba(28,34,128,.1)}
+
+@media (max-width: 991.98px){
+  .job-card{
+    flex-direction:column;
+    align-items:stretch;
+    gap:18px;
+    padding:20px 20px;
+  }
+  .job-card:hover{
+    transform:translateY(-2px);
+  }
+  .job-actions-col{
+    flex-direction:row;
+    flex-wrap:wrap;
+    min-width:auto;
+    padding-top:16px;
+    border-top:1px solid #f0f2ff;
+  }
+  .job-actions-col .apply-btn,
+  .job-actions-col .btn-job-share{
+    flex:1 1 140px;
+    justify-content:center;
+  }
+}
 
 /* Application Form Modal */
 #applyModal .modal-content{border-radius:20px;border:none;overflow:hidden}
@@ -415,8 +575,19 @@ require_once __DIR__ . '/includes/header.php';
       <p class="section-subtitle">We have <strong><?= count($jobs) ?>+</strong> open positions across Bengaluru, Pune, and Remote. Apply online or email your resume to <a href="mailto:<?= EMAIL_HR ?>" style="color:var(--primary);"><?= EMAIL_HR ?></a>.</p>
     </div>
 
+    <!-- Search & Position Counter -->
+    <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3 mb-4 scroll-reveal">
+      <div class="job-search-box flex-grow-1 mb-0">
+        <i class="fas fa-search"></i>
+        <input type="text" id="jobSearchInput" class="job-search-input" placeholder="Search roles by title, skill (e.g. React, Node, Medical Coder), or location..." oninput="searchAndFilterJobs()">
+      </div>
+      <div class="d-none d-lg-block text-muted" style="font-size:13.5px;white-space:nowrap;">
+        Showing <strong id="visibleJobsCount" style="color:#1C2280;"><?= count($jobs) ?></strong> open positions
+      </div>
+    </div>
+
     <!-- Category Filter Tabs -->
-    <div class="filter-bar scroll-reveal" id="filterBar">
+    <div class="filter-bar scroll-reveal pt-0 mb-4" id="filterBar">
       <?php foreach($categories as $i => $cat): ?>
       <?php
         $cnt = ($cat === 'All') ? count($jobs) : count(array_filter($jobs, fn($j) => $j['category'] === $cat));
@@ -433,30 +604,44 @@ require_once __DIR__ . '/includes/header.php';
       <?php endforeach; ?>
     </div>
 
-    <div class="row g-4" id="jobsGrid">
+    <!-- Jobs List (List View Stack) -->
+    <div class="job-list-stack" id="jobsGrid">
       <?php foreach($jobs as $i=>$job): ?>
-      <div class="col-lg-6 scroll-reveal job-item" style="transition-delay:<?= ($i%2)*0.08 ?>s" data-category="<?= htmlspecialchars($job['category']) ?>" id="job-<?= $job['id'] ?>">
+      <div class="job-item scroll-reveal" style="transition-delay:<?= min(($i*0.04), 0.35) ?>s" data-category="<?= htmlspecialchars($job['category']) ?>" id="job-<?= $job['id'] ?>">
         <div class="job-card">
-          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
-            <div>
-              <h5 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;color:#1C2280;margin-bottom:4px;"><?= htmlspecialchars($job['title']) ?></h5>
-              <div style="font-size:13px;color:#64748b;font-weight:500;"><i class="fas fa-sitemap me-1"></i> <?= htmlspecialchars($job['department']) ?></div>
+          <!-- Main Info Left -->
+          <div class="job-info-main">
+            <div class="job-title-row">
+              <h4 class="job-title"><?= htmlspecialchars($job['title']) ?></h4>
+              <div class="d-flex align-items-center flex-wrap gap-2">
+                <span class="job-badge dept-badge"><i class="fas fa-layer-group me-1"></i><?= htmlspecialchars($job['department']) ?></span>
+                <span class="job-badge type-badge"><i class="fas fa-clock me-1"></i><?= htmlspecialchars($job['type']) ?></span>
+                <?php if($job['urgent']): ?>
+                <span class="job-badge urgent-badge"><i class="fas fa-bolt me-1"></i> Urgent Hiring</span>
+                <?php endif; ?>
+              </div>
             </div>
-            <div class="d-flex gap-2 flex-wrap">
-              <?php if($job['urgent']): ?><span class="job-badge urgent-badge"><i class="fas fa-bolt me-1"></i> Urgent</span><?php endif; ?>
-              <span class="job-badge type-badge"><?= htmlspecialchars($job['type']) ?></span>
+
+            <div class="job-meta-row">
+              <span><i class="fas fa-map-marker-alt" style="color:#CC2228;"></i> <?= htmlspecialchars($job['location']) ?></span>
+              <span><i class="fas fa-briefcase" style="color:#1C2280;"></i> <?= htmlspecialchars($job['exp']) ?></span>
+              <span><i class="fas fa-tag" style="color:#64748b;"></i> <?= htmlspecialchars($job['category']) ?></span>
+            </div>
+
+            <p class="job-desc-text">
+              <?= htmlspecialchars($job['desc']) ?>
+            </p>
+
+            <div class="job-skills-row">
+              <?php foreach($job['skills'] as $sk): ?>
+              <span class="skill-tag"><?= htmlspecialchars($sk) ?></span>
+              <?php endforeach; ?>
             </div>
           </div>
-          <div class="d-flex gap-4 mb-3" style="font-size:13px;color:#64748b;">
-            <span><i class="fas fa-map-marker-alt me-1" style="color:#CC2228;"></i> <?= htmlspecialchars($job['location']) ?></span>
-            <span><i class="fas fa-briefcase me-1" style="color:#CC2228;"></i> <?= htmlspecialchars($job['exp']) ?></span>
-          </div>
-          <p style="font-size:14px;color:#475569;line-height:1.7;margin-bottom:14px;"><?= htmlspecialchars($job['desc']) ?></p>
-          <div class="d-flex flex-wrap gap-2 mb-4">
-            <?php foreach($job['skills'] as $sk): ?><span class="skill-tag"><?= htmlspecialchars($sk) ?></span><?php endforeach; ?>
-          </div>
-          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pt-3 border-top">
-            <button class="apply-btn magnetic" onclick="openApplyModal('<?= htmlspecialchars($job['title'], ENT_QUOTES) ?>','<?= htmlspecialchars($job['department'], ENT_QUOTES) ?>','<?= $job['id'] ?>')">
+
+          <!-- Actions Right -->
+          <div class="job-actions-col">
+            <button class="apply-btn" onclick="openApplyModal('<?= htmlspecialchars($job['title'], ENT_QUOTES) ?>','<?= htmlspecialchars($job['department'], ENT_QUOTES) ?>','<?= $job['id'] ?>')">
               <i class="fas fa-paper-plane"></i> Apply Now
             </button>
             <button type="button" class="btn-job-share" onclick="openJobShare(<?= htmlspecialchars(json_encode([
@@ -677,16 +862,22 @@ require_once __DIR__ . '/includes/header.php';
 <?php
 $extra_scripts = '
 <script>
-// ── Category Filter ─────────────────────────────────────────────
-function filterJobs(btn) {
-  var filter = btn.getAttribute("data-filter");
-  document.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.remove("active"); });
-  btn.classList.add("active");
+// ── Category Filter & Live Search ─────────────────────────────
+function searchAndFilterJobs() {
+  var activeBtn = document.querySelector(".filter-btn.active");
+  var filter = activeBtn ? activeBtn.getAttribute("data-filter") : "All";
+  var searchInput = document.getElementById("jobSearchInput");
+  var q = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
   var items = document.querySelectorAll(".job-item");
   var visible = 0;
   items.forEach(function(item) {
-    if (filter === "All" || item.getAttribute("data-category") === filter) {
+    var cat = item.getAttribute("data-category") || "";
+    var matchCat = (filter === "All" || cat === filter);
+    var text = item.textContent.toLowerCase();
+    var matchSearch = (!q || text.indexOf(q) !== -1);
+
+    if (matchCat && matchSearch) {
       item.style.display = "";
       item.classList.remove("hidden");
       visible++;
@@ -695,8 +886,18 @@ function filterJobs(btn) {
       item.classList.add("hidden");
     }
   });
+
+  var countEl = document.getElementById("visibleJobsCount");
+  if (countEl) countEl.textContent = visible;
+
   var noMsg = document.getElementById("noJobsMsg");
-  noMsg.style.display = (visible === 0) ? "block" : "none";
+  if (noMsg) noMsg.style.display = (visible === 0) ? "block" : "none";
+}
+
+function filterJobs(btn) {
+  document.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.remove("active"); });
+  btn.classList.add("active");
+  searchAndFilterJobs();
 }
 
 // ── Apply Modal ─────────────────────────────────────────────────
