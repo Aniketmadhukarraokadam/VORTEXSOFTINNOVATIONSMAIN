@@ -126,12 +126,13 @@ require_once __DIR__ . '/includes/header.php';
             'Statutory Tax & Compliance Deductions (PF, ESIC, TDS, PT)',
             'Employee Mobile Self-Service Portal & Predictive Attrition AI'
           ],
-          'link'=>'index.php#ai-products'
+          'link'=>'index.php#ai-products',
+          'btn_text'=>'Explore HRMS Platform →'
         ],
         [
           'title'=>'Healthcare BPO & Revenue Cycle Management',
           'cat'=>'Healthcare BPO',
-          'badge'=>'FLAGSHIP TITLE SERVICE',
+          'badge'=>'FLAGSHIP HEALTHCARE BPO',
           'badge_color'=>'#CC2228',
           'icon'=>'fa-heartbeat',
           'color'=>'rgba(204,34,40,.08)',
@@ -139,12 +140,13 @@ require_once __DIR__ . '/includes/header.php';
           'featured'=>true,
           'desc'=>'Full-lifecycle HIPAA-compliant revenue cycle management (RCM), medical coding (ICD-10, CPT, HCPCS), billing, denial management, and prior authorization services.',
           'items'=>['Medical Coding (ICD-10-CM, CPT-4, HCPCS Level II)','Revenue Cycle Management & AR Recovery','Claims Denial Management & Appeals','Provider Credentialing & Prior Authorization','Payment Posting & Charge Entry Verification'],
-          'link'=>'health-care-services/index.php'
+          'link'=>'health-care-services/index.php',
+          'btn_text'=>'Explore Healthcare Services →'
         ],
         [
           'title'=>'Real Estate, Title & Settlement Services',
           'cat'=>'Real Estate',
-          'badge'=>'FLAGSHIP TITLE SERVICE',
+          'badge'=>'FLAGSHIP REAL ESTATE & TITLE',
           'badge_color'=>'#10b981',
           'icon'=>'fa-building',
           'color'=>'rgba(16,185,129,.08)',
@@ -152,12 +154,13 @@ require_once __DIR__ . '/includes/header.php';
           'featured'=>true,
           'desc'=>'Commercial lease administration, CAM audits, property accounting, title search, commitment typing, policy preparation, and mortgage settlement support.',
           'items'=>['Commercial Lease Abstraction & Administration','CAM Expense Reconciliation & Audit','Title Search, Examination & Policy Typing','Property Accounting & Rent Roll Verification','Mortgage Closing & Settlement Support'],
-          'link'=>'real-estate-services/index.php'
+          'link'=>'real-estate-services/index.php',
+          'btn_text'=>'Explore Real Estate & Title →'
         ],
         [
           'title'=>'STM Publishing & Media Prepress',
           'cat'=>'Publishing',
-          'badge'=>'FLAGSHIP TITLE SERVICE',
+          'badge'=>'FLAGSHIP PUBLISHING BPO',
           'badge_color'=>'#1C2280',
           'icon'=>'fa-book',
           'color'=>'rgba(28,34,128,.08)',
@@ -165,7 +168,8 @@ require_once __DIR__ . '/includes/header.php';
           'featured'=>true,
           'desc'=>'Digital prepress, automated journal typesetting, eBook conversion (ePUB3, NIMAS, XML), WCAG accessibility tagging, and copyediting production.',
           'items'=>['Academic Journal & STM Book Typesetting','ePUB3, Fixed Layout & XML Conversion','Alt-Text Writing & Mathematical Image Description','WCAG 2.1 AA PDF/eBook Accessibility Tagging','Copyediting & Proofreading Production'],
-          'link'=>'publishing-services/index.php'
+          'link'=>'publishing-services/index.php',
+          'btn_text'=>'Explore Publishing Services →'
         ],
         [
           'title'=>'AI & Intelligent Automation Services',
@@ -178,7 +182,8 @@ require_once __DIR__ . '/includes/header.php';
           'featured'=>true,
           'desc'=>'Autonomous AI solutions, business process automation (BPA), Intelligent Document Processing (IDP), and high-precision AI data annotation datasets.',
           'items'=>['Custom AI Solutions & Autonomous AI Agents','Intelligent Document Processing (IDP) with OCR & NLP','Image, Video, Text & 3D LiDAR AI Data Annotation','RPA & Business Process Automation (BPA)','AI-Assisted Operations & Human-in-the-Loop Validation'],
-          'link'=>'data-annotation-services/index.php'
+          'link'=>'data-annotation-services/index.php',
+          'btn_text'=>'Explore AI & Automation →'
         ],
         [
           'title'=>'Custom Software & Business Portals',
@@ -191,7 +196,8 @@ require_once __DIR__ . '/includes/header.php';
           'featured'=>true,
           'desc'=>'Bespoke custom software engineering, enterprise CRM, ERP, HRMS platforms, customer portals, internal management dashboards, and microservices.',
           'items'=>['Custom Software & Scalable Web Application Development','Enterprise CRM, ERP & HRMS System Engineering','Executive Dashboards & Real-Time Business Management','Customer Portals & Internal Employee Portals','Custom RESTful & GraphQL API Integrations'],
-          'link'=>'software-solutions/index.php'
+          'link'=>'software-solutions/index.php',
+          'btn_text'=>'Explore Software Portals →'
         ],
         [
           'title'=>'ERP & SAP Enterprise Solutions',
@@ -204,7 +210,8 @@ require_once __DIR__ . '/includes/header.php';
           'featured'=>true,
           'desc'=>'ERP implementation, customization, SAP consulting, enterprise workflow automation systems, and enterprise cloud application management.',
           'items'=>['ERP Solutions & End-to-End Implementation','ERP Customization & Legacy System Integration','SAP Consulting & Cloud Migration Services','Business Workflow & Enterprise Automation Systems','Custom Enterprise Applications'],
-          'link'=>'software-solutions/index.php'
+          'link'=>'software-solutions/index.php',
+          'btn_text'=>'Explore ERP Solutions →'
         ],
         [
           'title'=>'Marketing Automation & MarTech',
@@ -216,7 +223,8 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#f59e0b',
           'desc'=>'Automated lead generation, CRM & email campaign workflows, omnichannel marketing automation, customer funnel tracking, and analytics dashboards.',
           'items'=>['Marketing & Automated Lead Generation Systems','CRM Automation & Email Campaign Sequences','Multi-Channel Campaign Automation','Customer Workflow & Funnel Tracking','Real-Time Executive Reporting Dashboards'],
-          'link'=>'digital-marketing-service/index.php'
+          'link'=>'digital-marketing-service/index.php',
+          'btn_text'=>'Explore Marketing Services →'
         ],
         [
           'title'=>'Accounting & Financial BPO',
@@ -228,7 +236,8 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#8b5cf6',
           'desc'=>'Full-cycle bookkeeping, payroll processing, accounts payable/receivable management, and financial audit & tax preparation support.',
           'items'=>['Bookkeeping & Ledger Setup','Payroll Processing & Compliance','Accounts Payable / Receivable Management','Financial Audit & Tax Filing Support'],
-          'link'=>'accounting-services/index.php'
+          'link'=>'accounting-services/index.php',
+          'btn_text'=>'Explore Accounting Services →'
         ],
         [
           'title'=>'Logistics & Supply Chain Operations',
@@ -240,7 +249,8 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#ec4899',
           'desc'=>'Freight document processing, bill of lading entry, dispatch coordination, inventory tracking, and supply chain logistics analytics.',
           'items'=>['Bill of Lading Processing & Verification','Freight Audit & Data Entry','Inventory Tagging & Warehouse Tracking','Shipping Logistics Analytics'],
-          'link'=>'logistics-services/index.php'
+          'link'=>'logistics-services/index.php',
+          'btn_text'=>'Explore Logistics Operations →'
         ],
         [
           'title'=>'Technical Publications & S1000D',
@@ -252,7 +262,8 @@ require_once __DIR__ . '/includes/header.php';
           'text_color'=>'#CC2228',
           'desc'=>'Technical writing, S1000D / DITA XML conversion, equipment maintenance manuals, and illustrated parts catalogs (IPC) for defense & aerospace.',
           'items'=>['Technical Manual Writing & Authoring','S1000D / DITA XML Modular Conversion','Illustrated Parts Catalogs (IPC) Creation','Multi-lingual Technical Documentation'],
-          'link'=>'technical-publication-service/index.php'
+          'link'=>'technical-publication-service/index.php',
+          'btn_text'=>'Explore Technical Publications →'
         ]
       ];
 
@@ -274,7 +285,7 @@ require_once __DIR__ . '/includes/header.php';
             <li><i class="fas fa-check-circle" style="color:<?= $d['badge_color'] ?>;"></i> <?= $item ?></li>
             <?php endforeach; ?>
           </ul>
-          <a href="<?= $d['link'] ?>" class="btn mt-auto" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-radius:10px;font-size:13px;font-weight:700;padding:12px;text-align:center;">Explore Title Service →</a>
+          <a href="<?= $d['link'] ?>" class="btn mt-auto" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-radius:10px;font-size:13px;font-weight:700;padding:12px;text-align:center;"><?= !empty($d['btn_text']) ? htmlspecialchars($d['btn_text']) : 'Explore Service →' ?></a>
         </div>
       </div>
       <?php endforeach; ?>
