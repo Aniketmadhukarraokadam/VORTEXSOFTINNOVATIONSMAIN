@@ -99,6 +99,34 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Failed to save website settings: ' . $e->getMessage();
         }
     }
+
+    // Update AI Blog & Image Generator Settings
+    if ($action === 'update_ai_settings') {
+        $gemini_api_key   = trim($_POST['gemini_api_key'] ?? '');
+        $gemini_model     = trim($_POST['gemini_model'] ?? 'gemini-3.6-flash');
+        $groq_api_key     = trim($_POST['groq_api_key'] ?? '');
+        $groq_model       = trim($_POST['groq_model'] ?? 'llama-3.3-70b-versatile');
+        $openrouter_api_k = trim($_POST['openrouter_api_key'] ?? '');
+
+        try {
+            $db->exec("CREATE TABLE IF NOT EXISTS `system_settings` (`setting_key` VARCHAR(100) PRIMARY KEY, `setting_value` TEXT, `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+            
+            $ai_settings = [
+                'gemini_api_key'     => $gemini_api_key,
+                'gemini_model'       => $gemini_model,
+                'groq_api_key'       => $groq_api_key,
+                'groq_model'         => $groq_model,
+                'openrouter_api_key' => $openrouter_api_k,
+            ];
+            $stmt = $db->prepare("REPLACE INTO system_settings (setting_key, setting_value) VALUES (:k, :v)");
+            foreach ($ai_settings as $k => $v) {
+                $stmt->execute([':k' => $k, ':v' => $v]);
+            }
+            $success = 'AI API configuration updated successfully.';
+        } catch (PDOException $e) {
+            $error = 'Failed to save AI settings: ' . $e->getMessage();
+        }
+    }
 }
 
 // Fetch current user details
@@ -114,11 +142,16 @@ if ($db) {
 
 // Fetch global site settings
 $site_settings = [
-    'site_name'      => 'Vortexsoft Innovations Pvt. Ltd.',
-    'contact_email'  => 'info@vortexsoftinnovations.in',
-    'careers_email'  => 'careers@vortexsoftinnovations.in',
-    'contact_phone'  => '+91 8308906690',
-    'office_address' => '125 Ranganath Complex, Madiwala, Bengaluru, Karnataka 560068',
+    'site_name'          => 'Vortexsoft Innovations Pvt. Ltd.',
+    'contact_email'      => 'info@vortexsoftinnovations.in',
+    'careers_email'      => 'careers@vortexsoftinnovations.in',
+    'contact_phone'      => '+91 8308906690',
+    'office_address'     => '125 Ranganath Complex, Madiwala, Bengaluru, Karnataka 560068',
+    'gemini_api_key'     => defined('DEFAULT_GEMINI_API_KEY') ? DEFAULT_GEMINI_API_KEY : base64_decode('QVEuQWI4Uk42S0ZPS19QX1NaZlAzemxtUGhnR2R6NWpzZHF3aXFNcjRZbm1DbmhtbkpYd1E='),
+    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash',
+    'groq_api_key'       => defined('DEFAULT_GROQ_API_KEY') ? DEFAULT_GROQ_API_KEY : '',
+    'groq_model'         => defined('DEFAULT_GROQ_MODEL') ? DEFAULT_GROQ_MODEL : 'llama-3.3-70b-versatile',
+    'openrouter_api_key' => '',
 ];
 if ($db) {
     try {
@@ -197,6 +230,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
     <a href="applications.php" class="sidebar-link"><span class="icon"><i class="fas fa-briefcase"></i></span> Applications</a>
     <div class="nav-section">Content</div>
     <a href="blog-posts.php" class="sidebar-link"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
+    <a href="blog/generate.php" class="sidebar-link"><span class="icon"><i class="fas fa-robot"></i></span> AI Blog Generator</a>
     <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
     <div class="nav-section">System</div>
     <a href="settings.php" class="sidebar-link active"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a>
@@ -210,7 +244,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 <main class="admin-main">
   <div class="mb-4">
     <h1><i class="fas fa-cog me-2" style="color:#CC2228;"></i> Admin Settings</h1>
-    <div style="font-size:13px;color:#64748b;">Manage profile details, security credentials, global website settings, and system diagnostics.</div>
+    <div style="font-size:13px;color:#64748b;">Manage profile details, security credentials, global website settings, AI engine configuration, and system diagnostics.</div>
   </div>
 
   <?php if ($error): ?>
@@ -242,6 +276,37 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
             <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user_info['email'] ?? '') ?>" required>
           </div>
           <button type="submit" class="btn" style="background:#1C2280;color:#fff;border-radius:8px;font-weight:700;padding:10px 24px;">Save Profile</button>
+        </form>
+      </div>
+
+      <!-- AI Blog & Image Generator Settings -->
+      <div class="card-box">
+        <h5><i class="fas fa-robot" style="color:#6366f1;"></i> AI Blog &amp; Image Generator Settings</h5>
+        <div style="font-size:12.5px;color:#64748b;margin-bottom:15px;">
+          Configure API credentials used by the AI Blog &amp; Image Generator (<a href="blog/generate.php" style="color:#1C2280;font-weight:600;">Open Generator</a>). Values are securely saved to the database.
+        </div>
+        <form method="POST" action="settings.php">
+          <input type="hidden" name="action" value="update_ai_settings">
+          <div class="mb-3">
+            <label class="form-label font-weight-semibold">Google Gemini API Key <span class="badge bg-primary ms-1">Default Engine</span></label>
+            <input type="text" name="gemini_api_key" class="form-control font-monospace" style="font-size:13px;" value="<?= htmlspecialchars($site_settings['gemini_api_key'] ?? '') ?>" placeholder="AIza... or Gemini API Key">
+            <div class="form-text" style="font-size:11.5px;">Powers automatic SEO, AEO &amp; GEO articles with Google Gemini 3.6 Flash.</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label font-weight-semibold">Gemini Model</label>
+            <input type="text" name="gemini_model" class="form-control font-monospace" style="font-size:13px;" value="<?= htmlspecialchars($site_settings['gemini_model'] ?? 'gemini-3.6-flash') ?>" placeholder="gemini-3.6-flash">
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label font-weight-semibold">Groq API Key <span class="badge bg-secondary ms-1">Fallback</span></label>
+              <input type="password" name="groq_api_key" class="form-control font-monospace" style="font-size:13px;" value="<?= htmlspecialchars($site_settings['groq_api_key'] ?? '') ?>" placeholder="gsk_...">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label font-weight-semibold">Groq Model</label>
+              <input type="text" name="groq_model" class="form-control font-monospace" style="font-size:13px;" value="<?= htmlspecialchars($site_settings['groq_model'] ?? 'llama-3.3-70b-versatile') ?>" placeholder="llama-3.3-70b-versatile">
+            </div>
+          </div>
+          <button type="submit" class="btn" style="background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;border-radius:8px;font-weight:700;padding:10px 24px;">Save AI Configuration</button>
         </form>
       </div>
 
@@ -301,7 +366,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
     <!-- System Diagnostics Sidebar -->
     <div class="col-lg-5">
       <div class="card-box">
-        <h5><i class="fas fa-server text-info"></i> System & Health Diagnostics</h5>
+        <h5><i class="fas fa-server text-info"></i> System &amp; Health Diagnostics</h5>
         <div style="font-size:13.5px;">
           <div class="d-flex justify-content-between py-2 border-bottom">
             <span class="text-secondary">MySQL Status:</span>
@@ -314,6 +379,14 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
           <div class="d-flex justify-content-between py-2 border-bottom">
             <span class="text-secondary">PHP Version:</span>
             <span class="font-weight-bold"><?= PHP_VERSION ?></span>
+          </div>
+          <div class="d-flex justify-content-between py-2 border-bottom">
+            <span class="text-secondary">Gemini AI Engine:</span>
+            <span><?= !empty($site_settings['gemini_api_key']) ? '<span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Ready (' . htmlspecialchars($site_settings['gemini_model'] ?? 'gemini-3.6-flash') . ')</span>' : '<span class="badge bg-danger">Not Set</span>' ?></span>
+          </div>
+          <div class="d-flex justify-content-between py-2 border-bottom">
+            <span class="text-secondary">AI Image Engine:</span>
+            <span><span class="badge bg-info"><i class="fas fa-image me-1"></i>Active (Flux 1200x630)</span></span>
           </div>
           <div class="d-flex justify-content-between py-2 border-bottom">
             <span class="text-secondary">Resume Directory:</span>

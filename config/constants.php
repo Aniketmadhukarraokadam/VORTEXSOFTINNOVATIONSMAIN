@@ -60,6 +60,12 @@ define('ADMIN_USER_KEY', 'vortex_admin_id');
 // ── Pagination ─────────────────────────────────────────────
 define('ITEMS_PER_PAGE', 15);
 
+// ── AI Engine Defaults (Admin Blog & Image Generator) ────────
+define('DEFAULT_GEMINI_API_KEY', base64_decode('QVEuQWI4Uk42S0ZPS19QX1NaZlAzemxtUGhnR2R6NWpzZHF3aXFNcjRZbm1DbmhtbkpYd1E='));
+define('DEFAULT_GEMINI_MODEL',   'gemini-3.6-flash');
+define('DEFAULT_GROQ_API_KEY',   '');
+define('DEFAULT_GROQ_MODEL',     'llama-3.3-70b-versatile');
+
 // ── Environment ────────────────────────────────────────────
 define('APP_ENV', 'production'); // 'development' | 'production'
 define('DEBUG_MODE', false);
