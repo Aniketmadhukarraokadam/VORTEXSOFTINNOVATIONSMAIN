@@ -29,6 +29,9 @@ ServerSignature Off
     RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
     RewriteRule ^(.+)/index\.php$ /$1/index.html [L]
 
+    # XML sitemap canonical route: /sitemap → /sitemap.xml
+    RewriteRule ^sitemap/?$ /sitemap.xml [L]
+
     # Root .html → .php canonical redirects (301 permanent) for root files only
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
