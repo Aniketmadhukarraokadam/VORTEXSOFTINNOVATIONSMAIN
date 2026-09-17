@@ -455,6 +455,24 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
   <div class="gen-card">
     <div class="gen-card-title"><i class="fas fa-magic" style="color:#CC2228;"></i> Generate New AI-Optimized Blog Post</div>
 
+    <?php if (empty(GEMINI_API_KEY)): ?>
+    <div class="alert alert-warning d-flex align-items-center justify-content-between p-3 mb-4" style="border-radius:12px;border:1px solid #fef08a;background:#fefce8;">
+      <div class="d-flex align-items-center gap-3">
+        <i class="fas fa-exclamation-triangle text-warning" style="font-size:22px;"></i>
+        <div>
+          <strong style="color:#854d0e;">Gemini API Key Required:</strong>
+          <div style="font-size:13px;color:#a16207;">Enter your free Google Gemini key (format: <code>AIza...</code>) in Admin Settings to enable AI Blog Generation.</div>
+        </div>
+      </div>
+      <a href="/admin/settings.php#ai-keys-section" class="btn btn-sm btn-warning fw-bold text-dark px-3 py-2" style="border-radius:8px;white-space:nowrap;">Configure Key →</a>
+    </div>
+    <?php else: ?>
+    <div class="d-flex align-items-center justify-content-between px-3 py-2 mb-3" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;font-size:12.5px;color:#166534;">
+      <div><i class="fas fa-check-circle text-success me-1"></i> <strong>Gemini AI Active:</strong> Engine ready with model <code><?= htmlspecialchars(GEMINI_MODEL) ?></code></div>
+      <a href="/admin/settings.php#ai-keys-section" style="color:#15803d;font-weight:600;text-decoration:none;">Settings</a>
+    </div>
+    <?php endif; ?>
+
     <form method="POST" id="generateForm">
       <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
       <input type="hidden" name="action" value="generate">

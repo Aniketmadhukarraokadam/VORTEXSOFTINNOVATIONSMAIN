@@ -148,6 +148,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 
     <div class="nav-section">Content & System</div>
     <a href="blog-posts.php" class="sidebar-link"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
+    <a href="blog/generate.php" class="sidebar-link"><span class="icon"><i class="fas fa-robot"></i></span> AI Blog Generator</a>
     <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
     <a href="audit_services.php" class="sidebar-link"><span class="icon"><i class="fas fa-check-circle"></i></span> 65-Service Audit</a>
     <a href="backup_db.php" class="sidebar-link"><span class="icon"><i class="fas fa-database"></i></span> DB Backup</a>
@@ -171,7 +172,10 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
       <h1>Dashboard <span style="font-weight:400;font-size:18px;color:#64748b;">— Welcome, <?= htmlspecialchars($admin_name) ?></span></h1>
       <div class="subtitle">Vortexsoft Innovations Private Limited Admin Panel | <?= date('l, d F Y') ?></div>
     </div>
-    <a href="/contact.php" target="_blank" class="btn" style="background:#1C2280;color:#fff;border-radius:10px;font-size:13px;font-weight:600;padding:10px 20px;"><i class="fas fa-external-link-alt me-2"></i> View Website</a>
+    <div class="d-flex gap-2">
+      <a href="blog/generate.php" class="btn" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-radius:10px;font-size:13px;font-weight:600;padding:10px 18px;text-decoration:none;"><i class="fas fa-robot me-2"></i> AI Blog Generator</a>
+      <a href="/index.php" target="_blank" class="btn btn-outline-secondary" style="border-radius:10px;font-size:13px;font-weight:600;padding:10px 16px;"><i class="fas fa-external-link-alt me-1"></i> View Site</a>
+    </div>
   </div>
 
   <!-- Stats Cards -->

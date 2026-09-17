@@ -61,8 +61,10 @@ define('ADMIN_USER_KEY', 'vortex_admin_id');
 define('ITEMS_PER_PAGE', 15);
 
 // ── AI Engine Defaults (Admin Blog & Image Generator) ────────
-define('DEFAULT_GEMINI_API_KEY', base64_decode('QVEuQWI4Uk42S0ZPS19QX1NaZlAzemxtUGhnR2R6NWpzZHF3aXFNcjRZbm1DbmhtbkpYd1E='));
-define('DEFAULT_GEMINI_MODEL',   'gemini-3.6-flash');
+// IMPORTANT: Set GEMINI_API_KEY in config/.env — get a free key at https://aistudio.google.com/apikey
+// Keys must start with 'AIza' (Google AI Studio format). Vertex AI keys (AQ.*) are NOT compatible.
+define('DEFAULT_GEMINI_API_KEY', '');  // Leave empty — key must be set in .env
+define('DEFAULT_GEMINI_MODEL',   'gemini-2.0-flash-exp');
 define('DEFAULT_GROQ_API_KEY',   '');
 define('DEFAULT_GROQ_MODEL',     'llama-3.3-70b-versatile');
 

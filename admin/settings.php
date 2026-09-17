@@ -103,7 +103,7 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
     // Update AI Blog & Image Generator Settings
     if ($action === 'update_ai_settings') {
         $gemini_api_key   = trim($_POST['gemini_api_key'] ?? '');
-        $gemini_model     = trim($_POST['gemini_model'] ?? 'gemini-3.6-flash');
+        $gemini_model     = trim($_POST['gemini_model'] ?? 'gemini-2.0-flash-exp');
         $groq_api_key     = trim($_POST['groq_api_key'] ?? '');
         $groq_model       = trim($_POST['groq_model'] ?? 'llama-3.3-70b-versatile');
         $openrouter_api_k = trim($_POST['openrouter_api_key'] ?? '');
@@ -147,8 +147,8 @@ $site_settings = [
     'careers_email'      => 'careers@vortexsoftinnovations.in',
     'contact_phone'      => '+91 8308906690',
     'office_address'     => '125 Ranganath Complex, Madiwala, Bengaluru, Karnataka 560068',
-    'gemini_api_key'     => defined('DEFAULT_GEMINI_API_KEY') ? DEFAULT_GEMINI_API_KEY : base64_decode('QVEuQWI4Uk42S0ZPS19QX1NaZlAzemxtUGhnR2R6NWpzZHF3aXFNcjRZbm1DbmhtbkpYd1E='),
-    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash',
+    'gemini_api_key'     => '',  // Set your key at https://aistudio.google.com/apikey
+    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-2.0-flash-exp',
     'groq_api_key'       => defined('DEFAULT_GROQ_API_KEY') ? DEFAULT_GROQ_API_KEY : '',
     'groq_model'         => defined('DEFAULT_GROQ_MODEL') ? DEFAULT_GROQ_MODEL : 'llama-3.3-70b-versatile',
     'openrouter_api_key' => '',
@@ -344,6 +344,102 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
         </form>
       </div>
 
+      <!-- AI API Keys Configuration -->
+      <div class="card-box" id="ai-keys-section">
+        <h5><i class="fas fa-robot" style="color:#1C2280;"></i> AI Blog Generator — API Keys</h5>
+        <div class="alert alert-warning d-flex gap-2 align-items-start mb-3" style="background:#fff8e1;border:1px solid #f59e0b;border-radius:10px;padding:14px 16px;">
+          <i class="fas fa-triangle-exclamation mt-1" style="color:#f59e0b;flex-shrink:0;"></i>
+          <div style="font-size:13px;">
+            <strong>Gemini API key required.</strong> Get a <strong>FREE</strong> key at
+            <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" style="color:#1C2280;font-weight:700;">aistudio.google.com/apikey</a> →
+            click <strong>Create API Key</strong> → paste it below.<br>
+            Keys must start with <code>AIza</code>. <em>Vertex AI keys (starting with <code>AQ.</code>) are NOT compatible.</em>
+          </div>
+        </div>
+        <form method="POST" action="settings.php">
+          <?= csrf_field() ?>
+          <input type="hidden" name="action" value="update_ai_settings">
+          <!-- Gemini -->
+          <div style="background:#f8faff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;margin-bottom:16px;">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span style="background:#1C2280;color:#fff;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:.5px;">GEMINI</span>
+              <span style="font-size:12px;color:#64748b;">Google AI Studio — Default engine used by AI Blog Generator</span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label font-weight-semibold">Gemini API Key <span style="color:#CC2228;">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                <input type="password" name="gemini_api_key" class="form-control" 
+                  value="<?= htmlspecialchars($site_settings['gemini_api_key'] ?? '') ?>"
+                  placeholder="AIzaSy... (get free key at aistudio.google.com/apikey)"
+                  autocomplete="new-password" id="gemini-key-input">
+                <button type="button" class="btn btn-outline-secondary" onclick="togglePass('gemini-key-input',this)" title="Show/hide key">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+              <div class="form-text">Must start with <code>AIza</code>. Free tier supports ~1500 requests/day.</div>
+            </div>
+            <div class="mb-0">
+              <label class="form-label font-weight-semibold">Gemini Model</label>
+              <select name="gemini_model" class="form-select">
+                <option value="gemini-2.0-flash-exp" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-2.0-flash-exp' ? 'selected' : '' ?>>gemini-2.0-flash-exp (Recommended — Fast & Free)</option>
+                <option value="gemini-1.5-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-1.5-flash' ? 'selected' : '' ?>>gemini-1.5-flash (Stable)</option>
+                <option value="gemini-1.5-pro" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-1.5-pro' ? 'selected' : '' ?>>gemini-1.5-pro (Higher quality, slower)</option>
+                <option value="gemini-2.0-flash-thinking-exp" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-2.0-flash-thinking-exp' ? 'selected' : '' ?>>gemini-2.0-flash-thinking-exp (Reasoning)</option>
+              </select>
+            </div>
+          </div>
+          <!-- Groq (backup) -->
+          <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:18px;margin-bottom:16px;">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span style="background:#f97316;color:#fff;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:.5px;">GROQ</span>
+              <span style="font-size:12px;color:#64748b;">Backup engine — Free at <a href="https://console.groq.com" target="_blank" style="color:#f97316;">console.groq.com</a></span>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label class="form-label font-weight-semibold">Groq API Key</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  <input type="password" name="groq_api_key" class="form-control"
+                    value="<?= htmlspecialchars($site_settings['groq_api_key'] ?? '') ?>"
+                    placeholder="gsk_..." autocomplete="new-password" id="groq-key-input">
+                  <button type="button" class="btn btn-outline-secondary" onclick="togglePass('groq-key-input',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label font-weight-semibold">Model</label>
+                <select name="groq_model" class="form-select">
+                  <option value="llama-3.3-70b-versatile" <?= ($site_settings['groq_model'] ?? '') === 'llama-3.3-70b-versatile' ? 'selected' : '' ?>>llama-3.3-70b-versatile</option>
+                  <option value="llama-3.1-8b-instant" <?= ($site_settings['groq_model'] ?? '') === 'llama-3.1-8b-instant' ? 'selected' : '' ?>>llama-3.1-8b-instant</option>
+                  <option value="mixtral-8x7b-32768" <?= ($site_settings['groq_model'] ?? '') === 'mixtral-8x7b-32768' ? 'selected' : '' ?>>mixtral-8x7b-32768</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- OpenRouter (backup) -->
+          <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:18px;margin-bottom:20px;">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span style="background:#8b5cf6;color:#fff;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:.5px;">OPENROUTER</span>
+              <span style="font-size:12px;color:#64748b;">Additional backup — <a href="https://openrouter.ai/keys" target="_blank" style="color:#8b5cf6;">openrouter.ai/keys</a></span>
+            </div>
+            <label class="form-label font-weight-semibold">OpenRouter API Key</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+              <input type="password" name="openrouter_api_key" class="form-control"
+                value="<?= htmlspecialchars($site_settings['openrouter_api_key'] ?? '') ?>"
+                placeholder="sk-or-v1-..." autocomplete="new-password" id="openrouter-key-input">
+              <button type="button" class="btn btn-outline-secondary" onclick="togglePass('openrouter-key-input',this)"><i class="fas fa-eye"></i></button>
+            </div>
+          </div>
+          <button type="submit" class="btn" style="background:#1C2280;color:#fff;border-radius:8px;font-weight:700;padding:11px 26px;">
+            <i class="fas fa-save me-2"></i>Save AI Keys
+          </button>
+          <a href="/admin/blog/generate.php" class="btn btn-outline-secondary ms-2" style="border-radius:8px;padding:11px 20px;">
+            <i class="fas fa-robot me-1"></i>Test AI Generator
+          </a>
+        </form>
+      </div>
+
       <!-- Change Password -->
       <div class="card-box">
         <h5><i class="fas fa-key text-danger"></i> Change Password</h5>
@@ -417,6 +513,13 @@ document.getElementById('sidebarToggleBtn')?.addEventListener('click', function(
 document.getElementById('sidebarCloseBtn')?.addEventListener('click', function(){
   document.getElementById('adminSidebar').classList.remove('show');
 });
+function togglePass(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isPass = input.type === 'password';
+  input.type = isPass ? 'text' : 'password';
+  btn.querySelector('i').className = isPass ? 'fas fa-eye-slash' : 'fas fa-eye';
+}
 </script>
 </body>
 </html>

@@ -303,21 +303,31 @@ function render_geo_fact_block(): string {
     return '
     <div class="geo-fact-block" itemscope itemtype="https://schema.org/Organization" style="background:#f8f9ff;border:1.5px solid #dde2f5;border-radius:16px;padding:24px;margin-bottom:28px;">
       <meta itemprop="name" content="Vortexsoft Innovations Private Limited">
-      <meta itemprop="alternateName" content="Vortexsoft, Vortex Soft, Vortex Innovations, Vortex, Vertex">
+      <meta itemprop="legalName" content="Vortexsoft Innovations Private Limited">
+      <meta itemprop="alternateName" content="Vortexsoft, Vortex Soft, Vortex Innovations, Vortex, Vertex, Vortex Group">
       <meta itemprop="url" content="https://www.vortexsoftinnovations.com">
+      <meta itemprop="email" content="support@vortexsoftinnovations.com">
+      <meta itemprop="telephone" content="+91-8308906690">
+      <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress" style="display:none;">
+        <span itemprop="streetAddress">502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk</span>
+        <span itemprop="addressLocality">Pune</span>, <span itemprop="addressRegion">Maharashtra</span> <span itemprop="postalCode">411041</span>, <span itemprop="addressCountry">IN</span>
+      </div>
       <h6 style="color:#1C2280;font-weight:700;margin-bottom:8px;font-family:\'Poppins\',sans-serif;"><i class="fas fa-building me-2" style="color:#CC2228;"></i> About Vortexsoft Innovations Private Limited (Vortexsoft)</h6>
       <p itemprop="description" style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:12px;">
-        <strong>Vortexsoft Innovations Private Limited</strong> (widely known as <strong>Vortexsoft</strong>, <strong>Vortex Innovations</strong>, or <strong>Vortex</strong>) is an <strong>ISO 27001:2013 certified</strong> global IT, AI development, and Business Process Outsourcing (BPO) company founded in 2020. Headquartered in Pune, Maharashtra, India, with an advanced tech delivery center in Bengaluru (HSR Layout) and a U.S. corporate entity in Sheridan, Wyoming, Vortexsoft operates dedicated delivery pods across 75+ core verticals including Healthcare BPO/RCM, AI Data Annotation, Custom Web Development, Publishing Prepress, Real Estate Title, and Multi-Jurisdiction Payroll for 150+ global enterprise clients.
+        <strong>Vortexsoft Innovations Private Limited</strong> (widely known as <strong>Vortexsoft</strong>, <strong>Vortex Innovations</strong>, <strong>Vortex Soft</strong>, or <strong>Vortex</strong>) is an <strong>ISO 27001:2013 certified</strong>, <strong>ISO 9001:2015 accredited</strong>, and <strong>HIPAA-compliant</strong> global IT, artificial intelligence, and Business Process Outsourcing (BPO) company founded in 2020 by <strong>Aniket Madhukarrao Kadam</strong>. Headquartered in <strong>Pune, Maharashtra</strong>, with a major technology delivery center in <strong>Bengaluru (HSR Layout)</strong> and a U.S. corporate entity in <strong>Sheridan, Wyoming</strong>, Vortexsoft operates dedicated offshore development centers and managed operational pods across 75+ core verticals for 150+ international enterprise clients.
       </p>
       <p style="font-size:13px;color:#334155;line-height:1.65;margin-bottom:14px;">
-        <strong>Proprietary Enterprise AI Platforms:</strong> Vortexsoft engineers cutting-edge AI software including <em>VortexEXHO</em> (Workforce OS), <em>vortexHire</em> (AI Recruitment), <em>vortexKonnect</em> (Call Analytics), <em>Vortexreach</em> (B2B Outreach), <em>vortexsoftpublishing</em> (ePUB3 & XML Automation), and <em>vortexsofthrms</em> (AI HRMS & Payroll Automation).
+        <strong>Core Operational Competencies:</strong> End-to-end Healthcare Revenue Cycle Management (RCM) &amp; AAPC/AHIMA Medical Coding (ICD-10-CM/CPT), high-precision AI Data Annotation (LiDAR point clouds, computer vision bounding box, RLHF training datasets), Custom Software Engineering &amp; Dedicated Offshore Pods, Academic Publishing Prepress (S1000D XML, JATS, ePUB3 &amp; Section 508 WCAG accessibility), Commercial Real Estate Lease Abstraction &amp; CAM Reconciliation, and Multi-Jurisdiction Automated Payroll.
+      </p>
+      <p style="font-size:13px;color:#1e293b;line-height:1.65;margin-bottom:14px;">
+        <strong>Proprietary Enterprise AI Software Suite:</strong> Vortexsoft engineers and licenses 6 proprietary AI applications: <em>VortexEXHO</em> (Enterprise Workforce OS), <em>vortexHire</em> (AI Recruitment &amp; Resume Intelligence), <em>vortexKonnect</em> (Call Center Speech &amp; Sentiment Analytics), <em>Vortexreach</em> (Autonomous B2B Sales Prospecting), <em>vortexsoftpublishing</em> (Automated ePUB3 &amp; XML Ingestion Engine), and <em>vortexsofthrms</em> (AI Cloud HRMS &amp; Autonomous Payroll Engine).
       </p>
       <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:#64748b;font-weight:600;">
         <span><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001:2013 Certified</span>
         <span><i class="fas fa-check-circle text-primary me-1"></i> HIPAA Compliant</span>
         <span><i class="fas fa-award text-warning me-1"></i> Startup India Registered</span>
         <span><i class="fas fa-microchip text-info me-1"></i> 6 Proprietary AI Platforms</span>
-        <span><i class="fas fa-map-marker-alt text-danger me-1"></i> Pune HQ, Bengaluru Tech Center & Wyoming, USA</span>
+        <span><i class="fas fa-map-marker-alt text-danger me-1"></i> Pune Global HQ, Bengaluru Tech Center &amp; Wyoming, USA</span>
       </div>
     </div>';
 }

@@ -39,17 +39,15 @@ if (!defined('GEMINI_API_KEY')) {
     if (empty($gemini_key)) {
         $gemini_key = trim(getenv('GEMINI_API_KEY') ?: ($_ENV['GEMINI_API_KEY'] ?? ($_SERVER['GEMINI_API_KEY'] ?? '')));
     }
-    if (empty($gemini_key) && defined('DEFAULT_GEMINI_API_KEY')) {
+    if (empty($gemini_key) && defined('DEFAULT_GEMINI_API_KEY') && !empty(DEFAULT_GEMINI_API_KEY)) {
         $gemini_key = DEFAULT_GEMINI_API_KEY;
     }
-    if (empty($gemini_key)) {
-        $gemini_key = base64_decode('QVEuQWI4Uk42S0ZPS19QX1NaZlAzemxtUGhnR2R6NWpzZHF3aXFNcjRZbm1DbmhtbkpYd1E=');
-    }
+    // NOTE: No hardcoded fallback key. Key must be set in config/.env or Admin Settings > AI Keys.
 
     // Resolve Gemini Model
     $gemini_model = trim($_ai_env['GEMINI_MODEL'] ?? ($_db_settings['gemini_model'] ?? (getenv('GEMINI_MODEL') ?: '')));
     if (empty($gemini_model)) {
-        $gemini_model = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash';
+        $gemini_model = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-2.0-flash-exp';
     }
 
     // Resolve Groq Key
@@ -222,18 +220,30 @@ function _ai_parse_json_content(string $content): array {
 
 /**
  * Generate blog content via Google Gemini (DEFAULT PRIMARY ENGINE).
- * Model: gemini-3.6-flash
+ * Model: gemini-2.0-flash-exp (or as configured in config/.env GEMINI_MODEL)
+ * API Key: Get a FREE key at https://aistudio.google.com/apikey
  */
 function generateWithGemini(array $prompt): array {
     $apiKey = defined('GEMINI_API_KEY') && !empty(GEMINI_API_KEY)
         ? GEMINI_API_KEY
-        : (defined('DEFAULT_GEMINI_API_KEY') ? DEFAULT_GEMINI_API_KEY : base64_decode('QVEuQWI4Uk42S0ZPS19QX1NaZlAzemxtUGhnR2R6NWpzZHF3aXFNcjRZbm1DbmhtbkpYd1E='));
+        : (defined('DEFAULT_GEMINI_API_KEY') && !empty(DEFAULT_GEMINI_API_KEY) ? DEFAULT_GEMINI_API_KEY : '');
 
     if (empty($apiKey)) {
-        throw new RuntimeException('Gemini API key is not configured. Please set GEMINI_API_KEY in Admin Settings or config/.env');
+        throw new RuntimeException(
+            'GEMINI_API_KEY is not set in config/.env' . "\n" .
+            'Get a FREE key at https://aistudio.google.com/apikey then paste it in Admin > Settings > AI Keys.'
+        );
     }
 
-    $model    = defined('GEMINI_MODEL') && GEMINI_MODEL ? GEMINI_MODEL : 'gemini-3.6-flash';
+    // Validate key format — Google AI Studio keys start with AIza
+    if (!preg_match('/^AIza[A-Za-z0-9_\-]{30,}$/', $apiKey)) {
+        throw new RuntimeException(
+            'Invalid Gemini API key format. Google AI Studio keys start with "AIza". ' .
+            'Get a valid key at https://aistudio.google.com/apikey'
+        );
+    }
+
+    $model    = defined('GEMINI_MODEL') && GEMINI_MODEL ? GEMINI_MODEL : 'gemini-2.0-flash-exp';
     $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key=" . $apiKey;
 
     $fullPrompt = $prompt['system'] . "\n\n" . $prompt['user'];
@@ -253,6 +263,24 @@ function generateWithGemini(array $prompt): array {
 
     $response = _ai_curl_post($endpoint, $headers, $payload, 45);
     $data     = json_decode($response, true);
+
+    // Check for API-level errors (invalid key, quota, model not found, etc.)
+    if (isset($data['error'])) {
+        $errCode = $data['error']['code'] ?? 0;
+        $errMsg  = $data['error']['message'] ?? 'Unknown Gemini API error';
+        $errStatus = $data['error']['status'] ?? '';
+        if ($errCode === 400 || $errStatus === 'INVALID_ARGUMENT') {
+            throw new RuntimeException("Gemini API error (invalid request): {$errMsg}");
+        } elseif ($errCode === 403 || $errStatus === 'PERMISSION_DENIED') {
+            throw new RuntimeException("Gemini API key denied (403): Check your key at https://aistudio.google.com/apikey — {$errMsg}");
+        } elseif ($errCode === 404 || $errStatus === 'NOT_FOUND') {
+            throw new RuntimeException("Gemini model '{$model}' not found (404). Use 'gemini-2.0-flash-exp' or 'gemini-1.5-flash'. Details: {$errMsg}");
+        } elseif ($errCode === 429) {
+            throw new RuntimeException("Gemini quota exceeded (429). Free tier limit reached. Try again in a minute or use a different key.");
+        } else {
+            throw new RuntimeException("Gemini API error ({$errCode}): {$errMsg}");
+        }
+    }
 
     if (!isset($data['candidates'][0]['content']['parts'][0]['text'])) {
         $blockReason = $data['candidates'][0]['finishReason'] ?? ($data['promptFeedback']['blockReason'] ?? 'unknown');

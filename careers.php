@@ -113,6 +113,8 @@ if ($shared_job) {
 // Standard latest company branding for social sharing across WhatsApp, LinkedIn, Facebook, X, Telegram
 $og_image = 'https://www.vortexsoftinnovations.com/assets/images/vortexsoft-careers-share.png?v=20260912';
 
+$page_keywords = 'Vortexsoft careers, jobs at Vortexsoft Innovations Private Limited, BPO jobs Pune Bengaluru, IT developer jobs Bengaluru, Medical Coding CPC jobs India, AI data annotator jobs, walk in interview Vortexsoft, work from home jobs Vortexsoft, software engineer vacancies Pune';
+
 require_once __DIR__ . '/includes/header.php';
 ?>
 <style>

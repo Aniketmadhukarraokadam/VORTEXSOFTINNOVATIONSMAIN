@@ -28,37 +28,44 @@ if (!is_valid_email($email)) {
 }
 
 $db = getDB();
-if ($db) {
-    try {
-        // Check if already subscribed
-        $check = $db->prepare("SELECT id, is_active FROM newsletter_subscribers WHERE email = :email");
-        $check->execute([':email' => $email]);
-        $existing = $check->fetch();
-
-        if ($existing) {
-            if ($existing['is_active']) {
-                json_response(false, 'This email is already subscribed to our newsletter.');
-            } else {
-                // Reactivate
-                $db->prepare("UPDATE newsletter_subscribers SET is_active=1, subscribed_at=NOW(), unsubscribed_at=NULL WHERE email=:email")
-                   ->execute([':email' => $email]);
-                json_response(true, 'Welcome back! You have been re-subscribed to our newsletter.');
-            }
-        }
-
-        $token = bin2hex(random_bytes(32));
-        $stmt = $db->prepare("INSERT INTO newsletter_subscribers (email, name, ip_address, unsubscribe_token, subscribed_at) VALUES (:email, :name, :ip, :token, NOW())");
-        $stmt->execute([
-            ':email' => $email,
-            ':name'  => $name,
-            ':ip'    => $ip,
-            ':token' => $token,
-        ]);
-
-    } catch (PDOException $e) {
-        error_log('Newsletter DB error: ' . $e->getMessage());
-        json_response(false, 'Something went wrong. Please try again.');
-    }
+if (!$db) {
+    json_response(false, 'Database service currently unavailable. Please try again shortly.');
+    exit;
 }
 
-json_response(true, 'Thank you for subscribing! You will receive our latest updates.');
+try {
+    // Check if already subscribed
+    $check = $db->prepare("SELECT id, is_active FROM newsletter_subscribers WHERE email = :email");
+    $check->execute([':email' => $email]);
+    $existing = $check->fetch();
+
+    if ($existing) {
+        if ($existing['is_active']) {
+            json_response(false, 'This email is already subscribed to our newsletter.');
+            exit;
+        } else {
+            // Reactivate
+            $db->prepare("UPDATE newsletter_subscribers SET is_active=1, subscribed_at=NOW(), unsubscribed_at=NULL WHERE email=:email")
+               ->execute([':email' => $email]);
+            json_response(true, 'Welcome back! You have been re-subscribed to our newsletter.');
+            exit;
+        }
+    }
+
+    $token = bin2hex(random_bytes(32));
+    $stmt = $db->prepare("INSERT INTO newsletter_subscribers (email, name, ip_address, unsubscribe_token, subscribed_at) VALUES (:email, :name, :ip, :token, NOW())");
+    $stmt->execute([
+        ':email' => $email,
+        ':name'  => $name,
+        ':ip'    => $ip,
+        ':token' => $token,
+    ]);
+
+    json_response(true, 'Thank you for subscribing! You will receive our latest updates.');
+    exit;
+
+} catch (PDOException $e) {
+    error_log('Newsletter DB error: ' . $e->getMessage());
+    json_response(false, 'Something went wrong while saving your subscription. Please try again.');
+    exit;
+}

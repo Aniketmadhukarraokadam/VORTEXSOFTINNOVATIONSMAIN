@@ -5,6 +5,7 @@
 
 $page_title   = 'IT & BPO Services | Vortexsoft Innovations Private Limited';
 $page_desc    = 'Explore 65+ services by Vortexsoft Innovations Private Limited: Healthcare BPO, Publishing, Real Estate, IT Solutions, Data Annotation for AI, Accounting, and Digital Marketing.';
+$page_keywords = 'IT outsourcing services India, BPO services Pune Bengaluru, Healthcare BPO India, medical coding outsourcing, revenue cycle management RCM, denial management services, AI data annotation India, LiDAR annotation, computer vision labeling, custom software development Pune, offshore development center, publishing prepress services, eBook conversion ePUB3, S1000D XML conversion, lease abstraction services, commercial real estate BPO, offshore accounting bookkeeping, payroll processing outsourcing India';
 $canonical_url = 'https://www.vortexsoftinnovations.com/service.php';
 
 $prefix       = './';

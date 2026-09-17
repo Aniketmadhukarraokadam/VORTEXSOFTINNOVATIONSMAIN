@@ -61,6 +61,7 @@ $page_title    = (!empty($post['meta_title']) ? $post['meta_title'] : $post['tit
 $page_desc     = !empty($post['meta_desc']) ? $post['meta_desc'] : $post['excerpt'];
 $canonical_url = SITE_URL . '/blog/' . htmlspecialchars($post['slug']) . '.php';
 $reading_time  = max(1, (int)ceil(str_word_count(strip_tags($post['content'])) / 220));
+$page_keywords = (!empty($post['meta_keywords']) ? $post['meta_keywords'] : $post['category'] . ', ' . $post['title'] . ', Vortexsoft blog, IT outsourcing, BPO insights');
 
 // Compute OpenGraph image
 $og_image = !empty($post['cover_image'])

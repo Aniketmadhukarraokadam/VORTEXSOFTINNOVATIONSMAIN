@@ -18,6 +18,7 @@ require_once __DIR__ . '/functions.php';
 $prefix       = $prefix ?? './';
 $page_title   = $page_title ?? 'Top Global IT & BPO Outsourcing Company in India | AI Services | Vortexsoft Innovations Private Limited';
 $page_desc    = $page_desc ?? 'Vortexsoft Innovations Private Limited — ISO 27001 certified global IT & BPO outsourcing company in Pune & Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation & 75+ services for 150+ clients worldwide.';
+$page_keywords = $page_keywords ?? 'Vortexsoft, Vortexsoft Innovations, Vortexsoft Innovations Private Limited, Vortexsoft Innovations Pvt Ltd, Vortex Soft, Vortex Innovations, Vortex, Vertex, Vortex Group, IT outsourcing company India, BPO company Pune, BPO company Bengaluru, AI solutions company India, Healthcare BPO India, Medical Coding outsourcing, ICD-10 CPT medical billing services, Revenue Cycle Management RCM outsourcing, denial management AR recovery, AI Data Annotation India, machine learning training datasets, computer vision bounding box annotation, LiDAR 3D point cloud labeling, RLHF training data outsourcing, Enterprise Workforce OS, VortexEXHO, vortexHire, vortexKonnect, Vortexreach, vortexsoftpublishing, vortexsofthrms, S1000D XML conversion, prepress typesetting outsourcing, commercial lease abstraction services, CAM audit property accounting, mortgage title search settlement typing, offshore development center India, ISO 27001 BPO company, HIPAA compliant healthcare outsourcing, AI HRMS payroll automation, hire dedicated developers Pune Bengaluru';
 $canonical_url = $canonical_url ?? SITE_URL . '/';
 $og_image     = $og_image ?? (SITE_URL . '/assets/images/vortexsoft-share-banner.png');
 
@@ -71,24 +72,26 @@ function nav_active(string $page, string $path): string {
     <meta name="revisit-after" content="5 days">
     <meta name="language" content="English">
 
-    <meta name="keywords" content="Vortexsoft, Vortexsoft Innovations, Vortex Innovations Private Limited, Vortex Soft, Vortex, Vertex, IT outsourcing India, BPO company Pune, BPO company Bengaluru, AI solutions company, Healthcare BPO India, Medical Coding outsourcing, AI Data Annotation India, Enterprise Workforce OS, VortexEXHO, vortexHire, vortexKonnect, Vortexreach, vortexsoftpublishing, vortexsofthrms, S1000D conversion, lease abstraction services, offshore development center India, ISO 27001 BPO company">
-    <meta name="news_keywords" content="Vortexsoft Innovations, AI outsourcing, Healthcare RCM, Data Annotation, IT Services Pune Bengaluru">
+    <meta name="keywords" content="<?= htmlspecialchars($page_keywords) ?>">
+    <meta name="news_keywords" content="Vortexsoft Innovations, Vortexsoft, AI outsourcing India, Healthcare RCM, Medical Coding, Data Annotation, IT Services Pune Bengaluru, VortexEXHO, vortexsofthrms, Lease Abstraction, S1000D XML">
 
     <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
     <link rel="alternate" hreflang="en-IN" href="<?= htmlspecialchars($in_url) ?>">
     <link rel="alternate" hreflang="en-US" href="<?= htmlspecialchars($com_url) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= htmlspecialchars($com_url) ?>">
 
-    <!-- GEO -->
-    <meta name="geo.region" content="IN-KA">
-    <meta name="geo.placename" content="Bengaluru, Karnataka, India">
-    <meta name="geo.position" content="12.9141;77.6162">
-    <meta name="ICBM" content="12.9141, 77.6162">
+    <!-- GEO & Local Business Coordinates (Pune HQ, Bengaluru Delivery Hub & US Entity) -->
+    <meta name="geo.region" content="IN-MH">
+    <meta name="geo.placename" content="Pune, Maharashtra, India">
+    <meta name="geo.position" content="18.4792;73.8329">
+    <meta name="ICBM" content="18.4792, 73.8329">
+    <meta name="format-detection" content="telephone=yes, address=yes, email=yes">
 
     <!-- OpenGraph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Vortexsoft Innovations Private Limited">
     <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="en_US">
     <meta property="og:url" content="<?= htmlspecialchars($canonical_url) ?>">
     <meta property="og:title" content="<?= htmlspecialchars($page_title) ?>">
     <meta property="og:description" content="<?= htmlspecialchars($page_desc) ?>">
@@ -156,12 +159,22 @@ function nav_active(string $page, string $path): string {
           "logo": "<?= SITE_URL ?>/logo-header.png",
           "image": "<?= SITE_URL ?>/logo-header.png",
           "foundingDate": "2020",
+          "founder": {
+            "@type": "Person",
+            "name": "Aniket Madhukarrao Kadam"
+          },
           "numberOfEmployees": {
             "@type": "QuantitativeValue",
-            "value": "500"
+            "value": "200+"
           },
           "slogan": "Your Global AI, IT & BPO Partner",
-          "description": "Vortexsoft Innovations Private Limited is an ISO 27001:2013 certified and HIPAA-compliant global IT and BPO company delivering 75+ services across AI solutions, Healthcare BPO/RCM, data annotation, custom software development, and publishing.",
+          "description": "Vortexsoft Innovations Private Limited is an ISO 27001:2013 certified and HIPAA-compliant global IT and BPO outsourcing company founded in 2020. Headquartered in Pune with a technology delivery center in Bengaluru and a corporate entity in Wyoming, USA, Vortexsoft delivers 75+ enterprise services across AI Solutions, Healthcare BPO/RCM, AI Data Annotation, Custom Software Development, and STM Publishing for 150+ international clients.",
+          "award": [
+            "ISO 27001:2013 Information Security Certified",
+            "ISO 9001:2015 Quality Management Certified",
+            "HIPAA Compliant Healthcare BPO Operations",
+            "Startup India Registered (DPIIT)"
+          ],
           "sameAs": [
             "https://www.linkedin.com/company/vortexsoft-innovations-private-limited/",
             "https://www.facebook.com/profile.php?id=61575505273718",
@@ -169,41 +182,40 @@ function nav_active(string $page, string $path): string {
           ],
           "knowsAbout": [
             "Healthcare Revenue Cycle Management (RCM)",
-            "Medical Coding ICD-10 & CPT",
+            "Medical Coding ICD-10-CM & CPT",
+            "Denial Management & Accounts Receivable Recovery",
             "AI Data Annotation & Computer Vision",
-            "Custom Web & Software Development",
-            "Agentic AI Automation",
-            "S1000D XML Conversion",
+            "3D LiDAR Point Cloud & Sensor Fusion Annotation",
+            "Reinforcement Learning from Human Feedback (RLHF)",
+            "Custom Web & Enterprise Software Development",
+            "Dedicated Offshore Development Center (ODC) India",
+            "Agentic AI Workflow Automation",
+            "S1000D XML Conversion & Prepress Typesetting",
+            "ePUB3 & Section 508 WCAG Accessibility Remediation",
             "Commercial Real Estate Lease Abstraction",
-            "ISO 27001:2013 Information Security",
-            "HIPAA Compliance Protocols",
-            "Enterprise HRMS & Payroll Automation"
+            "CAM Audit & Property Accounting",
+            "Mortgage Title Search & Settlement Typing",
+            "ISO 27001:2013 Information Security Protocols",
+            "HIPAA Compliance Data Standards",
+            "Enterprise HRMS & Autonomous Payroll Automation"
           ],
           "contactPoint": [
             {
               "@type": "ContactPoint",
               "telephone": "+91-8308906690",
               "contactType": "customer service",
-              "areaServed": ["IN", "US", "GB", "EU", "AU"],
+              "areaServed": ["IN", "US", "GB", "EU", "AU", "CA"],
               "availableLanguage": ["English", "Hindi"]
             },
             {
               "@type": "ContactPoint",
               "telephone": "+1-307-205-0681",
               "contactType": "sales",
-              "areaServed": "US",
+              "areaServed": ["US", "CA"],
               "availableLanguage": "English"
             }
           ],
           "address": [
-            {
-              "@type": "PostalAddress",
-              "streetAddress": "No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector",
-              "addressLocality": "Bengaluru",
-              "addressRegion": "Karnataka",
-              "postalCode": "560068",
-              "addressCountry": "IN"
-            },
             {
               "@type": "PostalAddress",
               "streetAddress": "502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk",
@@ -214,13 +226,170 @@ function nav_active(string $page, string $path): string {
             },
             {
               "@type": "PostalAddress",
+              "streetAddress": "No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector",
+              "addressLocality": "Bengaluru",
+              "addressRegion": "Karnataka",
+              "postalCode": "560068",
+              "addressCountry": "IN"
+            },
+            {
+              "@type": "PostalAddress",
               "streetAddress": "30 N Gould St Ste 100",
               "addressLocality": "Sheridan",
               "addressRegion": "WY",
               "postalCode": "82801",
               "addressCountry": "US"
             }
-          ]
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Vortexsoft Innovations Global Service Portfolio",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Healthcare BPO & Revenue Cycle Management (RCM)"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI Data Annotation & Computer Vision Training Data"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Software Engineering & Offshore Development Center"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Publishing Prepress, ePUB3 & S1000D XML Conversion"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Commercial Real Estate Lease Abstraction & CAM Reconciliation"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Mortgage Title Search & Settlement Support"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Offshore Bookkeeping, Financial Reporting & Payroll BPO"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Digital Marketing, SEO & B2B Lead Generation"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Dedicated Manpower Staffing & Workforce Solutions"}}
+            ]
+          }
+        },
+        {
+          "@type": ["LocalBusiness", "ProfessionalService"],
+          "@id": "<?= SITE_URL ?>/#headquarters-pune",
+          "name": "Vortexsoft Innovations Private Limited - Global Corporate Headquarters",
+          "legalName": "Vortexsoft Innovations Private Limited",
+          "alternateName": ["Vortexsoft Pune HQ", "Vortex Soft Pune"],
+          "url": "<?= SITE_URL ?>",
+          "telephone": "+91-8308906690",
+          "email": "support@vortexsoftinnovations.com",
+          "image": "<?= SITE_URL ?>/logo-header.png",
+          "hasMap": "https://share.google/XKt2SVYsKfiNqrVGx",
+          "priceRange": "$$",
+          "openingHours": "Mo-Sa 09:00-18:00",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk",
+            "addressLocality": "Pune",
+            "addressRegion": "Maharashtra",
+            "postalCode": "411041",
+            "addressCountry": "IN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 18.4792,
+            "longitude": 73.8329
+          }
+        },
+        {
+          "@type": ["LocalBusiness", "ProfessionalService"],
+          "@id": "<?= SITE_URL ?>/#delivery-center-bengaluru",
+          "name": "Vortexsoft Innovations Private Limited - Tech Delivery Center",
+          "alternateName": ["Vortexsoft Bengaluru Center", "Vortexsoft HSR Layout"],
+          "url": "<?= SITE_URL ?>",
+          "telephone": "+91-8308906690",
+          "email": "support@vortexsoftinnovations.com",
+          "priceRange": "$$",
+          "openingHours": "Mo-Sa 09:00-18:00",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector",
+            "addressLocality": "Bengaluru",
+            "addressRegion": "Karnataka",
+            "postalCode": "560068",
+            "addressCountry": "IN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 12.9226,
+            "longitude": 77.6258
+          }
+        },
+        {
+          "@type": ["LocalBusiness", "ProfessionalService"],
+          "@id": "<?= SITE_URL ?>/#us-entity-sheridan",
+          "name": "Vortexsoft Innovations Private Limited - USA Entity",
+          "alternateName": ["Vortexsoft Innovations USA"],
+          "url": "<?= SITE_URL ?>",
+          "telephone": "+1-307-205-0681",
+          "email": "support@vortexsoftinnovations.com",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "30 N Gould St Ste 100",
+            "addressLocality": "Sheridan",
+            "addressRegion": "WY",
+            "postalCode": "82801",
+            "addressCountry": "US"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 44.7972,
+            "longitude": -106.9562
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "<?= SITE_URL ?>/#vortexexho",
+          "name": "VortexEXHO",
+          "alternateName": "Vortex EXHO",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web Cloud",
+          "description": "Enterprise Workforce Operating System combining ATS, HRMS, payroll, LMS, and an AI copilot into a unified platform for mid-size and enterprise workforce operations.",
+          "creator": {"@type": "Organization", "name": "Vortexsoft Innovations Private Limited"}
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "<?= SITE_URL ?>/#vortexhire",
+          "name": "vortexHire",
+          "alternateName": "Vortex Hire",
+          "applicationCategory": "HumanResourcesApplication",
+          "operatingSystem": "Web Cloud",
+          "description": "AI candidate screening, resume parsing, multi-tier automated qualification, and predictive recruitment intelligence platform.",
+          "creator": {"@type": "Organization", "name": "Vortexsoft Innovations Private Limited"}
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "<?= SITE_URL ?>/#vortexkonnect",
+          "name": "vortexKonnect",
+          "alternateName": "Vortex Konnect",
+          "applicationCategory": "AnalyticsApplication",
+          "operatingSystem": "Web Cloud",
+          "description": "AI call center conversation analytics, acoustic sentiment intelligence, automated compliance auditing, and agent coaching platform.",
+          "creator": {"@type": "Organization", "name": "Vortexsoft Innovations Private Limited"}
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "<?= SITE_URL ?>/#vortexreach",
+          "name": "Vortexreach",
+          "alternateName": "Vortex Reach",
+          "applicationCategory": "SalesApplication",
+          "operatingSystem": "Web Cloud",
+          "description": "Autonomous B2B sales outreach, prospect intelligence research, personalized messaging drafting, and multi-channel sequencing platform.",
+          "creator": {"@type": "Organization", "name": "Vortexsoft Innovations Private Limited"}
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "<?= SITE_URL ?>/#vortexsoftpublishing",
+          "name": "vortexsoftpublishing",
+          "alternateName": "Vortexsoft Publishing",
+          "applicationCategory": "PublishingApplication",
+          "operatingSystem": "Web Cloud",
+          "description": "Automated publishing prepress engine for ePUB3/Kindle conversion, XML structuring (JATS, BITS, S1000D), and Section 508 / WCAG 2.1 AA accessibility tagging.",
+          "creator": {"@type": "Organization", "name": "Vortexsoft Innovations Private Limited"}
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "<?= SITE_URL ?>/#vortexsofthrms",
+          "name": "vortexsofthrms",
+          "alternateName": "Vortexsoft HRMS",
+          "applicationCategory": "HumanResourcesApplication",
+          "operatingSystem": "Web Cloud",
+          "description": "Enterprise Human Resource Management System with AI automations for autonomous payroll calculation, biometric attendance sync, automated employee onboarding, performance KPI appraisal, AI leave workflows, and predictive workforce analytics.",
+          "creator": {"@type": "Organization", "name": "Vortexsoft Innovations Private Limited"}
         },
         {
           "@type": "WebPage",
@@ -260,10 +429,9 @@ function nav_active(string $page, string $path): string {
     <!-- CSS -->
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fontawesome/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fontawesome/all.min.css"></noscript>
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fonts.css">
-    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-shared.css?v=20260810">
-    <style>.scroll-reveal,.scroll-reveal-left,.scroll-reveal-right{opacity:1;transform:none;}</style>
+    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-shared.css?v=20260917">
+    <style>@media (prefers-reduced-motion: reduce) { .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right { opacity: 1 !important; transform: none !important; transition: none !important; } }</style>
 
     <?php if (!empty($extra_head)) echo $extra_head; ?>
 </head>
@@ -355,7 +523,7 @@ function nav_active(string $page, string $path): string {
         <span class="topbar-sep d-none d-lg-inline-block"></span>
         <a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>" class="d-none d-lg-inline-flex"><i class="fas fa-phone"></i> <?= PHONE_INDIA ?></a>
         <span class="topbar-sep d-none d-xl-inline-block"></span>
-        <span class="d-none d-xl-inline-flex align-items-center gap-2"><i class="fas fa-map-marker-alt"></i> Bengaluru &amp; Pune, India</span>
+        <span class="d-none d-xl-inline-flex align-items-center gap-2"><i class="fas fa-map-marker-alt"></i> Pune HQ &amp; Bengaluru, India | USA</span>
       </div>
       <div class="topbar-social d-flex align-items-center gap-1">
         <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>

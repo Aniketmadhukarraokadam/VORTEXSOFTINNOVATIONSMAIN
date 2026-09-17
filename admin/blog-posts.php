@@ -32,23 +32,29 @@ if ($db) {
 
         // Create or Edit Post
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $title      = sanitize($_POST['title'] ?? '');
-            $slug       = slugify($_POST['slug'] ?? $title);
-            $category   = sanitize($_POST['category'] ?? 'General');
-            $excerpt    = sanitize($_POST['excerpt'] ?? '');
-            $content    = $_POST['content'] ?? ''; // rich content
-            $author     = sanitize($_POST['author'] ?? 'Vortexsoft Team');
-            $published  = isset($_POST['is_published']) ? 1 : 0;
-            $featured   = isset($_POST['is_featured']) ? 1 : 0;
-            $edit_id    = (int)($_POST['edit_id'] ?? 0);
+            if (!verify_csrf()) {
+                header('Location: blog-posts.php?error=csrf'); exit;
+            }
+            $title       = sanitize($_POST['title'] ?? '');
+            $slug        = slugify($_POST['slug'] ?? $title);
+            $category    = sanitize($_POST['category'] ?? 'General');
+            $excerpt     = sanitize($_POST['excerpt'] ?? '');
+            $content     = $_POST['content'] ?? ''; // rich content
+            $author      = sanitize($_POST['author'] ?? 'Vortexsoft Team');
+            $cover_image = sanitize($_POST['cover_image'] ?? '');
+            $meta_title  = sanitize($_POST['meta_title'] ?? $title);
+            $meta_desc   = sanitize($_POST['meta_desc'] ?? $excerpt);
+            $published   = isset($_POST['is_published']) ? 1 : 0;
+            $featured    = isset($_POST['is_featured']) ? 1 : 0;
+            $edit_id     = (int)($_POST['edit_id'] ?? 0);
 
             if (!empty($title)) {
                 if ($edit_id) {
-                    $stmt = $db->prepare("UPDATE blog_posts SET title=:t, slug=:s, category=:c, excerpt=:e, content=:cnt, author=:a, is_published=:p, is_featured=:f WHERE id=:id");
-                    $stmt->execute([':t'=>$title,':s'=>$slug,':c'=>$category,':e'=>$excerpt,':cnt'=>$content,':a'=>$author,':p'=>$published,':f'=>$featured,':id'=>$edit_id]);
+                    $stmt = $db->prepare("UPDATE blog_posts SET title=:t, slug=:s, category=:c, excerpt=:e, content=:cnt, author=:a, cover_image=:img, meta_title=:mt, meta_desc=:md, is_published=:p, is_featured=:f, updated_at=NOW() WHERE id=:id");
+                    $stmt->execute([':t'=>$title,':s'=>$slug,':c'=>$category,':e'=>$excerpt,':cnt'=>$content,':a'=>$author,':img'=>$cover_image ?: null,':mt'=>$meta_title,':md'=>$meta_desc,':p'=>$published,':f'=>$featured,':id'=>$edit_id]);
                 } else {
-                    $stmt = $db->prepare("INSERT INTO blog_posts (title, slug, category, excerpt, content, author, is_published, is_featured, published_at) VALUES (:t, :s, :c, :e, :cnt, :a, :p, :f, NOW())");
-                    $stmt->execute([':t'=>$title,':s'=>$slug,':c'=>$category,':e'=>$excerpt,':cnt'=>$content,':a'=>$author,':p'=>$published,':f'=>$featured]);
+                    $stmt = $db->prepare("INSERT INTO blog_posts (title, slug, category, excerpt, content, author, cover_image, meta_title, meta_desc, is_published, is_featured, published_at, created_at, updated_at) VALUES (:t, :s, :c, :e, :cnt, :a, :img, :mt, :md, :p, :f, NOW(), NOW(), NOW())");
+                    $stmt->execute([':t'=>$title,':s'=>$slug,':c'=>$category,':e'=>$excerpt,':cnt'=>$content,':a'=>$author,':img'=>$cover_image ?: null,':mt'=>$meta_title,':md'=>$meta_desc,':p'=>$published,':f'=>$featured]);
                 }
                 header('Location: blog-posts.php?msg=saved'); exit;
             }
@@ -177,22 +183,29 @@ tr:hover td{background:#fafbff}
 
   <!-- Blog Posts Table -->
   <div class="table-card">
-    <div class="table-card-header">
-      <h5>All Posts (<?= count($posts) ?>)</h5>
+    <div class="table-card-header d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <h5 class="mb-0">All Posts (<span id="postCount"><?= count($posts) ?></span>)</h5>
+      <div class="d-flex align-items-center gap-2">
+        <div class="input-group input-group-sm" style="width:260px;">
+          <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+          <input type="text" id="postSearchInput" class="form-control" placeholder="Search by title, category, author...">
+        </div>
+        <a href="blog/generate.php" class="btn btn-sm text-white" style="background:#1C2280;border-radius:6px;white-space:nowrap;"><i class="fas fa-robot me-1"></i> AI Generate</a>
+      </div>
     </div>
     <div style="overflow-x:auto;">
-      <table>
+      <table id="postsTable">
         <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Author</th><th>Views</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody>
           <?php if(empty($posts)): ?>
-          <tr><td colspan="7" style="text-align:center;padding:40px;color:#94a3b8;"><i class="fas fa-pen-alt" style="font-size:32px;display:block;margin-bottom:12px;opacity:.3;"></i> No blog posts yet. Click "New Blog Post" to publish one.</td></tr>
+          <tr id="emptyRow"><td colspan="7" style="text-align:center;padding:40px;color:#94a3b8;"><i class="fas fa-pen-alt" style="font-size:32px;display:block;margin-bottom:12px;opacity:.3;"></i> No blog posts yet. Click "New Blog Post" to publish one.</td></tr>
           <?php else: ?>
           <?php foreach($posts as $p): ?>
-          <tr>
+          <tr class="post-row">
             <td style="color:#94a3b8;font-size:12px;">#<?= $p['id'] ?></td>
-            <td style="font-weight:600;max-width:320px;"><?= htmlspecialchars($p['title']) ?></td>
-            <td><span class="badge" style="background:rgba(28,34,128,.08);color:#1C2280;"><?= htmlspecialchars($p['category']) ?></span></td>
-            <td style="font-size:13px;color:#64748b;"><?= htmlspecialchars($p['author']) ?></td>
+            <td style="font-weight:600;max-width:320px;" class="post-title-cell"><?= htmlspecialchars($p['title']) ?></td>
+            <td><span class="badge post-cat-cell" style="background:rgba(28,34,128,.08);color:#1C2280;"><?= htmlspecialchars($p['category']) ?></span></td>
+            <td style="font-size:13px;color:#64748b;" class="post-author-cell"><?= htmlspecialchars($p['author']) ?></td>
             <td style="font-size:13px;"><?= number_format($p['views']) ?></td>
             <td><span class="status-badge <?= $p['is_published']?'badge-published':'badge-draft' ?>"><?= $p['is_published']?'Published':'Draft' ?></span></td>
             <td>
@@ -212,6 +225,7 @@ tr:hover td{background:#fafbff}
   <div style="background:#fff;border-radius:16px;border:1px solid #e8ecff;padding:32px;margin-top:24px;<?= $edit_post?'':'display:none;' ?>" id="postEditorModal">
     <h4 style="font-family:'Poppins',sans-serif;font-weight:700;color:#1C2280;margin-bottom:20px;"><?= $edit_post ? 'Edit Blog Post #'.$edit_post['id'] : 'Create New Blog Post' ?></h4>
     <form method="POST" action="blog-posts.php">
+      <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
       <input type="hidden" name="edit_id" value="<?= $edit_post['id'] ?? 0 ?>">
       <div class="row g-3">
         <div class="col-md-8">
@@ -235,8 +249,20 @@ tr:hover td{background:#fafbff}
           <input type="text" name="author" class="form-control" value="<?= htmlspecialchars($edit_post['author'] ?? 'Vortexsoft Team') ?>">
         </div>
         <div class="col-12">
-          <label class="form-label fw-semibold">Short Excerpt</label>
+          <label class="form-label fw-semibold">Featured Cover Image URL</label>
+          <input type="text" name="cover_image" class="form-control" placeholder="/uploads/blog/cover-banner.jpg or https://..." value="<?= htmlspecialchars($edit_post['cover_image'] ?? '') ?>">
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-semibold">Short Excerpt (Meta Description)</label>
           <textarea name="excerpt" class="form-control" rows="2" placeholder="Brief 2-sentence summary..."><?= htmlspecialchars($edit_post['excerpt'] ?? '') ?></textarea>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">SEO Meta Title (Optional)</label>
+          <input type="text" name="meta_title" class="form-control" placeholder="Leave blank to use post title" value="<?= htmlspecialchars($edit_post['meta_title'] ?? '') ?>">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">SEO Meta Description (Optional)</label>
+          <input type="text" name="meta_desc" class="form-control" placeholder="Leave blank to use excerpt" value="<?= htmlspecialchars($edit_post['meta_desc'] ?? '') ?>">
         </div>
         <div class="col-12">
           <label class="form-label fw-semibold">Post Content (HTML allowed)</label>
@@ -265,6 +291,26 @@ document.getElementById('sidebarToggleBtn')?.addEventListener('click', function(
 });
 document.getElementById('sidebarCloseBtn')?.addEventListener('click', function(){
   document.getElementById('adminSidebar').classList.remove('show');
+});
+
+// Live filter posts table
+document.getElementById('postSearchInput')?.addEventListener('input', function(){
+  var q = this.value.toLowerCase().trim();
+  var rows = document.querySelectorAll('.post-row');
+  var visibleCount = 0;
+  rows.forEach(function(row){
+    var title = row.querySelector('.post-title-cell')?.textContent.toLowerCase() || '';
+    var cat = row.querySelector('.post-cat-cell')?.textContent.toLowerCase() || '';
+    var author = row.querySelector('.post-author-cell')?.textContent.toLowerCase() || '';
+    if (!q || title.includes(q) || cat.includes(q) || author.includes(q)) {
+      row.style.display = '';
+      visibleCount++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+  var counter = document.getElementById('postCount');
+  if (counter) counter.textContent = visibleCount;
 });
 </script>
 </body>

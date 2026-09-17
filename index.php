@@ -10,30 +10,42 @@ $canonical_url = 'https://www.vortexsoftinnovations.com/';
 
 $prefix       = './';
 
+$page_keywords = 'Vortexsoft, Vortexsoft Innovations, Vortexsoft Innovations Private Limited, Vortex Soft, Vortex Innovations, Vortex, Vertex, IT outsourcing company India, BPO company Pune, BPO company Bengaluru, AI solutions company India, Healthcare BPO India, Medical Coding outsourcing, ICD-10 CPT medical billing services, Revenue Cycle Management RCM outsourcing, denial management AR recovery, AI Data Annotation India, machine learning training datasets, computer vision bounding box annotation, LiDAR 3D point cloud labeling, RLHF training data outsourcing, Enterprise Workforce OS, VortexEXHO, vortexHire, vortexKonnect, Vortexreach, vortexsoftpublishing, vortexsofthrms, S1000D XML conversion, prepress typesetting outsourcing, commercial lease abstraction services, CAM audit property accounting, mortgage title search settlement typing, offshore development center India, ISO 27001 BPO company, HIPAA compliant healthcare outsourcing, AI HRMS payroll automation';
+
 $extra_head = '
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":["Organization","LocalBusiness","ProfessionalService"],"@id":"https://www.vortexsoftinnovations.com/#organization","name":"Vortexsoft Innovations Private Limited","alternateName":["Vortexsoft Innovations Pvt. Ltd.","Vortexsoft","Vortex Soft","Vortex Innovations","Vortex","Vertex","Vortex Group"],"url":"https://www.vortexsoftinnovations.com","logo":{"@type":"ImageObject","url":"https://www.vortexsoftinnovations.com/logo-header.png","width":"400","height":"100"},"description":"Vortexsoft Innovations Private Limited is an ISO 27001:2013 certified and HIPAA-compliant global IT outsourcing, AI development, and BPO company founded in 2020, headquartered in Pune and Bengaluru, India, with a U.S. corporate entity in Sheridan, Wyoming.","foundingDate":"2020","numberOfEmployees":{"@type":"QuantitativeValue","value":"500"},"slogan":"Your Global AI, IT & BPO Partner","telephone":["+91-8308906690","+1-307-205-0681"],"email":"support@vortexsoftinnovations.com","openingHours":"Mo-Sa 09:00-18:00","award":["ISO 27001:2013 Certified","Startup India Registered","HIPAA Compliant Operations"],"sameAs":["https://www.linkedin.com/company/vortexsoft-innovations-private-limited/","https://www.instagram.com/vortexsoft_innovations","https://www.facebook.com/profile.php?id=61575505273718"],"knowsAbout":["Healthcare Revenue Cycle Management (RCM)","Medical Coding ICD-10 & CPT","AI Data Annotation & Computer Vision","Custom Web & Software Development","Agentic AI Automation","S1000D XML Conversion","Commercial Real Estate Lease Abstraction","ISO 27001:2013 Information Security","HIPAA Compliance Protocols","Enterprise HRMS & Payroll Automation"],"address":[{"@type":"PostalAddress","streetAddress":"502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk","addressLocality":"Pune","addressRegion":"Maharashtra","postalCode":"411041","addressCountry":"IN"},{"@type":"PostalAddress","streetAddress":"No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector","addressLocality":"Bengaluru","addressRegion":"Karnataka","postalCode":"560068","addressCountry":"IN"},{"@type":"PostalAddress","streetAddress":"30 N Gould St Ste 100","addressLocality":"Sheridan","addressRegion":"WY","postalCode":"82801","addressCountry":"US"}]},{"@type":"SoftwareApplication","@id":"https://www.vortexsoftinnovations.com/#vortexexho","name":"VortexEXHO","alternateName":"Vortex EXHO","applicationCategory":"BusinessApplication","operatingSystem":"Web Cloud","description":"Enterprise Workforce Operating System combining ATS, HRMS, payroll, LMS, and an AI copilot into a unified platform for mid-size and enterprise workforce operations.","creator":{"@type":"Organization","name":"Vortexsoft Innovations Private Limited"}},{"@type":"SoftwareApplication","@id":"https://www.vortexsoftinnovations.com/#vortexhire","name":"vortexHire","alternateName":"Vortex Hire","applicationCategory":"HumanResourcesApplication","operatingSystem":"Web Cloud","description":"AI candidate screening, resume parsing, multi-tier automated qualification, and predictive recruitment intelligence platform.","creator":{"@type":"Organization","name":"Vortexsoft Innovations Private Limited"}},{"@type":"SoftwareApplication","@id":"https://www.vortexsoftinnovations.com/#vortexkonnect","name":"vortexKonnect","alternateName":"Vortex Konnect","applicationCategory":"AnalyticsApplication","operatingSystem":"Web Cloud","description":"AI call center conversation analytics, acoustic sentiment intelligence, automated compliance auditing, and agent coaching platform.","creator":{"@type":"Organization","name":"Vortexsoft Innovations Private Limited"}},{"@type":"SoftwareApplication","@id":"https://www.vortexsoftinnovations.com/#vortexreach","name":"Vortexreach","alternateName":"Vortex Reach","applicationCategory":"SalesApplication","operatingSystem":"Web Cloud","description":"Autonomous B2B sales outreach, prospect intelligence research, personalized messaging drafting, and multi-channel sequencing platform.","creator":{"@type":"Organization","name":"Vortexsoft Innovations Private Limited"}},{"@type":"SoftwareApplication","@id":"https://www.vortexsoftinnovations.com/#vortexsoftpublishing","name":"vortexsoftpublishing","alternateName":"Vortexsoft Publishing","applicationCategory":"PublishingApplication","operatingSystem":"Web Cloud","description":"Automated publishing prepress engine for ePUB3/Kindle conversion, XML structuring (JATS, BITS, S1000D), and Section 508 / WCAG 2.1 AA accessibility tagging.","creator":{"@type":"Organization","name":"Vortexsoft Innovations Private Limited"}},{"@type":"SoftwareApplication","@id":"https://www.vortexsoftinnovations.com/#vortexsofthrms","name":"vortexsofthrms","alternateName":"Vortexsoft HRMS","applicationCategory":"HumanResourcesApplication","operatingSystem":"Web Cloud","description":"Enterprise Human Resource Management System with AI automations for autonomous payroll calculation, biometric attendance sync, automated employee onboarding, performance KPI appraisal, AI leave workflows, and predictive workforce analytics.","creator":{"@type":"Organization","name":"Vortexsoft Innovations Private Limited"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is healthcare RCM outsourcing and how does it work?","acceptedAnswer":{"@type":"Answer","text":"Revenue cycle management (RCM) outsourcing means an external partner handles medical coding, billing, claims submission, denial management, and accounts receivable recovery on behalf of a healthcare provider. Vortexsoft Innovations manages this end-to-end under HIPAA-compliant processes, reducing claim rejections and accelerating provider cash flow without the provider hiring an in-house billing team."}},{"@type":"Question","name":"How much does medical coding outsourcing cost in India?","acceptedAnswer":{"@type":"Answer","text":"Medical coding outsourcing costs vary by claim volume, specialty complexity, and service scope (coding-only vs. full RCM). Vortexsoft Innovations prices per-claim for smaller practices and offers monthly retainer models for ongoing volume — request a custom quote based on your claim mix for an accurate figure."}},{"@type":"Question","name":"How does denial management reduce claim rejections?","acceptedAnswer":{"@type":"Answer","text":"Denial management identifies why claims were rejected, corrects the root cause (coding errors, missing documentation, eligibility issues), and resubmits within payer deadlines. Vortexsoft Innovations denial management service tracks rejection patterns across a providers claims to prevent repeat denials, directly improving first-pass claim acceptance rates."}},{"@type":"Question","name":"What does a data annotation company do?","acceptedAnswer":{"@type":"Answer","text":"A data annotation company labels raw data — images, video, audio, or text — so machine learning models can learn from it. Vortexsoft Innovations provides image, video, audio, and text annotation services for AI/ML training pipelines, with human annotators trained on client-specific labeling guidelines and quality benchmarks."}},{"@type":"Question","name":"What is the difference between image annotation and video annotation?","acceptedAnswer":{"@type":"Answer","text":"Image annotation labels objects, boundaries, or attributes within single still frames (bounding boxes, segmentation, classification). Video annotation extends this across sequential frames, tracking objects and actions over time. Vortexsoft Innovations offers both, supporting use cases from computer vision model training to autonomous systems development."}},{"@type":"Question","name":"How do I choose an offshore software development partner?","acceptedAnswer":{"@type":"Answer","text":"Evaluate an offshore partner on data security certifications (ISO 27001), portfolio relevance to your industry, communication process, and time-zone overlap. Vortexsoft Innovations is ISO 27001:2013 certified, headquartered in Pune with a Bengaluru office and U.S. entity in Wyoming, offering both dedicated development pods and fixed-scope project delivery."}},{"@type":"Question","name":"What is S1000D XML conversion used for?","acceptedAnswer":{"@type":"Answer","text":"S1000D is an international specification for technical publications, commonly used in aerospace, defense, and complex equipment manufacturing. S1000D XML conversion restructures technical documentation into this standardized, modular XML format for consistent, reusable publishing. Vortexsoft Innovations provides S1000D conversion as part of its technical publication services."}},{"@type":"Question","name":"What is lease abstraction in commercial real estate?","acceptedAnswer":{"@type":"Answer","text":"Lease abstraction is the process of extracting key terms — rent, dates, renewal options, obligations — from a full lease document into a concise, structured summary. Vortexsoft Innovations provides lease abstraction services for commercial real estate portfolios, helping asset managers and title companies quickly reference critical lease data without re-reading full contracts."}},{"@type":"Question","name":"Is Vortexsoft Innovations ISO 27001 certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Vortexsoft Innovations Pvt. Ltd. is ISO 27001:2013 certified for information security management, and its healthcare operations additionally follow HIPAA-compliant data handling practices — relevant for clients evaluating data security before outsourcing sensitive processes like medical billing or financial data handling."}},{"@type":"Question","name":"What industries does Vortexsoft Innovations serve?","acceptedAnswer":{"@type":"Answer","text":"Vortexsoft Innovations serves healthcare, finance, real estate, publishing, education, and technology clients, delivering services across Healthcare BPO/RCM, custom software development, AI data annotation, publishing, real estate title & settlement, accounting & payroll, digital marketing, and staffing — from offices in Pune, Bengaluru, and a U.S. entity in Wyoming."}},{"@type":"Question","name":"What is VortexEXHO?","acceptedAnswer":{"@type":"Answer","text":"VortexEXHO is Vortexsofts Enterprise Workforce Operating System — a unified platform combining ATS, HRMS, payroll, LMS, and an AI copilot into one system, built to replace fragmented point solutions for mid-size and enterprise HR and workforce operations."}},{"@type":"Question","name":"What is vortexHire and how does it screen candidates?","acceptedAnswer":{"@type":"Answer","text":"vortexHire is Vortexsofts AI hiring platform, designed to automate candidate sourcing, resume screening, and initial qualification against role requirements — reducing manual screening time for recruiters and staffing teams while surfacing better-matched candidates faster."}},{"@type":"Question","name":"What is vortexKonnect used for in call centers?","acceptedAnswer":{"@type":"Answer","text":"vortexKonnect is Vortexsofts call analytics platform, analyzing call center conversations for quality monitoring, agent performance, and customer sentiment — giving call center managers visibility into call outcomes without manual call review."}},{"@type":"Question","name":"How does Vortexreach automate B2B outreach?","acceptedAnswer":{"@type":"Answer","text":"Vortexreach is Vortexsofts AI outreach automation platform, handling lead research, personalized message drafting, and multi-channel outreach sequencing for B2B sales and business development teams, reducing manual prospecting time while keeping outreach personalized."}},{"@type":"Question","name":"What is vortexsoftpublishing and how does it automate publishing?","acceptedAnswer":{"@type":"Answer","text":"vortexsoftpublishing is Vortexsofts proprietary automated publishing platform designed for academic publishers, STM journal editors, and authors. It automates ePUB3/Kindle conversion, XML restructuring (JATS, BITS, S1000D), WCAG 2.1 AA / Section 508 / PDF/UA accessibility tagging, and preflight typesetting — delivering 5x faster publishing turnarounds with 99.9% accuracy."}},{"@type":"Question","name":"What is vortexsofthrms?","acceptedAnswer":{"@type":"Answer","text":"vortexsofthrms is Vortexsofts enterprise Human Resource Management System with AI automations — streamlining autonomous payroll calculation, biometric attendance sync, automated employee onboarding, performance KPI appraisal, AI leave workflows, and predictive workforce analytics."}}]}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is healthcare RCM outsourcing and how does it work?","acceptedAnswer":{"@type":"Answer","text":"Revenue cycle management (RCM) outsourcing means an external partner handles medical coding, billing, claims submission, denial management, and accounts receivable recovery on behalf of a healthcare provider. Vortexsoft Innovations manages this end-to-end under HIPAA-compliant processes, reducing claim rejections and accelerating provider cash flow without the provider hiring an in-house billing team."}},{"@type":"Question","name":"How much does medical coding outsourcing cost in India?","acceptedAnswer":{"@type":"Answer","text":"Medical coding outsourcing costs vary by claim volume, specialty complexity, and service scope (coding-only vs. full RCM). Vortexsoft Innovations prices per-claim for smaller practices and offers monthly retainer models for ongoing volume — request a custom quote based on your claim mix for an accurate figure."}},{"@type":"Question","name":"How does denial management reduce claim rejections?","acceptedAnswer":{"@type":"Answer","text":"Denial management identifies why claims were rejected, corrects the root cause (coding errors, missing documentation, eligibility issues), and resubmits within payer deadlines. Vortexsoft Innovations denial management service tracks rejection patterns across a providers claims to prevent repeat denials, directly improving first-pass claim acceptance rates."}},{"@type":"Question","name":"What does a data annotation company do?","acceptedAnswer":{"@type":"Answer","text":"A data annotation company labels raw data — images, video, audio, or text — so machine learning models can learn from it. Vortexsoft Innovations provides image, video, audio, and text annotation services for AI/ML training pipelines, with human annotators trained on client-specific labeling guidelines and quality benchmarks."}},{"@type":"Question","name":"What is the difference between image annotation and video annotation?","acceptedAnswer":{"@type":"Answer","text":"Image annotation labels objects, boundaries, or attributes within single still frames (bounding boxes, segmentation, classification). Video annotation extends this across sequential frames, tracking objects and actions over time. Vortexsoft Innovations offers both, supporting use cases from computer vision model training to autonomous systems development."}},{"@type":"Question","name":"How do I choose an offshore software development partner?","acceptedAnswer":{"@type":"Answer","text":"Evaluate an offshore partner on data security certifications (ISO 27001), portfolio relevance to your industry, communication process, and time-zone overlap. Vortexsoft Innovations is ISO 27001:2013 certified, headquartered in Pune with a Bengaluru office and U.S. entity in Wyoming, offering both dedicated development pods and fixed-scope project delivery."}},{"@type":"Question","name":"What is S1000D XML conversion used for?","acceptedAnswer":{"@type":"Answer","text":"S1000D is an international specification for technical publications, commonly used in aerospace, defense, and complex equipment manufacturing. S1000D XML conversion restructures technical documentation into this standardized, modular XML format for consistent, reusable publishing. Vortexsoft Innovations provides S1000D conversion as part of its technical publication services."}},{"@type":"Question","name":"What is lease abstraction in commercial real estate?","acceptedAnswer":{"@type":"Answer","text":"Lease abstraction is the process of extracting key terms — rent, dates, renewal options, obligations — from a full lease document into a concise, structured summary. Vortexsoft Innovations provides lease abstraction services for commercial real estate portfolios, helping asset managers and title companies quickly reference critical lease data without re-reading full contracts."}},{"@type":"Question","name":"Is Vortexsoft Innovations ISO 27001 certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Vortexsoft Innovations Pvt. Ltd. is ISO 27001:2013 certified for information security management, and its healthcare operations additionally follow HIPAA-compliant data handling practices — relevant for clients evaluating data security before outsourcing sensitive processes like medical billing or financial data handling."}},{"@type":"Question","name":"What industries does Vortexsoft Innovations serve?","acceptedAnswer":{"@type":"Answer","text":"Vortexsoft Innovations serves healthcare, finance, real estate, publishing, education, and technology clients, delivering services across Healthcare BPO/RCM, custom software development, AI data annotation, publishing, real estate title & settlement, accounting & payroll, digital marketing, and staffing — from offices in Pune, Bengaluru, and a U.S. entity in Wyoming."}},{"@type":"Question","name":"What is VortexEXHO?","acceptedAnswer":{"@type":"Answer","text":"VortexEXHO is Vortexsofts Enterprise Workforce Operating System — a unified platform combining ATS, HRMS, payroll, LMS, and an AI copilot into one system, built to replace fragmented point solutions for mid-size and enterprise HR and workforce operations."}},{"@type":"Question","name":"What is vortexHire and how does it screen candidates?","acceptedAnswer":{"@type":"Answer","text":"vortexHire is Vortexsofts AI hiring platform, designed to automate candidate sourcing, resume screening, and initial qualification against role requirements — reducing manual screening time for recruiters and staffing teams while surfacing better-matched candidates faster."}},{"@type":"Question","name":"What is vortexKonnect used for in call centers?","acceptedAnswer":{"@type":"Answer","text":"vortexKonnect is Vortexsofts call analytics platform, analyzing call center conversations for quality monitoring, agent performance, and customer sentiment — giving call center managers visibility into call outcomes without manual call review."}},{"@type":"Question","name":"How does Vortexreach automate B2B outreach?","acceptedAnswer":{"@type":"Answer","text":"Vortexreach is Vortexsofts AI outreach automation platform, handling lead research, personalized message drafting, and multi-channel outreach sequencing for B2B sales and business development teams, reducing manual prospecting time while keeping outreach personalized."}},{"@type":"Question","name":"What is vortexsoftpublishing and how does it automate publishing?","acceptedAnswer":{"@type":"Answer","text":"vortexsoftpublishing is Vortexsofts proprietary automated publishing platform designed for academic publishers, STM journal editors, and authors. It automates ePUB3/Kindle conversion, XML restructuring (JATS, BITS, S1000D), WCAG 2.1 AA / Section 508 / PDF/UA accessibility tagging, and preflight typesetting — delivering 5x faster publishing turnarounds with 99.9% accuracy."}},{"@type":"Question","name":"What is vortexsofthrms?","acceptedAnswer":{"@type":"Answer","text":"vortexsofthrms is Vortexsofts enterprise Human Resource Management System with AI automations — streamlining autonomous payroll calculation, biometric attendance sync, automated employee onboarding, performance KPI appraisal, AI leave workflows, and predictive workforce analytics."}}]}
 </script>
 
 <style>
 /* ── HERO ─────────────────────────────────────────── */
-:root{--primary:#1C2280;--primary-dark:#13175e;--primary-light:#2d35c4;--primary-glow:rgba(28,34,128,0.28);--accent:#CC2228;--accent-dark:#9e1a1f;--accent-light:#e63940;--accent-glow:rgba(204,34,40,0.28);--cyan:#5BA8D4;--dark:#080B1A;--secondary:#0D1035;--text-dark:#0D0F2B;--text-muted:#5f6880;--bg-light:#f0f2ff;--border-light:#dde2f5;--gradient-primary:linear-gradient(135deg,#1C2280 0%,#2d35c4 60%,#5BA8D4 100%);--gradient-hero:#fafafc;--gradient-accent:linear-gradient(135deg,#CC2228 0%,#e63940 100%);--gradient-mixed:linear-gradient(135deg,#1C2280 0%,#CC2228 100%);--shadow-sm:0 1px 4px rgba(28,34,128,0.08);--shadow-md:0 4px 20px rgba(28,34,128,0.14),0 2px 8px rgba(0,0,0,0.05);--shadow-lg:0 10px 40px rgba(28,34,128,0.18),0 4px 16px rgba(0,0,0,0.07);--shadow-hover:0 20px 60px rgba(28,34,128,0.22),0 8px 24px rgba(0,0,0,0.1);--radius:12px;--radius-lg:20px;--transition:all .3s cubic-bezier(0.4,0,0.2,1);--transition-slow:all .55s cubic-bezier(0.4,0,0.2,1)}
+:root{--primary:#1C2280;--primary-dark:#13175e;--primary-light:#2d35c4;--primary-glow:rgba(28,34,128,0.28);--accent:#CC2228;--accent-dark:#9e1a1f;--accent-light:#e63940;--accent-glow:rgba(204,34,40,0.28);--cyan:#5BA8D4;--dark:#080B1A;--secondary:#0D1035;--text-dark:#0D0F2B;--text-muted:#5f6880;--bg-light:#f0f2ff;--border-light:#dde2f5;--gradient-primary:linear-gradient(135deg,#1C2280 0%,#2d35c4 60%,#5BA8D4 100%);--gradient-hero:linear-gradient(155deg,#f8faff 0%,#eef2ff 30%,#f0f4fc 60%,#fafcff 100%);--gradient-accent:linear-gradient(135deg,#CC2228 0%,#e63940 100%);--gradient-mixed:linear-gradient(135deg,#1C2280 0%,#CC2228 100%);--shadow-sm:0 1px 4px rgba(28,34,128,0.08);--shadow-md:0 4px 20px rgba(28,34,128,0.14),0 2px 8px rgba(0,0,0,0.05);--shadow-lg:0 10px 40px rgba(28,34,128,0.18),0 4px 16px rgba(0,0,0,0.07);--shadow-hover:0 20px 60px rgba(28,34,128,0.22),0 8px 24px rgba(0,0,0,0.1);--radius:12px;--radius-lg:20px;--transition:all .3s cubic-bezier(0.4,0,0.2,1);--transition-slow:all .55s cubic-bezier(0.4,0,0.2,1)}
 .hero-section{min-height:92vh;background:var(--gradient-hero);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:24px 0 16px;}
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.hero-section::before{content:\'\';position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);background-size:45px 45px;z-index:1;pointer-events:none}
-.hero-section::after{content:\'\';position:absolute;inset:0;background:radial-gradient(circle at 80% 30%,rgba(28,34,128,.09) 0%,transparent 45%),radial-gradient(circle at 10% 80%,rgba(204,34,40,.07) 0%,transparent 50%);z-index:1;pointer-events:none;animation:pulse-glow 8s infinite alternate ease-in-out}
-@keyframes pulse-glow{0%{opacity:.8;transform:scale(1)}100%{opacity:1;transform:scale(1.05)}}
+.hero-section::before{content:\'\';position:absolute;inset:0;background-image:linear-gradient(rgba(28,34,128,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(28,34,128,.025) 1px,transparent 1px);background-size:48px 48px;z-index:1;pointer-events:none}
+.hero-section::after{content:\'\';position:absolute;inset:0;background:radial-gradient(ellipse at 78% 25%,rgba(28,34,128,.11) 0%,transparent 50%),radial-gradient(ellipse at 8% 80%,rgba(204,34,40,.09) 0%,transparent 45%),radial-gradient(ellipse at 50% 110%,rgba(91,168,212,.07) 0%,transparent 50%);z-index:1;pointer-events:none;animation:heroBgPulse 9s ease-in-out infinite alternate}
+@keyframes heroBgPulse{0%{opacity:.7}100%{opacity:1}}
+@keyframes heroFadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes heroFadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes heroScaleIn{from{opacity:0;transform:scale(.92) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.hero-badge-anim{animation:heroFadeUp .7s cubic-bezier(.22,1,.36,1) both}
+.hero-title-anim{animation:heroFadeUp .78s .1s cubic-bezier(.22,1,.36,1) both}
+.hero-desc-anim{animation:heroFadeIn .7s .24s cubic-bezier(.22,1,.36,1) both}
+.hero-btns-anim{animation:heroFadeIn .7s .36s cubic-bezier(.22,1,.36,1) both}
+.hero-strip-anim{animation:heroFadeIn .72s .48s cubic-bezier(.22,1,.36,1) both}
+.hero-stats-anim{animation:heroFadeIn .8s .6s cubic-bezier(.22,1,.36,1) both}
+.hero-stage-anim{animation:heroScaleIn .9s .12s cubic-bezier(.22,1,.36,1) both}
 @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.02)}}
 .floating-shape{position:absolute;border-radius:50%;pointer-events:none;z-index:1}
-.shape-1{width:80px;height:80px;background:linear-gradient(135deg,rgba(204,34,40,.2),transparent);top:15%;left:5%;animation:float 5s infinite alternate ease-in-out}
-.shape-2{width:140px;height:140px;background:linear-gradient(135deg,rgba(28,34,128,.08),transparent);bottom:20%;right:6%;animation:float 7s infinite alternate-reverse ease-in-out}
-.shape-3{width:50px;height:50px;background:radial-gradient(circle,rgba(91,168,212,.3),transparent);top:45%;left:12%;animation:float 4s infinite alternate ease-in-out}
+.shape-1{width:90px;height:90px;background:radial-gradient(circle,rgba(204,34,40,.18),transparent 70%);top:14%;left:4%;animation:float 5.5s 0s infinite alternate ease-in-out;filter:blur(2px)}
+.shape-2{width:160px;height:160px;background:radial-gradient(circle,rgba(28,34,128,.1),transparent 70%);bottom:18%;right:5%;animation:float 7.5s .8s infinite alternate-reverse ease-in-out;filter:blur(4px)}
+.shape-3{width:60px;height:60px;background:radial-gradient(circle,rgba(91,168,212,.35),transparent 70%);top:42%;left:10%;animation:float 4.2s .4s infinite alternate ease-in-out;filter:blur(1px)}
 .hero-content{position:relative;z-index:2}
-.hero-title{font-size:clamp(2.3rem,3.8vw,3.6rem);font-weight:800;color:#1e293b;line-height:1.15;margin-bottom:18px}
-.hero-title .typed-wrapper{background:linear-gradient(90deg,#CC2228,#1C2280,#5BA8D4,#CC2228);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:text-pulse 4s linear infinite;min-height:1.2em;display:inline-block}
-@keyframes text-pulse{0%{background-position:0% center}100%{background-position:300% center}}
-.hero-title .cursor{display:inline-block;width:3px;height:1.1em;background:var(--accent);animation:blink .8s steps(1) infinite;vertical-align:middle;margin-left:2px;-webkit-text-fill-color:var(--accent)}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-title{font-size:clamp(2.3rem,3.8vw,3.6rem);font-weight:800;color:#0f172a;line-height:1.13;margin-bottom:18px;letter-spacing:-.01em}
+.hero-title .typed-wrapper{background:linear-gradient(100deg,#CC2228 0%,#1C2280 40%,#5BA8D4 75%,#CC2228 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:typedGradientSlide 5s linear infinite;min-height:1.2em;display:inline-block}
+@keyframes typedGradientSlide{0%{background-position:0% center}100%{background-position:250% center}}
+.hero-title .cursor{display:inline-block;width:3px;height:.9em;background:var(--accent);animation:blink .75s steps(1) infinite;vertical-align:middle;margin-left:2px;-webkit-text-fill-color:var(--accent);border-radius:2px}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
 .hero-description{font-size:17.5px;color:#475569;line-height:1.75;margin-bottom:28px;font-weight:400}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
 .btn-hero-primary{background:var(--primary);color:#fff;font-family:\'Poppins\',sans-serif;font-size:15px;font-weight:600;padding:14px 30px;border-radius:10px;border:2px solid transparent;transition:var(--transition);display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(28,34,128,.2)}
@@ -43,32 +55,41 @@ $extra_head = '
 .hero-stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:32px;width:100%;}
 @media(max-width:1199px){.hero-stats-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:767px){.hero-stats-grid{grid-template-columns:repeat(2,1fr);}}
-.hero-stat-chip{background:rgba(255,255,255,0.88);backdrop-filter:blur(10px);border:1px solid rgba(28,34,128,0.08);border-radius:14px;padding:12px 14px;box-shadow:0 6px 20px rgba(28,34,128,0.04);transition:var(--transition);text-align:left}
+.hero-stat-chip{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(28,34,128,.09);border-radius:14px;padding:14px 15px;box-shadow:0 6px 24px rgba(28,34,128,.06);transition:var(--transition);text-align:left;opacity:0;animation:heroFadeIn .6s both}
+.hero-stat-chip:nth-child(1){animation-delay:.66s}
+.hero-stat-chip:nth-child(2){animation-delay:.76s}
+.hero-stat-chip:nth-child(3){animation-delay:.86s}
+.hero-stat-chip:nth-child(4){animation-delay:.96s}
+.hero-stat-chip:nth-child(5){animation-delay:1.06s}
+.hero-stat-chip:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(28,34,128,.1)}
 .hero-stat-chip .number{font-family:\'Poppins\',sans-serif;font-size:1.65rem;font-weight:900;color:var(--primary);line-height:1;margin-bottom:2px}
 .hero-stat-chip .number span{color:var(--accent)}
 .hero-stat-chip .label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px}
 .hero-stage-container{position:relative;width:100%;min-height:520px;height:530px;display:flex;align-items:center;justify-content:center;transform-style:preserve-3d;perspective:1200px}
-.vortex-8d-core{position:absolute;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffffff 0%,rgba(240,244,255,.95) 45%,rgba(28,34,128,.14) 100%);border:2px solid rgba(28,34,128,.22);box-shadow:0 0 40px rgba(28,34,128,.25),0 0 75px rgba(91,168,212,.3),inset 0 0 20px rgba(255,255,255,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:15;transform-style:preserve-3d;animation:corePulse8D 5s ease-in-out infinite alternate;pointer-events:auto;cursor:pointer;transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease;text-decoration:none}
-.vortex-8d-core:hover{transform:scale(1.16) translateZ(35px);box-shadow:0 0 60px rgba(204,34,40,.4),0 0 110px rgba(28,34,128,.45);color:var(--accent)}
-.core-shockwave{position:absolute;inset:-10px;border-radius:50%;border:1.5px solid rgba(204,34,40,.5);animation:shockwaveExpand 3.8s cubic-bezier(.2,.8,.4,1) infinite;pointer-events:none}
-.core-shockwave.delay-1{animation-delay:1.9s;border-color:rgba(91,168,212,.5)}
-@keyframes shockwaveExpand{0%{transform:scale(.85);opacity:.9}50%{opacity:.4}100%{transform:scale(2.4);opacity:0}}
-.vortex-8d-core .core-icon{font-size:32px;background:linear-gradient(135deg,#CC2228 0%,#1C2280 60%,#5BA8D4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:spinSlow8D 18s linear infinite;display:block}
-.vortex-8d-core .core-brand-name{font-family:\'Poppins\',sans-serif;font-size:11px;font-weight:900;letter-spacing:1.8px;background:linear-gradient(135deg,#1C2280 0%,#CC2228 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:4px;line-height:1}
-.vortex-8d-core .core-brand-sub{font-size:7.5px;font-weight:700;letter-spacing:.8px;color:#64748B;margin-top:3px;display:flex;align-items:center;gap:3px;text-transform:uppercase}
+.vortex-8d-core{position:absolute;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffffff 0%,#f8faff 50%,rgba(28,34,128,.06) 100%);border:2px solid rgba(28,34,128,.16);box-shadow:0 14px 45px rgba(28,34,128,.16),0 0 65px rgba(91,168,212,.25),inset 0 0 25px #ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:15;transform-style:preserve-3d;animation:corePulse8D 4.5s ease-in-out infinite alternate;pointer-events:auto;cursor:pointer;transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease;text-decoration:none}
+.vortex-8d-core:hover{transform:scale(1.14) translateZ(35px);box-shadow:0 20px 60px rgba(204,34,40,.35),0 0 95px rgba(28,34,128,.35);color:var(--accent)}
+.core-shockwave{position:absolute;inset:-10px;border-radius:50%;border:1.5px solid rgba(204,34,40,.4);animation:shockwaveExpand 3.8s cubic-bezier(.2,.8,.4,1) infinite;pointer-events:none}
+.core-shockwave.delay-1{animation-delay:1.9s;border-color:rgba(91,168,212,.4)}
+@keyframes shockwaveExpand{0%{transform:scale(.85);opacity:.9}50%{opacity:.35}100%{transform:scale(2.2);opacity:0}}
+.vortex-8d-core .core-icon{font-size:32px;background:linear-gradient(135deg,#CC2228 0%,#1C2280 55%,#5BA8D4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:spinSlow8D 20s linear infinite;display:block}
+.vortex-8d-core .core-brand-name{font-family:\'Poppins\',sans-serif;font-size:11.5px;font-weight:900;letter-spacing:2px;color:var(--primary,#1C2280);margin-top:4px;line-height:1}
+.vortex-8d-core .core-brand-sub{font-size:7.5px;font-weight:700;letter-spacing:.9px;color:#64748B;margin-top:3px;display:flex;align-items:center;gap:3px;text-transform:uppercase}
 .stage-energy-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6}
-@keyframes corePulse8D{0%{transform:scale(.96) translateZ(0)}100%{transform:scale(1.05) translateZ(20px)}}
+@keyframes corePulse8D{0%{transform:scale(.97) translateZ(0)}100%{transform:scale(1.04) translateZ(20px)}}
 @keyframes spinSlow8D{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-.service-node-8d{position:absolute;z-index:12;display:inline-flex;align-items:center;gap:10px;padding:8px 15px 8px 8px;border-radius:50px;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1.5px solid rgba(28,34,128,.12);box-shadow:0 8px 26px rgba(13,16,53,.08),inset 0 1px 0 rgba(255,255,255,.95);cursor:pointer;user-select:none;transform-style:preserve-3d;will-change:transform,box-shadow;transition:border-color .3s ease,box-shadow .3s ease,background .3s ease;text-decoration:none}
-.service-node-8d:hover,.service-node-8d.active-focus{background:rgba(255,255,255,.98);border-color:var(--node-color,var(--primary));box-shadow:0 16px 42px var(--node-glow,rgba(28,34,128,.25)),inset 0 1px 0 #fff;z-index:40!important;text-decoration:none}
-.service-node-8d .node-icon-core{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;position:relative;flex-shrink:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1);border:1.5px solid transparent}
-.service-node-8d:hover .node-icon-core{transform:scale(1.15) rotate(8deg)}
-.service-node-8d .node-radar-ring{position:absolute;inset:-4px;border-radius:50%;border:1.5px solid currentColor;opacity:0;pointer-events:none}
+.service-node-8d{position:absolute;z-index:12;display:inline-flex;align-items:center;gap:11px;padding:9px 16px 9px 10px;border-radius:16px;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(28,34,128,.1);box-shadow:0 10px 30px rgba(13,16,53,.07),0 1px 3px rgba(0,0,0,.04);cursor:pointer;user-select:none;transform-style:preserve-3d;will-change:transform,box-shadow;transition:all .35s cubic-bezier(.34,1.56,.64,1);text-decoration:none}
+.service-node-8d::before{content:\'\';position:absolute;left:0;top:18%;height:64%;width:3.5px;border-radius:0 4px 4px 0;background:var(--node-color,var(--primary));transition:all .3s ease}
+.service-node-8d:hover,.service-node-8d.active-focus{background:#fff;border-color:var(--node-color,var(--primary));box-shadow:0 18px 45px var(--node-glow,rgba(28,34,128,.22)),0 2px 8px rgba(0,0,0,.06);transform:translateY(-4px) scale(1.04) translateZ(30px)!important;z-index:40!important;text-decoration:none}
+.service-node-8d:hover::before,.service-node-8d.active-focus::before{top:10%;height:80%;box-shadow:0 0 12px var(--node-color)}
+.service-node-8d .node-icon-core{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;position:relative;flex-shrink:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1);background:var(--node-bg,rgba(28,34,128,.08));color:var(--node-color);border:1px solid rgba(255,255,255,.7)}
+.service-node-8d:hover .node-icon-core,.service-node-8d.active-focus .node-icon-core{transform:scale(1.15) rotate(6deg)}
+.service-node-8d .node-radar-ring{position:absolute;inset:-4px;border-radius:14px;border:1.5px solid var(--node-color);opacity:0;pointer-events:none}
 .service-node-8d:hover .node-radar-ring,.service-node-8d.active-focus .node-radar-ring{animation:radarWave 1.4s cubic-bezier(.25,1,.5,1) infinite}
-@keyframes radarWave{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+@keyframes radarWave{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.4);opacity:0}}
 .service-node-8d .node-info{display:flex;flex-direction:column;text-align:left}
-.service-node-8d .node-title{font-family:\'Poppins\',sans-serif;font-size:12px;font-weight:700;color:#0D0F2B;line-height:1.25;white-space:nowrap}
-.service-node-8d .node-sub{font-size:10px;font-weight:600;color:#64748B;letter-spacing:.2px;white-space:nowrap}
+.service-node-8d .node-title{font-family:\'Poppins\',sans-serif;font-size:12.5px;font-weight:700;color:#0f172a;line-height:1.25;white-space:nowrap}
+.service-node-8d .node-sub{font-size:10px;font-weight:600;color:#64748b;letter-spacing:.2px;white-space:nowrap;display:flex;align-items:center;gap:5px;margin-top:2px}
+.service-node-8d .node-sub .status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--node-color);box-shadow:0 0 6px var(--node-color)}
 .hero-8d-services-strip{display:flex;flex-direction:column;gap:10px;margin-top:24px;padding:14px 18px;background:rgba(255,255,255,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(28,34,128,.08);border-radius:16px;box-shadow:0 6px 24px rgba(28,34,128,.04)}
 .strip-header{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--primary)}
 .strip-header .pulse-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#CC2228;margin-right:6px;box-shadow:0 0 10px #CC2228;animation:pulse-glow 1.5s infinite alternate}
@@ -77,10 +98,10 @@ $extra_head = '
 .motion-service-chip i{font-size:12px;transition:transform .25s ease}
 .motion-service-chip:hover,.motion-service-chip.active{background:#0D0F2B;color:#fff!important;transform:translateY(-2px);box-shadow:0 8px 20px rgba(13,16,53,.18);border-color:transparent;text-decoration:none}
 .motion-service-chip:hover i,.motion-service-chip.active i{transform:scale(1.25) rotate(6deg);color:#fff!important}
-.ring-orbit-3d{position:absolute;border-radius:50%;border:1.5px dashed rgba(28,34,128,.2);pointer-events:none;transform-style:preserve-3d}
-.ring-orbit-3d.ring-1{width:460px;height:460px;border-color:rgba(91,168,212,.4);animation:rotate3dOrbit 24s linear infinite}
-.ring-orbit-3d.ring-2{width:530px;height:530px;border-color:rgba(204,34,40,.35);animation:rotate3dOrbit 32s linear infinite reverse}
-.ring-orbit-3d.ring-3{width:380px;height:380px;border-color:rgba(16,185,129,.35);animation:rotate3dOrbit3 20s linear infinite}
+.ring-orbit-3d{position:absolute;border-radius:50%;pointer-events:none;transform-style:preserve-3d}
+.ring-orbit-3d.ring-1{width:440px;height:440px;border:1px dashed rgba(91,168,212,.35);animation:rotate3dOrbit 28s linear infinite}
+.ring-orbit-3d.ring-2{width:520px;height:520px;border:1px dashed rgba(204,34,40,.22);animation:rotate3dOrbit 36s linear infinite reverse}
+.ring-orbit-3d.ring-3{width:360px;height:360px;border:1px dashed rgba(16,185,129,.25);animation:rotate3dOrbit3 24s linear infinite}
 @keyframes rotate3dOrbit{0%{transform:rotateX(65deg) rotateY(15deg) rotateZ(0deg)}100%{transform:rotateX(65deg) rotateY(15deg) rotateZ(360deg)}}
 @keyframes rotate3dOrbit3{0%{transform:rotateX(-35deg) rotateY(55deg) rotateZ(0deg)}100%{transform:rotateX(-35deg) rotateY(55deg) rotateZ(360deg)}}
 .hero-scroll-container{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;max-width:100vw;overflow:hidden;padding:14px 0;mask-image:linear-gradient(to right,transparent,black 6%,black 94%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 6%,black 94%,transparent);display:flex;flex-direction:column;gap:16px}
@@ -89,12 +110,15 @@ $extra_head = '
 .hero-scroll-container:hover .hero-scroll-track{animation-play-state:paused}
 @keyframes scroll-horizontal{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 10px))}}
 @keyframes scroll-horizontal-reverse{0%{transform:translateX(calc(-50% - 10px))}100%{transform:translateX(0)}}
-.hero-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:20px 18px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.04);width:320px;max-width:85vw;display:flex;flex-direction:column;text-align:left;flex-shrink:0;white-space:normal}
-.hero-card:hover{transform:translateY(-4px) scale(1.02);border-color:rgba(28,34,128,.2);box-shadow:0 15px 35px rgba(0,0,0,.08);z-index:10}
-.hero-card .service-icon{width:44px;height:44px;border-radius:12px;background:rgba(28,34,128,.06);border:1px solid rgba(28,34,128,.1);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--primary);margin-bottom:12px}
-.hero-card h5{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:6px}
-.hero-card p{font-size:12.5px;color:#475569;margin:0;line-height:1.5}
-.hero-tag{position:absolute;top:16px;right:16px;font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:100px;background:rgba(204,34,40,.1);color:var(--accent);border:1px solid rgba(204,34,40,.2)}
+.hero-card{background:#fff;border:1px solid rgba(28,34,128,.06);border-radius:18px;padding:20px 18px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.035);width:310px;max-width:85vw;display:flex;flex-direction:column;text-align:left;flex-shrink:0;white-space:normal}
+.hero-card::before{content:\'\';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--gradient-primary);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;border-radius:18px 18px 0 0}
+.hero-card:hover{transform:translateY(-5px) scale(1.015);border-color:rgba(28,34,128,.14);box-shadow:0 16px 40px rgba(0,0,0,.07);z-index:10}
+.hero-card:hover::before{transform:scaleX(1)}
+.hero-card .service-icon{width:42px;height:42px;border-radius:10px;background:rgba(28,34,128,.07);border:1px solid rgba(28,34,128,.09);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--primary);margin-bottom:11px;transition:var(--transition)}
+.hero-card:hover .service-icon{background:var(--primary);color:#fff;transform:scale(1.1) rotate(-6deg)}
+.hero-card h5{font-size:14.5px;font-weight:700;color:#1e293b;margin-bottom:6px}
+.hero-card p{font-size:12.5px;color:#475569;margin:0;line-height:1.55}
+.hero-tag{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:100px;background:rgba(28,34,128,.07);color:var(--primary);border:1px solid rgba(28,34,128,.1)}
 /* ── SERVICES ─────────────────────────────── */
 .services-section{background:var(--bg-light)}
 .service-card{background:#fff;border-radius:var(--radius-lg);padding:32px 28px;border:1px solid var(--border-light);transition:var(--transition);height:100%;position:relative;overflow:hidden}
@@ -190,44 +214,40 @@ require_once __DIR__ . '/includes/header.php';
     <div class="row align-items-center g-5">
       <!-- Left Column: High-Impact Typography & Values -->
       <div class="col-lg-7 col-xl-7 hero-content text-start">
-        <div class="glass-pill-3d mb-3 scroll-reveal" data-depth="0.03">
+        <div class="glass-pill-3d mb-3 hero-badge-anim" data-depth="0.03">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#CC2228;animation:pulse-glow 1.5s infinite alternate;"></span>
           <span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">6+ Years Global Delivery • ISO 27001:2013 Certified</span>
         </div>
-        <h1 class="hero-title scroll-reveal">
+        <h1 class="hero-title hero-title-anim">
           Empowering Global Enterprises with Next-Gen
           <span class="typed-wrapper" id="typed-text"></span><span class="cursor"></span>
         </h1>
-        <p class="hero-description scroll-reveal">
+        <p class="hero-description hero-desc-anim">
           We engineer full-stack IT systems, autonomous AI agent workflows, and 24/7 global BPO operations. Driving measurable ROI across Healthcare RCM, Real Estate, Publishing Prepress, and Custom Software for <strong>150+ global clients</strong> with <strong>200+ delivered projects</strong>.
         </p>
-        <div class="hero-btns scroll-reveal">
+        <div class="hero-btns hero-btns-anim">
           <a href="contact.php" class="btn-hero-primary magnetic"><i class="fas fa-paper-plane"></i> Get Free Consultation</a>
           <a href="about.php" class="btn-hero-secondary magnetic"><i class="fas fa-play-circle"></i> Explore Company Profile</a>
         </div>
 
         <!-- 8D Service Motion Ecosystem Quick Bar -->
-        <div class="hero-8d-services-strip scroll-reveal">
+        <div class="hero-8d-services-strip hero-strip-anim">
           <div class="strip-header">
-            <span><span class="pulse-dot"></span>8D Motion Service Constellation</span>
-            <span class="badge bg-primary text-white" style="font-size:9.5px;letter-spacing:0.5px;">Live 3D/8D Tracking</span>
+            <span><span class="pulse-dot"></span>Interactive Service Constellation</span>
+            <span class="badge bg-primary text-white" style="font-size:9.5px;letter-spacing:0.5px;">Hover to Track</span>
           </div>
           <div class="strip-chips">
             <span class="motion-service-chip" data-target-service="ai"><i class="fas fa-brain text-danger"></i> AI &amp; Automation</span>
             <span class="motion-service-chip" data-target-service="hrms" style="border-color:rgba(225,29,72,0.35);background:rgba(225,29,72,0.06);"><i class="fas fa-users-cog" style="color:#E11D48;"></i> HR &amp; Payroll Software</span>
             <span class="motion-service-chip" data-target-service="rcm"><i class="fas fa-heartbeat text-info"></i> Healthcare RCM</span>
-            <span class="motion-service-chip" data-target-service="web"><i class="fas fa-code" style="color:#6366F1;"></i> Custom Web Dev</span>
-            <span class="motion-service-chip" data-target-service="it"><i class="fas fa-laptop-code text-primary"></i> Enterprise IT</span>
-            <span class="motion-service-chip" data-target-service="compliance"><i class="fas fa-shield-alt text-success"></i> Company Compliance</span>
-            <span class="motion-service-chip" data-target-service="annotation"><i class="fas fa-crosshairs text-warning"></i> Data Annotation</span>
-            <span class="motion-service-chip" data-target-service="publishing"><i class="fas fa-book-open text-purple"></i> Publishing</span>
-            <span class="motion-service-chip" data-target-service="realestate"><i class="fas fa-building text-teal"></i> Real Estate BPO</span>
-            <span class="motion-service-chip" data-target-service="bpo"><i class="fas fa-headset text-pink"></i> 24/7 Global BPO</span>
+            <span class="motion-service-chip" data-target-service="web"><i class="fas fa-code" style="color:#6366F1;"></i> Custom Web &amp; Cloud</span>
+            <span class="motion-service-chip" data-target-service="publishing"><i class="fas fa-book-open" style="color:#8B5CF6;"></i> Publishing AI</span>
+            <span class="motion-service-chip" data-target-service="bpo"><i class="fas fa-headset text-success"></i> 24/7 Global BPO</span>
           </div>
         </div>
         
         <!-- Interactive 3D Stat Chips -->
-        <div class="hero-stats-grid scroll-reveal">
+        <div class="hero-stats-grid hero-stats-anim">
           <div class="hero-stat-chip tilt-card-3d" data-depth="0.02"><div class="number" data-counter data-target="6">6<span>+</span></div><div class="label">Years Exp.</div></div>
           <div class="hero-stat-chip tilt-card-3d" data-depth="0.04"><div class="number" data-counter data-target="200">200<span>+</span></div><div class="label">Projects</div></div>
           <div class="hero-stat-chip tilt-card-3d" data-depth="0.03"><div class="number" data-counter data-target="150">150<span>+</span></div><div class="label">Clients</div></div>
@@ -238,7 +258,7 @@ require_once __DIR__ . '/includes/header.php';
 
       <!-- Right Column: Interactive 8D Spatial Service Constellation -->
       <div class="col-lg-5 col-xl-5 d-none d-lg-block">
-        <div class="hero-stage-container perspective-container">
+        <div class="hero-stage-container perspective-container hero-stage-anim">
           <!-- Dynamic Laser Web Energy Canvas -->
           <canvas id="stageEnergyCanvas" class="stage-energy-canvas"></canvas>
 
@@ -256,124 +276,76 @@ require_once __DIR__ . '/includes/header.php';
             <span class="core-brand-sub"><i class="fas fa-circle text-danger" style="font-size:5px;"></i> AI &amp; IT HUB</span>
           </a>
 
-          <!-- 8D Service Motion Nodes (Core Pillars of Vortexsoft) -->
-          <!-- 10. HR & Payroll Software (vortexsofthrms) -->
-          <div class="service-node-8d" data-service="hrms" data-depth-x="0.02" data-depth-y="0.08" data-depth-z="32" data-phase="3.14" style="top:1%; left:28%; --node-color:#E11D48; --node-glow:rgba(225,29,72,0.35);">
-            <div class="node-icon-core" style="background:rgba(225,29,72,0.14); color:#E11D48;">
-              <i class="fas fa-users-cog"></i>
-              <span class="node-radar-ring" style="border-color:#E11D48;"></span>
-            </div>
-            <div class="node-info">
-              <div class="node-title">HR &amp; Payroll Software</div>
-              <div class="node-sub">vortexsofthrms &bull; AI Payroll</div>
-            </div>
-          </div>
-
-          <!-- 1. AI & Automation -->
-          <div class="service-node-8d" data-service="ai" data-depth-x="0.08" data-depth-y="0.07" data-depth-z="28" data-phase="0" style="top:2%; left:2%; --node-color:#CC2228; --node-glow:rgba(204,34,40,0.28);">
-            <div class="node-icon-core" style="background:rgba(204,34,40,0.12); color:#CC2228;">
+          <!-- 8D Service Motion Nodes (6 Flagship Pillars - Symmetrically Distributed, Zero Overlap) -->
+          <!-- 1. AI & Automation (Top Center) -->
+          <div class="service-node-8d" data-service="ai" data-depth-x="0.0" data-depth-y="0.09" data-depth-z="28" data-phase="0" style="top:2%; left:50%; transform:translateX(-50%); --node-color:#CC2228; --node-glow:rgba(204,34,40,0.3); --node-bg:rgba(204,34,40,0.1);">
+            <div class="node-icon-core">
               <i class="fas fa-brain"></i>
-              <span class="node-radar-ring" style="border-color:#CC2228;"></span>
+              <span class="node-radar-ring"></span>
             </div>
             <div class="node-info">
               <div class="node-title">AI &amp; Automation</div>
-              <div class="node-sub">Agentic Workflows &amp; IDP</div>
+              <div class="node-sub"><span class="status-dot"></span>Agentic Workflows &amp; IDP</div>
             </div>
           </div>
 
-          <!-- 2. Healthcare BPO & RCM -->
-          <div class="service-node-8d" data-service="rcm" data-depth-x="-0.09" data-depth-y="0.06" data-depth-z="22" data-phase="0.7" style="top:4%; right:-4%; --node-color:#0284C7; --node-glow:rgba(2,132,199,0.28);">
-            <div class="node-icon-core" style="background:rgba(2,132,199,0.12); color:#0284C7;">
+          <!-- 2. Healthcare RCM (Top Right) -->
+          <div class="service-node-8d" data-service="rcm" data-depth-x="-0.08" data-depth-y="0.06" data-depth-z="24" data-phase="1.05" style="top:19%; right:2%; --node-color:#0284C7; --node-glow:rgba(2,132,199,0.3); --node-bg:rgba(2,132,199,0.1);">
+            <div class="node-icon-core">
               <i class="fas fa-heartbeat"></i>
-              <span class="node-radar-ring" style="border-color:#0284C7;"></span>
+              <span class="node-radar-ring"></span>
             </div>
             <div class="node-info">
               <div class="node-title">Healthcare RCM</div>
-              <div class="node-sub">Billing &amp; Denial Mgmt</div>
+              <div class="node-sub"><span class="status-dot"></span>Billing &amp; Denial Mgmt</div>
             </div>
           </div>
 
-          <!-- 3. Custom Web Development (NEW) -->
-          <div class="service-node-8d" data-service="web" data-depth-x="-0.08" data-depth-y="-0.04" data-depth-z="34" data-phase="1.4" style="top:26%; right:-14%; --node-color:#6366F1; --node-glow:rgba(99,102,241,0.28);">
-            <div class="node-icon-core" style="background:rgba(99,102,241,0.12); color:#6366F1;">
+          <!-- 3. Cloud & Software (Bottom Right) -->
+          <div class="service-node-8d" data-service="web" data-depth-x="-0.07" data-depth-y="-0.06" data-depth-z="30" data-phase="2.09" style="bottom:19%; right:2%; --node-color:#6366F1; --node-glow:rgba(99,102,241,0.3); --node-bg:rgba(99,102,241,0.1);">
+            <div class="node-icon-core">
               <i class="fas fa-code"></i>
-              <span class="node-radar-ring" style="border-color:#6366F1;"></span>
-            </div>
-            <div class="node-info">
-              <div class="node-title">Custom Web Dev</div>
-              <div class="node-sub">Next.js, PHP &amp; React Apps</div>
-            </div>
-          </div>
-
-          <!-- 4. Enterprise IT & Cloud -->
-          <div class="service-node-8d" data-service="it" data-depth-x="-0.06" data-depth-y="-0.07" data-depth-z="25" data-phase="2.1" style="bottom:38%; right:-10%; --node-color:#1C2280; --node-glow:rgba(28,34,128,0.28);">
-            <div class="node-icon-core" style="background:rgba(28,34,128,0.12); color:#1C2280;">
-              <i class="fas fa-laptop-code"></i>
-              <span class="node-radar-ring" style="border-color:#1C2280;"></span>
+              <span class="node-radar-ring"></span>
             </div>
             <div class="node-info">
               <div class="node-title">Cloud &amp; Software</div>
-              <div class="node-sub">Full-Stack &amp; DevOps</div>
+              <div class="node-sub"><span class="status-dot"></span>Next.js, PHP &amp; DevOps</div>
             </div>
           </div>
 
-          <!-- 5. Data Annotation & CV -->
-          <div class="service-node-8d" data-service="annotation" data-depth-x="-0.08" data-depth-y="-0.08" data-depth-z="20" data-phase="2.8" style="bottom:15%; right:-5%; --node-color:#F59E0B; --node-glow:rgba(245,158,11,0.28);">
-            <div class="node-icon-core" style="background:rgba(245,158,11,0.12); color:#F59E0B;">
-              <i class="fas fa-crosshairs"></i>
-              <span class="node-radar-ring" style="border-color:#F59E0B;"></span>
-            </div>
-            <div class="node-info">
-              <div class="node-title">Data Annotation</div>
-              <div class="node-sub">Vision &amp; NLP Datasets</div>
-            </div>
-          </div>
-
-          <!-- 6. Company Compliance (NEW / ENHANCED) -->
-          <div class="service-node-8d" data-service="compliance" data-depth-x="0.04" data-depth-y="-0.09" data-depth-z="26" data-phase="3.5" style="bottom:1%; right:14%; --node-color:#10B981; --node-glow:rgba(16,185,129,0.28);">
-            <div class="node-icon-core" style="background:rgba(16,185,129,0.12); color:#10B981;">
-              <i class="fas fa-shield-alt"></i>
-              <span class="node-radar-ring" style="border-color:#10B981;"></span>
-            </div>
-            <div class="node-info">
-              <div class="node-title">Company Compliance</div>
-              <div class="node-sub">ISO 27001, HIPAA &amp; SOC 2</div>
-            </div>
-          </div>
-
-          <!-- 7. Publishing Services -->
-          <div class="service-node-8d" data-service="publishing" data-depth-x="0.08" data-depth-y="-0.07" data-depth-z="18" data-phase="4.2" style="bottom:6%; left:-4%; --node-color:#8B5CF6; --node-glow:rgba(139,92,246,0.28);">
-            <div class="node-icon-core" style="background:rgba(139,92,246,0.12); color:#8B5CF6;">
-              <i class="fas fa-book-open"></i>
-              <span class="node-radar-ring" style="border-color:#8B5CF6;"></span>
-            </div>
-            <div class="node-info">
-              <div class="node-title">Publishing AI</div>
-              <div class="node-sub">ePUB3 &amp; XML JATS</div>
-            </div>
-          </div>
-
-          <!-- 8. Real Estate & Title BPO -->
-          <div class="service-node-8d" data-service="realestate" data-depth-x="0.09" data-depth-y="0.04" data-depth-z="24" data-phase="4.9" style="top:52%; left:-12%; --node-color:#06B6D4; --node-glow:rgba(6,182,212,0.28);">
-            <div class="node-icon-core" style="background:rgba(6,182,212,0.12); color:#06B6D4;">
-              <i class="fas fa-building"></i>
-              <span class="node-radar-ring" style="border-color:#06B6D4;"></span>
-            </div>
-            <div class="node-info">
-              <div class="node-title">Real Estate BPO</div>
-              <div class="node-sub">Lease &amp; Settlement</div>
-            </div>
-          </div>
-
-          <!-- 9. 24/7 Global BPO Pods -->
-          <div class="service-node-8d" data-service="bpo" data-depth-x="0.07" data-depth-y="0.08" data-depth-z="30" data-phase="5.6" style="top:25%; left:-8%; --node-color:#EC4899; --node-glow:rgba(236,72,153,0.28);">
-            <div class="node-icon-core" style="background:rgba(236,72,153,0.12); color:#EC4899;">
+          <!-- 4. Global 24/7 BPO Pods (Bottom Center) -->
+          <div class="service-node-8d" data-service="bpo" data-depth-x="0.0" data-depth-y="-0.09" data-depth-z="26" data-phase="3.14" style="bottom:2%; left:50%; transform:translateX(-50%); --node-color:#10B981; --node-glow:rgba(16,185,129,0.3); --node-bg:rgba(16,185,129,0.1);">
+            <div class="node-icon-core">
               <i class="fas fa-headset"></i>
-              <span class="node-radar-ring" style="border-color:#EC4899;"></span>
+              <span class="node-radar-ring"></span>
             </div>
             <div class="node-info">
               <div class="node-title">Global BPO Pods</div>
-              <div class="node-sub">24/7 Operations</div>
+              <div class="node-sub"><span class="status-dot"></span>24/7 Operations &amp; Real Estate</div>
+            </div>
+          </div>
+
+          <!-- 5. Publishing AI (Bottom Left) -->
+          <div class="service-node-8d" data-service="publishing" data-depth-x="0.07" data-depth-y="-0.06" data-depth-z="22" data-phase="4.19" style="bottom:19%; left:2%; --node-color:#8B5CF6; --node-glow:rgba(139,92,246,0.3); --node-bg:rgba(139,92,246,0.1);">
+            <div class="node-icon-core">
+              <i class="fas fa-book-open"></i>
+              <span class="node-radar-ring"></span>
+            </div>
+            <div class="node-info">
+              <div class="node-title">Publishing AI</div>
+              <div class="node-sub"><span class="status-dot"></span>ePUB3 &amp; XML JATS</div>
+            </div>
+          </div>
+
+          <!-- 6. HR & Payroll Software (Top Left) -->
+          <div class="service-node-8d" data-service="hrms" data-depth-x="0.08" data-depth-y="0.06" data-depth-z="28" data-phase="5.24" style="top:19%; left:2%; --node-color:#E11D48; --node-glow:rgba(225,29,72,0.35); --node-bg:rgba(225,29,72,0.1);">
+            <div class="node-icon-core">
+              <i class="fas fa-users-cog"></i>
+              <span class="node-radar-ring"></span>
+            </div>
+            <div class="node-info">
+              <div class="node-title">HR &amp; Payroll Software</div>
+              <div class="node-sub"><span class="status-dot"></span>vortexsofthrms &bull; AI Payroll</div>
             </div>
           </div>
         </div>
@@ -496,6 +468,96 @@ require_once __DIR__ . '/includes/header.php';
           <div style="width:56px;height:56px;border-radius:14px;background:rgba(16,185,129,.1);color:#10b981;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;"><i class="fas fa-rocket"></i></div>
           <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Digital Transformation</h4>
           <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Accelerating enterprise modernization through custom cloud applications, SAP/ERP integrations, predictive analytics, and marketing technology.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 4-STEP ENGAGEMENT LIFECYCLE ═══════ -->
+<section class="section-pad" style="background:#fff;" id="engagement-model">
+  <div class="container">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag"><i class="fas fa-sitemap me-1"></i> How We Deliver</div>
+      <h2 class="section-title">The Vortexsoft <span class="highlight">Engagement Lifecycle</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">A proven, risk-mitigated 4-stage delivery methodology that takes your workflow from initial discovery to scaled, AI-augmented operational excellence.</p>
+    </div>
+
+    <div class="row g-4 position-relative">
+      <!-- Step 1 -->
+      <div class="col-lg-3 col-md-6 scroll-reveal delay-1">
+        <div class="card h-100 border-0 p-4" style="border-radius:20px;background:var(--bg-light);border-top:4px solid #1C2280 !important;transition:var(--transition);" class="hover-lift">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span style="font-family:'Poppins',sans-serif;font-size:32px;font-weight:900;color:rgba(28,34,128,0.25);">01</span>
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(28,34,128,0.1);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;">
+              <i class="fas fa-search-dollar"></i>
+            </div>
+          </div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Feasibility &amp; Discovery</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
+            Comprehensive audit of existing SOPs, tech infrastructure, and compliance mandates. We pinpoint cost bottlenecks, project ROI, and define clear SLA thresholds.
+          </p>
+          <div class="mt-auto">
+            <span class="badge bg-primary-subtle text-primary fw-bold px-3 py-1" style="font-size:11px;border-radius:6px;">Deliverable: Audit &amp; Ramp Plan</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-lg-3 col-md-6 scroll-reveal delay-2">
+        <div class="card h-100 border-0 p-4" style="border-radius:20px;background:var(--bg-light);border-top:4px solid #5BA8D4 !important;transition:var(--transition);" class="hover-lift">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span style="font-family:'Poppins',sans-serif;font-size:32px;font-weight:900;color:rgba(91,168,212,0.35);">02</span>
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(91,168,212,0.15);color:#0284c7;display:flex;align-items:center;justify-content:center;font-size:20px;">
+              <i class="fas fa-vial"></i>
+            </div>
+          </div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Pod Assembly &amp; Pilot</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
+            Dedicated domain-specialist pod (AAPC coders, annotators, or developers) is assembled, trained in clean-room environments, and tested against real-world sample batches.
+          </p>
+          <div class="mt-auto">
+            <span class="badge bg-info-subtle text-info-emphasis fw-bold px-3 py-1" style="font-size:11px;border-radius:6px;">Deliverable: 14-Day Proof Batch</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-lg-3 col-md-6 scroll-reveal delay-3">
+        <div class="card h-100 border-0 p-4" style="border-radius:20px;background:var(--bg-light);border-top:4px solid #CC2228 !important;transition:var(--transition);" class="hover-lift">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span style="font-family:'Poppins',sans-serif;font-size:32px;font-weight:900;color:rgba(204,34,40,0.25);">03</span>
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(204,34,40,0.1);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:20px;">
+              <i class="fas fa-rocket"></i>
+            </div>
+          </div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">AI-Augmented Scale</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
+            Full-scale operational deployment augmented by our proprietary AI accelerators (Vortexreach, vortexKonnect) to maximize throughput, reduce turnarounds, and minimize errors.
+          </p>
+          <div class="mt-auto">
+            <span class="badge bg-danger-subtle text-danger fw-bold px-3 py-1" style="font-size:11px;border-radius:6px;">Deliverable: 24/7 Production Engine</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="col-lg-3 col-md-6 scroll-reveal delay-4">
+        <div class="card h-100 border-0 p-4" style="border-radius:20px;background:var(--bg-light);border-top:4px solid #10b981 !important;transition:var(--transition);" class="hover-lift">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span style="font-family:'Poppins',sans-serif;font-size:32px;font-weight:900;color:rgba(16,185,129,0.3);">04</span>
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(16,185,129,0.1);color:#10b981;display:flex;align-items:center;justify-content:center;font-size:20px;">
+              <i class="fas fa-chart-line"></i>
+            </div>
+          </div>
+          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Continuous Kaizen QA</h4>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
+            Six Sigma statistical quality reviews, daily SLA dashboards, ongoing cross-skilling, and iterative workflow refinements ensuring contract-backed 99%+ accuracy.
+          </p>
+          <div class="mt-auto">
+            <span class="badge bg-success-subtle text-success fw-bold px-3 py-1" style="font-size:11px;border-radius:6px;">Deliverable: Weekly KPI Dashboards</span>
+          </div>
         </div>
       </div>
     </div>
@@ -695,6 +757,132 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
+<!-- ═══════ GLOBAL DELIVERY HUBS & SECURITY POSTURE ═══════ -->
+<section class="section-pad" style="background:#fff;" id="global-hubs">
+  <div class="container">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag"><i class="fas fa-network-wired me-1"></i> Global Infrastructure</div>
+      <h2 class="section-title">Strategic Delivery Hubs &amp; <span class="highlight">Enterprise Security</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Bridging North American client management with premier Indian engineering centers in Pune and Bengaluru.</p>
+    </div>
+
+    <!-- Hub Cards -->
+    <div class="row g-4 mb-5">
+      <!-- Pune HQ -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
+        <div class="card h-100 border-0 p-4" style="background:var(--bg-light);border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,0.03);transition:var(--transition);" class="hover-lift">
+          <div class="d-flex align-items-center mb-3">
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(28,34,128,0.1);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:22px;" class="me-3">
+              <i class="fas fa-building"></i>
+            </div>
+            <div>
+              <span class="badge bg-primary px-2 py-1" style="font-size:10px;text-transform:uppercase;">Global Corporate HQ</span>
+              <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin:2px 0 0;">Pune Center of Excellence</h4>
+            </div>
+          </div>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
+            Our primary executive governance, enterprise architecture, full-scale RCM operations, and publishing lifecycle production center.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0;font-size:12.5px;color:var(--text-dark);">
+            <li class="py-1"><i class="fas fa-map-marker-alt text-primary me-2"></i> Dhankawadi / Katraj Core Operations Corridor, Pune, MH 411043</li>
+            <li class="py-1"><i class="fas fa-user-shield text-success me-2"></i> Clean-room facility, biometric access control &amp; 24/7 CCTV</li>
+            <li class="py-1"><i class="fas fa-users-cog text-info me-2"></i> 100+ production pods for RCM, XML, GIS &amp; back-office delivery</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bengaluru Hub -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
+        <div class="card h-100 border-0 p-4" style="background:var(--bg-light);border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,0.03);transition:var(--transition);" class="hover-lift">
+          <div class="d-flex align-items-center mb-3">
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(91,168,212,0.15);color:#0284c7;display:flex;align-items:center;justify-content:center;font-size:22px;" class="me-3">
+              <i class="fas fa-microchip"></i>
+            </div>
+            <div>
+              <span class="badge bg-info text-dark fw-bold px-2 py-1" style="font-size:10px;text-transform:uppercase;">Tech &amp; AI Lab</span>
+              <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin:2px 0 0;">Bengaluru Delivery Hub</h4>
+            </div>
+          </div>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
+            The technological engine powering proprietary AI platforms (Vortexreach, vortexKonnect), 3D LiDAR annotation, and autonomous agents.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0;font-size:12.5px;color:var(--text-dark);">
+            <li class="py-1"><i class="fas fa-map-marker-alt text-primary me-2"></i> Outer Ring Road Tech Corridor, Bengaluru, KA 560103</li>
+            <li class="py-1"><i class="fas fa-brain text-purple me-2" style="color:#8b5cf6;"></i> Specialized computer vision &amp; RLHF data engineering pods</li>
+            <li class="py-1"><i class="fas fa-bolt text-warning me-2"></i> Redundant gigabit fiber backbones &amp; hybrid cloud infrastructure</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- USA Office -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-3">
+        <div class="card h-100 border-0 p-4" style="background:var(--bg-light);border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,0.03);transition:var(--transition);" class="hover-lift">
+          <div class="d-flex align-items-center mb-3">
+            <div style="width:48px;height:48px;border-radius:12px;background:rgba(204,34,40,0.1);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:22px;" class="me-3">
+              <i class="fas fa-globe-americas"></i>
+            </div>
+            <div>
+              <span class="badge bg-danger px-2 py-1" style="font-size:10px;text-transform:uppercase;">North America Desk</span>
+              <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin:2px 0 0;">USA Corporate Entity</h4>
+            </div>
+          </div>
+          <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
+            Direct corporate presence facilitating seamless US commercial contracts, NDA enforcement, vendor billing, and client relationship management.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0;font-size:12.5px;color:var(--text-dark);">
+            <li class="py-1"><i class="fas fa-map-marker-alt text-primary me-2"></i> 30 N Gould St Ste R, Sheridan, WY 82801, United States</li>
+            <li class="py-1"><i class="fas fa-file-contract text-danger me-2"></i> US-domiciled MSA/SLA contracts &amp; ACH/Wire payment settlement</li>
+            <li class="py-1"><i class="fas fa-clock text-primary me-2"></i> Real-time overlap with Eastern, Central, and Pacific time zones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security & Compliance Badges Strip -->
+    <div class="p-4" style="background:linear-gradient(135deg,#080B1A 0%,#1C2280 100%);border-radius:20px;color:#fff;">
+      <div class="row align-items-center gy-3">
+        <div class="col-lg-3 text-center text-lg-start">
+          <span class="badge bg-danger text-white px-3 py-1 mb-1" style="font-size:11px;">ENTERPRISE TRUST</span>
+          <h4 style="font-size:18px;font-weight:800;margin:0;color:#fff;">Rigorous Security &amp; Compliance Standards</h4>
+        </div>
+        <div class="col-lg-9">
+          <div class="row g-3 text-center">
+            <div class="col-6 col-md-3">
+              <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
+                <i class="fas fa-shield-alt text-warning mb-1" style="font-size:20px;"></i>
+                <div style="font-weight:700;font-size:13px;">ISO 27001:2022</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);">InfoSec Certified</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
+                <i class="fas fa-user-lock text-success mb-1" style="font-size:20px;"></i>
+                <div style="font-weight:700;font-size:13px;">HIPAA &amp; HITECH</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);">PHI Data Protection</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
+                <i class="fas fa-award text-info mb-1" style="font-size:20px;"></i>
+                <div style="font-weight:700;font-size:13px;">ISO 9001:2015</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);">Quality Management</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
+                <i class="fas fa-flag text-danger mb-1" style="font-size:20px;"></i>
+                <div style="font-weight:700;font-size:13px;">Startup India</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);">DPIIT Recognized</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ WHY US / STATS ═══════ -->
 <section class="whyus-section section-pad">
   <div class="container" style="position:relative;z-index:2;">
@@ -721,6 +909,62 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ IN-HOUSE VS VORTEXSOFT COMPARISON MATRIX ═══════ -->
+<section class="section-pad" style="background:var(--bg-light);" id="comparison">
+  <div class="container">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag"><i class="fas fa-balance-scale me-1"></i> Cost &amp; Execution Matrix</div>
+      <h2 class="section-title">In-House Overhead vs. <span class="highlight">Vortexsoft Delivery</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Why global organizations replace internal recruiting cycles with our ready-to-deploy dedicated operational pods.</p>
+    </div>
+
+    <div class="table-responsive scroll-reveal" style="border-radius:20px;box-shadow:0 12px 36px rgba(0,0,0,0.06);background:#fff;border:1px solid var(--border-light);overflow:hidden;">
+      <table class="table table-hover align-middle mb-0" style="border-collapse:separate;border-spacing:0;">
+        <thead>
+          <tr style="background:linear-gradient(135deg,#080B1A 0%,#1C2280 100%);color:#fff;font-size:15px;">
+            <th class="py-3 px-4" style="width:28%;border:none;font-weight:700;">Operational Dimension</th>
+            <th class="py-3 px-4" style="width:36%;border:none;font-weight:600;opacity:0.85;">Traditional In-House / Local Agency</th>
+            <th class="py-3 px-4" style="width:36%;border:none;font-weight:700;background:rgba(204,34,40,0.9);"><i class="fas fa-check-circle me-1 text-white"></i> The Vortexsoft Advantage</th>
+          </tr>
+        </thead>
+        <tbody style="font-size:14px;">
+          <tr>
+            <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-wallet text-primary me-2"></i> Cost Structure &amp; CapEx</td>
+            <td class="py-3 px-4 text-muted">High overhead: recruiter commissions, payroll taxes, health benefits, hardware CapEx, paid software seats.</td>
+            <td class="py-3 px-4 fw-bold" style="color:var(--primary);background:rgba(28,34,128,0.02);"><span class="badge bg-success-subtle text-success me-2">Up to 60% Savings</span> Transparent per-seat or deliverable-based OPEX pricing with zero hardware or seat overhead.</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-stopwatch text-warning me-2"></i> Ramp &amp; Deployment Time</td>
+            <td class="py-3 px-4 text-muted">60 to 90 days for candidate sourcing, technical evaluations, interview rounds, and onboarding.</td>
+            <td class="py-3 px-4 fw-bold" style="color:var(--primary);background:rgba(28,34,128,0.02);"><span class="badge bg-primary-subtle text-primary me-2">7 to 14 Days</span> Pre-vetted, domain-certified task pods ready for production deployment within days.</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-microchip text-info me-2"></i> Technology &amp; Tooling Stack</td>
+            <td class="py-3 px-4 text-muted">Manual spreadsheets, fragmented point solutions, high recurring SaaS license costs.</td>
+            <td class="py-3 px-4 fw-bold" style="color:var(--primary);background:rgba(28,34,128,0.02);"><span class="badge bg-info-subtle text-info-emphasis me-2">Proprietary AI Suite</span> Included access to Vortexreach, vortexKonnect, VortexEXHO, and automated workflow orchestrators.</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-globe-americas text-success me-2"></i> Time Zone &amp; Shift Coverage</td>
+            <td class="py-3 px-4 text-muted">Single shift (8 hours/day, 5 days/week). Overtime costs and weekend communication gaps.</td>
+            <td class="py-3 px-4 fw-bold" style="color:var(--primary);background:rgba(28,34,128,0.02);"><span class="badge bg-success-subtle text-success me-2">24/7/365 Continuity</span> Follow-the-sun operations overlapping seamlessly with US (EST/CST/PST), UK (GMT), and APAC hours.</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-shield-virus text-danger me-2"></i> Security &amp; Compliance</td>
+            <td class="py-3 px-4 text-muted">Varying local adherence, ad-hoc data security measures, internal compliance liabilities.</td>
+            <td class="py-3 px-4 fw-bold" style="color:var(--primary);background:rgba(28,34,128,0.02);"><span class="badge bg-danger-subtle text-danger me-2">ISO 27001 &amp; HIPAA</span> End-to-end encrypted VPN tunnels, strict DLP policies, clean-room environments, and NDAs.</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-arrows-alt-v text-secondary me-2"></i> Elastic Scalability</td>
+            <td class="py-3 px-4 text-muted">Painful restructuring or severances during low demand; bottlenecks during peak surges.</td>
+            <td class="py-3 px-4 fw-bold" style="color:var(--primary);background:rgba(28,34,128,0.02);"><span class="badge bg-warning-subtle text-dark me-2">Instant Flex</span> Scale team capacity up or down with 30-day flexibility to align with market demand.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -756,6 +1000,156 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
       <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CASE STUDIES / MEASURED ENTERPRISE ROI ═══════ -->
+<section class="section-pad" style="background:#fff;" id="case-studies">
+  <div class="container">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag"><i class="fas fa-chart-line me-1"></i> Proven Impact</div>
+      <h2 class="section-title">Measurable Results: <span class="highlight">Enterprise Case Studies</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Real-world ROI delivered across North American, European, and APAC enterprise engagements.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Case Study 1: Healthcare RCM -->
+      <div class="col-lg-6 scroll-reveal delay-1">
+        <div class="card h-100 border-0 p-4" style="border-radius:20px;background:var(--bg-light);border-left:5px solid #CC2228 !important;box-shadow:0 10px 30px rgba(0,0,0,0.04);">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <span class="badge bg-danger-subtle text-danger fw-bold px-3 py-1 mb-2" style="border-radius:6px;font-size:12px;">US Healthcare Provider Network</span>
+              <h4 style="font-size:20px;font-weight:800;color:var(--text-dark);margin:0;">Multi-State Hospital System RCM Overhaul</h4>
+            </div>
+            <div style="font-size:32px;color:#CC2228;font-weight:900;font-family:'Poppins',sans-serif;">-42%</div>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">
+            Faced with high denial rates on complex surgical and inpatient claims, the client engaged Vortexsoft to deploy an integrated team of 35 AAPC-certified coders alongside autonomous claims scrubbers.
+          </p>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Clean Claims Rate</div>
+                <div style="font-size:18px;font-weight:800;color:#10b981;">98.6% <span style="font-size:11px;color:var(--text-muted);">(from 84%)</span></div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">AR Days Reduced</div>
+                <div style="font-size:18px;font-weight:800;color:var(--primary);">49 to 28 Days</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-auto d-flex align-items-center justify-content-between pt-3 border-top">
+            <span style="font-size:12px;color:var(--text-muted);"><i class="fas fa-lock text-success me-1"></i> HIPAA &amp; SOC2 Type II Certified Pipeline</span>
+            <a href="service.php#healthcare" class="text-danger fw-bold text-decoration-none small">Explore RCM Services <i class="fas fa-chevron-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 2: Autonomous Driving LiDAR -->
+      <div class="col-lg-6 scroll-reveal delay-2">
+        <div class="card h-100 border-0 p-4" style="border-radius:20px;background:var(--bg-light);border-left:5px solid #1C2280 !important;box-shadow:0 10px 30px rgba(0,0,0,0.04);">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <span class="badge bg-primary-subtle text-primary fw-bold px-3 py-1 mb-2" style="border-radius:6px;font-size:12px;">Tier-1 Autonomous Vehicle OEM</span>
+              <h4 style="font-size:20px;font-weight:800;color:var(--text-dark);margin:0;">3D LiDAR &amp; Multi-Sensor Point Cloud Annotation</h4>
+            </div>
+            <div style="font-size:32px;color:var(--primary);font-weight:900;font-family:'Poppins',sans-serif;">99.8%</div>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">
+            Client required 1.4 million frames of multi-modal sensory data labeled with sub-centimeter bounding precision across diverse weather and urban night-driving scenarios within 6 months.
+          </p>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Frames Processed</div>
+                <div style="font-size:18px;font-weight:800;color:var(--primary);">1.4M+ Frames</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Annotation Accuracy</div>
+                <div style="font-size:18px;font-weight:800;color:#10b981;">99.82% QA Score</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-auto d-flex align-items-center justify-content-between pt-3 border-top">
+            <span style="font-size:12px;color:var(--text-muted);"><i class="fas fa-cube text-primary me-1"></i> Dedicated Bengaluru AI Pod</span>
+            <a href="service.php#annotation" class="text-primary fw-bold text-decoration-none small">Explore AI Annotation <i class="fas fa-chevron-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 3: Global Academic Publishing -->
+      <div class="col-lg-6 scroll-reveal delay-3">
+        <div class="card h-100 border-0 p-4" style="border-radius:20px;background:var(--bg-light);border-left:5px solid #5BA8D4 !important;box-shadow:0 10px 30px rgba(0,0,0,0.04);">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <span class="badge bg-info-subtle text-info-emphasis fw-bold px-3 py-1 mb-2" style="border-radius:6px;font-size:12px;">UK Academic &amp; STM Publisher</span>
+              <h4 style="font-size:20px;font-weight:800;color:var(--text-dark);margin:0;">50,000+ Backlist Volume JATS XML &amp; ePUB3 Migration</h4>
+            </div>
+            <div style="font-size:32px;color:#0284c7;font-weight:900;font-family:'Poppins',sans-serif;">5x</div>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">
+            Legacy PDF archives dating back 40 years needed conversion into accessible ePUB3 and PubMed Central-compliant NLM/JATS XML with complex MathML and chemical formula rendering.
+          </p>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Throughput Speed</div>
+                <div style="font-size:18px;font-weight:800;color:#0284c7;">5x Faster Delivery</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Accessibility Score</div>
+                <div style="font-size:18px;font-weight:800;color:#10b981;">100% WCAG 2.1 AA</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-auto d-flex align-items-center justify-content-between pt-3 border-top">
+            <span style="font-size:12px;color:var(--text-muted);"><i class="fas fa-universal-access text-info me-1"></i> VortexsoftPublishing Engine</span>
+            <a href="service.php#publishing" class="text-info fw-bold text-decoration-none small">Explore Publishing <i class="fas fa-chevron-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 4: Commercial Real Estate Lease Abstraction -->
+      <div class="col-lg-6 scroll-reveal delay-4">
+        <div class="card h-100 border-0 p-4" style="border-radius:20px;background:var(--bg-light);border-left:5px solid #10b981 !important;box-shadow:0 10px 30px rgba(0,0,0,0.04);">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <span class="badge bg-success-subtle text-success fw-bold px-3 py-1 mb-2" style="border-radius:6px;font-size:12px;">North American Real Estate Trust (REIT)</span>
+              <h4 style="font-size:20px;font-weight:800;color:var(--text-dark);margin:0;">Portfolio Lease Abstraction &amp; CAM Audit</h4>
+            </div>
+            <div style="font-size:32px;color:#10b981;font-weight:900;font-family:'Poppins',sans-serif;">$1.2M</div>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">
+            Rapid audit and structured extraction of 450+ multi-tenant commercial lease agreements, identifying unbilled Common Area Maintenance (CAM) charges, CPI escalations, and critical expiry dates.
+          </p>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Identified Recoveries</div>
+                <div style="font-size:18px;font-weight:800;color:#10b981;">$1.2M Unbilled CAM</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Portfolio Turnaround</div>
+                <div style="font-size:18px;font-weight:800;color:var(--primary);">3 Weeks Flat</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-auto d-flex align-items-center justify-content-between pt-3 border-top">
+            <span style="font-size:12px;color:var(--text-muted);"><i class="fas fa-building text-success me-1"></i> Yardi &amp; MRI Software Compatible</span>
+            <a href="service.php#realestate" class="text-success fw-bold text-decoration-none small">Explore Real Estate <i class="fas fa-chevron-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -910,6 +1304,84 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ THOUGHT LEADERSHIP & INDUSTRY RESEARCH ═══════ -->
+<section class="section-pad" style="background:var(--bg-light);" id="insights">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-5 scroll-reveal">
+      <div>
+        <div class="section-tag"><i class="fas fa-lightbulb me-1"></i> Knowledge &amp; Research</div>
+        <h2 class="section-title mb-0">Latest Enterprise <span class="highlight">Insights &amp; Blueprints</span></h2>
+        <div class="section-divider ms-0" style="margin-top:12px;"></div>
+      </div>
+      <div class="mt-3 mt-md-0">
+        <a href="blog.php" class="btn btn-outline-primary px-4 py-2" style="border-radius:10px;font-weight:700;">Explore Knowledge Hub <i class="fas fa-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
+        <div class="card h-100 border-0 shadow-sm hover-lift" style="border-radius:18px;overflow:hidden;background:#fff;transition:var(--transition);">
+          <div style="height:200px;background:linear-gradient(135deg,#1C2280,#5BA8D4);position:relative;display:flex;align-items:center;justify-content:center;color:#fff;">
+            <i class="fas fa-notes-medical" style="font-size:54px;opacity:0.85;"></i>
+            <span class="badge bg-danger position-absolute top-0 end-0 m-3 px-3 py-2" style="border-radius:8px;font-size:11px;font-weight:700;">Healthcare AI</span>
+          </div>
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="text-muted small mb-2"><i class="far fa-calendar-alt me-1"></i> Current Whitepaper • 7 Min Read</div>
+            <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);line-height:1.4;margin-bottom:12px;">Next-Gen RCM: Overcoming ICD-11 Prior-Auth Bottlenecks with Agentic Pipelines</h4>
+            <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;flex-grow:1;">
+              How US healthcare systems and multi-specialty clinics are pairing certified AAPC coders with LLM validation models to collapse appeal turnaround times from 14 days down to 48 hours.
+            </p>
+            <div class="pt-3 mt-2 border-top d-flex justify-content-between align-items-center">
+              <span style="font-size:12px;font-weight:700;color:var(--primary);"><i class="fas fa-shield-alt me-1"></i> HIPAA Certified</span>
+              <a href="blog.php" class="fw-bold text-primary text-decoration-none small">Read Whitepaper <i class="fas fa-chevron-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
+        <div class="card h-100 border-0 shadow-sm hover-lift" style="border-radius:18px;overflow:hidden;background:#fff;transition:var(--transition);">
+          <div style="height:200px;background:linear-gradient(135deg,#080B1A,#1C2280);position:relative;display:flex;align-items:center;justify-content:center;color:#fff;">
+            <i class="fas fa-draw-polygon" style="font-size:54px;opacity:0.85;color:#5BA8D4;"></i>
+            <span class="badge bg-primary position-absolute top-0 end-0 m-3 px-3 py-2" style="border-radius:8px;font-size:11px;font-weight:700;">Computer Vision</span>
+          </div>
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="text-muted small mb-2"><i class="far fa-calendar-alt me-1"></i> Industry Guide • 9 Min Read</div>
+            <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);line-height:1.4;margin-bottom:12px;">High-Fidelity LiDAR &amp; Sensor Fusion: Training Autonomous Vehicles at Scale</h4>
+            <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;flex-grow:1;">
+              Examining semantic 3D bounding, point cloud segmentation, and RLHF methodologies deployed across our Bengaluru delivery centers to supply 99.8% precision datasets.
+            </p>
+            <div class="pt-3 mt-2 border-top d-flex justify-content-between align-items-center">
+              <span style="font-size:12px;font-weight:700;color:#10b981;"><i class="fas fa-check-circle me-1"></i> ISO 9001:2015</span>
+              <a href="blog.php" class="fw-bold text-primary text-decoration-none small">Read Analysis <i class="fas fa-chevron-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-3">
+        <div class="card h-100 border-0 shadow-sm hover-lift" style="border-radius:18px;overflow:hidden;background:#fff;transition:var(--transition);">
+          <div style="height:200px;background:linear-gradient(135deg,#CC2228,#8b1419);position:relative;display:flex;align-items:center;justify-content:center;color:#fff;">
+            <i class="fas fa-book-open" style="font-size:54px;opacity:0.85;color:#fff;"></i>
+            <span class="badge bg-dark position-absolute top-0 end-0 m-3 px-3 py-2" style="border-radius:8px;font-size:11px;font-weight:700;">Digital Publishing</span>
+          </div>
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="text-muted small mb-2"><i class="far fa-calendar-alt me-1"></i> Technical Standard • 6 Min Read</div>
+            <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);line-height:1.4;margin-bottom:12px;">European Accessibility Act (EAA) Compliance: Refactoring XML &amp; ePUB3</h4>
+            <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;flex-grow:1;">
+              How global university presses and commercial publishers are navigating WCAG 2.1 AA and Section 508 mandates through automated MathML validation and semantic structured tagging.
+            </p>
+            <div class="pt-3 mt-2 border-top d-flex justify-content-between align-items-center">
+              <span style="font-size:12px;font-weight:700;color:#f59e0b;"><i class="fas fa-universal-access me-1"></i> WCAG 2.1 Compliant</span>
+              <a href="blog.php" class="fw-bold text-primary text-decoration-none small">Read Blueprint <i class="fas fa-chevron-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -497,6 +497,7 @@ tr:hover td{background:#fafbff}
     <a href="applications.php" class="sidebar-link active"><span class="icon"><i class="fas fa-briefcase"></i></span> Applications</a>
     <div class="nav-section">Content</div>
     <a href="blog-posts.php" class="sidebar-link"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
+    <a href="blog/generate.php" class="sidebar-link"><span class="icon"><i class="fas fa-robot"></i></span> AI Blog Generator</a>
     <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
     <div class="nav-section">System</div>
     <a href="settings.php" class="sidebar-link"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Home Page Assets -->
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/</loc>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/logo-header.png</image:loc>
+      <image:title>Vortexsoft Innovations Private Limited Official Logo</image:title>
+      <image:caption>Vortexsoft Innovations Private Limited — Global AI, IT &amp; BPO Partner</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/icon.jpg</image:loc>
+      <image:title>Vortexsoft Innovations Brand Emblem</image:title>
+      <image:caption>ISO 27001:2013 Certified Global IT Outsourcing and BPO Company</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/vortexsoft-share-banner.png</image:loc>
+      <image:title>Vortexsoft Innovations Enterprise Overview Banner</image:title>
+      <image:caption>Healthcare RCM, AI Data Annotation, Software Development, Publishing and Global BPO</image:caption>
+    </image:image>
+  </url>
+
+  <!-- About Page Assets -->
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/about.php</loc>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/about/iso27001-certified.png</image:loc>
+      <image:title>ISO 27001:2013 Information Security Certification</image:title>
+      <image:caption>Certified Information Security Management at Vortexsoft Innovations</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/about/hipaa-compliant.png</image:loc>
+      <image:title>HIPAA Compliant Healthcare BPO Operations</image:title>
+      <image:caption>HIPAA Safeguards for Medical Billing, Coding &amp; Revenue Cycle Management</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/about/startup-india.png</image:loc>
+      <image:title>Startup India Registered Enterprise</image:title>
+      <image:caption>Government of India Recognized Tech &amp; AI Enterprise</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Service Page Assets -->
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/service.php</loc>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/services/healthcare-rcm.jpg</image:loc>
+      <image:title>Healthcare Revenue Cycle Management &amp; Medical Coding</image:title>
+      <image:caption>End-to-End Medical Billing, Denial Management, and Accounts Receivable Recovery</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/services/ai-data-annotation.jpg</image:loc>
+      <image:title>AI &amp; Computer Vision Data Annotation Services</image:title>
+      <image:caption>High-Accuracy Image, Video, Sensor &amp; Text Annotation for Machine Learning Models</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/services/software-development.jpg</image:loc>
+      <image:title>Custom Software &amp; Full-Stack Web Development</image:title>
+      <image:caption>Next-Gen Enterprise Web Applications, Cloud Platforms &amp; API Integrations</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/services/publishing-prepress.jpg</image:loc>
+      <image:title>Publishing Prepress &amp; XML ePUB3 Conversion</image:title>
+      <image:caption>Automated STM Journal Typesetting, S1000D Conversion &amp; WCAG Accessibility Tagging</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Contact & Delivery Centers -->
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/contact.php</loc>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/locations/pune-headquarters.jpg</image:loc>
+      <image:title>Vortexsoft Innovations Pune Headquarters</image:title>
+      <image:caption>Global HQ at Dangat Patil Empire, Vadgaon Budruk, Pune, Maharashtra 411041</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/assets/images/locations/bengaluru-tech-hub.jpg</image:loc>
+      <image:title>Vortexsoft Innovations Bengaluru Tech Delivery Center</image:title>
+      <image:caption>Advanced Tech Center at HSR Layout 5th Sector, Bengaluru, Karnataka 560068</image:caption>
+    </image:image>
+  </url>
+</urlset>

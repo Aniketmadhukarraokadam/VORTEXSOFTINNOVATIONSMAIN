@@ -5,6 +5,7 @@
 
 $page_title   = 'Contact Us | Global IT Support | Vortexsoft Innovations Private Limited';
 $page_desc    = 'Contact Vortexsoft Innovations Private Limited for IT outsourcing, BPO, healthcare, publishing, or AI solutions. Pune Headquarters & offices in Bengaluru and USA.';
+$page_keywords = 'Contact Vortexsoft Innovations, Vortexsoft Innovations Private Limited contact, Vortexsoft Pune address, Vortexsoft Bengaluru phone number, Vortexsoft customer care, IT outsourcing inquiry, Healthcare BPO RFP, request quote IT services, offshore staffing consultation';
 $canonical_url = 'https://www.vortexsoftinnovations.com/contact.php';
 
 $prefix       = './';

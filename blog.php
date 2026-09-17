@@ -61,6 +61,8 @@ if (empty($posts)) {
 
 $cat_icons = ['Healthcare BPO'=>'fa-heartbeat','Publishing'=>'fa-book','AI & Data'=>'fa-robot','Real Estate BPO'=>'fa-building','Industry Insights'=>'fa-lightbulb','Company News'=>'fa-newspaper','Technology'=>'fa-laptop-code','Finance'=>'fa-chart-bar','General'=>'fa-pen'];
 
+$page_keywords = 'Vortexsoft blog, IT outsourcing insights, healthcare BPO articles, AI data annotation guide, revenue cycle management trends, medical coding news, tech publications S1000D, commercial real estate lease abstraction insights';
+
 require_once __DIR__ . '/includes/header.php';
 ?>
 <style>

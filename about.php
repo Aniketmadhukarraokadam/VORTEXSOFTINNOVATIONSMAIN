@@ -6,6 +6,7 @@
 
 $page_title   = 'About Us | Global IT & BPO Partner | Vortexsoft Innovations Private Limited';
 $page_desc    = 'Discover Vortexsoft Innovations Private Limited — an ISO 27001 certified global IT & BPO outsourcing company in Pune, Bengaluru, and USA delivering Healthcare, AI, and Software.';
+$page_keywords = 'About Vortexsoft Innovations, Vortexsoft Innovations Private Limited profile, Vortexsoft Pune headquarters, Vortexsoft Bengaluru, Vortex Soft history, Aniket Madhukarrao Kadam, ISO 27001 BPO company India, HIPAA compliant outsourcing partner, Startup India IT company, global outsourcing delivery model, IT BPO company India, healthcare RCM partner';
 $canonical_url = 'https://www.vortexsoftinnovations.com/about.php';
 
 $prefix       = './';

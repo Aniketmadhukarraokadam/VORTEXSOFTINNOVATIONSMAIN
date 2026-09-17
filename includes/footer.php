@@ -79,10 +79,14 @@ $prefix = $prefix ?? './';
         </a>
 
         <p class="footer-desc">
-          Vortexsoft Innovations Pvt. Ltd. is a proud member of the
-          <strong style="color:rgba(255,255,255,0.85);">Vortexsoft Innovations Private Limited</strong>
-          — your trusted global partner for IT and non-IT solutions. ISO 27001 Certified.
+          <strong style="color:rgba(255,255,255,0.95);">Vortexsoft Innovations Private Limited</strong>
+          is an ISO 27001:2013 certified and HIPAA-compliant global IT and BPO outsourcing partner headquartered in Pune with advanced tech delivery in Bengaluru and a corporate presence in Wyoming, USA. Empowering 150+ international clients across AI Software, Healthcare RCM, Publishing, Data Annotation, and Enterprise BPO.
         </p>
+        <div class="d-flex gap-2 flex-wrap mt-2 mb-3" style="font-size:11px;color:rgba(255,255,255,0.8);font-weight:600;">
+          <span style="background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);"><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001:2013</span>
+          <span style="background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);"><i class="fas fa-user-md text-info me-1"></i> HIPAA Compliant</span>
+          <span style="background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);"><i class="fas fa-award text-warning me-1"></i> Startup India</span>
+        </div>
         <div class="footer-social">
           <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
