@@ -62,9 +62,9 @@ define('ITEMS_PER_PAGE', 15);
 
 // ── AI Engine Defaults (Admin Blog & Image Generator) ────────
 // IMPORTANT: Set GEMINI_API_KEY in config/.env — get a free key at https://aistudio.google.com/apikey
-// Keys must start with 'AIza' (Google AI Studio format). Vertex AI keys (AQ.*) are NOT compatible.
+// Gemini now supports Google's newer authentication-key format (including AQ.* keys).
 define('DEFAULT_GEMINI_API_KEY', '');  // Leave empty — key must be set in .env
-define('DEFAULT_GEMINI_MODEL',   'gemini-2.0-flash-exp');
+define('DEFAULT_GEMINI_MODEL',   'gemini-3.6-flash');
 define('DEFAULT_GROQ_API_KEY',   '');
 define('DEFAULT_GROQ_MODEL',     'llama-3.3-70b-versatile');
 
