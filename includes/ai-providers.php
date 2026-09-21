@@ -56,8 +56,8 @@ if (!defined('GEMINI_API_KEY')) {
         $gemini_model = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash';
     }
 
-    // Allow both modern Gemini keys and legacy AI Studio keys. Do not reject a valid key
-    // merely because Google changes its displayed prefix/format over time.
+    // Google now issues newer authentication keys (including AQ.*) as well as legacy
+    // formats. Do not reject a key based on its prefix; let Google's API validate it.
     $gemini_key = preg_replace('/\s+/', '', $gemini_key);
 
     // Resolve Groq Key
@@ -249,8 +249,10 @@ function generateWithGemini(array $prompt): array {
     $model = defined('GEMINI_MODEL') && trim((string)GEMINI_MODEL)
         ? trim((string)GEMINI_MODEL)
         : 'gemini-3.6-flash';
-    // Gemini 2.0 experimental was shut down by Google; keep legacy configs from silently
-    // calling a retired endpoint.
+
+    // Gemini 2.x experimental/stable models are no longer appropriate defaults.
+    // Migrate legacy saved settings automatically, while preserving explicitly selected
+    // current models.
     $retiredModels = [
         'gemini-2.0-flash-exp', 'gemini-2.0-flash', 'gemini-2.0-flash-001',
         'gemini-2.0-flash-lite', 'gemini-2.0-flash-lite-001',
@@ -261,7 +263,7 @@ function generateWithGemini(array $prompt): array {
         $model = 'gemini-3.6-flash';
     }
 
-    $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key=" . rawurlencode($apiKey);
+    $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent";
 
     $fullPrompt = $prompt['system'] . "\n\n" . $prompt['user'];
 
@@ -271,12 +273,15 @@ function generateWithGemini(array $prompt): array {
         ],
         'generationConfig' => [
             'responseMimeType' => 'application/json',
-            'temperature'      => 0.7,
             'maxOutputTokens'  => 8192,
         ],
     ]);
 
-    $headers = ['Content-Type: application/json'];
+    // Use the dedicated auth header instead of putting the secret in the URL.
+    $headers = [
+        'Content-Type: application/json',
+        'x-goog-api-key: ' . $apiKey,
+    ];
 
     $response = _ai_curl_post($endpoint, $headers, $payload, 45);
     $data     = json_decode($response, true);
@@ -289,9 +294,9 @@ function generateWithGemini(array $prompt): array {
         if ($errCode === 400 || $errStatus === 'INVALID_ARGUMENT') {
             throw new RuntimeException("Gemini API error (invalid request): {$errMsg}");
         } elseif ($errCode === 403 || $errStatus === 'PERMISSION_DENIED') {
-            throw new RuntimeException("Gemini API key denied (403): Check your key at https://aistudio.google.com/apikey — {$errMsg}");
+            throw new RuntimeException("Gemini authentication/permission failed (403). Check that the key is active in Google AI Studio and that the selected project has Gemini API access. — {$errMsg}");
         } elseif ($errCode === 404 || $errStatus === 'NOT_FOUND') {
-            throw new RuntimeException("Gemini model '{$model}' not found (404). Use 'gemini-2.0-flash-exp' or 'gemini-1.5-flash'. Details: {$errMsg}");
+            throw new RuntimeException("Gemini model '{$model}' was not found (404). Select a current model such as 'gemini-3.6-flash' in Admin Settings. Details: {$errMsg}");
         } elseif ($errCode === 429) {
             throw new RuntimeException("Gemini quota exceeded (429). Free tier limit reached. Try again in a minute or use a different key.");
         } else {
