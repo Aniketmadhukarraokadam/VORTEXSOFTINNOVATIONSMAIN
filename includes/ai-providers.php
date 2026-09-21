@@ -31,24 +31,34 @@ if (!defined('GEMINI_API_KEY')) {
         } catch (Throwable $_t) {}
     }
 
-    // Resolve Gemini Key (env -> db -> server env -> default constant)
-    $gemini_key = trim($_ai_env['GEMINI_API_KEY'] ?? '');
-    if (empty($gemini_key) && !empty($_db_settings['gemini_api_key'])) {
-        $gemini_key = trim($_db_settings['gemini_api_key']);
+    // Resolve Gemini Key. Database settings take precedence so an Admin Settings change
+    // is immediately used by the generator; .env/server env remain supported as fallbacks.
+    $gemini_key = trim($_db_settings['gemini_api_key'] ?? '');
+    if (empty($gemini_key)) {
+        $gemini_key = trim($_ai_env['GEMINI_API_KEY'] ?? '');
     }
     if (empty($gemini_key)) {
         $gemini_key = trim(getenv('GEMINI_API_KEY') ?: ($_ENV['GEMINI_API_KEY'] ?? ($_SERVER['GEMINI_API_KEY'] ?? '')));
     }
     if (empty($gemini_key) && defined('DEFAULT_GEMINI_API_KEY') && !empty(DEFAULT_GEMINI_API_KEY)) {
-        $gemini_key = DEFAULT_GEMINI_API_KEY;
+        $gemini_key = trim(DEFAULT_GEMINI_API_KEY);
     }
-    // NOTE: No hardcoded fallback key. Key must be set in config/.env or Admin Settings > AI Keys.
 
-    // Resolve Gemini Model
-    $gemini_model = trim($_ai_env['GEMINI_MODEL'] ?? ($_db_settings['gemini_model'] ?? (getenv('GEMINI_MODEL') ?: '')));
+    // Resolve Gemini Model. Admin Settings/database takes precedence over .env.
+    $gemini_model = trim($_db_settings['gemini_model'] ?? '');
     if (empty($gemini_model)) {
-        $gemini_model = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-2.0-flash-exp';
+        $gemini_model = trim($_ai_env['GEMINI_MODEL'] ?? '');
     }
+    if (empty($gemini_model)) {
+        $gemini_model = trim(getenv('GEMINI_MODEL') ?: '');
+    }
+    if (empty($gemini_model)) {
+        $gemini_model = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash';
+    }
+
+    // Allow both modern Gemini keys and legacy AI Studio keys. Do not reject a valid key
+    // merely because Google changes its displayed prefix/format over time.
+    $gemini_key = preg_replace('/\s+/', '', $gemini_key);
 
     // Resolve Groq Key
     $groq_key = trim($_ai_env['GROQ_API_KEY'] ?? ($_db_settings['groq_api_key'] ?? (getenv('GROQ_API_KEY') ?: '')));
@@ -224,27 +234,34 @@ function _ai_parse_json_content(string $content): array {
  * API Key: Get a FREE key at https://aistudio.google.com/apikey
  */
 function generateWithGemini(array $prompt): array {
-    $apiKey = defined('GEMINI_API_KEY') && !empty(GEMINI_API_KEY)
-        ? GEMINI_API_KEY
-        : (defined('DEFAULT_GEMINI_API_KEY') && !empty(DEFAULT_GEMINI_API_KEY) ? DEFAULT_GEMINI_API_KEY : '');
+    $apiKey = defined('GEMINI_API_KEY') ? trim((string)GEMINI_API_KEY) : '';
 
     if (empty($apiKey)) {
         throw new RuntimeException(
-            'GEMINI_API_KEY is not set in config/.env' . "\n" .
-            'Get a FREE key at https://aistudio.google.com/apikey then paste it in Admin > Settings > AI Keys.'
+            'Gemini API key is not configured. Add your Google AI Studio API key in Admin > Settings > AI Blog & Image Generator.'
         );
     }
 
-    // Validate key format — Google AI Studio keys start with AIza
-    if (!preg_match('/^AIza[A-Za-z0-9_\-]{30,}$/', $apiKey)) {
-        throw new RuntimeException(
-            'Invalid Gemini API key format. Google AI Studio keys start with "AIza". ' .
-            'Get a valid key at https://aistudio.google.com/apikey'
-        );
+    // Do not hard-code an "AIza" prefix requirement. Google may issue keys with different
+    // prefixes/formats; the API response is the authoritative validation.
+    $apiKey = preg_replace('/\\s+/', '', $apiKey);
+
+    $model = defined('GEMINI_MODEL') && trim((string)GEMINI_MODEL)
+        ? trim((string)GEMINI_MODEL)
+        : 'gemini-3.6-flash';
+    // Gemini 2.0 experimental was shut down by Google; keep legacy configs from silently
+    // calling a retired endpoint.
+    $retiredModels = [
+        'gemini-2.0-flash-exp', 'gemini-2.0-flash', 'gemini-2.0-flash-001',
+        'gemini-2.0-flash-lite', 'gemini-2.0-flash-lite-001',
+        'gemini-2.0-flash-thinking-exp', 'gemini-2.0-flash-thinking-exp-01-21',
+        'gemini-2.0-flash-thinking-exp-1219'
+    ];
+    if (in_array($model, $retiredModels, true)) {
+        $model = 'gemini-3.6-flash';
     }
 
-    $model    = defined('GEMINI_MODEL') && GEMINI_MODEL ? GEMINI_MODEL : 'gemini-2.0-flash-exp';
-    $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key=" . $apiKey;
+    $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key=" . rawurlencode($apiKey);
 
     $fullPrompt = $prompt['system'] . "\n\n" . $prompt['user'];
 
