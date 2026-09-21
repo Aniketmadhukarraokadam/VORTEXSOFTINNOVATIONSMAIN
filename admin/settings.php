@@ -148,7 +148,7 @@ $site_settings = [
     'contact_phone'      => '+91 8308906690',
     'office_address'     => '125 Ranganath Complex, Madiwala, Bengaluru, Karnataka 560068',
     'gemini_api_key'     => '',  // Set your key at https://aistudio.google.com/apikey
-    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-2.0-flash-exp',
+    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash',
     'groq_api_key'       => defined('DEFAULT_GROQ_API_KEY') ? DEFAULT_GROQ_API_KEY : '',
     'groq_model'         => defined('DEFAULT_GROQ_MODEL') ? DEFAULT_GROQ_MODEL : 'llama-3.3-70b-versatile',
     'openrouter_api_key' => '',
@@ -282,37 +282,6 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
         </form>
       </div>
 
-      <!-- AI Blog & Image Generator Settings -->
-      <div class="card-box">
-        <h5><i class="fas fa-robot" style="color:#6366f1;"></i> AI Blog &amp; Image Generator Settings</h5>
-        <div style="font-size:12.5px;color:#64748b;margin-bottom:15px;">
-          Configure API credentials used by the AI Blog &amp; Image Generator (<a href="blog/generate.php" style="color:#1C2280;font-weight:600;">Open Generator</a>). Values are securely saved to the database.
-        </div>
-        <form method="POST" action="settings.php">
-          <input type="hidden" name="action" value="update_ai_settings">
-          <div class="mb-3">
-            <label class="form-label font-weight-semibold">Google Gemini API Key <span class="badge bg-primary ms-1">Default Engine</span></label>
-            <input type="text" name="gemini_api_key" class="form-control font-monospace" style="font-size:13px;" value="<?= htmlspecialchars($site_settings['gemini_api_key'] ?? '') ?>" placeholder="AIza... or Gemini API Key">
-            <div class="form-text" style="font-size:11.5px;">Powers automatic SEO, AEO &amp; GEO articles with Google Gemini 3.6 Flash.</div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label font-weight-semibold">Gemini Model</label>
-            <input type="text" name="gemini_model" class="form-control font-monospace" style="font-size:13px;" value="<?= htmlspecialchars($site_settings['gemini_model'] ?? 'gemini-3.6-flash') ?>" placeholder="gemini-3.6-flash">
-          </div>
-          <div class="row g-3 mb-3">
-            <div class="col-md-6">
-              <label class="form-label font-weight-semibold">Groq API Key <span class="badge bg-secondary ms-1">Fallback</span></label>
-              <input type="password" name="groq_api_key" class="form-control font-monospace" style="font-size:13px;" value="<?= htmlspecialchars($site_settings['groq_api_key'] ?? '') ?>" placeholder="gsk_...">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label font-weight-semibold">Groq Model</label>
-              <input type="text" name="groq_model" class="form-control font-monospace" style="font-size:13px;" value="<?= htmlspecialchars($site_settings['groq_model'] ?? 'llama-3.3-70b-versatile') ?>" placeholder="llama-3.3-70b-versatile">
-            </div>
-          </div>
-          <button type="submit" class="btn" style="background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;border-radius:8px;font-weight:700;padding:10px 24px;">Save AI Configuration</button>
-        </form>
-      </div>
-
       <!-- Global Website Settings -->
       <div class="card-box">
         <h5><i class="fas fa-sliders-h text-success"></i> Global Website Settings</h5>
@@ -353,7 +322,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
             <strong>Gemini API key required.</strong> Get a <strong>FREE</strong> key at
             <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" style="color:#1C2280;font-weight:700;">aistudio.google.com/apikey</a> →
             click <strong>Create API Key</strong> → paste it below.<br>
-            Keys must start with <code>AIza</code>. <em>Vertex AI keys (starting with <code>AQ.</code>) are NOT compatible.</em>
+            Both legacy AI Studio keys and Google's newer <code>AQ.*</code> authentication keys are supported.
           </div>
         </div>
         <form method="POST" action="settings.php">
@@ -377,15 +346,15 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
                   <i class="fas fa-eye"></i>
                 </button>
               </div>
-              <div class="form-text">Must start with <code>AIza</code>. Free tier supports ~1500 requests/day.</div>
+              <div class="form-text">Google currently issues authentication keys that may begin with <code>AQ.</code>. The application sends the key securely to Gemini via the authentication header.</div>
             </div>
             <div class="mb-0">
               <label class="form-label font-weight-semibold">Gemini Model</label>
               <select name="gemini_model" class="form-select">
-                <option value="gemini-2.0-flash-exp" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-2.0-flash-exp' ? 'selected' : '' ?>>gemini-2.0-flash-exp (Recommended — Fast & Free)</option>
-                <option value="gemini-1.5-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-1.5-flash' ? 'selected' : '' ?>>gemini-1.5-flash (Stable)</option>
-                <option value="gemini-1.5-pro" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-1.5-pro' ? 'selected' : '' ?>>gemini-1.5-pro (Higher quality, slower)</option>
-                <option value="gemini-2.0-flash-thinking-exp" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-2.0-flash-thinking-exp' ? 'selected' : '' ?>>gemini-2.0-flash-thinking-exp (Reasoning)</option>
+                <option value="gemini-3.8-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.8-flash' ? 'selected' : '' ?>>gemini-3.8-flash (Current stable)</option>
+                <option value="gemini-3.7-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.7-flash' ? 'selected' : '' ?>>gemini-3.7-flash (Stable)</option>
+                <option value="gemini-3.6-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.6-flash' || empty($site_settings['gemini_model']) ? 'selected' : '' ?>>gemini-3.6-flash (Stable)</option>
+                <option value="gemini-2.5-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-2.5-flash' ? 'selected' : '' ?>>gemini-2.5-flash (Stable)</option>
               </select>
             </div>
           </div>
