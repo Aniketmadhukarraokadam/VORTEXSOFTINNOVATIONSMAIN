@@ -160,6 +160,21 @@ if ($db) {
             $site_settings[$r['setting_key']] = $r['setting_value'];
         }
     } catch (PDOException $e) {}
+
+    // Keep older installations from continuing to display a retired Gemini 2.x model.
+    $legacy_gemini_models = [
+        'gemini-2.0-flash-exp',
+        'gemini-2.0-flash',
+        'gemini-2.0-flash-001',
+        'gemini-2.0-flash-lite',
+        'gemini-2.0-flash-lite-001',
+        'gemini-2.0-flash-thinking-exp',
+        'gemini-2.0-flash-thinking-exp-01-21',
+        'gemini-2.0-flash-thinking-exp-1219',
+    ];
+    if (in_array(trim((string)($site_settings['gemini_model'] ?? '')), $legacy_gemini_models, true)) {
+        $site_settings['gemini_model'] = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash';
+    }
 }
 
 // System stats
