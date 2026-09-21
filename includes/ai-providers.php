@@ -230,7 +230,7 @@ function _ai_parse_json_content(string $content): array {
 
 /**
  * Generate blog content via Google Gemini (DEFAULT PRIMARY ENGINE).
- * Model: gemini-2.0-flash-exp (or as configured in config/.env GEMINI_MODEL)
+ * Model: gemini-3.6-flash (or as configured in Admin Settings / config/.env GEMINI_MODEL)
  * API Key: Get a FREE key at https://aistudio.google.com/apikey
  */
 function generateWithGemini(array $prompt): array {
