@@ -58,7 +58,24 @@ if (!defined('GEMINI_API_KEY')) {
 
     // Google now issues newer authentication keys (including AQ.*) as well as legacy
     // formats. Do not reject a key based on its prefix; let Google's API validate it.
-    $gemini_key = preg_replace('/\s+/', '', $gemini_key);
+    $gemini_key = preg_replace('/\\s+/', '', $gemini_key);
+
+    // Migrate legacy/dead model names saved by older versions of the admin panel.
+    // This also means an existing database row containing gemini-2.0-flash-exp
+    // cannot keep forcing the retired model after deployment.
+    $legacy_gemini_models = [
+        'gemini-2.0-flash-exp',
+        'gemini-2.0-flash',
+        'gemini-2.0-flash-001',
+        'gemini-2.0-flash-lite',
+        'gemini-2.0-flash-lite-001',
+        'gemini-2.0-flash-thinking-exp',
+        'gemini-2.0-flash-thinking-exp-01-21',
+        'gemini-2.0-flash-thinking-exp-1219',
+    ];
+    if (in_array($gemini_model, $legacy_gemini_models, true)) {
+        $gemini_model = 'gemini-3.6-flash';
+    }
 
     // Resolve Groq Key
     $groq_key = trim($_ai_env['GROQ_API_KEY'] ?? ($_db_settings['groq_api_key'] ?? (getenv('GROQ_API_KEY') ?: '')));
@@ -283,8 +300,53 @@ function generateWithGemini(array $prompt): array {
         'x-goog-api-key: ' . $apiKey,
     ];
 
-    $response = _ai_curl_post($endpoint, $headers, $payload, 45);
-    $data     = json_decode($response, true);
+    // 503 UNAVAILABLE means the selected model is temporarily overloaded.
+    // Retry briefly, then fail over to other supported Flash models instead of
+    // making the entire blog generation fail.
+    $modelsToTry = array_values(array_unique([
+        $model,
+        'gemini-3.5-flash',
+        'gemini-3.5-flash-lite',
+        'gemini-2.5-flash'
+    ]));
+    $last503 = null;
+
+    foreach ($modelsToTry as $attemptModel) {
+        $attemptEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$attemptModel}:generateContent";
+        for ($attempt = 0; $attempt < 3; $attempt++) {
+            try {
+                $response = _ai_curl_post($attemptEndpoint, $headers, $payload, 45);
+                $data = json_decode($response, true);
+
+                if (isset($data['error']) && (($data['error']['code'] ?? 0) === 503 || ($data['error']['status'] ?? '') === 'UNAVAILABLE')) {
+                    $last503 = $data['error']['message'] ?? 'Gemini model temporarily unavailable';
+                    if ($attempt < 2) {
+                        usleep((int)(250000 * (2 ** $attempt)));
+                        continue;
+                    }
+                    break;
+                }
+
+                // A successful HTTP response, or a non-503 API error, is handled below.
+                $model = $attemptModel;
+                break 2;
+            } catch (RuntimeException $e) {
+                if (strpos($e->getMessage(), 'HTTP 503:') === 0) {
+                    $last503 = $e->getMessage();
+                    if ($attempt < 2) {
+                        usleep((int)(250000 * (2 ** $attempt)));
+                        continue;
+                    }
+                    break;
+                }
+                throw $e;
+            }
+        }
+    }
+
+    if ($last503 !== null && !isset($data)) {
+        throw new RuntimeException("Gemini temporarily unavailable after retries/fallback. Please try again shortly. Details: {$last503}");
+    }
 
     // Check for API-level errors (invalid key, quota, model not found, etc.)
     if (isset($data['error'])) {
