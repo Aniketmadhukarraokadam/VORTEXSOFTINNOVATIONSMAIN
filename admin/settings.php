@@ -103,7 +103,7 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
     // Update AI Blog & Image Generator Settings
     if ($action === 'update_ai_settings') {
         $gemini_api_key   = trim($_POST['gemini_api_key'] ?? '');
-        $gemini_model     = trim($_POST['gemini_model'] ?? 'gemini-2.0-flash-exp');
+        $gemini_model     = trim($_POST['gemini_model'] ?? 'gemini-3.6-flash');
         $groq_api_key     = trim($_POST['groq_api_key'] ?? '');
         $groq_model       = trim($_POST['groq_model'] ?? 'llama-3.3-70b-versatile');
         $openrouter_api_k = trim($_POST['openrouter_api_key'] ?? '');
@@ -340,7 +340,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                 <input type="password" name="gemini_api_key" class="form-control" 
                   value="<?= htmlspecialchars($site_settings['gemini_api_key'] ?? '') ?>"
-                  placeholder="AIzaSy... (get free key at aistudio.google.com/apikey)"
+                  placeholder="AQ... or AIza... (Google AI Studio key)"
                   autocomplete="new-password" id="gemini-key-input">
                 <button type="button" class="btn btn-outline-secondary" onclick="togglePass('gemini-key-input',this)" title="Show/hide key">
                   <i class="fas fa-eye"></i>
