@@ -102,16 +102,54 @@ function get_email_template(string $key, array $vars = []): ?array {
     return null;
 }
 
+// ── Dynamic Email Address Resolvers (System Settings DB -> Constants Fallback) ──
+function get_contact_email(): string {
+    static $cached = null;
+    if ($cached !== null) return $cached;
+    try {
+        $db = getDB();
+        if ($db) {
+            $stmt = $db->query("SELECT setting_value FROM system_settings WHERE setting_key='contact_email' LIMIT 1");
+            $val = $stmt ? $stmt->fetchColumn() : null;
+            if (!empty($val) && filter_var($val, FILTER_VALIDATE_EMAIL)) {
+                return $cached = trim($val);
+            }
+        }
+    } catch (Throwable $e) {}
+    return $cached = defined('EMAIL_SUPPORT') ? EMAIL_SUPPORT : 'support@vortexsoftinnovations.com';
+}
+
+function get_careers_email(): string {
+    static $cached = null;
+    if ($cached !== null) return $cached;
+    try {
+        $db = getDB();
+        if ($db) {
+            $stmt = $db->query("SELECT setting_value FROM system_settings WHERE setting_key='careers_email' LIMIT 1");
+            $val = $stmt ? $stmt->fetchColumn() : null;
+            if (!empty($val) && filter_var($val, FILTER_VALIDATE_EMAIL)) {
+                return $cached = trim($val);
+            }
+        }
+    } catch (Throwable $e) {}
+    return $cached = defined('EMAIL_CAREERS') ? EMAIL_CAREERS : 'careers@vortexsoftinnovations.com';
+}
+
 // ── Email Sending (PHP mail + Email Logging + Security Rules) ──
-function send_notification_email(string $to, string $subject, string $html_body, string $from_name = SITE_NAME, string $reply_to = EMAIL_CONTACT, ?string $from_email_override = null, ?string $cc = null): bool {
+function send_notification_email(string $to, string $subject, string $html_body, string $from_name = SITE_NAME, string $reply_to = '', ?string $from_email_override = null, ?string $cc = null): bool {
+    // If reply_to is empty, default to contact email
+    if (empty($reply_to)) {
+        $reply_to = get_contact_email();
+    }
+
     // If a specific from_email_override is provided, honor it directly (e.g. no-reply@vortexsoftinnovations.com)
     if (!empty($from_email_override)) {
         $from_email = $from_email_override;
     } else {
         // SECURITY RULE #6: Always send from company approved mailbox
-        $from_email = defined('EMAIL_SUPPORT') ? EMAIL_SUPPORT : 'contact@vortexsoftinnovations.com';
+        $from_email = get_contact_email();
         
-        // Check if custom active email account is configured
+        // Check if custom active email account is configured in email_accounts
         try {
             $db = getDB();
             if ($db) {
@@ -142,8 +180,9 @@ function send_notification_email(string $to, string $subject, string $html_body,
     // Log to email_logs table
     try {
         if (isset($db) && $db) {
+            $recipient_log = !empty($cc) ? "{$to} (CC: {$cc})" : $to;
             $stmtLog = $db->prepare("INSERT INTO email_logs (type, sender, recipient, subject, body_html, status, error_message, created_at) VALUES ('outgoing', ?, ?, ?, ?, ?, ?, NOW())");
-            $stmtLog->execute([$from_email, $to, $subject, $html_body, $status, $err_msg]);
+            $stmtLog->execute([$from_email, $recipient_log, $subject, $html_body, $status, $err_msg]);
         }
     } catch (Throwable $e) {}
 
@@ -173,7 +212,11 @@ function send_contact_notification(array $data): bool {
         </div>
     </div>
     </body></html>";
-    return send_notification_email(EMAIL_SUPPORT, $subject, $body);
+    
+    // Internal notification sent to support inbox; hitting 'Reply' in email client goes straight to prospect
+    $target_inbox = get_contact_email();
+    $prospect_reply = !empty($data['email']) ? $data['email'] : $target_inbox;
+    return send_notification_email($target_inbox, $subject, $body, SITE_NAME, $prospect_reply);
 }
 
 function send_application_notification(array $data): bool {
@@ -209,8 +252,9 @@ function send_application_notification(array $data): bool {
     </div>
     </body></html>";
     // Candidate application notification sent to HR: From no-reply, CC careers@vortexsoftinnovations.com
-    $applicant_reply = !empty($data['email']) ? $data['email'] : EMAIL_CAREERS;
-    return send_notification_email(EMAIL_HR, $subject, $body, SITE_NAME . ' Careers', $applicant_reply, EMAIL_NO_REPLY, EMAIL_CAREERS);
+    $careers_addr = get_careers_email();
+    $applicant_reply = !empty($data['email']) ? $data['email'] : $careers_addr;
+    return send_notification_email($careers_addr, $subject, $body, SITE_NAME . ' Careers', $applicant_reply, EMAIL_NO_REPLY, $careers_addr);
 }
 
 // ── Slug Generation ────────────────────────────────────────
@@ -219,6 +263,7 @@ function send_application_notification(array $data): bool {
  * Send a branded auto-acknowledgement email to a contact form submitter.
  */
 function send_contact_acknowledgement(array $data): bool {
+    $contact_email = get_contact_email();
     $subject = 'We\'ve received your inquiry — Vortexsoft Innovations Private Limited';
     $body = "
     <html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
@@ -238,7 +283,7 @@ function send_contact_acknowledgement(array $data): bool {
             <p style='color:#555;font-size:14px;'>Need an immediate response? Contact us via:</p>
             <ul style='color:#475569;font-size:13px;line-height:2;padding-left:20px;'>
                 <li>WhatsApp: <a href='https://wa.me/918308906690' style='color:#1C2280;'>+91-8308906690</a></li>
-                <li>Email: <a href='mailto:" . EMAIL_SUPPORT . "' style='color:#1C2280;'>" . EMAIL_SUPPORT . "</a></li>
+                <li>Email: <a href='mailto:" . htmlspecialchars($contact_email) . "' style='color:#1C2280;'>" . htmlspecialchars($contact_email) . "</a></li>
             </ul>
         </div>
         <div style='background:#f8f9ff;padding:20px 30px;text-align:center;'>
@@ -247,7 +292,7 @@ function send_contact_acknowledgement(array $data): bool {
         </div>
     </div>
     </body></html>";
-    return send_notification_email($data['email'], $subject, $body, EMAIL_FROM_NAME, EMAIL_CONTACT);
+    return send_notification_email($data['email'], $subject, $body, EMAIL_FROM_NAME, $contact_email);
 }
 function slugify(string $text): string {
     $text = strtolower(trim($text));
