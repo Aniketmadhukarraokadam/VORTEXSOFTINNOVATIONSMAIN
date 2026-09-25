@@ -147,10 +147,10 @@ $site_settings = [
     'careers_email'      => 'careers@vortexsoftinnovations.in',
     'contact_phone'      => '+91 8308906690',
     'office_address'     => '125 Ranganath Complex, Madiwala, Bengaluru, Karnataka 560068',
-    'gemini_api_key'     => '',  // Set your key at https://aistudio.google.com/apikey
-    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash',
+    'gemini_api_key'     => defined('GEMINI_API_KEY') ? GEMINI_API_KEY : (defined('DEFAULT_GEMINI_API_KEY') ? DEFAULT_GEMINI_API_KEY : ''),
+    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.5-flash-lite',
     'groq_api_key'       => defined('DEFAULT_GROQ_API_KEY') ? DEFAULT_GROQ_API_KEY : '',
-    'groq_model'         => defined('DEFAULT_GROQ_MODEL') ? DEFAULT_GROQ_MODEL : 'llama-3.3-70b-versatile',
+    'groq_model'         => defined('DEFAULT_GROQ_MODEL') ? DEFAULT_GROQ_MODEL : 'openai/gpt-oss-120b',
     'openrouter_api_key' => '',
 ];
 if ($db) {
@@ -161,7 +161,7 @@ if ($db) {
         }
     } catch (PDOException $e) {}
 
-    // Keep older installations from continuing to display a retired Gemini 2.x model.
+    // Keep older installations from continuing to display retired Gemini models.
     $legacy_gemini_models = [
         'gemini-2.0-flash-exp',
         'gemini-2.0-flash',
@@ -171,9 +171,10 @@ if ($db) {
         'gemini-2.0-flash-thinking-exp',
         'gemini-2.0-flash-thinking-exp-01-21',
         'gemini-2.0-flash-thinking-exp-1219',
+        'gemini-2.5-flash',
     ];
     if (in_array(trim((string)($site_settings['gemini_model'] ?? '')), $legacy_gemini_models, true)) {
-        $site_settings['gemini_model'] = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash';
+        $site_settings['gemini_model'] = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.5-flash-lite';
     }
 }
 
@@ -366,10 +367,10 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
             <div class="mb-0">
               <label class="form-label font-weight-semibold">Gemini Model</label>
               <select name="gemini_model" class="form-select">
-                <option value="gemini-3.8-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.8-flash' ? 'selected' : '' ?>>gemini-3.8-flash (Current stable)</option>
+                <option value="gemini-3.5-flash-lite" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.5-flash-lite' || empty($site_settings['gemini_model']) ? 'selected' : '' ?>>gemini-3.5-flash-lite (Recommended — High Speed & Availability)</option>
+                <option value="gemini-3.6-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.6-flash' ? 'selected' : '' ?>>gemini-3.6-flash (Stable)</option>
+                <option value="gemini-3.8-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.8-flash' ? 'selected' : '' ?>>gemini-3.8-flash (Flagship)</option>
                 <option value="gemini-3.7-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.7-flash' ? 'selected' : '' ?>>gemini-3.7-flash (Stable)</option>
-                <option value="gemini-3.6-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.6-flash' || empty($site_settings['gemini_model']) ? 'selected' : '' ?>>gemini-3.6-flash (Stable)</option>
-                <option value="gemini-2.5-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-2.5-flash' ? 'selected' : '' ?>>gemini-2.5-flash (Stable)</option>
               </select>
             </div>
           </div>
@@ -393,9 +394,9 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
               <div class="col-md-4">
                 <label class="form-label font-weight-semibold">Model</label>
                 <select name="groq_model" class="form-select">
-                  <option value="llama-3.3-70b-versatile" <?= ($site_settings['groq_model'] ?? '') === 'llama-3.3-70b-versatile' ? 'selected' : '' ?>>llama-3.3-70b-versatile</option>
-                  <option value="llama-3.1-8b-instant" <?= ($site_settings['groq_model'] ?? '') === 'llama-3.1-8b-instant' ? 'selected' : '' ?>>llama-3.1-8b-instant</option>
-                  <option value="mixtral-8x7b-32768" <?= ($site_settings['groq_model'] ?? '') === 'mixtral-8x7b-32768' ? 'selected' : '' ?>>mixtral-8x7b-32768</option>
+                  <option value="openai/gpt-oss-120b" <?= ($site_settings['groq_model'] ?? '') === 'openai/gpt-oss-120b' || empty($site_settings['groq_model']) ? 'selected' : '' ?>>openai/gpt-oss-120b (Flagship)</option>
+                  <option value="qwen/qwen3.8-27b" <?= ($site_settings['groq_model'] ?? '') === 'qwen/qwen3.8-27b' ? 'selected' : '' ?>>qwen/qwen3.8-27b (Fast)</option>
+                  <option value="openai/gpt-oss-20b" <?= ($site_settings['groq_model'] ?? '') === 'openai/gpt-oss-20b' ? 'selected' : '' ?>>openai/gpt-oss-20b (Lightweight)</option>
                 </select>
               </div>
             </div>

@@ -239,7 +239,7 @@ if ($page_state === 'form' && !empty($_SESSION['ai_gen_results']) && empty($erro
 
 $provider_meta = [
     'gemini'     => ['name' => 'Gemini (Default)', 'model' => GEMINI_MODEL,     'color' => '#1C2280', 'icon' => 'fa-gem'],
-    'groq'       => ['name' => 'Groq Llama-3',     'model' => GROQ_MODEL,       'color' => '#f97316', 'icon' => 'fa-bolt'],
+    'groq'       => ['name' => 'Groq AI',          'model' => GROQ_MODEL,       'color' => '#f97316', 'icon' => 'fa-bolt'],
     'openrouter' => ['name' => 'OpenRouter',       'model' => OPENROUTER_MODEL, 'color' => '#8b5cf6', 'icon' => 'fa-route'],
 ];
 ?>
@@ -400,7 +400,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
   <div class="admin-header">
     <div>
       <h1><i class="fas fa-robot me-2" style="color:#CC2228;font-size:20px;"></i>AI Blog &amp; Image Generator</h1>
-      <div class="subtitle">Default Engine: Google Gemini 3.6 Flash &bull; SEO, AEO &amp; GEO Optimized &bull; AI Image &bull; LinkedIn Draft</div>
+      <div class="subtitle">Default Engine: Google Gemini (<?= htmlspecialchars(GEMINI_MODEL) ?>) &bull; SEO, AEO &amp; GEO Optimized &bull; AI Image &bull; LinkedIn Draft</div>
     </div>
     <div class="d-flex align-items-center gap-3">
       <span class="rate-badge <?= $remaining <= 2 ? 'warn' : '' ?>">
@@ -461,7 +461,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
         <i class="fas fa-exclamation-triangle text-warning" style="font-size:22px;"></i>
         <div>
           <strong style="color:#854d0e;">Gemini API Key Required:</strong>
-          <div style="font-size:13px;color:#a16207;">Enter your free Google Gemini key (format: <code>AIza...</code>) in Admin Settings to enable AI Blog Generation.</div>
+          <div style="font-size:13px;color:#a16207;">Enter your free Google Gemini key (format: <code>AQ...</code> or <code>AIza...</code>) in Admin Settings to enable AI Blog Generation.</div>
         </div>
       </div>
       <a href="/admin/settings.php#ai-keys-section" class="btn btn-sm btn-warning fw-bold text-dark px-3 py-2" style="border-radius:8px;white-space:nowrap;">Configure Key →</a>

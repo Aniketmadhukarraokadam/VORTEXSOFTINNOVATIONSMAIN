@@ -53,7 +53,7 @@ if (!defined('GEMINI_API_KEY')) {
         $gemini_model = trim(getenv('GEMINI_MODEL') ?: '');
     }
     if (empty($gemini_model)) {
-        $gemini_model = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.6-flash';
+        $gemini_model = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.5-flash-lite';
     }
 
     // Google now issues newer authentication keys (including AQ.*) as well as legacy
@@ -61,8 +61,6 @@ if (!defined('GEMINI_API_KEY')) {
     $gemini_key = preg_replace('/\\s+/', '', $gemini_key);
 
     // Migrate legacy/dead model names saved by older versions of the admin panel.
-    // This also means an existing database row containing gemini-2.0-flash-exp
-    // cannot keep forcing the retired model after deployment.
     $legacy_gemini_models = [
         'gemini-2.0-flash-exp',
         'gemini-2.0-flash',
@@ -72,9 +70,10 @@ if (!defined('GEMINI_API_KEY')) {
         'gemini-2.0-flash-thinking-exp',
         'gemini-2.0-flash-thinking-exp-01-21',
         'gemini-2.0-flash-thinking-exp-1219',
+        'gemini-2.5-flash',
     ];
     if (in_array($gemini_model, $legacy_gemini_models, true)) {
-        $gemini_model = 'gemini-3.6-flash';
+        $gemini_model = 'gemini-3.5-flash-lite';
     }
 
     // Resolve Groq Key
@@ -83,7 +82,7 @@ if (!defined('GEMINI_API_KEY')) {
         $groq_key = DEFAULT_GROQ_API_KEY;
     }
 
-    $groq_model = trim($_ai_env['GROQ_MODEL'] ?? ($_db_settings['groq_model'] ?? (getenv('GROQ_MODEL') ?: 'llama-3.3-70b-versatile')));
+    $groq_model = trim($_ai_env['GROQ_MODEL'] ?? ($_db_settings['groq_model'] ?? (getenv('GROQ_MODEL') ?: 'openai/gpt-oss-120b')));
 
     // Resolve OpenRouter Key
     $openrouter_key = trim($_ai_env['OPENROUTER_API_KEY'] ?? ($_db_settings['openrouter_api_key'] ?? (getenv('OPENROUTER_API_KEY') ?: '')));
@@ -265,22 +264,18 @@ function generateWithGemini(array $prompt): array {
 
     $model = defined('GEMINI_MODEL') && trim((string)GEMINI_MODEL)
         ? trim((string)GEMINI_MODEL)
-        : 'gemini-3.6-flash';
+        : 'gemini-3.5-flash-lite';
 
-    // Gemini 2.x experimental/stable models are no longer appropriate defaults.
-    // Migrate legacy saved settings automatically, while preserving explicitly selected
-    // current models.
+    // Migrate legacy/retired models
     $retiredModels = [
         'gemini-2.0-flash-exp', 'gemini-2.0-flash', 'gemini-2.0-flash-001',
         'gemini-2.0-flash-lite', 'gemini-2.0-flash-lite-001',
         'gemini-2.0-flash-thinking-exp', 'gemini-2.0-flash-thinking-exp-01-21',
-        'gemini-2.0-flash-thinking-exp-1219'
+        'gemini-2.0-flash-thinking-exp-1219', 'gemini-2.5-flash',
     ];
     if (in_array($model, $retiredModels, true)) {
-        $model = 'gemini-3.6-flash';
+        $model = 'gemini-3.5-flash-lite';
     }
-
-    $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent";
 
     $fullPrompt = $prompt['system'] . "\n\n" . $prompt['user'];
 
@@ -294,86 +289,92 @@ function generateWithGemini(array $prompt): array {
         ],
     ]);
 
-    // Use the dedicated auth header instead of putting the secret in the URL.
     $headers = [
         'Content-Type: application/json',
         'x-goog-api-key: ' . $apiKey,
     ];
 
-    // 503 UNAVAILABLE means the selected model is temporarily overloaded.
-    // Retry briefly, then fail over to other supported Flash models instead of
-    // making the entire blog generation fail.
+    // Priority model cascade:
+    // Try selected model first, followed by high-throughput gemini-3.5-flash-lite, then other stable models.
     $modelsToTry = array_values(array_unique([
         $model,
-        'gemini-3.5-flash',
         'gemini-3.5-flash-lite',
-        'gemini-2.5-flash'
+        'gemini-3.6-flash',
+        'gemini-3.8-flash',
+        'gemini-3.7-flash',
     ]));
-    $last503 = null;
+
+    $lastError = null;
+    $data = null;
+    $succeededModel = $model;
 
     foreach ($modelsToTry as $attemptModel) {
         $attemptEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$attemptModel}:generateContent";
-        for ($attempt = 0; $attempt < 3; $attempt++) {
+        for ($attempt = 0; $attempt < 2; $attempt++) {
             try {
-                $response = _ai_curl_post($attemptEndpoint, $headers, $payload, 45);
-                $data = json_decode($response, true);
+                $rawResponse = _ai_curl_post($attemptEndpoint, $headers, $payload, 45);
+                $jsonData = json_decode($rawResponse, true);
 
-                if (isset($data['error']) && (($data['error']['code'] ?? 0) === 503 || ($data['error']['status'] ?? '') === 'UNAVAILABLE')) {
-                    $last503 = $data['error']['message'] ?? 'Gemini model temporarily unavailable';
-                    if ($attempt < 2) {
-                        usleep((int)(250000 * (2 ** $attempt)));
-                        continue;
+                if (isset($jsonData['error'])) {
+                    $errCode = $jsonData['error']['code'] ?? 0;
+                    $errStatus = $jsonData['error']['status'] ?? '';
+                    $errMsg = $jsonData['error']['message'] ?? 'Unknown Gemini API error';
+
+                    // If model has transient 503 (high demand), 429 (quota), or 404 (retired), fail over to next model
+                    if ($errCode === 503 || $errStatus === 'UNAVAILABLE' || $errCode === 429 || $errStatus === 'RESOURCE_EXHAUSTED' || $errCode === 404 || $errStatus === 'NOT_FOUND') {
+                        $lastError = "{$attemptModel} ({$errCode}): {$errMsg}";
+                        if ($attempt < 1 && ($errCode === 503 || $errCode === 429)) {
+                            usleep(300000);
+                            continue;
+                        }
+                        break; // Try next model in cascade
                     }
-                    break;
+                    if ($errCode === 403 || $errStatus === 'PERMISSION_DENIED') {
+                        throw new RuntimeException("Gemini authentication failed (403). Check that the API key is active in Google AI Studio. — {$errMsg}");
+                    }
+                    throw new RuntimeException("Gemini API error ({$errCode}): {$errMsg}");
                 }
 
-                // A successful HTTP response, or a non-503 API error, is handled below.
-                $model = $attemptModel;
-                break 2;
+                $data = $jsonData;
+                $succeededModel = $attemptModel;
+                break 2; // Success!
             } catch (RuntimeException $e) {
-                if (strpos($e->getMessage(), 'HTTP 503:') === 0) {
-                    $last503 = $e->getMessage();
-                    if ($attempt < 2) {
-                        usleep((int)(250000 * (2 ** $attempt)));
+                $msg = $e->getMessage();
+                // Check if cURL caught a 503, 429, or 404 HTTP status
+                if (preg_match('/HTTP (?:503|429|404):/', $msg)) {
+                    $lastError = "{$attemptModel}: {$msg}";
+                    if ($attempt < 1 && strpos($msg, 'HTTP 404:') === false) {
+                        usleep(300000);
                         continue;
                     }
-                    break;
+                    break; // Try next model in cascade
                 }
                 throw $e;
             }
         }
     }
 
-    if ($last503 !== null && !isset($data)) {
-        throw new RuntimeException("Gemini temporarily unavailable after retries/fallback. Please try again shortly. Details: {$last503}");
+    if (!$data) {
+        throw new RuntimeException("Gemini generation failed across models ({$lastError}). Please verify quota or try again.");
     }
 
-    // Check for API-level errors (invalid key, quota, model not found, etc.)
-    if (isset($data['error'])) {
-        $errCode = $data['error']['code'] ?? 0;
-        $errMsg  = $data['error']['message'] ?? 'Unknown Gemini API error';
-        $errStatus = $data['error']['status'] ?? '';
-        if ($errCode === 400 || $errStatus === 'INVALID_ARGUMENT') {
-            throw new RuntimeException("Gemini API error (invalid request): {$errMsg}");
-        } elseif ($errCode === 403 || $errStatus === 'PERMISSION_DENIED') {
-            throw new RuntimeException("Gemini authentication/permission failed (403). Check that the key is active in Google AI Studio and that the selected project has Gemini API access. — {$errMsg}");
-        } elseif ($errCode === 404 || $errStatus === 'NOT_FOUND') {
-            throw new RuntimeException("Gemini model '{$model}' was not found (404). Select a current model such as 'gemini-3.6-flash' in Admin Settings. Details: {$errMsg}");
-        } elseif ($errCode === 429) {
-            throw new RuntimeException("Gemini quota exceeded (429). Free tier limit reached. Try again in a minute or use a different key.");
-        } else {
-            throw new RuntimeException("Gemini API error ({$errCode}): {$errMsg}");
+    // Extract content from candidates (ignoring thought/reasoning parts)
+    $parts = $data['candidates'][0]['content']['parts'] ?? [];
+    $content = '';
+    foreach ($parts as $p) {
+        if (!empty($p['text']) && empty($p['thought'])) {
+            $content .= $p['text'];
         }
     }
 
-    if (!isset($data['candidates'][0]['content']['parts'][0]['text'])) {
+    if (empty($content)) {
         $blockReason = $data['candidates'][0]['finishReason'] ?? ($data['promptFeedback']['blockReason'] ?? 'unknown');
         throw new RuntimeException("Gemini: content blocked or empty. Reason: {$blockReason}");
     }
 
-    $content         = $data['candidates'][0]['content']['parts'][0]['text'];
     $result          = _ai_parse_json_content($content);
     $result['usage'] = $data['usageMetadata'] ?? null;
+    $result['model'] = $succeededModel;
     return $result;
 }
 
@@ -535,6 +536,35 @@ function generateGeminiDefault(string $topic, string $keyword): array {
             'gemini' => ['ok' => true, 'data' => $data]
         ];
     } catch (Throwable $e) {
+        // If Gemini failed (e.g. quota limit or key issue), transparently try OpenRouter or Groq
+        if (defined('OPENROUTER_API_KEY') && !empty(OPENROUTER_API_KEY)) {
+            try {
+                $data = generateWithOpenRouter($prompt);
+                $data['fallback_provider'] = 'OpenRouter';
+                return [
+                    'gemini' => [
+                        'ok' => true,
+                        'data' => $data,
+                        'fallback' => 'OpenRouter'
+                    ]
+                ];
+            } catch (Throwable $oe) {}
+        }
+
+        if (defined('GROQ_API_KEY') && !empty(GROQ_API_KEY)) {
+            try {
+                $data = generateWithGroq($prompt);
+                $data['fallback_provider'] = 'Groq';
+                return [
+                    'gemini' => [
+                        'ok' => true,
+                        'data' => $data,
+                        'fallback' => 'Groq'
+                    ]
+                ];
+            } catch (Throwable $ge) {}
+        }
+
         return [
             'gemini' => ['ok' => false, 'error' => $e->getMessage()]
         ];
