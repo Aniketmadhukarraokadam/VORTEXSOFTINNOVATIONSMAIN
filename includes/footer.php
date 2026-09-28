@@ -333,6 +333,7 @@ document.addEventListener('click', function(e) {
 <script src="<?= $prefix ?>assets/vendor/bootstrap.bundle.min.js"></script>
 <!-- Shared JS -->
 <script src="<?= $prefix ?>assets/vortex-shared.js?v=20260810"></script>
+<script src="<?= $prefix ?>assets/usability-audit-fixes.js?v=20260928"></script>
 <script>
 // ── Loader ──────────────────────────────────────────────────
 (function(){
