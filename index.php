@@ -442,7 +442,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="col-md-6 col-lg-3 scroll-reveal delay-1">
         <div class="tilt-card-3d" style="background:var(--bg-light);border:1px solid var(--border-light);border-radius:20px;padding:32px 24px;height:100%;transition:var(--transition);" data-depth="0.04">
           <div style="width:56px;height:56px;border-radius:14px;background:rgba(204,34,40,.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;"><i class="fas fa-brain"></i></div>
-          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">AI + Automation + Human Expertise</h4>
+          <h3 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">AI + Automation + Human Expertise</h3>
           <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;">Harmonizing autonomous AI agents, machine learning automation, and subject-matter expert human oversight to deliver 99.9% operational accuracy.</p>
         </div>
       </div>
@@ -494,7 +494,7 @@ require_once __DIR__ . '/includes/header.php';
               <i class="fas fa-search-dollar"></i>
             </div>
           </div>
-          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Feasibility &amp; Discovery</h4>
+          <h3 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:10px;">Feasibility &amp; Discovery</h3>
           <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
             Comprehensive audit of existing SOPs, tech infrastructure, and compliance mandates. We pinpoint cost bottlenecks, project ROI, and define clear SLA thresholds.
           </p>
@@ -580,7 +580,7 @@ require_once __DIR__ . '/includes/header.php';
           <div class="col-sm-6">
             <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:18px;">
               <div style="font-size:22px;color:#5BA8D4;margin-bottom:6px;"><i class="fas fa-brain"></i></div>
-              <h5 style="font-size:15px;font-weight:700;margin-bottom:4px;color:#fff;">Agentic AI Workflows</h5>
+              <h3 style="font-size:15px;font-weight:700;margin-bottom:4px;color:#fff;">Agentic AI Workflows</h3>
               <p style="font-size:12.5px;color:rgba(255,255,255,.7);margin:0;">Multi-step autonomous task execution with human-in-the-loop validation.</p>
             </div>
           </div>
@@ -651,7 +651,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
         <div style="background:#fff;border:1px solid var(--border-light);border-radius:20px;padding:32px 28px;height:100%;transition:var(--transition);" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='var(--primary)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.borderColor='var(--border-light)';this.style.boxShadow='none'">
           <div style="width:60px;height:60px;border-radius:16px;background:rgba(28,34,128,.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;"><i class="fas fa-laptop-code"></i></div>
-          <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:12px;">Custom Software &amp; Portals</h4>
+          <h3 style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:12px;">Custom Software &amp; Portals</h3>
           <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:16px;">Tailor-made web applications, internal business management portals, and client-facing dashboards designed to streamline core operations.</p>
           <ul class="check-list" style="font-size:13px;">
             <li><i class="fas fa-check-circle me-1" style="color:var(--primary);"></i> Custom Software &amp; Web Applications</li>
@@ -723,7 +723,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="about-highlight-box">
           <div class="icon"><i class="fas fa-shield-alt"></i></div>
           <div>
-            <h5>ISO 27001:2013 Certified</h5>
+            <h3>ISO 27001:2013 Certified</h3>
             <p>We maintain the highest standards of information security management to protect your confidential data at every step of our engagement.</p>
           </div>
         </div>
@@ -778,7 +778,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
             <div>
               <span class="badge bg-primary px-2 py-1" style="font-size:10px;text-transform:uppercase;">Global Corporate HQ</span>
-              <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);margin:2px 0 0;">Pune Center of Excellence</h4>
+              <h3 style="font-size:18px;font-weight:800;color:var(--text-dark);margin:2px 0 0;">Pune Center of Excellence</h3>
             </div>
           </div>
           <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:15px;">
@@ -1021,7 +1021,7 @@ require_once __DIR__ . '/includes/header.php';
           <div class="d-flex justify-content-between align-items-start mb-3">
             <div>
               <span class="badge bg-danger-subtle text-danger fw-bold px-3 py-1 mb-2" style="border-radius:6px;font-size:12px;">US Healthcare Provider Network</span>
-              <h4 style="font-size:20px;font-weight:800;color:var(--text-dark);margin:0;">Multi-State Hospital System RCM Overhaul</h4>
+              <h3 style="font-size:20px;font-weight:800;color:var(--text-dark);margin:0;">Multi-State Hospital System RCM Overhaul</h3>
             </div>
             <div style="font-size:32px;color:#CC2228;font-weight:900;font-family:'Poppins',sans-serif;">-42%</div>
           </div>
@@ -1203,7 +1203,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="col-lg-6 scroll-reveal-left">
         <div class="tilt-card-3d" style="background:var(--bg-light,#f0f2ff);border-radius:20px;padding:32px;border:1px solid #dde2f5;height:100%;">
           <div style="width:48px;height:48px;border-radius:12px;background:#1C2280;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;"><i class="fas fa-layer-group"></i></div>
-          <h4 style="font-family:'Poppins',sans-serif;font-weight:800;color:#1C2280;margin-bottom:8px;">VortexEXHO</h4>
+          <h3 style="font-family:'Poppins',sans-serif;font-weight:800;color:#1C2280;margin-bottom:8px;">VortexEXHO</h3>
           <div style="font-size:12px;font-weight:700;color:#CC2228;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Enterprise Workforce Operating System</div>
           <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:16px;">
             <strong>VortexEXHO</strong> is Vortexsoft's Enterprise Workforce Operating System — a unified platform combining ATS, HRMS, payroll, LMS, and an AI copilot into one system, built to replace fragmented point solutions for mid-size and enterprise HR and workforce operations.
@@ -1331,7 +1331,7 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div class="card-body p-4 d-flex flex-column">
             <div class="text-muted small mb-2"><i class="far fa-calendar-alt me-1"></i> Current Whitepaper • 7 Min Read</div>
-            <h4 style="font-size:18px;font-weight:800;color:var(--text-dark);line-height:1.4;margin-bottom:12px;">Next-Gen RCM: Overcoming ICD-11 Prior-Auth Bottlenecks with Agentic Pipelines</h4>
+            <h3 style="font-size:18px;font-weight:800;color:var(--text-dark);line-height:1.4;margin-bottom:12px;">Next-Gen RCM: Overcoming ICD-11 Prior-Auth Bottlenecks with Agentic Pipelines</h3>
             <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;flex-grow:1;">
               How US healthcare systems and multi-specialty clinics are pairing certified AAPC coders with LLM validation models to collapse appeal turnaround times from 14 days down to 48 hours.
             </p>
