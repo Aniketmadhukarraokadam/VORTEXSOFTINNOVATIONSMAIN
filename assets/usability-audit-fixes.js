@@ -1,0 +1,8 @@
+/* Vortexsoft usability audit fixes — semantic and interaction normalization */
+(function(){'use strict';
+function setTextCase(){document.querySelectorAll('#home span,#home div').forEach(function(el){if(!el.children.length&&/6\+ Years Global Delivery/i.test(el.textContent||''))el.style.textTransform='none';});}
+function normalizeHeadings(){var home=document.getElementById('home')||document.body;home.querySelectorAll('section').forEach(function(section){var h2=section.querySelector('h2');if(!h2)return;section.querySelectorAll('h4,h5,h6').forEach(function(old){var replacement=document.createElement('h3');Array.from(old.attributes).forEach(function(a){replacement.setAttribute(a.name,a.value)});replacement.innerHTML=old.innerHTML;old.replaceWith(replacement);});});}
+function normalizePlatformActions(){document.querySelectorAll('#ai-products .ai-platform-card,#ai-products .platform-card').forEach(function(card){if(card.querySelector('.platform-actions'))return;var link=card.querySelector('a[href]');if(!link)return;var actions=document.createElement('div');actions.className='platform-actions';actions.appendChild(link);var name=(card.querySelector('h3,h4,h5')||{}).textContent||'';var demo=document.createElement('a');demo.className='btn btn-sm btn-outline-primary';demo.href='/contact.php';demo.textContent='Request Demo';demo.setAttribute('aria-label','Request a demo for '+name.trim());actions.appendChild(demo);card.appendChild(actions);});}
+function init(){setTextCase();normalizeHeadings();normalizePlatformActions();document.documentElement.classList.add('ux-audit-fixed');}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
