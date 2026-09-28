@@ -1,0 +1,29 @@
+/* Vortexsoft usability audit fixes — 26-point homepage audit */
+:root{--ux-font-body:14px;--ux-radius-sm:8px;--ux-radius-md:12px;--ux-radius-lg:18px;--ux-text:#334155;--ux-muted:#5f6880}
+body{font-size:var(--ux-font-body)}
+body :is(button,a,.service-card,.hero-card,.motion-service-chip,.service-node-8d,.hero-stat-chip,.faq-item){border-radius:var(--ux-radius-md)}
+body :is(.btn-hero-primary,.btn-hero-secondary,.btn-primary-custom,.btn-cta-white,.btn-submit,.nav-cta){border-radius:var(--ux-radius-md)}
+body :is(p,.section-subtitle,.hero-description,.hero-card p,.service-card p){color:var(--ux-text)}
+.topbar-badge{font-size:12px!important;letter-spacing:.6px;text-transform:none}
+.strip-header{font-size:12px!important;letter-spacing:.5px}
+.motion-service-chip{font-size:13px!important}.motion-service-chip i{font-size:13px!important}
+.hero-trust-text,.hero-section .trust-badge,.hero-section [class*="cert"]{text-transform:none}
+#comparison :is(table,tbody,tr){line-height:1.55}
+#comparison table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}
+#comparison th,#comparison td{padding:14px 16px;vertical-align:top}
+#comparison th{font-size:14px;line-height:1.45}#comparison td{font-size:13.5px;line-height:1.6}
+#comparison .table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#ai-products .ai-platform-card .platform-actions,#ai-products .platform-card .platform-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+#ai-products .ai-platform-card a.btn,#ai-products .platform-card a.btn{min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+#ai-products [data-platform-card] .platform-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+#industries i,.industries-section i,.industry-card i{font-size:30px!important}
+#industries :is(i,.industry-icon),.industries-section :is(i,.industry-icon),.industry-card :is(i,.industry-icon){margin-bottom:8px!important}
+#ai-products .motion-service-chip[data-target-service="hrms"]{color:var(--primary)!important;border-color:rgba(28,34,128,.18)!important;background:rgba(28,34,128,.06)!important}
+#ai-products .motion-service-chip[data-target-service="hrms"] i{color:var(--primary)!important}
+.hero-scroll-container{mask-image:none;-webkit-mask-image:none;overflow:hidden;padding:10px 0;gap:10px}
+.hero-scroll-track,.hero-scroll-track.reverse{animation:none!important;transform:none!important;flex-wrap:wrap;width:100%;margin-left:0;justify-content:center;gap:10px}
+.hero-scroll-track > *{flex:0 1 auto}
+@media(max-width:767px){.hero-scroll-track,.hero-scroll-track.reverse{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding:2px 12px;scroll-snap-type:x proximity}.hero-scroll-track > *{scroll-snap-align:start}}
+.cta-banner{padding-top:88px!important;padding-bottom:88px!important;margin-bottom:28px}.footer{padding-top:76px!important}
+body :is(a,button,input,select,textarea):focus-visible{outline:3px solid rgba(91,168,212,.9);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.hero-scroll-track,.hero-scroll-track.reverse{animation:none!important}.hero-scroll-container{scroll-behavior:auto}}
