@@ -14,14 +14,125 @@ $db = getDB();
 $view_id = (int)($_GET['view'] ?? 0);
 $view    = null;
 $apps    = [];
+$all_count = 0;
 
 if ($db) {
     try {
-        // Delete Application
+        // Delete Single Application (Direct Permanent Delete - No Trash)
         if (isset($_GET['delete'])) {
             $did = (int)$_GET['delete'];
-            $db->prepare("DELETE FROM job_applications WHERE id = :id")->execute([':id' => $did]);
+            if ($did > 0) {
+                // Remove stored resume file from server disk if present
+                $fStmt = $db->prepare("SELECT resume_filename FROM job_applications WHERE id = :id");
+                $fStmt->execute([':id' => $did]);
+                $rFile = $fStmt->fetchColumn();
+                if (!empty($rFile)) {
+                    $rPath = UPLOADS_PATH . '/resumes/' . basename($rFile);
+                    if (file_exists($rPath) && is_file($rPath)) @unlink($rPath);
+                }
+                $db->prepare("DELETE FROM job_applications WHERE id = :id")->execute([':id' => $did]);
+                if (function_exists('log_admin_activity')) {
+                    log_admin_activity('DELETE_APPLICATION', "Permanently deleted application #{$did}");
+                }
+            }
             header('Location: applications.php?msg=deleted');
+            exit;
+        }
+
+        // Bulk / Batch Delete Applications (Direct Permanent Deletion - No Trash)
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'bulk_delete') {
+            if (!verify_csrf()) {
+                header('Location: applications.php?err=csrf');
+                exit;
+            }
+
+            $delete_scope  = sanitize($_POST['delete_scope'] ?? 'selected');
+            $deleted_count = 0;
+
+            if ($delete_scope === 'selected') {
+                $raw_ids = $_POST['selected_ids'] ?? [];
+                $ids = array_values(array_filter(array_map('intval', (array)$raw_ids), fn($i) => $i > 0));
+
+                if (empty($ids)) {
+                    header('Location: applications.php?err=no_selection');
+                    exit;
+                }
+
+                $placeholders = implode(',', array_fill(0, count($ids), '?'));
+                // Remove resume files from storage
+                $fStmt = $db->prepare("SELECT resume_filename FROM job_applications WHERE id IN ($placeholders)");
+                $fStmt->execute($ids);
+                $rFiles = $fStmt->fetchAll(PDO::FETCH_COLUMN);
+                foreach ($rFiles as $rf) {
+                    if (!empty($rf)) {
+                        $p = UPLOADS_PATH . '/resumes/' . basename($rf);
+                        if (file_exists($p) && is_file($p)) @unlink($p);
+                    }
+                }
+
+                $delStmt = $db->prepare("DELETE FROM job_applications WHERE id IN ($placeholders)");
+                $delStmt->execute($ids);
+                $deleted_count = $delStmt->rowCount();
+
+                if (function_exists('log_admin_activity')) {
+                    log_admin_activity('BULK_DELETE_APPLICATIONS', "Directly deleted {$deleted_count} candidate applications (IDs: " . implode(',', array_slice($ids, 0, 15)) . (count($ids) > 15 ? '...' : '') . ")");
+                }
+            } elseif ($delete_scope === 'filtered') {
+                $f_status = sanitize($_POST['filter_status'] ?? '');
+                $f_search = sanitize($_POST['filter_search'] ?? '');
+                $f_where  = "WHERE 1=1";
+                $f_params = [];
+                if ($f_status) { $f_where .= " AND status=:st"; $f_params[':st'] = $f_status; }
+                if ($f_search) {
+                    $f_where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4)";
+                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = $f_params[':q4'] = '%' . $f_search . '%';
+                }
+
+                // Remove resume files
+                $fStmt = $db->prepare("SELECT resume_filename FROM job_applications $f_where");
+                $fStmt->execute($f_params);
+                $rFiles = $fStmt->fetchAll(PDO::FETCH_COLUMN);
+                foreach ($rFiles as $rf) {
+                    if (!empty($rf)) {
+                        $p = UPLOADS_PATH . '/resumes/' . basename($rf);
+                        if (file_exists($p) && is_file($p)) @unlink($p);
+                    }
+                }
+
+                $delStmt = $db->prepare("DELETE FROM job_applications $f_where");
+                $delStmt->execute($f_params);
+                $deleted_count = $delStmt->rowCount();
+
+                if (function_exists('log_admin_activity')) {
+                    log_admin_activity('FILTERED_DELETE_APPLICATIONS', "Directly deleted {$deleted_count} applications matching filter (Status: '{$f_status}', Search: '{$f_search}')");
+                }
+            } elseif ($delete_scope === 'all') {
+                $confirm_text = strtoupper(trim($_POST['confirm_all_text'] ?? ''));
+                if ($confirm_text !== 'DELETE') {
+                    header('Location: applications.php?err=confirm_text');
+                    exit;
+                }
+
+                $fStmt = $db->query("SELECT resume_filename FROM job_applications");
+                if ($fStmt) {
+                    $rFiles = $fStmt->fetchAll(PDO::FETCH_COLUMN);
+                    foreach ($rFiles as $rf) {
+                        if (!empty($rf)) {
+                            $p = UPLOADS_PATH . '/resumes/' . basename($rf);
+                            if (file_exists($p) && is_file($p)) @unlink($p);
+                        }
+                    }
+                }
+
+                $delStmt = $db->query("DELETE FROM job_applications");
+                $deleted_count = $delStmt ? $delStmt->rowCount() : 0;
+
+                if (function_exists('log_admin_activity')) {
+                    log_admin_activity('PURGE_ALL_APPLICATIONS', "Directly purged all {$deleted_count} candidate applications from database");
+                }
+            }
+
+            header("Location: applications.php?msg=bulk_deleted&count={$deleted_count}&scope={$delete_scope}");
             exit;
         }
 
@@ -174,6 +285,7 @@ if ($db) {
         $cntStmt = $db->prepare("SELECT COUNT(*) FROM job_applications $where");
         $cntStmt->execute($params);
         $total_count = (int)$cntStmt->fetchColumn();
+        $all_count   = (int)$db->query("SELECT COUNT(*) FROM job_applications")->fetchColumn();
 
         // ── EXPORT CONTROLLER (EXCEL / CSV) ─────────────────────────
         if (isset($_GET['export']) && in_array($_GET['export'], ['excel', 'xls', 'csv'], true)) {
@@ -466,7 +578,13 @@ tr:hover td{background:#fafbff}
 .action-btn:hover{background:#1C2280;color:#fff}
 .action-btn-delete{background:rgba(204,34,40,.08);color:#CC2228}
 .action-btn-delete:hover{background:#CC2228;color:#fff}
-.detail-card{background:#fff;border-radius:16px;border:1px solid #e8ecff;padding:32px}
+.form-check-input{cursor:pointer;border-color:#cbd5e1}
+.form-check-input:checked{background-color:#CC2228;border-color:#CC2228}
+tr.selected-row{background-color:#eef2ff !important}
+tr.selected-row td{background-color:#eef2ff !important}
+.bulk-action-bar{background:#080B1A;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 22px;color:#fff;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 10px 25px rgba(8,11,26,.18);transition:.3s}
+.btn-purge{background:rgba(204,34,40,.12);color:#CC2228;border:1px solid rgba(204,34,40,.3);border-radius:10px;font-weight:700;font-size:13px;padding:10px 16px;transition:.2s}
+.btn-purge:hover{background:#CC2228;color:#fff}
 @media(max-width:1024px){
   body{flex-direction:column}
   .admin-sidebar{transform:translateX(-100%)}
@@ -516,7 +634,45 @@ tr:hover td{background:#fafbff}
       <div style="font-size:13px;color:#64748b;">Review, filter, and export candidate applications submitted via careers page.</div>
     </div>
     <?php if (!$view): ?>
-    <div class="d-flex gap-2 align-items-center">
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+      <!-- Direct Multi-Profile Deletion Options (No Trash) -->
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="headerDeleteDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background:#CC2228;color:#fff;border-radius:10px;font-weight:700;font-size:13px;padding:10px 18px;border:none;box-shadow:0 2px 8px rgba(204,34,40,.25);">
+          <i class="fas fa-trash-alt me-1"></i> Delete Options
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow-lg" style="border-radius:12px;font-size:13px;min-width:280px;padding:8px;border:1px solid #fee2e2;">
+          <li><div class="dropdown-header text-uppercase" style="font-size:10px;font-weight:700;letter-spacing:.5px;color:#991b1b;"><i class="fas fa-bolt me-1"></i> Direct Permanent Delete (No Trash)</div></li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2 py-2" style="border-radius:8px;font-weight:600;" onclick="triggerDeleteScope('selected')">
+              <i class="fas fa-check-square text-danger" style="font-size:15px;"></i>
+              <div>
+                <div>Delete Selected Profiles</div>
+                <small class="text-muted" style="font-size:11px;">Delete profiles checked with checkboxes (<span class="selectedCountText">0</span>)</small>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2 py-2" style="border-radius:8px;font-weight:600;" onclick="triggerDeleteScope('filtered')">
+              <i class="fas fa-filter text-danger" style="font-size:15px;"></i>
+              <div>
+                <div>Delete All Filtered Profiles</div>
+                <small class="text-muted" style="font-size:11px;">Delete all <?= $total_count ?? 0 ?> applications matching current filter</small>
+              </div>
+            </button>
+          </li>
+          <li><hr class="dropdown-divider my-2"></li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger" style="border-radius:8px;font-weight:700;" onclick="triggerDeleteScope('all')">
+              <i class="fas fa-radiation-alt" style="font-size:15px;"></i>
+              <div>
+                <div>Purge Entire Applications Database</div>
+                <small class="text-danger" style="font-size:11px;">Directly delete all <?= $all_count ?? 0 ?> profiles &amp; resumes</small>
+              </div>
+            </button>
+          </li>
+        </ul>
+      </div>
+
       <div class="btn-group">
         <a href="applications.php?<?= http_build_query(array_merge($_GET, ['export' => 'excel', 'scope' => 'filtered'])) ?>" class="btn" style="background:#10b981;color:#fff;border-radius:10px 0 0 10px;font-weight:700;font-size:13px;padding:10px 18px;border:none;box-shadow:0 2px 8px rgba(16,185,129,.25);">
           <i class="fas fa-file-excel me-1"></i> Export Sheet
@@ -577,7 +733,29 @@ tr:hover td{background:#fafbff}
   <?php endif; ?>
 
   <?php if (!empty($_GET['msg']) && $_GET['msg'] === 'deleted'): ?>
-  <div class="alert alert-success mb-4" style="border-radius:12px;"><i class="fas fa-check-circle me-2"></i> Application deleted successfully.</div>
+  <div class="alert alert-success mb-4" style="border-radius:12px;"><i class="fas fa-check-circle me-2"></i> Application deleted permanently (no trash).</div>
+  <?php endif; ?>
+
+  <?php if (!empty($_GET['msg']) && $_GET['msg'] === 'bulk_deleted'): ?>
+  <div class="alert alert-success mb-4 shadow-sm" style="border-radius:12px;border:1px solid #bbf7d0;background:#f0fdf4;color:#166534;">
+    <i class="fas fa-check-circle me-2 text-success"></i> <strong>Permanent Deletion Successful:</strong> <?= (int)($_GET['count'] ?? 0) ?> application profile(s) and their attached resume files were deleted directly from the database (No trash).
+  </div>
+  <?php endif; ?>
+
+  <?php if (!empty($_GET['err'])): ?>
+    <?php if ($_GET['err'] === 'no_selection'): ?>
+    <div class="alert alert-warning mb-4 shadow-sm" style="border-radius:12px;border:1px solid #fed7aa;background:#fffbeb;color:#9a3412;">
+      <i class="fas fa-exclamation-triangle me-2 text-warning"></i> <strong>No profiles selected:</strong> Please check at least one application profile to delete.
+    </div>
+    <?php elseif ($_GET['err'] === 'confirm_text'): ?>
+    <div class="alert alert-danger mb-4 shadow-sm" style="border-radius:12px;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;">
+      <i class="fas fa-exclamation-triangle me-2 text-danger"></i> <strong>Confirmation mismatch:</strong> You must type <code>DELETE</code> into the confirmation box to purge all applications.
+    </div>
+    <?php elseif ($_GET['err'] === 'csrf'): ?>
+    <div class="alert alert-danger mb-4 shadow-sm" style="border-radius:12px;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;">
+      <i class="fas fa-shield-alt me-2 text-danger"></i> <strong>Security Token Expired:</strong> Invalid CSRF validation. Please refresh and try again.
+    </div>
+    <?php endif; ?>
   <?php endif; ?>
 
   <?php if ($view): ?>
@@ -680,6 +858,27 @@ tr:hover td{background:#fafbff}
   </div>
 
   <?php else: ?>
+  <!-- Floating / Sticky Selection Action Bar -->
+  <div id="bulkActionBar" class="bulk-action-bar" style="display:none;">
+    <div class="d-flex align-items-center gap-3">
+      <span class="badge bg-danger rounded-pill px-3 py-2" style="font-size:13px;font-weight:700;">
+        <span id="bulkSelectedCount">0</span> Selected
+      </span>
+      <span style="font-size:13.5px;font-weight:500;">Candidate profile(s) chosen for direct permanent deletion</span>
+    </div>
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+      <button type="button" class="btn btn-sm btn-outline-light" style="border-radius:8px;font-weight:600;" id="selectAllPageBtn">
+        <i class="fas fa-check-double me-1"></i> Select All on Page
+      </button>
+      <button type="button" class="btn btn-sm btn-outline-light" style="border-radius:8px;font-weight:600;" id="clearSelectionBtn">
+        <i class="fas fa-times me-1"></i> Deselect
+      </button>
+      <button type="button" class="btn btn-sm btn-danger" style="border-radius:8px;font-weight:700;background:#CC2228;border-color:#CC2228;padding:6px 16px;" onclick="triggerDeleteScope('selected')">
+        <i class="fas fa-trash-alt me-1"></i> Delete Selected (<span class="selectedCountText">0</span>) Directly
+      </button>
+    </div>
+  </div>
+
   <!-- List View -->
   <div class="table-card">
     <div class="table-card-header">
@@ -721,13 +920,30 @@ tr:hover td{background:#fafbff}
     </div>
     <div style="overflow-x:auto;">
       <table>
-        <thead><tr><th>#</th><th>Applicant</th><th>Position</th><th>Experience</th><th>Resume</th><th>Applied</th><th>Status</th><th>Actions</th></tr></thead>
+        <thead>
+          <tr>
+            <th style="width:40px;text-align:center;">
+              <input type="checkbox" id="masterCheckbox" class="form-check-input" title="Select / Deselect all on current page">
+            </th>
+            <th>#</th>
+            <th>Applicant</th>
+            <th>Position</th>
+            <th>Experience</th>
+            <th>Resume</th>
+            <th>Applied</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
         <tbody>
           <?php if(empty($apps)): ?>
-          <tr><td colspan="8" style="text-align:center;padding:40px;color:#94a3b8;"><i class="fas fa-briefcase" style="font-size:32px;display:block;margin-bottom:12px;opacity:.3;"></i> No applications found.</td></tr>
+          <tr><td colspan="9" style="text-align:center;padding:40px;color:#94a3b8;"><i class="fas fa-briefcase" style="font-size:32px;display:block;margin-bottom:12px;opacity:.3;"></i> No applications found.</td></tr>
           <?php else: ?>
           <?php foreach($apps as $a): ?>
-          <tr>
+          <tr data-id="<?= (int)$a['id'] ?>" class="app-row">
+            <td style="text-align:center;">
+              <input type="checkbox" class="form-check-input app-checkbox" value="<?= (int)$a['id'] ?>" data-name="<?= htmlspecialchars($a['applicant_name']) ?>">
+            </td>
             <td style="color:#94a3b8;font-size:12px;">#<?= $a['id'] ?></td>
             <td style="font-weight:600;"><?= htmlspecialchars($a['applicant_name']) ?><br><span style="font-size:12px;color:#94a3b8;"><?= htmlspecialchars($a['email']) ?></span></td>
             <td style="font-weight:600;color:#1C2280;"><?= htmlspecialchars($a['job_title']) ?></td>
@@ -741,7 +957,7 @@ tr:hover td{background:#fafbff}
             <td><span class="status-badge status-<?= $a['status'] ?>"><?= ucfirst($a['status']) ?></span></td>
             <td>
               <a href="applications.php?view=<?= $a['id'] ?>" class="action-btn"><i class="fas fa-eye"></i> View</a>
-              <a href="applications.php?delete=<?= $a['id'] ?>" class="action-btn action-btn-delete" onclick="return confirm('Delete this application?');"><i class="fas fa-trash"></i></a>
+              <a href="applications.php?delete=<?= $a['id'] ?>" class="action-btn action-btn-delete" onclick="return confirm('Directly delete this application permanently? Resume file will be removed.');"><i class="fas fa-trash"></i></a>
             </td>
           </tr>
           <?php endforeach; ?>
@@ -760,6 +976,56 @@ tr:hover td{background:#fafbff}
     <?php endif; ?>
   </div>
   <?php endif; ?>
+
+  <!-- Permanent Direct Delete Confirmation Modal -->
+  <div class="modal fade" id="bulkDeleteModal" tabindex="-1" aria-labelledby="bulkDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius:16px;border:none;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.2);">
+        <div class="modal-header" style="background:#fee2e2;border-bottom:1px solid #fecaca;padding:18px 24px;">
+          <h5 class="modal-title fw-bold text-danger d-flex align-items-center gap-2" id="bulkDeleteModalLabel">
+            <i class="fas fa-exclamation-triangle"></i> <span id="modalTitleText">Direct Permanent Deletion</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="applications.php" id="bulkDeleteForm">
+          <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+          <input type="hidden" name="action" value="bulk_delete">
+          <input type="hidden" name="delete_scope" id="modalDeleteScope" value="selected">
+          <input type="hidden" name="filter_status" value="<?= htmlspecialchars($filter ?? '') ?>">
+          <input type="hidden" name="filter_search" value="<?= htmlspecialchars($search ?? '') ?>">
+          <div id="modalSelectedIdsContainer"></div>
+
+          <div class="modal-body p-4">
+            <div class="alert alert-danger d-flex align-items-start gap-2 mb-3" style="border-radius:10px;font-size:13px;">
+              <i class="fas fa-info-circle mt-1" style="font-size:16px;"></i>
+              <div>
+                <strong>No Trash Bin:</strong> Applications and attached resume documents are deleted directly and permanently from database and server disk. This cannot be undone.
+              </div>
+            </div>
+
+            <div id="modalWarningMessage" style="font-size:14px;color:#334155;line-height:1.6;margin-bottom:16px;">
+              <!-- Dynamic prompt inserted here -->
+            </div>
+
+            <!-- Purge All Confirmation Input -->
+            <div id="modalPurgeConfirmBlock" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;padding:14px;margin-top:10px;">
+              <label for="confirmAllTextInput" style="font-size:12px;font-weight:700;color:#991b1b;display:block;margin-bottom:6px;">
+                TYPE <span class="badge bg-danger">DELETE</span> TO CONFIRM PURGING ALL:
+              </label>
+              <input type="text" name="confirm_all_text" id="confirmAllTextInput" class="form-control" placeholder="Type DELETE here" autocomplete="off" style="font-weight:700;letter-spacing:1px;border-color:#f87171;">
+              <small class="text-danger mt-1 d-block" style="font-size:11.5px;">All applications across the entire portal will be removed permanently.</small>
+            </div>
+          </div>
+          <div class="modal-footer" style="background:#f8fafc;border-top:1px solid #f1f5f9;padding:14px 24px;">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:8px;font-weight:600;font-size:13px;">Cancel</button>
+            <button type="submit" id="modalSubmitDeleteBtn" class="btn btn-danger" style="border-radius:8px;font-weight:700;font-size:13px;background:#CC2228;border-color:#CC2228;padding:8px 20px;">
+              <i class="fas fa-trash-alt me-1"></i> <span id="modalSubmitBtnText">Permanently Delete</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </main>
 <script src="/assets/vendor/bootstrap.bundle.min.js"></script>
 <script>
@@ -849,6 +1115,177 @@ document.getElementById('sidebarCloseBtn')?.addEventListener('click', function()
   }
 })();
 <?php endif; ?>
+
+// Bulk Selection & Flexible Deletion Management
+(function() {
+  const masterCheckbox   = document.getElementById('masterCheckbox');
+  const appCheckboxes    = document.querySelectorAll('.app-checkbox');
+  const bulkActionBar     = document.getElementById('bulkActionBar');
+  const bulkSelectedCount = document.getElementById('bulkSelectedCount');
+  const selectedCountTexts= document.querySelectorAll('.selectedCountText');
+  const selectAllPageBtn  = document.getElementById('selectAllPageBtn');
+  const clearSelectionBtn = document.getElementById('clearSelectionBtn');
+  const bulkDeleteModalEl = document.getElementById('bulkDeleteModal');
+  const bulkDeleteForm    = document.getElementById('bulkDeleteForm');
+  const modalScopeInput   = document.getElementById('modalDeleteScope');
+  const modalIdsContainer = document.getElementById('modalSelectedIdsContainer');
+  const modalTitleText    = document.getElementById('modalTitleText');
+  const modalWarningMsg   = document.getElementById('modalWarningMessage');
+  const modalPurgeBlock   = document.getElementById('modalPurgeConfirmBlock');
+  const confirmAllInput   = document.getElementById('confirmAllTextInput');
+  const modalSubmitBtnTxt = document.getElementById('modalSubmitBtnText');
+
+  const filteredCount = <?= (int)($total_count ?? 0) ?>;
+  const allCount      = <?= (int)($all_count ?? 0) ?>;
+  const filterStatus  = <?= json_encode($filter ?? '') ?>;
+  const searchKeyword = <?= json_encode($search ?? '') ?>;
+
+  function updateSelectionState() {
+    const checked = Array.from(appCheckboxes).filter(cb => cb.checked);
+    const count = checked.length;
+
+    // Update count labels
+    if (bulkSelectedCount) bulkSelectedCount.textContent = count;
+    selectedCountTexts.forEach(el => el.textContent = count);
+
+    // Show/hide floating bulk bar
+    if (bulkActionBar) {
+      bulkActionBar.style.display = count > 0 ? 'flex' : 'none';
+    }
+
+    // Highlight row
+    appCheckboxes.forEach(cb => {
+      const row = cb.closest('tr');
+      if (row) {
+        if (cb.checked) {
+          row.classList.add('selected-row');
+        } else {
+          row.classList.remove('selected-row');
+        }
+      }
+    });
+
+    // Update master checkbox indeterminate state
+    if (masterCheckbox && appCheckboxes.length > 0) {
+      if (count === 0) {
+        masterCheckbox.checked = false;
+        masterCheckbox.indeterminate = false;
+      } else if (count === appCheckboxes.length) {
+        masterCheckbox.checked = true;
+        masterCheckbox.indeterminate = false;
+      } else {
+        masterCheckbox.checked = false;
+        masterCheckbox.indeterminate = true;
+      }
+    }
+  }
+
+  if (masterCheckbox) {
+    masterCheckbox.addEventListener('change', function() {
+      const isChecked = this.checked;
+      appCheckboxes.forEach(cb => {
+        cb.checked = isChecked;
+      });
+      updateSelectionState();
+    });
+  }
+
+  appCheckboxes.forEach(cb => {
+    cb.addEventListener('change', updateSelectionState);
+  });
+
+  if (selectAllPageBtn) {
+    selectAllPageBtn.addEventListener('click', function() {
+      appCheckboxes.forEach(cb => { cb.checked = true; });
+      updateSelectionState();
+    });
+  }
+
+  if (clearSelectionBtn) {
+    clearSelectionBtn.addEventListener('click', function() {
+      appCheckboxes.forEach(cb => { cb.checked = false; });
+      updateSelectionState();
+    });
+  }
+
+  // Trigger modal with appropriate scope ('selected' | 'filtered' | 'all')
+  window.triggerDeleteScope = function(scope) {
+    if (!bulkDeleteModalEl) return;
+    const modal = bootstrap.Modal.getOrCreateInstance(bulkDeleteModalEl);
+    modalScopeInput.value = scope;
+    modalIdsContainer.innerHTML = '';
+    if (confirmAllInput) confirmAllInput.value = '';
+
+    if (scope === 'selected') {
+      const checked = Array.from(appCheckboxes).filter(cb => cb.checked);
+      if (checked.length === 0) {
+        alert('Please select at least one application profile using the checkboxes to delete.');
+        return;
+      }
+      checked.forEach(cb => {
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = 'selected_ids[]';
+        hidden.value = cb.value;
+        modalIdsContainer.appendChild(hidden);
+      });
+
+      modalTitleText.textContent = `Delete ${checked.length} Selected Profile(s)`;
+      modalWarningMsg.innerHTML = `You are about to permanently delete <strong>${checked.length}</strong> selected candidate profile(s) and their attached resume files.<br><br>This is a <strong>direct deletion</strong> (no trash/recycle bin). Are you sure you want to proceed?`;
+      modalPurgeBlock.style.display = 'none';
+      if (confirmAllInput) confirmAllInput.removeAttribute('required');
+      modalSubmitBtnTxt.textContent = `Delete ${checked.length} Profile(s) Directly`;
+      modal.show();
+
+    } else if (scope === 'filtered') {
+      if (filteredCount === 0) {
+        alert('There are no applications matching the current filter to delete.');
+        return;
+      }
+      modalTitleText.textContent = `Delete All ${filteredCount} Filtered Applications`;
+      let filterDesc = [];
+      if (filterStatus) filterDesc.push(`Status: <strong>${filterStatus}</strong>`);
+      if (searchKeyword) filterDesc.push(`Search: <strong>${searchKeyword}</strong>`);
+      let filterDetails = filterDesc.length > 0 ? ` matching (${filterDesc.join(', ')})` : '';
+
+      modalWarningMsg.innerHTML = `You are about to permanently delete all <strong>${filteredCount}</strong> applications${filterDetails} along with their stored resumes.<br><br>They will be <strong>permanently deleted directly</strong> with no trash retention.`;
+      modalPurgeBlock.style.display = 'none';
+      if (confirmAllInput) confirmAllInput.removeAttribute('required');
+      modalSubmitBtnTxt.textContent = `Delete All ${filteredCount} Filtered Directly`;
+      modal.show();
+
+    } else if (scope === 'all') {
+      if (allCount === 0) {
+        alert('There are no applications in the database to delete.');
+        return;
+      }
+      modalTitleText.textContent = `⚠️ PURGE ALL ${allCount} APPLICATIONS`;
+      modalWarningMsg.innerHTML = `<strong>DANGER:</strong> You are about to permanently erase <strong>ALL ${allCount}</strong> job applications and all attached resume documents from the entire system.<br><br>No trash or recovery option is available. To prevent accidental deletion, please type <strong>DELETE</strong> below:`;
+      modalPurgeBlock.style.display = 'block';
+      if (confirmAllInput) {
+        confirmAllInput.setAttribute('required', 'required');
+        setTimeout(() => confirmAllInput.focus(), 300);
+      }
+      modalSubmitBtnTxt.textContent = `PURGE ALL ${allCount} APPLICATIONS`;
+      modal.show();
+    }
+  };
+
+  if (bulkDeleteForm) {
+    bulkDeleteForm.addEventListener('submit', function(e) {
+      const scope = modalScopeInput.value;
+      if (scope === 'all') {
+        const val = (confirmAllInput.value || '').trim().toUpperCase();
+        if (val !== 'DELETE') {
+          e.preventDefault();
+          alert('You must type DELETE exactly into the confirmation box to purge all applications.');
+          confirmAllInput.focus();
+          return false;
+        }
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>
