@@ -344,6 +344,17 @@ $queries = [
       PRIMARY KEY (`id`),
       INDEX `idx_action` (`action`),
       INDEX `idx_created` (`created_at`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+    "CREATE TABLE IF NOT EXISTS `ai_generation_logs` (
+      `id`             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `topic`          VARCHAR(255) NOT NULL,
+      `target_keyword` VARCHAR(255) NOT NULL,
+      `admin_id`       INT UNSIGNED DEFAULT 0,
+      `admin_username` VARCHAR(100) DEFAULT NULL,
+      `created_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      INDEX `idx_admin`   (`admin_id`),
+      INDEX `idx_created` (`created_at`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
 ];
 

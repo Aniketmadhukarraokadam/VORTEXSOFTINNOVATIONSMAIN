@@ -10,6 +10,10 @@
 
 session_start();
 
+if (isset($_GET['new'])) {
+    unset($_SESSION['ai_gen_results'], $_SESSION['ai_gen_topic'], $_SESSION['ai_gen_keyword']);
+}
+
 // Allow up to 180 seconds for AI API calls
 @set_time_limit(180);
 @ini_set('max_execution_time', '180');
@@ -878,8 +882,3 @@ if (closeBtn)  closeBtn.addEventListener('click',  () => sidebar?.classList.remo
 </script>
 </body>
 </html>
-<?php
-if (isset($_GET['new'])) {
-    unset($_SESSION['ai_gen_results'], $_SESSION['ai_gen_topic'], $_SESSION['ai_gen_keyword']);
-}
-?>

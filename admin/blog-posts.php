@@ -26,7 +26,16 @@ if ($db) {
         // Delete Post
         if (isset($_GET['delete'])) {
             $pid = (int)$_GET['delete'];
-            $db->prepare("DELETE FROM blog_posts WHERE id=:id")->execute([':id'=>$pid]);
+            if ($pid > 0) {
+                $fStmt = $db->prepare("SELECT cover_image FROM blog_posts WHERE id = :id");
+                $fStmt->execute([':id' => $pid]);
+                $cImg = $fStmt->fetchColumn();
+                if (!empty($cImg) && str_starts_with($cImg, '/uploads/')) {
+                    $imgPath = __DIR__ . '/..' . $cImg;
+                    if (file_exists($imgPath) && is_file($imgPath)) @unlink($imgPath);
+                }
+                $db->prepare("DELETE FROM blog_posts WHERE id=:id")->execute([':id'=>$pid]);
+            }
             header('Location: blog-posts.php?msg=deleted'); exit;
         }
 

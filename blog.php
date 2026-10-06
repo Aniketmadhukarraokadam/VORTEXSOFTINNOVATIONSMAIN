@@ -28,7 +28,9 @@ if ($db) {
         if ($cat)    { $where .= " AND category = :cat"; $params[':cat'] = $cat; }
         if ($search) { $where .= " AND (title LIKE :q OR excerpt LIKE :q2 OR tags LIKE :q3)"; $params[':q']=$params[':q2']=$params[':q3']='%'.$search.'%'; }
 
-        $total = (int)$db->prepare("SELECT COUNT(*) FROM blog_posts $where")->execute($params) ? $db->query("SELECT COUNT(*) FROM blog_posts $where")->fetchColumn() : 0;
+        $cntStmt = $db->prepare("SELECT COUNT(*) FROM blog_posts $where");
+        $cntStmt->execute($params);
+        $total = (int)$cntStmt->fetchColumn();
         $pg    = paginate($total, 9, $page);
 
         $stmt = $db->prepare("SELECT id,title,slug,excerpt,author,category,cover_image,published_at,views FROM blog_posts $where ORDER BY is_featured DESC, published_at DESC LIMIT :limit OFFSET :offset");

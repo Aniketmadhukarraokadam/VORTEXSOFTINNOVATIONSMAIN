@@ -107,6 +107,7 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $groq_api_key     = trim($_POST['groq_api_key'] ?? '');
         $groq_model       = trim($_POST['groq_model'] ?? 'llama-3.3-70b-versatile');
         $openrouter_api_k = trim($_POST['openrouter_api_key'] ?? '');
+        $openrouter_model = trim($_POST['openrouter_model'] ?? 'meta-llama/llama-3.3-70b-instruct');
 
         try {
             $db->exec("CREATE TABLE IF NOT EXISTS `system_settings` (`setting_key` VARCHAR(100) PRIMARY KEY, `setting_value` TEXT, `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
@@ -117,6 +118,7 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
                 'groq_api_key'       => $groq_api_key,
                 'groq_model'         => $groq_model,
                 'openrouter_api_key' => $openrouter_api_k,
+                'openrouter_model'   => $openrouter_model,
             ];
             $stmt = $db->prepare("REPLACE INTO system_settings (setting_key, setting_value) VALUES (:k, :v)");
             foreach ($ai_settings as $k => $v) {
@@ -152,6 +154,7 @@ $site_settings = [
     'groq_api_key'       => defined('DEFAULT_GROQ_API_KEY') ? DEFAULT_GROQ_API_KEY : '',
     'groq_model'         => defined('DEFAULT_GROQ_MODEL') ? DEFAULT_GROQ_MODEL : 'openai/gpt-oss-120b',
     'openrouter_api_key' => '',
+    'openrouter_model'   => 'meta-llama/llama-3.3-70b-instruct',
 ];
 if ($db) {
     try {
@@ -407,13 +410,23 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
               <span style="background:#8b5cf6;color:#fff;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:.5px;">OPENROUTER</span>
               <span style="font-size:12px;color:#64748b;">Additional backup — <a href="https://openrouter.ai/keys" target="_blank" style="color:#8b5cf6;">openrouter.ai/keys</a></span>
             </div>
-            <label class="form-label font-weight-semibold">OpenRouter API Key</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="fas fa-key"></i></span>
-              <input type="password" name="openrouter_api_key" class="form-control"
-                value="<?= htmlspecialchars($site_settings['openrouter_api_key'] ?? '') ?>"
-                placeholder="sk-or-v1-..." autocomplete="new-password" id="openrouter-key-input">
-              <button type="button" class="btn btn-outline-secondary" onclick="togglePass('openrouter-key-input',this)"><i class="fas fa-eye"></i></button>
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label class="form-label font-weight-semibold">OpenRouter API Key</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  <input type="password" name="openrouter_api_key" class="form-control"
+                    value="<?= htmlspecialchars($site_settings['openrouter_api_key'] ?? '') ?>"
+                    placeholder="sk-or-v1-..." autocomplete="new-password" id="openrouter-key-input">
+                  <button type="button" class="btn btn-outline-secondary" onclick="togglePass('openrouter-key-input',this)"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label font-weight-semibold">Model</label>
+                <input type="text" name="openrouter_model" class="form-control"
+                  value="<?= htmlspecialchars($site_settings['openrouter_model'] ?? 'meta-llama/llama-3.3-70b-instruct') ?>"
+                  placeholder="e.g. meta-llama/llama-3.3-70b-instruct">
+              </div>
             </div>
           </div>
           <button type="submit" class="btn" style="background:#1C2280;color:#fff;border-radius:8px;font-weight:700;padding:11px 26px;">

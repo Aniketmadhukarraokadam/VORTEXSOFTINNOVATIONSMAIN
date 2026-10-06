@@ -4,9 +4,10 @@
 # ─── STANDARD CRAWLERS ─────────────────────────────────────────────────────────
 User-agent: *
 Allow: /
+Allow: /uploads/blog/
 Disallow: /assets/partials/
 Disallow: /admin/
-Disallow: /uploads/
+Disallow: /uploads/resumes/
 Disallow: /backups/
 Disallow: /career/
 Crawl-delay: 1

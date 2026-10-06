@@ -68,7 +68,8 @@ $og_image = !empty($post['cover_image'])
     ? (str_starts_with($post['cover_image'], 'http') ? $post['cover_image'] : SITE_URL . $post['cover_image'])
     : SITE_URL . '/logo-header.png';
 
-$prefix = '../';
+$is_subfolder = str_contains($_SERVER['REQUEST_URI'] ?? '', '/blog/');
+$prefix = $is_subfolder ? '../' : './';
 require_once __DIR__ . '/includes/header.php';
 ?>
 

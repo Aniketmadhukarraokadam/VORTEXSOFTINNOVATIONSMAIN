@@ -76,17 +76,30 @@ if (!defined('GEMINI_API_KEY')) {
         $gemini_model = 'gemini-3.5-flash-lite';
     }
 
-    // Resolve Groq Key
-    $groq_key = trim($_ai_env['GROQ_API_KEY'] ?? ($_db_settings['groq_api_key'] ?? (getenv('GROQ_API_KEY') ?: '')));
+    // Resolve Groq Key. DB settings take precedence.
+    $groq_key = trim($_db_settings['groq_api_key'] ?? '');
+    if (empty($groq_key)) {
+        $groq_key = trim($_ai_env['GROQ_API_KEY'] ?? (getenv('GROQ_API_KEY') ?: ''));
+    }
     if (empty($groq_key) && defined('DEFAULT_GROQ_API_KEY')) {
         $groq_key = DEFAULT_GROQ_API_KEY;
     }
 
-    $groq_model = trim($_ai_env['GROQ_MODEL'] ?? ($_db_settings['groq_model'] ?? (getenv('GROQ_MODEL') ?: 'openai/gpt-oss-120b')));
+    $groq_model = trim($_db_settings['groq_model'] ?? '');
+    if (empty($groq_model)) {
+        $groq_model = trim($_ai_env['GROQ_MODEL'] ?? (getenv('GROQ_MODEL') ?: 'openai/gpt-oss-120b'));
+    }
 
-    // Resolve OpenRouter Key
-    $openrouter_key = trim($_ai_env['OPENROUTER_API_KEY'] ?? ($_db_settings['openrouter_api_key'] ?? (getenv('OPENROUTER_API_KEY') ?: '')));
-    $openrouter_model = trim($_ai_env['OPENROUTER_MODEL'] ?? ($_db_settings['openrouter_model'] ?? (getenv('OPENROUTER_MODEL') ?: 'meta-llama/llama-3.3-70b-instruct')));
+    // Resolve OpenRouter Key. DB settings take precedence.
+    $openrouter_key = trim($_db_settings['openrouter_api_key'] ?? '');
+    if (empty($openrouter_key)) {
+        $openrouter_key = trim($_ai_env['OPENROUTER_API_KEY'] ?? (getenv('OPENROUTER_API_KEY') ?: ''));
+    }
+
+    $openrouter_model = trim($_db_settings['openrouter_model'] ?? '');
+    if (empty($openrouter_model)) {
+        $openrouter_model = trim($_ai_env['OPENROUTER_MODEL'] ?? (getenv('OPENROUTER_MODEL') ?: 'meta-llama/llama-3.3-70b-instruct'));
+    }
 
     define('GEMINI_API_KEY',     $gemini_key);
     define('GEMINI_MODEL',       $gemini_model);
@@ -445,7 +458,7 @@ function generateWithOpenRouter(array $prompt): array {
         'X-Title: Vortexsoft Blog Generator',
     ];
 
-    $response = _ai_curl_post('https://openrouter.ai/api/v1/chat/completions', $headers, $payload, 45);
+    $response = _ai_curl_post('https://openrouter.ai/api/v1/chat/completions', $headers, $payload, 20);
     $data     = json_decode($response, true);
 
     if (!isset($data['choices'][0]['message']['content'])) {
@@ -498,7 +511,7 @@ function generateBlogAiImage(string $imagePrompt, string $slugOrTopic): ?string 
             return '/uploads/blog/' . $filename;
         }
     }
-    return null;
+    return file_exists(__DIR__ . '/../uploads/blog/default_banner.jpg') ? '/uploads/blog/default_banner.jpg' : null;
 }
 
 /**
@@ -536,21 +549,7 @@ function generateGeminiDefault(string $topic, string $keyword): array {
             'gemini' => ['ok' => true, 'data' => $data]
         ];
     } catch (Throwable $e) {
-        // If Gemini failed (e.g. quota limit or key issue), transparently try OpenRouter or Groq
-        if (defined('OPENROUTER_API_KEY') && !empty(OPENROUTER_API_KEY)) {
-            try {
-                $data = generateWithOpenRouter($prompt);
-                $data['fallback_provider'] = 'OpenRouter';
-                return [
-                    'gemini' => [
-                        'ok' => true,
-                        'data' => $data,
-                        'fallback' => 'OpenRouter'
-                    ]
-                ];
-            } catch (Throwable $oe) {}
-        }
-
+        // If Gemini failed (e.g. quota limit or key issue), transparently try Groq FIRST (fastest ~1-2s), then OpenRouter
         if (defined('GROQ_API_KEY') && !empty(GROQ_API_KEY)) {
             try {
                 $data = generateWithGroq($prompt);
@@ -563,6 +562,20 @@ function generateGeminiDefault(string $topic, string $keyword): array {
                     ]
                 ];
             } catch (Throwable $ge) {}
+        }
+
+        if (defined('OPENROUTER_API_KEY') && !empty(OPENROUTER_API_KEY)) {
+            try {
+                $data = generateWithOpenRouter($prompt);
+                $data['fallback_provider'] = 'OpenRouter';
+                return [
+                    'gemini' => [
+                        'ok' => true,
+                        'data' => $data,
+                        'fallback' => 'OpenRouter'
+                    ]
+                ];
+            } catch (Throwable $oe) {}
         }
 
         return [
