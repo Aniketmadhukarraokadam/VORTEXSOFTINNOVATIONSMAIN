@@ -110,6 +110,212 @@ if ($shared_job) {
     $canonical_url = 'https://www.vortexsoftinnovations.com/careers.php?job=' . $shared_job['id'];
 }
 
+// Helper function for Google for Jobs salary data & visual badges
+if (!function_exists('getJobSalaryData')) {
+    function getJobSalaryData(string $dept, string $title): array {
+        $title_lower = strtolower($title);
+        $dept_lower  = strtolower($dept);
+        if (str_contains($title_lower, 'lead') || str_contains($title_lower, 'manager') || str_contains($title_lower, 'author')) {
+            return ['min' => 700000, 'max' => 1400000, 'label' => '₹7.0L – ₹14.0L / yr'];
+        }
+        if (str_contains($dept_lower, 'it') || str_contains($dept_lower, 'software')) {
+            if (str_contains($title_lower, 'python') || str_contains($title_lower, 'ai')) {
+                return ['min' => 600000, 'max' => 1500000, 'label' => '₹6.0L – ₹15.0L / yr'];
+            }
+            return ['min' => 450000, 'max' => 1100000, 'label' => '₹4.5L – ₹11.0L / yr'];
+        }
+        if (str_contains($dept_lower, 'healthcare')) {
+            if (str_contains($title_lower, 'denial') || str_contains($title_lower, 'specialist')) {
+                return ['min' => 400000, 'max' => 750000, 'label' => '₹4.0L – ₹7.5L / yr'];
+            }
+            return ['min' => 350000, 'max' => 650000, 'label' => '₹3.5L – ₹6.5L / yr'];
+        }
+        if (str_contains($dept_lower, 'ai') || str_contains($dept_lower, 'data')) {
+            return ['min' => 280000, 'max' => 600000, 'label' => '₹2.8L – ₹6.0L / yr'];
+        }
+        if (str_contains($dept_lower, 'publishing')) {
+            return ['min' => 360000, 'max' => 850000, 'label' => '₹3.6L – ₹8.5L / yr'];
+        }
+        if (str_contains($dept_lower, 'real estate')) {
+            return ['min' => 360000, 'max' => 750000, 'label' => '₹3.6L – ₹7.5L / yr'];
+        }
+        if (str_contains($dept_lower, 'finance') || str_contains($dept_lower, 'accounting')) {
+            return ['min' => 320000, 'max' => 650000, 'label' => '₹3.2L – ₹6.5L / yr'];
+        }
+        if (str_contains($dept_lower, 'marketing')) {
+            return ['min' => 300000, 'max' => 750000, 'label' => '₹3.0L – ₹7.5L / yr'];
+        }
+        if (str_contains($dept_lower, 'sales')) {
+            return ['min' => 420000, 'max' => 950000, 'label' => '₹4.2L – ₹9.5L / yr + Incentives'];
+        }
+        if (str_contains($dept_lower, 'human resources')) {
+            return ['min' => 300000, 'max' => 600000, 'label' => '₹3.0L – ₹6.0L / yr'];
+        }
+        return ['min' => 300000, 'max' => 600000, 'label' => 'Competitive CTC'];
+    }
+}
+
+// Build Google for Jobs JobPosting Schema.org objects for Google Search Central rich cards
+$job_postings_schema = [];
+foreach ($jobs as $jb) {
+    $sal = getJobSalaryData($jb['department'], $jb['title']);
+    $loc_lower = strtolower($jb['location']);
+    
+    // Address mapping (Pune Corporate HQ vs Bengaluru Tech Delivery Center)
+    if (str_contains($loc_lower, 'pune') && !str_contains($loc_lower, 'bengaluru')) {
+        $address = [
+            '@type' => 'PostalAddress',
+            'streetAddress' => '502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk',
+            'addressLocality' => 'Pune',
+            'addressRegion' => 'Maharashtra',
+            'postalCode' => '411041',
+            'addressCountry' => 'IN'
+        ];
+    } else {
+        $address = [
+            '@type' => 'PostalAddress',
+            'streetAddress' => 'No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector',
+            'addressLocality' => 'Bengaluru',
+            'addressRegion' => 'Karnataka',
+            'postalCode' => '560068',
+            'addressCountry' => 'IN'
+        ];
+    }
+    
+    $job_url = 'https://www.vortexsoftinnovations.com/careers.php?job=' . $jb['id'];
+    
+    // Rich formatted HTML description required by Google Search Central
+    $rich_html_desc = '<p><strong>Position:</strong> ' . htmlspecialchars($jb['title']) . '</p>' .
+        '<p><strong>Role Summary:</strong> ' . htmlspecialchars($jb['desc']) . '</p>' .
+        '<p><strong>Department:</strong> ' . htmlspecialchars($jb['department']) . '<br>' .
+        '<strong>Experience Required:</strong> ' . htmlspecialchars($jb['exp'] ?: '1–3 years') . '<br>' .
+        '<strong>Work Location:</strong> ' . htmlspecialchars($jb['location']) . '</p>' .
+        '<p><strong>Key Skills & Technologies:</strong></p><ul>';
+    foreach ($jb['skills'] as $sk) {
+        if (!empty($sk)) {
+            $rich_html_desc .= '<li>' . htmlspecialchars($sk) . '</li>';
+        }
+    }
+    $rich_html_desc .= '</ul>' .
+        '<p><strong>About Vortexsoft Innovations Private Limited:</strong><br>' .
+        'Vortexsoft Innovations is an ISO 27001:2013 certified and HIPAA compliant global IT and BPO company with state-of-the-art delivery centers in Pune and Bengaluru, India, and an executive office in Sheridan, Wyoming, USA. We serve 150+ international clients across Healthcare BPO, AI Data Annotation, Enterprise Software Engineering, STM Publishing, and Commercial Real Estate services.</p>' .
+        '<p><strong>Benefits & Perks:</strong><br>' .
+        '• Industry-competitive salary structure with performance-linked incentives<br>' .
+        '• Comprehensive health insurance and employee wellness coverage<br>' .
+        '• Hybrid and flexible work models for eligible roles<br>' .
+        '• Continuous learning, industry certifications (AAPC, AWS, GCP), and leadership fast-track pathways</p>' .
+        '<p><strong>Application Process:</strong> Apply online directly at <a href="' . htmlspecialchars($job_url) . '">' . htmlspecialchars($job_url) . '</a> or send your resume to hr@vortexsoftinnovations.com.</p>';
+
+    $posting = [
+        '@type' => 'JobPosting',
+        '@id' => $job_url . '#jobposting',
+        'title' => $jb['title'],
+        'description' => $rich_html_desc,
+        'identifier' => [
+            '@type' => 'PropertyValue',
+            'name' => 'Vortexsoft Innovations Private Limited',
+            'value' => 'VSI-JOB-' . str_pad((string)$jb['id'], 3, '0', STR_PAD_LEFT)
+        ],
+        'datePosted' => '2026-09-01T08:00:00+05:30',
+        'validThrough' => '2026-12-31T23:59:59+05:30',
+        'employmentType' => 'FULL_TIME',
+        'hiringOrganization' => [
+            '@type' => 'Organization',
+            'name' => 'Vortexsoft Innovations Private Limited',
+            'sameAs' => 'https://www.vortexsoftinnovations.com',
+            'logo' => 'https://www.vortexsoftinnovations.com/logo-header.png'
+        ],
+        'jobLocation' => [
+            '@type' => 'Place',
+            'address' => $address
+        ],
+        'baseSalary' => [
+            '@type' => 'MonetaryAmount',
+            'currency' => 'INR',
+            'value' => [
+                '@type' => 'QuantitativeValue',
+                'minValue' => $sal['min'],
+                'maxValue' => $sal['max'],
+                'unitText' => 'YEAR'
+            ]
+        ],
+        'directApply' => true,
+        'url' => $job_url
+    ];
+
+    if (str_contains($loc_lower, 'remote')) {
+        $posting['jobLocationType'] = 'TELECOMMUTE';
+        $posting['applicantLocationRequirements'] = [
+            '@type' => 'Country',
+            'name' => 'India'
+        ];
+    }
+
+    $job_postings_schema[] = $posting;
+}
+
+// Candidate & Recruitment FAQPage Schema for Answer Engine Optimization (AEO)
+$careers_faq_schema = [
+    '@type' => 'FAQPage',
+    '@id' => 'https://www.vortexsoftinnovations.com/careers.php#faq',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'How do I apply for job openings at Vortexsoft Innovations Private Limited?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'You can apply directly through the Vortexsoft Careers portal at https://www.vortexsoftinnovations.com/careers.php by clicking the "Apply Now" button on any open position. Alternatively, you can email your resume directly to our HR department at hr@vortexsoftinnovations.com. If your specific role is not listed, you may submit a General Application for upcoming openings.'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What is the recruitment and interview process at Vortexsoft Innovations?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'The hiring process follows a 4-step framework: 1) Initial application screening by HR within 48–72 hours; 2) Practical skill and technical assessment; 3) Leadership and culture alignment interview; 4) Formal offer letter rollout and smooth digital onboarding.'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Does Vortexsoft Innovations offer Work-From-Home (WFH) or hybrid jobs?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Yes. Software engineering, AI development, digital marketing, and select publishing roles support hybrid and remote work arrangements across India. Certain HIPAA-compliant healthcare and operational BPO roles operate on-site from our secure tech centers in Bengaluru and Pune.'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What qualifications and certifications are required for Healthcare BPO roles?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'For Medical Coding positions, AAPC certifications (CPC, CIC, COC) or AHIMA CCS credentials are preferred along with expertise in ICD-10-CM, CPT, and HCPCS. For Medical Billing and Denial Management, knowledge of US healthcare revenue cycle management and payer guidelines is required.'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Where are the corporate offices and delivery centers of Vortexsoft located?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Vortexsoft Innovations is headquartered in Pune (502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune 411041), maintains an engineering delivery center in Bengaluru (No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068), and holds a corporate entity in Sheridan, Wyoming, USA.'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can freshers and entry-level candidates apply at Vortexsoft Innovations?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Yes, Vortexsoft welcomes fresh college graduates for entry-level positions in AI Data Annotation, Junior Web Development, Logistics Data Entry, and Trainee Medical Billing. Comprehensive domain training and mentorship programs are provided to all new associates.'
+            ]
+        ]
+    ]
+];
+
+// Combine Google for Jobs and FAQPage into $extra_head JSON-LD script tag
+$schema_graph = array_merge($job_postings_schema, [$careers_faq_schema]);
+$extra_head = '<script type="application/ld+json">' . "\n" .
+    json_encode(['@context' => 'https://schema.org', '@graph' => $schema_graph], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . "\n" .
+    '</script>' . "\n";
+
 // Standard latest company branding for social sharing across WhatsApp, LinkedIn, Facebook, X, Telegram
 $og_image = 'https://www.vortexsoftinnovations.com/assets/images/vortexsoft-careers-share.png?v=20260912';
 
@@ -206,6 +412,7 @@ require_once __DIR__ . '/includes/header.php';
 .urgent-badge{background:#fff0f0;color:#CC2228;border:1px solid rgba(204,34,40,.25)}
 .type-badge{background:rgba(28,34,128,.07);color:#1C2280}
 .dept-badge{background:rgba(15,23,42,.05);color:#334155;border:1px solid rgba(15,23,42,.08)}
+.salary-badge{background:rgba(16,185,129,.1);color:#059669;border:1px solid rgba(16,185,129,.25)}
 .job-meta-row{
   display:flex;
   align-items:center;
@@ -567,6 +774,109 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
+<!-- ── AEO & GEO Career Intelligence Hub (Direct Answers & Hiring Framework) ── -->
+<section class="py-5" style="background:#f8faff;border-top:1px solid #e8ecff;border-bottom:1px solid #e8ecff;">
+  <div class="container">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag">Career Intelligence &amp; Direct Facts</div>
+      <h2 class="section-title">Hiring At <span class="highlight">Vortexsoft Innovations</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Verified career data, workplace compliance standards, and our transparent 4-stage recruitment roadmap.</p>
+    </div>
+
+    <!-- Machine-Readable Direct Answer Fact Grid (AEO / GEO) -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-6 col-lg-3 scroll-reveal">
+        <div style="background:#fff;border:1.5px solid #e2e8f5;border-radius:16px;padding:24px 20px;height:100%;box-shadow:0 4px 12px rgba(28,34,128,.04);">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(28,34,128,.08);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#1C2280;font-size:18px;">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h5 style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:#1C2280;margin-bottom:8px;">Certified Security</h5>
+          <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">
+            <strong>ISO 27001:2013</strong> certified ISMS infrastructure and <strong>HIPAA-compliant</strong> US healthcare delivery facilities ensuring world-class workplace security.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 scroll-reveal" style="transition-delay:0.05s;">
+        <div style="background:#fff;border:1.5px solid #e2e8f5;border-radius:16px;padding:24px 20px;height:100%;box-shadow:0 4px 12px rgba(28,34,128,.04);">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(204,34,40,.08);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#CC2228;font-size:18px;">
+            <i class="fas fa-hand-holding-dollar"></i>
+          </div>
+          <h5 style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:#1C2280;margin-bottom:8px;">Fair &amp; Rewarding CTC</h5>
+          <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">
+            Above-market base salary benchmarks, structured quarterly bonuses, yearly appraisals, and comprehensive health insurance coverage.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 scroll-reveal" style="transition-delay:0.1s;">
+        <div style="background:#fff;border:1.5px solid #e2e8f5;border-radius:16px;padding:24px 20px;height:100%;box-shadow:0 4px 12px rgba(28,34,128,.04);">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(16,185,129,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#059669;font-size:18px;">
+            <i class="fas fa-globe-americas"></i>
+          </div>
+          <h5 style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:#1C2280;margin-bottom:8px;">Hybrid &amp; Remote Agility</h5>
+          <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">
+            Flexible work options for IT, AI &amp; technical editing. Dual physical technology hubs in <strong>Bengaluru (HSR Layout)</strong> and <strong>Pune (Vadgaon Budruk)</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 scroll-reveal" style="transition-delay:0.15s;">
+        <div style="background:#fff;border:1.5px solid #e2e8f5;border-radius:16px;padding:24px 20px;height:100%;box-shadow:0 4px 12px rgba(28,34,128,.04);">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(245,158,11,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#d97706;font-size:18px;">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h5 style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:#1C2280;margin-bottom:8px;">Rapid Hiring SLA</h5>
+          <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">
+            Transparent applicant review within <strong>48 to 72 business hours</strong>, direct WhatsApp &amp; email status updates, and transparent offer rollouts.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-Step Recruitment Process Flow -->
+    <div class="scroll-reveal">
+      <div style="background:#fff;border:1.5px solid #dde2f5;border-radius:20px;padding:36px 30px;">
+        <div class="text-center mb-4">
+          <span style="font-size:12px;font-weight:700;color:#1C2280;letter-spacing:1px;text-transform:uppercase;">Streamlined Candidate Experience</span>
+          <h4 style="font-family:'Poppins',sans-serif;font-weight:800;color:#080B1A;margin-top:4px;">Our 4-Step Recruitment Journey</h4>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <div style="background:#f8faff;border-radius:14px;padding:20px;border-left:4px solid #1C2280;height:100%;">
+              <div style="font-size:20px;font-weight:900;color:#1C2280;opacity:.4;margin-bottom:4px;">01</div>
+              <h6 style="font-weight:700;color:#1C2280;margin-bottom:6px;">Profile Screening</h6>
+              <p style="font-size:12.5px;color:#64748b;margin:0;line-height:1.55;">Submit via portal or email. Our talent team screens resumes within 48–72 hours.</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div style="background:#f8faff;border-radius:14px;padding:20px;border-left:4px solid #2d35c4;height:100%;">
+              <div style="font-size:20px;font-weight:900;color:#2d35c4;opacity:.4;margin-bottom:4px;">02</div>
+              <h6 style="font-weight:700;color:#1C2280;margin-bottom:6px;">Skills Evaluation</h6>
+              <p style="font-size:12.5px;color:#64748b;margin:0;line-height:1.55;">A targeted technical challenge, code review, or medical coding audit test.</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div style="background:#f8faff;border-radius:14px;padding:20px;border-left:4px solid #943BA8;height:100%;">
+              <div style="font-size:20px;font-weight:900;color:#943BA8;opacity:.4;margin-bottom:4px;">03</div>
+              <h6 style="font-weight:700;color:#1C2280;margin-bottom:6px;">Culture &amp; Team Fit</h6>
+              <p style="font-size:12.5px;color:#64748b;margin:0;line-height:1.55;">Direct conversation with functional leads focusing on growth, ownership, and values.</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div style="background:#f8faff;border-radius:14px;padding:20px;border-left:4px solid #CC2228;height:100%;">
+              <div style="font-size:20px;font-weight:900;color:#CC2228;opacity:.4;margin-bottom:4px;">04</div>
+              <h6 style="font-weight:700;color:#1C2280;margin-bottom:6px;">Offer &amp; Onboarding</h6>
+              <p style="font-size:12.5px;color:#64748b;margin:0;line-height:1.55;">Transparent compensation discussion, formal offer rollout, and welcoming digital onboarding.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Job Listings -->
 <section class="py-5" style="background:var(--bg-light,#f0f2ff);">
   <div class="container">
@@ -618,6 +928,8 @@ require_once __DIR__ . '/includes/header.php';
               <div class="d-flex align-items-center flex-wrap gap-2">
                 <span class="job-badge dept-badge"><i class="fas fa-layer-group me-1"></i><?= htmlspecialchars($job['department']) ?></span>
                 <span class="job-badge type-badge"><i class="fas fa-clock me-1"></i><?= htmlspecialchars($job['type']) ?></span>
+                <?php $sal_data = getJobSalaryData($job['department'], $job['title']); ?>
+                <span class="job-badge salary-badge"><i class="fas fa-coins me-1"></i><?= htmlspecialchars($sal_data['label']) ?></span>
                 <?php if($job['urgent']): ?>
                 <span class="job-badge urgent-badge"><i class="fas fa-bolt me-1"></i> Urgent Hiring</span>
                 <?php endif; ?>
@@ -673,6 +985,119 @@ require_once __DIR__ . '/includes/header.php';
         <h5 style="font-family:'Poppins',sans-serif;font-weight:700;color:#1C2280;margin-bottom:8px;">Don't See Your Role?</h5>
         <p style="color:#64748b;font-size:14px;margin-bottom:20px;">We're always looking for talented people. Submit a general application and we'll keep you in mind for future openings.</p>
         <button onclick="openApplyModal('General Application','General')" class="btn" style="background:linear-gradient(135deg,#1C2280,#CC2228);color:#fff;border-radius:10px;padding:12px 28px;font-weight:700;font-size:14px;"><i class="fas fa-paper-plane me-2"></i> Submit General Application</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Candidate FAQ Section (AEO & Voice Search Grounding) ── -->
+<section class="py-5" style="background:#fff;border-top:1px solid #e8ecff;">
+  <div class="container">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag">Candidate Help &amp; FAQs</div>
+      <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle">Common queries about careers, interview rounds, work culture, certifications, and hiring policies at Vortexsoft Innovations.</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="accordion" id="careersFaqAccordion">
+          <!-- FAQ 1 -->
+          <div class="accordion-item mb-3" style="border:1.5px solid #e8ecff;border-radius:14px;overflow:hidden;">
+            <h2 class="accordion-header" id="faqHeading1">
+              <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1" style="background:#f8faff;color:#1C2280;font-size:15px;padding:18px 24px;">
+                <i class="fas fa-question-circle me-2 text-primary"></i> How do I apply for job openings at Vortexsoft Innovations Private Limited?
+              </button>
+            </h2>
+            <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#careersFaqAccordion">
+              <div class="accordion-body" style="font-size:14.5px;color:#475569;line-height:1.75;padding:20px 24px;">
+                You can apply directly through our Careers portal by clicking the <strong>"Apply Now"</strong> button on any vacancy listed above. Alternatively, you can email your resume to our recruitment team at <a href="mailto:<?= EMAIL_HR ?>" class="fw-bold" style="color:#1C2280;"><?= EMAIL_HR ?></a>. If your desired role isn't open right now, use the <em>Submit General Application</em> option, and our talent acquisition team will reach out as new openings arise.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="accordion-item mb-3" style="border:1.5px solid #e8ecff;border-radius:14px;overflow:hidden;">
+            <h2 class="accordion-header" id="faqHeading2">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2" style="background:#f8faff;color:#1C2280;font-size:15px;padding:18px 24px;">
+                <i class="fas fa-route me-2 text-primary"></i> What is the recruitment and interview process at Vortexsoft Innovations?
+              </button>
+            </h2>
+            <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#careersFaqAccordion">
+              <div class="accordion-body" style="font-size:14.5px;color:#475569;line-height:1.75;padding:20px 24px;">
+                Our hiring process follows a structured 4-step framework:
+                <ol class="mt-2 mb-2 ps-3">
+                  <li><strong>Application Screening:</strong> HR reviews your profile against role requirements within 48 to 72 business hours.</li>
+                  <li><strong>Technical &amp; Domain Evaluation:</strong> A practical coding test, medical coding audit, or domain assessment depending on the role.</li>
+                  <li><strong>Team &amp; Manager Round:</strong> In-depth discussion on problem solving, previous projects, and cultural alignment.</li>
+                  <li><strong>Offer &amp; Onboarding:</strong> Formal offer letter rollout, document verification, and welcome kit onboarding.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="accordion-item mb-3" style="border:1.5px solid #e8ecff;border-radius:14px;overflow:hidden;">
+            <h2 class="accordion-header" id="faqHeading3">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3" style="background:#f8faff;color:#1C2280;font-size:15px;padding:18px 24px;">
+                <i class="fas fa-laptop-house me-2 text-primary"></i> Does Vortexsoft Innovations offer Work-From-Home (WFH) or hybrid jobs?
+              </button>
+            </h2>
+            <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#careersFaqAccordion">
+              <div class="accordion-body" style="font-size:14.5px;color:#475569;line-height:1.75;padding:20px 24px;">
+                Yes! Software engineering, AI development, digital marketing, and select publishing positions support hybrid and 100% remote work arrangements across India. Certain HIPAA-compliant healthcare operations and specialized BPO pods operate on-site from our high-security technology delivery centers in Bengaluru and Pune to maintain rigorous data privacy standards.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="accordion-item mb-3" style="border:1.5px solid #e8ecff;border-radius:14px;overflow:hidden;">
+            <h2 class="accordion-header" id="faqHeading4">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4" style="background:#f8faff;color:#1C2280;font-size:15px;padding:18px 24px;">
+                <i class="fas fa-certificate me-2 text-primary"></i> What certifications are preferred for Healthcare BPO &amp; Medical Coding roles?
+              </button>
+            </h2>
+            <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#careersFaqAccordion">
+              <div class="accordion-body" style="font-size:14.5px;color:#475569;line-height:1.75;padding:20px 24px;">
+                For Medical Coding roles, certifications from <strong>AAPC (CPC, CIC, COC)</strong> or <strong>AHIMA (CCS)</strong> are highly valued. Practical experience with ICD-10-CM, CPT, HCPCS, E&amp;M coding, and US insurance payer guidelines is preferred. We also provide ongoing CEU sponsorship and continuous compliance workshops for our medical coding professionals.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="accordion-item mb-3" style="border:1.5px solid #e8ecff;border-radius:14px;overflow:hidden;">
+            <h2 class="accordion-header" id="faqHeading5">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5" style="background:#f8faff;color:#1C2280;font-size:15px;padding:18px 24px;">
+                <i class="fas fa-building me-2 text-primary"></i> Where are the physical offices and delivery centers of Vortexsoft Innovations?
+              </button>
+            </h2>
+            <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#careersFaqAccordion">
+              <div class="accordion-body" style="font-size:14.5px;color:#475569;line-height:1.75;padding:20px 24px;">
+                Vortexsoft Innovations operates from multiple verified global facilities:
+                <ul class="mt-2 mb-0 ps-3">
+                  <li><strong>Pune Corporate Headquarters:</strong> 502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk, Pune, Maharashtra 411041.</li>
+                  <li><strong>Bengaluru Technology Delivery Center:</strong> No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector, Bengaluru, Karnataka 560068.</li>
+                  <li><strong>United States Corporate Entity:</strong> 30 N Gould St Ste 100, Sheridan, WY 82801, USA.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 6 -->
+          <div class="accordion-item mb-3" style="border:1.5px solid #e8ecff;border-radius:14px;overflow:hidden;">
+            <h2 class="accordion-header" id="faqHeading6">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6" style="background:#f8faff;color:#1C2280;font-size:15px;padding:18px 24px;">
+                <i class="fas fa-user-graduate me-2 text-primary"></i> Can freshers and college graduates apply for positions at Vortexsoft?
+              </button>
+            </h2>
+            <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#careersFaqAccordion">
+              <div class="accordion-body" style="font-size:14.5px;color:#475569;line-height:1.75;padding:20px 24px;">
+                Yes! We actively hire enthusiastic fresh graduates across technical and operational domains, including AI Data Annotation, Junior Software Development, Trainee Medical Billing, and Logistics Documentation. All entry-level associates undergo rigorous onboarding, domain bootcamps, and 1-on-1 mentorship to kickstart their professional journey.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

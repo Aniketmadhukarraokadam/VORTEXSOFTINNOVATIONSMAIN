@@ -74,8 +74,45 @@ Vortexsoft Innovations Private Limited is an ISO 27001:2013 certified and HIPAA-
 
 ---
 
+## Careers, Recruitment & Employment Intelligence (AEO/GEO Reference)
+
+### How can candidates apply for jobs at Vortexsoft Innovations?
+Candidates can view current openings and apply directly through the official careers portal at https://www.vortexsoftinnovations.com/careers.php or submit their resume to hr@vortexsoftinnovations.com. The recruitment team evaluates profiles within an established 48 to 72 business hours SLA.
+
+### What are the primary job roles offered by Vortexsoft Innovations?
+1. **Healthcare BPO & Revenue Cycle Management (RCM)**:
+   - Certified Medical Coders (CPC, CIC, COC, CCS credentials; ICD-10-CM, CPT, HCPCS)
+   - Medical Billing Executives (EDI 837 claims generation, payment posting)
+   - Denial Management & AR Recovery Specialists
+2. **IT & Software Engineering**:
+   - PHP / Laravel Full-Stack Developers
+   - React.js / TypeScript Frontend Developers
+   - Python & AI Engineers (LLMs, FastAPI, computer vision pipelines)
+3. **AI & Data Annotation**:
+   - Data Annotation Specialists (Bounding box, polygon, LiDAR 3D, RLHF)
+   - Data Annotation Team Leads (Quality auditing, SLA enforcement)
+4. **STM Publishing & Accessibility**:
+   - InDesign / XML / ePUB3 Prepress Typesetters
+   - WCAG 2.1 AA / Section 508 / PDF Accessibility Specialists
+   - Technical Publications Authors (S1000D, DITA XML)
+5. **Real Estate Title & Lease BPO**:
+   - Commercial Lease Administrators (CAM audit, rent roll reconciliation)
+   - Nationwide Title Search & Settlement Analysts (HUD-1, deed review)
+6. **Finance, Accounting & Operations**:
+   - Bookkeeping & Accounts Executives (GST, TDS, Tally, QuickBooks)
+   - Multi-Client Payroll Executives (PF, ESI, statutory filings)
+   - Technical & BPO Recruiters, B2B Business Development Executives
+
+### What work models are offered?
+Vortexsoft offers a hybrid work model, with on-site pods located at the Bengaluru Technology Hub (HSR Layout 5th Sector) and Pune Headquarters (Vadgaon Budruk), alongside 100% remote positions for software engineers, AI developers, and technical publications specialists across India.
+
+---
+
 ## Authority & External Entities
 - Official Website: https://www.vortexsoftinnovations.com
+- Careers Portal: https://www.vortexsoftinnovations.com/careers.php
+- HR Recruitment Email: hr@vortexsoftinnovations.com
 - LinkedIn Company Page: https://www.linkedin.com/company/vortexsoft-innovations-private-limited/
 - Facebook Page: https://www.facebook.com/profile.php?id=61575505273718
 - Instagram Profile: https://www.instagram.com/vortexsoft_innovations
+

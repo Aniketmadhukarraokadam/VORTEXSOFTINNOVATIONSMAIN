@@ -11,6 +11,85 @@ $canonical_url = 'https://www.vortexsoftinnovations.com/service.php';
 $prefix       = './';
 
 require_once __DIR__ . '/config/constants.php';
+
+// Services Directory ItemList Schema.org for Google & AEO Answer Engines
+$services_schema = [
+    '@context' => 'https://schema.org',
+    '@type' => 'ItemList',
+    'name' => 'Vortexsoft Innovations Global IT & BPO Services',
+    'itemListElement' => [
+        [
+            '@type' => 'ListItem',
+            'position' => 1,
+            'item' => [
+                '@type' => 'Service',
+                'name' => 'Enterprise HRMS & Autonomous Payroll Software (vortexsofthrms)',
+                'description' => 'Autonomous cloud HRMS and payroll software featuring automated statutory deductions, biometric attendance sync, and workforce analytics.',
+                'provider' => ['@type' => 'Organization', 'name' => 'Vortexsoft Innovations Private Limited'],
+                'url' => 'https://www.vortexsoftinnovations.com/service.php#hrms'
+            ]
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'item' => [
+                '@type' => 'Service',
+                'name' => 'Healthcare BPO & Revenue Cycle Management (RCM)',
+                'description' => 'HIPAA-compliant medical coding (ICD-10, CPT), claims submission, denial management, and accounts receivable recovery for US healthcare providers.',
+                'provider' => ['@type' => 'Organization', 'name' => 'Vortexsoft Innovations Private Limited'],
+                'url' => 'https://www.vortexsoftinnovations.com/service.php#healthcare'
+            ]
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 3,
+            'item' => [
+                '@type' => 'Service',
+                'name' => 'AI Data Annotation & Machine Learning Training Data',
+                'description' => 'High-precision computer vision bounding boxes, polygon segmentation, 3D LiDAR point clouds, and RLHF text annotation.',
+                'provider' => ['@type' => 'Organization', 'name' => 'Vortexsoft Innovations Private Limited'],
+                'url' => 'https://www.vortexsoftinnovations.com/service.php#annotation'
+            ]
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 4,
+            'item' => [
+                '@type' => 'Service',
+                'name' => 'Custom Web & Software Development (Offshore Development Center)',
+                'description' => 'Full-stack enterprise application engineering, cloud migration, microservices, and dedicated offshore developer pods.',
+                'provider' => ['@type' => 'Organization', 'name' => 'Vortexsoft Innovations Private Limited'],
+                'url' => 'https://www.vortexsoftinnovations.com/service.php#software'
+            ]
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 5,
+            'item' => [
+                '@type' => 'Service',
+                'name' => 'STM Publishing, Prepress & Digital Accessibility',
+                'description' => 'Academic book typesetting, XML conversion (JATS, S1000D), ePUB3 generation, and WCAG 2.1 AA / Section 508 accessibility remediation.',
+                'provider' => ['@type' => 'Organization', 'name' => 'Vortexsoft Innovations Private Limited'],
+                'url' => 'https://www.vortexsoftinnovations.com/service.php#publishing'
+            ]
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 6,
+            'item' => [
+                '@type' => 'Service',
+                'name' => 'Commercial Real Estate Lease Abstraction & Title Search',
+                'description' => 'Comprehensive lease abstraction, CAM reconciliation, municipal title search, and settlement typing for title insurance firms.',
+                'provider' => ['@type' => 'Organization', 'name' => 'Vortexsoft Innovations Private Limited'],
+                'url' => 'https://www.vortexsoftinnovations.com/service.php#realestate'
+            ]
+        ]
+    ]
+];
+$extra_head = '<script type="application/ld+json">' . "\n" .
+    json_encode($services_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . "\n" .
+    '</script>' . "\n";
+
 require_once __DIR__ . '/includes/header.php';
 ?>
 
