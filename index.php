@@ -969,6 +969,141 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
+<!-- ═══════ INTERACTIVE OUTSOURCING ROI CALCULATOR ═══════ -->
+<section class="section-pad" id="roi-calculator" style="background: linear-gradient(180deg, #f8f9ff 0%, #f1f4fb 100%); position: relative; overflow: hidden;">
+  <div class="container position-relative" style="z-index: 2;">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag" style="background: rgba(28,34,128,0.08); color: var(--primary);">Interactive Business Case</div>
+      <h2 class="section-title">Outsourcing <span class="highlight">ROI &amp; Cost Savings</span> Calculator</h2>
+      <p class="section-subtitle mx-auto" style="max-width:720px; font-size:16px; color:var(--text-muted);">
+        Compare US/UK/EU in-house operational overheads against our dedicated global delivery pods. See your direct bottom-line impact in real-time.
+      </p>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden scroll-reveal" style="background:#ffffff; border:1px solid rgba(28,34,128,0.08);">
+      <div class="card-body p-4 p-md-5">
+        <div class="row g-4 align-items-center">
+          
+          <!-- Controls Column -->
+          <div class="col-lg-7">
+            <!-- Step 1: Select Domain / Service -->
+            <label class="form-label fw-bold text-dark d-flex align-items-center mb-2" style="font-size:15px;">
+              <span class="badge rounded-circle bg-primary text-white me-2" style="width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;">1</span>
+              Select Operational Domain / Service Track
+            </label>
+            <div class="row g-2 mb-4" id="roiServiceSelector">
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-outline-primary w-100 text-start py-2 px-3 roi-service-btn active" data-service-key="rcm" data-form-service="Healthcare BPO" data-inhouse="82000" data-vortex="28000" data-name="Healthcare RCM &amp; Medical Billing">
+                  <i class="fas fa-notes-medical me-2 text-danger"></i> Healthcare RCM
+                </button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-outline-primary w-100 text-start py-2 px-3 roi-service-btn" data-service-key="ai" data-form-service="Data Annotation" data-inhouse="68000" data-vortex="22000" data-name="AI Data Annotation &amp; Computer Vision">
+                  <i class="fas fa-brain me-2 text-info"></i> AI &amp; Data Annotation
+                </button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-outline-primary w-100 text-start py-2 px-3 roi-service-btn" data-service-key="dev" data-form-service="IT &amp; Software Solutions" data-inhouse="135000" data-vortex="42000" data-name="Software Engineering &amp; DevOps">
+                  <i class="fas fa-code me-2 text-primary"></i> Software Engineering
+                </button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-outline-primary w-100 text-start py-2 px-3 roi-service-btn" data-service-key="pub" data-form-service="Publishing Services" data-inhouse="72000" data-vortex="24000" data-name="Publishing, Prepress &amp; XML">
+                  <i class="fas fa-book-open me-2 text-warning"></i> Publishing &amp; Prepress
+                </button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-outline-primary w-100 text-start py-2 px-3 roi-service-btn" data-service-key="re" data-form-service="Real Estate Services" data-inhouse="85000" data-vortex="26000" data-name="Real Estate &amp; Mortgage BPO">
+                  <i class="fas fa-building me-2 text-success"></i> Real Estate &amp; Mortgage
+                </button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-outline-primary w-100 text-start py-2 px-3 roi-service-btn" data-service-key="fin" data-form-service="Accounting &amp; Finance" data-inhouse="92000" data-vortex="27000" data-name="Finance &amp; Accounting">
+                  <i class="fas fa-file-invoice-dollar me-2 text-secondary"></i> Finance &amp; Accounting
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: FTE Team Size Slider -->
+            <div class="mb-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <label for="roiFteRange" class="form-label fw-bold text-dark d-flex align-items-center mb-0" style="font-size:15px;">
+                  <span class="badge rounded-circle bg-primary text-white me-2" style="width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;">2</span>
+                  Dedicated Team Size (Full-Time Equivalents / FTEs)
+                </label>
+                <span class="badge bg-primary fs-6 px-3 py-2 rounded-pill shadow-sm" id="roiFteBadge">5 FTEs</span>
+              </div>
+              <input type="range" class="form-range" id="roiFteRange" min="1" max="50" step="1" value="5" style="accent-color: var(--primary);">
+              <div class="d-flex justify-content-between text-muted small px-1">
+                <span>1 Specialist (Pilot)</span>
+                <span>10 Scale Pod</span>
+                <span>25 Operations Unit</span>
+                <span>50+ Enterprise Center</span>
+              </div>
+            </div>
+
+            <!-- Step 3: Currency Switcher -->
+            <div class="d-flex align-items-center gap-3 pt-2 border-top">
+              <span class="small fw-semibold text-secondary">Currency:</span>
+              <div class="btn-group btn-group-sm" role="group" id="roiCurrencyGroup">
+                <button type="button" class="btn btn-outline-secondary active roi-cur-btn" data-symbol="$" data-rate="1" data-label="USD">USD ($)</button>
+                <button type="button" class="btn btn-outline-secondary roi-cur-btn" data-symbol="€" data-rate="0.92" data-label="EUR">EUR (€)</button>
+                <button type="button" class="btn btn-outline-secondary roi-cur-btn" data-symbol="£" data-rate="0.79" data-label="GBP">GBP (£)</button>
+              </div>
+              <span class="small text-muted ms-auto d-none d-sm-inline"><i class="fas fa-shield-alt text-success me-1"></i> Transparent Pricing &bull; No Hidden Fees</span>
+            </div>
+          </div>
+
+          <!-- Summary Metric Card -->
+          <div class="col-lg-5">
+            <div class="p-4 rounded-4 shadow-sm position-relative overflow-hidden" style="background: linear-gradient(145deg, #10153f 0%, #1c2280 100%); color:#ffffff;">
+              <div class="position-absolute end-0 top-0 p-3 opacity-25">
+                <i class="fas fa-chart-line fa-4x text-white"></i>
+              </div>
+
+              <div class="small text-uppercase tracking-wider text-info fw-bold mb-1">Projected Annual Savings</div>
+              <div class="display-6 fw-bold mb-2" id="roiTotalSavings" style="color: #38ef7d !important; text-shadow: 0 2px 10px rgba(56,239,125,0.3);">
+                $270,000
+              </div>
+              <div class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 mb-4" id="roiSavingsPct" style="font-size:13px; font-weight:700;">
+                ~65.8% Cost Reduction
+              </div>
+
+              <div class="border-top border-white border-opacity-10 pt-3 mb-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-white-50 small">Est. In-House Cost:</span>
+                  <span class="fw-bold text-white small" id="roiInhouseCost">$410,000 / yr</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-white-50 small">Vortexsoft Pod Cost:</span>
+                  <span class="fw-bold text-info small" id="roiVortexCost">$140,000 / yr</span>
+                </div>
+                <div class="d-flex justify-content-between mb-0">
+                  <span class="text-white-50 small">Productive Delivery SLA:</span>
+                  <span class="fw-bold text-warning small">99.8% Guaranteed SLA</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-3 mb-4" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);">
+                <div class="d-flex align-items-center small text-white-50">
+                  <i class="fas fa-check-circle text-success me-2 fs-6"></i>
+                  <span>Includes recruitment, management overhead, QA audit, infrastructure, and HIPAA/ISO compliance.</span>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-warning w-100 py-3 fw-bold text-dark rounded-pill shadow magnetic" id="roiApplyBtn" onclick="applySavingsToContact()">
+                <i class="fas fa-bolt me-2"></i> Lock In These Savings &mdash; Get Proposal
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ INDUSTRIES SECTION ═══════ -->
 <section class="section-pad" style="background:#fff;">
   <div class="container">
@@ -1643,6 +1778,97 @@ initParticleCanvas("hero-canvas");
       .catch(function(){ fb.className="mt-3 alert alert-danger"; fb.textContent="Network error. Please try again."; fb.classList.remove("d-none"); })
       .finally(function(){ btn.innerHTML=\'<i class="fas fa-paper-plane"></i> Send Message\'; btn.disabled=false; });
   });
+})();
+
+// Interactive Outsourcing ROI Calculator Logic
+(function(){
+  var activeInhouse = 82000;
+  var activeVortex  = 28000;
+  var activeService = "Healthcare RCM & Medical Billing";
+  var activeFormVal = "Healthcare BPO";
+  var curRate = 1.0;
+  var curSymbol = "$";
+
+  var fteRange = document.getElementById("roiFteRange");
+  var fteBadge = document.getElementById("roiFteBadge");
+  var totalSavingsEl = document.getElementById("roiTotalSavings");
+  var savingsPctEl = document.getElementById("roiSavingsPct");
+  var inhouseCostEl = document.getElementById("roiInhouseCost");
+  var vortexCostEl = document.getElementById("roiVortexCost");
+
+  function fmtMoney(num) {
+    return curSymbol + Math.round(num).toLocaleString();
+  }
+
+  function updateRoi() {
+    if (!fteRange) return;
+    var ftes = parseInt(fteRange.value, 10) || 5;
+    if (fteBadge) fteBadge.textContent = ftes + (ftes === 1 ? " FTE" : " FTEs");
+
+    var singleInhouse = activeInhouse * curRate;
+    var singleVortex  = activeVortex * curRate;
+
+    var totalInhouse = singleInhouse * ftes;
+    var totalVortex  = singleVortex * ftes;
+    var totalSavings = totalInhouse - totalVortex;
+    var pct = totalInhouse > 0 ? ((totalSavings / totalInhouse) * 100).toFixed(1) : 0;
+
+    if (totalSavingsEl) totalSavingsEl.textContent = fmtMoney(totalSavings);
+    if (savingsPctEl) savingsPctEl.textContent = "~" + pct + "% Cost Reduction";
+    if (inhouseCostEl) inhouseCostEl.textContent = fmtMoney(totalInhouse) + " / yr";
+    if (vortexCostEl) vortexCostEl.textContent = fmtMoney(totalVortex) + " / yr";
+  }
+
+  var serviceBtns = document.querySelectorAll(".roi-service-btn");
+  serviceBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      serviceBtns.forEach(function(b){ b.classList.remove("active"); });
+      this.classList.add("active");
+      activeInhouse = parseFloat(this.getAttribute("data-inhouse")) || 82000;
+      activeVortex  = parseFloat(this.getAttribute("data-vortex")) || 28000;
+      activeService = this.getAttribute("data-name") || "Operations";
+      activeFormVal = this.getAttribute("data-form-service") || "General Inquiry";
+      updateRoi();
+    });
+  });
+
+  if (fteRange) {
+    fteRange.addEventListener("input", updateRoi);
+  }
+
+  var curBtns = document.querySelectorAll(".roi-cur-btn");
+  curBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      curBtns.forEach(function(b){ b.classList.remove("active"); });
+      this.classList.add("active");
+      curSymbol = this.getAttribute("data-symbol") || "$";
+      curRate   = parseFloat(this.getAttribute("data-rate")) || 1.0;
+      updateRoi();
+    });
+  });
+
+  window.applySavingsToContact = function() {
+    var ftes = fteRange ? fteRange.value : 5;
+    var savingsText = totalSavingsEl ? totalSavingsEl.textContent : "$270,000";
+    var contactSec = document.getElementById("contact-mini");
+    if (contactSec) {
+      contactSec.scrollIntoView({ behavior: "smooth" });
+    }
+    var serviceSelect = document.getElementById("service");
+    if (serviceSelect && activeFormVal) {
+      serviceSelect.value = activeFormVal;
+    }
+    var msgField = document.getElementById("msgText");
+    if (msgField) {
+      msgField.value = "Hello Vortexsoft Team,\n\nI evaluated our staffing model using your Outsourcing ROI Calculator for " + activeService + " (" + ftes + " FTEs). Our projected annual savings is approximately " + savingsText + ".\n\nPlease share a formal customized proposal, SLA benchmarks, and pilot onboarding timelines for this engagement.\n\nThank you.";
+    }
+    var nameField = document.getElementById("fullName");
+    if (nameField) {
+      setTimeout(function(){ nameField.focus(); }, 700);
+    }
+  };
+
+  updateRoi();
 })();
 </script>';
 require_once __DIR__ . '/includes/footer.php';

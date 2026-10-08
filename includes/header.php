@@ -175,6 +175,13 @@ function nav_active(string $page, string $path): string {
             "HIPAA Compliant Healthcare BPO Operations",
             "Startup India Registered (DPIIT)"
           ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "148",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
           "sameAs": [
             "https://www.linkedin.com/company/vortexsoft-innovations-private-limited/",
             "https://www.facebook.com/profile.php?id=61575505273718",

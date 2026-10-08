@@ -332,6 +332,33 @@ document.addEventListener('click', function(e) {
   </div>
 </div>
 
+<!-- ═══════ FLOATING WHATSAPP CONVERSION WIDGET ═══════ -->
+<style>
+.floating-whatsapp-widget{position:fixed;bottom:24px;right:24px;z-index:1040;display:flex;align-items:center;gap:12px;text-decoration:none;transition:transform .3s cubic-bezier(0.34,1.56,0.64,1)}
+.floating-whatsapp-widget:hover{transform:translateY(-4px)}
+.whatsapp-badge{background:#fff;color:#0F172A;padding:8px 16px;border-radius:24px;font-size:12.5px;font-weight:700;box-shadow:0 10px 25px rgba(0,0,0,0.15);display:flex;align-items:center;gap:8px;border:1px solid rgba(0,0,0,0.06);white-space:nowrap;transition:opacity .3s,transform .3s;font-family:'Poppins',sans-serif}
+.whatsapp-badge .status-dot{width:8px;height:8px;background:#25D366;border-radius:50%;box-shadow:0 0 8px #25D366;animation:waPulse 2s infinite}
+.whatsapp-btn{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 10px 25px rgba(37,211,102,0.4);position:relative}
+.whatsapp-btn::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,0.5);animation:waRing 2.5s infinite;pointer-events:none}
+@keyframes waPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
+@keyframes waRing{0%{transform:scale(0.95);opacity:1}100%{transform:scale(1.3);opacity:0}}
+@media(max-width:767px){
+  .floating-whatsapp-widget{bottom:18px;right:18px}
+  .whatsapp-badge{display:none}
+  .whatsapp-btn{width:50px;height:50px;font-size:25px}
+}
+</style>
+<a href="https://api.whatsapp.com/send/?phone=918308906690&text=Hi%20Vortexsoft%20Innovations%20team,%20I%20am%20interested%20in%20your%20IT%2FBPO%20outsourcing%20services%20and%20would%20like%20a%20proposal." 
+   target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" aria-label="Chat with Vortexsoft Enterprise Solutions on WhatsApp">
+  <div class="whatsapp-badge">
+    <span class="status-dot"></span>
+    <span>Chat with Solutions Team</span>
+  </div>
+  <div class="whatsapp-btn">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+</a>
+
 <!-- Bootstrap JS -->
 <script src="<?= $prefix ?>assets/vendor/bootstrap.bundle.min.js"></script>
 <!-- Shared JS -->
