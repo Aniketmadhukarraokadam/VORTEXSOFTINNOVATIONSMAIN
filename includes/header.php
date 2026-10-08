@@ -539,7 +539,10 @@ function nav_active(string $page, string $path): string {
 <nav class="navbar navbar-expand-lg" id="mainNavbar">
   <div class="container">
     <a class="navbar-brand" href="<?= $prefix ?>index.php">
-      <img src="<?= $prefix ?>logo-header.png?v=20260912" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="240" height="70">
+      <picture>
+        <source srcset="<?= $prefix ?>logo-header.webp?v=20261008" type="image/webp">
+        <img src="<?= $prefix ?>logo-header.png?v=20261008" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="240" height="70" fetchpriority="high">
+      </picture>
     </a>
 
 

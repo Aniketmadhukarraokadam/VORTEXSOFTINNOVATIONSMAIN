@@ -75,7 +75,10 @@ $prefix = $prefix ?? './';
       <!-- Brand Column -->
       <div class="col-lg-3 col-md-6 scroll-reveal">
         <a href="<?= $prefix ?>index.php">
-          <img src="<?= $prefix ?>logo-footer.png?v=20260912" alt="Vortexsoft Innovations" class="footer-logo" width="200" height="55">
+          <picture>
+            <source srcset="<?= $prefix ?>logo-footer.webp?v=20261008" type="image/webp">
+            <img src="<?= $prefix ?>logo-footer.png?v=20261008" alt="Vortexsoft Innovations" class="footer-logo" width="200" height="55" loading="lazy">
+          </picture>
         </a>
 
         <p class="footer-desc">

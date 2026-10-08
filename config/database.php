@@ -62,22 +62,14 @@ function getDB(): ?PDO {
         try {
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (Throwable $e) {
-            // Local dev fallback to SQLite if MySQL server is not running locally
-            try {
-                $sqlitePath = __DIR__ . '/../sqlite_dev.db';
-                $pdo = new PDO("sqlite:" . $sqlitePath);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            } catch (Throwable $e2) {
-                error_log('Database connection failed: ' . $e->getMessage());
-                return null;
-            }
+            error_log('Database connection failed: ' . $e->getMessage());
+            return null;
         }
     }
 
-    if ($pdo && !$tables_checked) {
+    // In production, tables are already installed. Avoid redundant DB queries on every request.
+    if ($pdo && !$tables_checked && (defined('AUTO_INSTALL_TABLES') && AUTO_INSTALL_TABLES)) {
         $tables_checked = true;
-        // Check if main table exists; if not, auto-create tables
         try {
             $check = $pdo->query("SELECT 1 FROM contact_inquiries LIMIT 1");
         } catch (Throwable $t) {
