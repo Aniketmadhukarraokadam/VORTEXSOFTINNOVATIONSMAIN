@@ -136,6 +136,235 @@ if ($db) {
             exit;
         }
 
+        // Bulk / Batch Status Update Applications (Multi-candidate status change, batch rejection, shortlist, etc.)
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'bulk_status_update') {
+            if (!verify_csrf()) {
+                header('Location: applications.php?err=csrf');
+                exit;
+            }
+
+            $status_scope     = sanitize($_POST['status_scope'] ?? 'selected');
+            $target_status    = sanitize($_POST['target_status'] ?? '');
+            $allowed_statuses = ['new', 'reviewed', 'shortlisted', 'interview', 'offered', 'rejected', 'withdrawn'];
+
+            if (!in_array($target_status, $allowed_statuses, true)) {
+                header('Location: applications.php?err=invalid_status');
+                exit;
+            }
+
+            $admin_note_append = trim($_POST['bulk_admin_notes'] ?? '');
+            $send_emails       = !empty($_POST['send_bulk_emails']);
+            $email_subject     = trim($_POST['bulk_email_subject'] ?? '');
+            $email_message     = trim($_POST['bulk_email_message'] ?? '');
+
+            $updated_count     = 0;
+            $emails_sent_count = 0;
+
+            // Helper closure to send batch notification emails
+            $send_bulk_email = function(array $candidate) use ($target_status, $email_subject, $email_message): bool {
+                if (empty($candidate['email'])) return false;
+                $candidate_name = htmlspecialchars($candidate['applicant_name'] ?? 'Candidate');
+                $job_title      = htmlspecialchars($candidate['job_title'] ?? 'Open Position');
+                $status_label   = ucfirst($target_status);
+                $app_id         = (int)($candidate['id'] ?? 0);
+
+                $subj = $email_subject;
+                if (empty($subj)) {
+                    if ($target_status === 'rejected') {
+                        $subj = "Update regarding your application for {$job_title} — " . SITE_NAME;
+                    } elseif ($target_status === 'shortlisted') {
+                        $subj = "Application Shortlisted: {$job_title} — " . SITE_NAME;
+                    } elseif ($target_status === 'interview') {
+                        $subj = "Interview Invitation: {$job_title} — " . SITE_NAME;
+                    } else {
+                        $subj = "Application Status Update: {$job_title} — " . SITE_NAME;
+                    }
+                }
+
+                $msg = $email_message;
+                if (empty($msg)) {
+                    if ($target_status === 'rejected') {
+                        $msg = "Thank you for your interest in " . SITE_NAME . " and for taking the time to apply for the {$job_title} position.\n\nAfter careful evaluation, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely align with our current role requirements.\n\nWe will keep your resume on file for future openings that match your skills. We wish you the very best in your professional endeavors.";
+                    } elseif ($target_status === 'shortlisted') {
+                        $msg = "We are pleased to inform you that your profile has been shortlisted for the {$job_title} position at " . SITE_NAME . ".\n\nOur recruitment team will contact you shortly regarding the next steps in our hiring process.";
+                    } elseif ($target_status === 'interview') {
+                        $msg = "We would like to invite you for an interview round for the {$job_title} position at " . SITE_NAME . ".\n\nOur recruitment team will contact you shortly with your scheduled interview slot and details.";
+                    } else {
+                        $msg = "Your application status for {$job_title} at " . SITE_NAME . " has been updated to: " . $status_label . ".";
+                    }
+                }
+
+                $formatted_msg = nl2br(htmlspecialchars($msg));
+                $status_colors = [
+                    'new'         => ['bg' => '#fee2e2', 'text' => '#991b1b'],
+                    'reviewed'    => ['bg' => '#e0e7ff', 'text' => '#3730a3'],
+                    'shortlisted' => ['bg' => '#fef3c7', 'text' => '#92400e'],
+                    'interview'   => ['bg' => '#dbeafe', 'text' => '#1e40af'],
+                    'offered'     => ['bg' => '#d1fae5', 'text' => '#065f46'],
+                    'rejected'    => ['bg' => '#f3f4f6', 'text' => '#4b5563'],
+                    'withdrawn'   => ['bg' => '#f1f5f9', 'text' => '#475569'],
+                ];
+                $badge_style = $status_colors[$target_status] ?? ['bg' => '#e2e8f0', 'text' => '#1e293b'];
+
+                $html_body = "
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<style>
+  body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6fb; margin: 0; padding: 20px; color: #1e293b; }
+  .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e8ecff; }
+  .email-header { background: #080B1A; padding: 28px 30px; text-align: center; border-bottom: 3px solid #CC2228; }
+  .email-header h1 { color: #ffffff; margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+  .email-body { padding: 32px 30px; }
+  .status-card { background: #f8faff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 20px; margin: 20px 0; }
+  .badge { display: inline-block; padding: 4px 14px; border-radius: 50px; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .message-box { background: #ffffff; border-left: 4px solid #1C2280; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; font-size: 14.5px; line-height: 1.7; color: #334155; }
+  .email-footer { background: #f8fafc; padding: 20px 30px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; }
+  .email-footer a { color: #1C2280; text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class='email-container'>
+    <div class='email-header'>
+      <h1>" . htmlspecialchars(SITE_NAME) . " — Careers</h1>
+    </div>
+    <div class='email-body'>
+      <h2 style='color:#1C2280;margin-top:0;font-size:18px;'>Application Status Update</h2>
+      <p style='font-size:15px;line-height:1.6;'>Dear <strong>{$candidate_name}</strong>,</p>
+      <p style='font-size:14.5px;line-height:1.6;color:#475569;'>
+        This is an update regarding your application for the <strong>{$job_title}</strong> position at <strong>" . htmlspecialchars(SITE_NAME) . "</strong>" . ($app_id ? " (Application Ref <strong>#{$app_id}</strong>)" : "") . ".
+      </p>
+      <div class='status-card'>
+        <div style='font-size:12px;color:#64748b;text-transform:uppercase;font-weight:700;margin-bottom:6px;'>Current Application Status</div>
+        <div>
+          <span class='badge' style='background:{$badge_style['bg']};color:{$badge_style['text']};'>{$status_label}</span>
+        </div>
+      </div>
+      <div class='message-box'>
+        {$formatted_msg}
+      </div>
+      <p style='font-size:14px;line-height:1.6;color:#475569;margin-top:24px;'>
+        If you have any questions, feel free to reply directly to this email or reach out to our recruitment team at <a href='mailto:" . EMAIL_HR . "' style='color:#1C2280;font-weight:600;'>" . EMAIL_HR . "</a>.
+      </p>
+      <p style='font-size:14px;color:#1e293b;margin-top:20px;font-weight:600;'>
+        Best regards,<br>
+        <span style='color:#CC2228;'>" . htmlspecialchars(SITE_NAME) . " Recruitment Team</span>
+      </p>
+    </div>
+    <div class='email-footer'>
+      <p style='margin:0 0 6px;'>&copy; " . date('Y') . " " . htmlspecialchars(SITE_NAME) . ". All rights reserved.</p>
+      <p style='margin:0;'><a href='" . SITE_URL . "'>" . htmlspecialchars(SITE_DOMAIN) . "</a> &nbsp;|&nbsp; <a href='mailto:" . EMAIL_HR . "'>" . EMAIL_HR . "</a></p>
+    </div>
+  </div>
+</body>
+</html>";
+
+                $from_name = SITE_NAME . ' Careers';
+                $careers_addr = function_exists('get_careers_email') ? get_careers_email() : EMAIL_CAREERS;
+                return @send_notification_email($candidate['email'], $subj, $html_body, $from_name, $careers_addr, EMAIL_NO_REPLY, $careers_addr);
+            };
+
+            if ($status_scope === 'selected') {
+                $raw_ids = $_POST['selected_ids'] ?? [];
+                $ids = array_values(array_filter(array_map('intval', (array)$raw_ids), fn($i) => $i > 0));
+
+                if (empty($ids)) {
+                    header('Location: applications.php?err=no_selection');
+                    exit;
+                }
+
+                $placeholders = implode(',', array_fill(0, count($ids), '?'));
+
+                if ($send_emails) {
+                    $cStmt = $db->prepare("SELECT id, applicant_name, email, job_title FROM job_applications WHERE id IN ($placeholders)");
+                    $cStmt->execute($ids);
+                    $candidates = $cStmt->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($candidates as $cand) {
+                        if ($send_bulk_email($cand)) $emails_sent_count++;
+                    }
+                }
+
+                if (!empty($admin_note_append)) {
+                    $note_line = "\n[" . date('d M Y, h:i A') . "] " . $admin_note_append . " (Batch update: " . ucfirst($target_status) . ")";
+                    $upStmt = $db->prepare("UPDATE job_applications SET status = ?, admin_notes = CONCAT(COALESCE(admin_notes, ''), ?) WHERE id IN ($placeholders)");
+                    $upStmt->execute(array_merge([$target_status, $note_line], $ids));
+                } else {
+                    $upStmt = $db->prepare("UPDATE job_applications SET status = ? WHERE id IN ($placeholders)");
+                    $upStmt->execute(array_merge([$target_status], $ids));
+                }
+                $updated_count = $upStmt->rowCount();
+
+                if (function_exists('log_admin_activity')) {
+                    log_admin_activity('BULK_STATUS_UPDATE', "Batch updated status to '{$target_status}' for {$updated_count} applications (IDs: " . implode(',', array_slice($ids, 0, 15)) . (count($ids) > 15 ? '...' : '') . ")");
+                }
+
+            } elseif ($status_scope === 'filtered') {
+                $f_status = sanitize($_POST['filter_status'] ?? '');
+                $f_search = sanitize($_POST['filter_search'] ?? '');
+                $f_where  = "WHERE 1=1";
+                $f_params = [];
+                if ($f_status) { $f_where .= " AND status=:st"; $f_params[':st'] = $f_status; }
+                if ($f_search) {
+                    $f_where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4)";
+                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = $f_params[':q4'] = '%' . $f_search . '%';
+                }
+
+                if ($send_emails) {
+                    $cStmt = $db->prepare("SELECT id, applicant_name, email, job_title FROM job_applications $f_where");
+                    $cStmt->execute($f_params);
+                    $candidates = $cStmt->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($candidates as $cand) {
+                        if ($send_bulk_email($cand)) $emails_sent_count++;
+                    }
+                }
+
+                if (!empty($admin_note_append)) {
+                    $note_line = "\n[" . date('d M Y, h:i A') . "] " . $admin_note_append . " (Batch update: " . ucfirst($target_status) . ")";
+                    $f_params[':t_status']  = $target_status;
+                    $f_params[':note_line'] = $note_line;
+                    $upStmt = $db->prepare("UPDATE job_applications SET status = :t_status, admin_notes = CONCAT(COALESCE(admin_notes, ''), :note_line) $f_where");
+                    $upStmt->execute($f_params);
+                } else {
+                    $f_params[':t_status'] = $target_status;
+                    $upStmt = $db->prepare("UPDATE job_applications SET status = :t_status $f_where");
+                    $upStmt->execute($f_params);
+                }
+                $updated_count = $upStmt->rowCount();
+
+                if (function_exists('log_admin_activity')) {
+                    log_admin_activity('FILTERED_STATUS_UPDATE', "Batch updated status to '{$target_status}' for {$updated_count} applications matching filter");
+                }
+
+            } elseif ($status_scope === 'all') {
+                if ($send_emails) {
+                    $cStmt = $db->query("SELECT id, applicant_name, email, job_title FROM job_applications");
+                    $candidates = $cStmt ? $cStmt->fetchAll(PDO::FETCH_ASSOC) : [];
+                    foreach ($candidates as $cand) {
+                        if ($send_bulk_email($cand)) $emails_sent_count++;
+                    }
+                }
+
+                if (!empty($admin_note_append)) {
+                    $note_line = "\n[" . date('d M Y, h:i A') . "] " . $admin_note_append . " (Batch update: " . ucfirst($target_status) . ")";
+                    $upStmt = $db->prepare("UPDATE job_applications SET status = :t_status, admin_notes = CONCAT(COALESCE(admin_notes, ''), :note_line)");
+                    $upStmt->execute([':t_status' => $target_status, ':note_line' => $note_line]);
+                } else {
+                    $upStmt = $db->prepare("UPDATE job_applications SET status = :t_status");
+                    $upStmt->execute([':t_status' => $target_status]);
+                }
+                $updated_count = $upStmt ? $upStmt->rowCount() : 0;
+
+                if (function_exists('log_admin_activity')) {
+                    log_admin_activity('ALL_STATUS_UPDATE', "Batch updated status to '{$target_status}' for all {$updated_count} applications");
+                }
+            }
+
+            $mail_info = $send_emails ? "&emails_sent={$emails_sent_count}" : "";
+            header("Location: applications.php?msg=bulk_status_updated&count={$updated_count}&status={$target_status}&scope={$status_scope}{$mail_info}");
+            exit;
+        }
+
         // Status update & candidate email reply
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_update']) && $view_id > 0) {
             $stmtApp = $db->prepare("SELECT * FROM job_applications WHERE id = :id");
@@ -271,7 +500,8 @@ if ($db) {
 
         $filter = sanitize($_GET['filter'] ?? '');
         $search = sanitize($_GET['q']      ?? '');
-        $page   = max(1, (int)($_GET['page'] ?? 1));
+        $page     = max(1, (int)($_GET['page'] ?? 1));
+        $per_page = min(200, max(10, (int)($_GET['per_page'] ?? ITEMS_PER_PAGE)));
 
         $where  = "WHERE 1=1";
         $params = [];
@@ -514,7 +744,7 @@ if ($db) {
             }
         }
 
-        $pg   = paginate($total_count, ITEMS_PER_PAGE, $page);
+        $pg   = paginate($total_count, $per_page, $page);
         $stmt = $db->prepare("SELECT id, applicant_name, email, phone, job_title, experience_years, status, created_at, resume_filename, resume_path FROM job_applications $where ORDER BY created_at DESC LIMIT :l OFFSET :o");
         foreach ($params as $k => &$v) $stmt->bindValue($k, $v);
         $stmt->bindValue(':l', $pg['per_page'], PDO::PARAM_INT);
@@ -584,7 +814,14 @@ tr.selected-row{background-color:#eef2ff !important}
 tr.selected-row td{background-color:#eef2ff !important}
 .bulk-action-bar{background:#080B1A;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 22px;color:#fff;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 10px 25px rgba(8,11,26,.18);transition:.3s}
 .btn-purge{background:rgba(204,34,40,.12);color:#CC2228;border:1px solid rgba(204,34,40,.3);border-radius:10px;font-weight:700;font-size:13px;padding:10px 16px;transition:.2s}
-.btn-purge:hover{background:#CC2228;color:#fff}
+.status-choice-card{border:2px solid #e2e8f0;background:#fff;transition:.2s;user-select:none;}
+.status-choice-card:hover{border-color:#93c5fd;background:#f8faff;}
+.status-choice-card.active{border-color:#1C2280;background:#f0f4ff;box-shadow:0 0 0 3px rgba(28,34,128,.15);}
+.status-choice-card[data-status="rejected"].active{border-color:#ef4444;background:#fef2f2;box-shadow:0 0 0 3px rgba(239,68,68,.15);}
+.status-choice-card[data-status="shortlisted"].active{border-color:#f59e0b;background:#fffbeb;box-shadow:0 0 0 3px rgba(245,158,11,.15);}
+.status-choice-card[data-status="interview"].active{border-color:#6366f1;background:#eef2ff;box-shadow:0 0 0 3px rgba(99,102,241,.15);}
+.status-choice-card[data-status="reviewed"].active{border-color:#10b981;background:#ecfdf5;box-shadow:0 0 0 3px rgba(16,185,129,.15);}
+.status-choice-card[data-status="offered"].active{border-color:#0284c7;background:#f0f9ff;box-shadow:0 0 0 3px rgba(2,132,199,.15);}
 @media(max-width:1024px){
   body{flex-direction:column}
   .admin-sidebar{transform:translateX(-100%)}
@@ -635,6 +872,62 @@ tr.selected-row td{background-color:#eef2ff !important}
     </div>
     <?php if (!$view): ?>
     <div class="d-flex gap-2 align-items-center flex-wrap">
+      <!-- Batch Status Update Options -->
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="headerStatusDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background:#1C2280;color:#fff;border-radius:10px;font-weight:700;font-size:13px;padding:10px 18px;border:none;box-shadow:0 2px 8px rgba(28,34,128,.25);">
+          <i class="fas fa-tasks me-1"></i> Update Status
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow-lg" style="border-radius:12px;font-size:13px;min-width:300px;padding:8px;border:1px solid #e2e8f0;">
+          <li><div class="dropdown-header text-uppercase" style="font-size:10px;font-weight:700;letter-spacing:.5px;color:#1C2280;"><i class="fas fa-sliders-h me-1"></i> Batch Status Update</div></li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2 py-2" style="border-radius:8px;font-weight:600;" onclick="triggerStatusScope('selected')">
+              <i class="fas fa-check-square text-primary" style="font-size:15px;"></i>
+              <div>
+                <div>Update Selected Profiles</div>
+                <small class="text-muted" style="font-size:11px;">Update checked candidates (<span class="selectedCountText">0</span>)</small>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger" style="border-radius:8px;font-weight:600;" onclick="triggerStatusScopeWithPreselect('selected', 'rejected')">
+              <i class="fas fa-times-circle text-danger" style="font-size:15px;"></i>
+              <div>
+                <div>Quick Reject Selected (<span class="selectedCountText">0</span>)</div>
+                <small class="text-muted" style="font-size:11px;">Batch reject selected with notification</small>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2 py-2" style="border-radius:8px;font-weight:600;color:#b45309;" onclick="triggerStatusScopeWithPreselect('selected', 'shortlisted')">
+              <i class="fas fa-star text-warning" style="font-size:15px;"></i>
+              <div>
+                <div>Quick Shortlist Selected (<span class="selectedCountText">0</span>)</div>
+                <small class="text-muted" style="font-size:11px;">Batch shortlist selected candidates</small>
+              </div>
+            </button>
+          </li>
+          <li><hr class="dropdown-divider my-2"></li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2 py-2" style="border-radius:8px;font-weight:600;" onclick="triggerStatusScope('filtered')">
+              <i class="fas fa-filter text-info" style="font-size:15px;"></i>
+              <div>
+                <div>Update All Filtered Profiles</div>
+                <small class="text-muted" style="font-size:11px;">Update all <?= $total_count ?? 0 ?> applications matching filter</small>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2 py-2" style="border-radius:8px;font-weight:600;" onclick="triggerStatusScope('all')">
+              <i class="fas fa-database text-secondary" style="font-size:15px;"></i>
+              <div>
+                <div>Update All in Entire Database</div>
+                <small class="text-muted" style="font-size:11px;">Batch update all <?= $all_count ?? 0 ?> profiles</small>
+              </div>
+            </button>
+          </li>
+        </ul>
+      </div>
+
       <!-- Direct Multi-Profile Deletion Options (No Trash) -->
       <div class="dropdown">
         <button class="btn dropdown-toggle" type="button" id="headerDeleteDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background:#CC2228;color:#fff;border-radius:10px;font-weight:700;font-size:13px;padding:10px 18px;border:none;box-shadow:0 2px 8px rgba(204,34,40,.25);">
@@ -742,10 +1035,25 @@ tr.selected-row td{background-color:#eef2ff !important}
   </div>
   <?php endif; ?>
 
+  <?php if (!empty($_GET['msg']) && $_GET['msg'] === 'bulk_status_updated'): ?>
+  <div class="alert alert-success mb-4 shadow-sm" style="border-radius:12px;border:1px solid #bbf7d0;background:#f0fdf4;color:#166534;">
+    <i class="fas fa-check-circle me-2 text-success"></i> <strong>Bulk Status Update Successful:</strong> 
+    Updated <strong><?= (int)($_GET['count'] ?? 0) ?></strong> application profile(s) to 
+    <span class="status-badge status-<?= htmlspecialchars($_GET['new_status'] ?? '') ?>"><?= ucfirst(htmlspecialchars($_GET['new_status'] ?? '')) ?></span>
+    <?php if (isset($_GET['emails_sent'])): ?>
+      &bull; <strong><?= (int)$_GET['emails_sent'] ?></strong> candidate notification email(s) dispatched.
+    <?php endif; ?>
+  </div>
+  <?php endif; ?>
+
   <?php if (!empty($_GET['err'])): ?>
     <?php if ($_GET['err'] === 'no_selection'): ?>
     <div class="alert alert-warning mb-4 shadow-sm" style="border-radius:12px;border:1px solid #fed7aa;background:#fffbeb;color:#9a3412;">
-      <i class="fas fa-exclamation-triangle me-2 text-warning"></i> <strong>No profiles selected:</strong> Please check at least one application profile to delete.
+      <i class="fas fa-exclamation-triangle me-2 text-warning"></i> <strong>No profiles selected:</strong> Please check at least one application profile to proceed.
+    </div>
+    <?php elseif ($_GET['err'] === 'invalid_status'): ?>
+    <div class="alert alert-danger mb-4 shadow-sm" style="border-radius:12px;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;">
+      <i class="fas fa-exclamation-triangle me-2 text-danger"></i> <strong>Invalid Status:</strong> The status chosen for the bulk update is not recognized.
     </div>
     <?php elseif ($_GET['err'] === 'confirm_text'): ?>
     <div class="alert alert-danger mb-4 shadow-sm" style="border-radius:12px;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;">
@@ -859,12 +1167,13 @@ tr.selected-row td{background-color:#eef2ff !important}
 
   <?php else: ?>
   <!-- Floating / Sticky Selection Action Bar -->
+  <!-- Floating / Sticky Selection Action Bar -->
   <div id="bulkActionBar" class="bulk-action-bar" style="display:none;">
     <div class="d-flex align-items-center gap-3">
-      <span class="badge bg-danger rounded-pill px-3 py-2" style="font-size:13px;font-weight:700;">
+      <span class="badge rounded-pill px-3 py-2" style="font-size:13px;font-weight:700;background:#1C2280;color:#fff;">
         <span id="bulkSelectedCount">0</span> Selected
       </span>
-      <span style="font-size:13.5px;font-weight:500;">Candidate profile(s) chosen for direct permanent deletion</span>
+      <span style="font-size:13.5px;font-weight:500;">Batch actions for selected candidates:</span>
     </div>
     <div class="d-flex align-items-center gap-2 flex-wrap">
       <button type="button" class="btn btn-sm btn-outline-light" style="border-radius:8px;font-weight:600;" id="selectAllPageBtn">
@@ -873,8 +1182,25 @@ tr.selected-row td{background-color:#eef2ff !important}
       <button type="button" class="btn btn-sm btn-outline-light" style="border-radius:8px;font-weight:600;" id="clearSelectionBtn">
         <i class="fas fa-times me-1"></i> Deselect
       </button>
-      <button type="button" class="btn btn-sm btn-danger" style="border-radius:8px;font-weight:700;background:#CC2228;border-color:#CC2228;padding:6px 16px;" onclick="triggerDeleteScope('selected')">
-        <i class="fas fa-trash-alt me-1"></i> Delete Selected (<span class="selectedCountText">0</span>) Directly
+
+      <!-- Quick Reject button -->
+      <button type="button" class="btn btn-sm" style="border-radius:8px;font-weight:700;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;padding:6px 14px;" onclick="triggerStatusScopeWithPreselect('selected', 'rejected')">
+        <i class="fas fa-times-circle me-1"></i> Reject Selected (<span class="selectedCountText">0</span>)
+      </button>
+
+      <!-- Quick Shortlist button -->
+      <button type="button" class="btn btn-sm" style="border-radius:8px;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:6px 14px;" onclick="triggerStatusScopeWithPreselect('selected', 'shortlisted')">
+        <i class="fas fa-star me-1"></i> Shortlist Selected (<span class="selectedCountText">0</span>)
+      </button>
+
+      <!-- Full Status Update Modal Button -->
+      <button type="button" class="btn btn-sm btn-primary" style="border-radius:8px;font-weight:700;background:#2563eb;border-color:#2563eb;padding:6px 16px;" onclick="triggerStatusScope('selected')">
+        <i class="fas fa-sliders-h me-1"></i> Update Status...
+      </button>
+
+      <!-- Delete Selected Directly -->
+      <button type="button" class="btn btn-sm btn-danger ms-lg-2" style="border-radius:8px;font-weight:700;background:#CC2228;border-color:#CC2228;padding:6px 16px;" onclick="triggerDeleteScope('selected')">
+        <i class="fas fa-trash-alt me-1"></i> Delete Selected (<span class="selectedCountText">0</span>)
       </button>
     </div>
   </div>
@@ -912,8 +1238,14 @@ tr.selected-row td{background-color:#eef2ff !important}
           <option value="rejected" <?= $filter==='rejected'?'selected':'' ?>>Rejected</option>
           <option value="withdrawn" <?= $filter==='withdrawn'?'selected':'' ?>>Withdrawn</option>
         </select>
+        <select name="per_page" class="form-select form-select-sm" onchange="this.form.submit()" style="border-radius:8px;width:auto;" title="Candidates per page">
+          <option value="15" <?= ($per_page ?? 15)==15?'selected':'' ?>>15 / page</option>
+          <option value="25" <?= ($per_page ?? 15)==25?'selected':'' ?>>25 / page</option>
+          <option value="50" <?= ($per_page ?? 15)==50?'selected':'' ?>>50 / page</option>
+          <option value="100" <?= ($per_page ?? 15)==100?'selected':'' ?>>100 / page</option>
+        </select>
         <button type="submit" class="btn btn-sm btn-primary" style="border-radius:8px;background:#1C2280;border-color:#1C2280;font-weight:600;"><i class="fas fa-filter me-1"></i> Filter</button>
-        <?php if ($filter || $search): ?>
+        <?php if ($filter || $search || ($per_page ?? 15) != 15): ?>
         <a href="applications.php" class="btn btn-sm btn-outline-secondary" style="border-radius:8px;" title="Clear Filters"><i class="fas fa-times"></i></a>
         <?php endif; ?>
       </form>
@@ -1020,6 +1352,141 @@ tr.selected-row td{background-color:#eef2ff !important}
             <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:8px;font-weight:600;font-size:13px;">Cancel</button>
             <button type="submit" id="modalSubmitDeleteBtn" class="btn btn-danger" style="border-radius:8px;font-weight:700;font-size:13px;background:#CC2228;border-color:#CC2228;padding:8px 20px;">
               <i class="fas fa-trash-alt me-1"></i> <span id="modalSubmitBtnText">Permanently Delete</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bulk Status Update Modal -->
+  <div class="modal fade" id="bulkStatusModal" tabindex="-1" aria-labelledby="bulkStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content" style="border-radius:16px;border:none;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.2);">
+        <div class="modal-header" style="background:#f0f4ff;border-bottom:1px solid #e0e7ff;padding:18px 24px;">
+          <h5 class="modal-title fw-bold d-flex align-items-center gap-2" id="bulkStatusModalLabel" style="color:#1C2280;">
+            <i class="fas fa-tasks"></i> <span id="statusModalTitleText">Bulk Update Application Status</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="applications.php" id="bulkStatusForm">
+          <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+          <input type="hidden" name="action" value="bulk_status_update">
+          <input type="hidden" name="status_scope" id="modalStatusScope" value="selected">
+          <input type="hidden" name="filter_status" value="<?= htmlspecialchars($filter ?? '') ?>">
+          <input type="hidden" name="filter_search" value="<?= htmlspecialchars($search ?? '') ?>">
+          <div id="modalStatusSelectedIdsContainer"></div>
+
+          <div class="modal-body p-4">
+            <div id="statusModalScopeDesc" class="alert alert-info d-flex align-items-start gap-2 mb-3" style="border-radius:10px;font-size:13px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;">
+              <i class="fas fa-info-circle mt-1" style="font-size:16px;"></i>
+              <div id="statusModalScopeText">
+                Updating status for selected candidates.
+              </div>
+            </div>
+
+            <!-- Choose New Status -->
+            <label class="form-label fw-bold text-uppercase" style="font-size:12px;letter-spacing:.5px;color:#475569;">
+              Choose New Status <span class="text-danger">*</span>
+            </label>
+            <div class="row g-2 mb-3" id="statusChoiceContainer">
+              <div class="col-sm-6 col-md-4">
+                <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="rejected">
+                  <input type="radio" name="new_status" value="rejected" class="d-none">
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span class="badge bg-danger">Rejected</span>
+                    <i class="fas fa-times-circle text-danger"></i>
+                  </div>
+                  <div style="font-size:12px;color:#64748b;">Decline profile politely</div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="shortlisted">
+                  <input type="radio" name="new_status" value="shortlisted" class="d-none">
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span class="badge" style="background:#f59e0b;color:#fff;">Shortlisted</span>
+                    <i class="fas fa-star text-warning"></i>
+                  </div>
+                  <div style="font-size:12px;color:#64748b;">Qualified for next round</div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="interview">
+                  <input type="radio" name="new_status" value="interview" class="d-none">
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span class="badge" style="background:#6366f1;color:#fff;">Interview</span>
+                    <i class="fas fa-calendar-check text-primary"></i>
+                  </div>
+                  <div style="font-size:12px;color:#64748b;">Schedule interview round</div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="reviewed">
+                  <input type="radio" name="new_status" value="reviewed" class="d-none">
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span class="badge bg-success">Reviewed</span>
+                    <i class="fas fa-check text-success"></i>
+                  </div>
+                  <div style="font-size:12px;color:#64748b;">Screened &amp; under eval</div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="offered">
+                  <input type="radio" name="new_status" value="offered" class="d-none">
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span class="badge bg-info text-white">Offered</span>
+                    <i class="fas fa-award text-info"></i>
+                  </div>
+                  <div style="font-size:12px;color:#64748b;">Formal job offer extended</div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="new">
+                  <input type="radio" name="new_status" value="new" class="d-none">
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span class="badge bg-secondary">New</span>
+                    <i class="fas fa-undo text-secondary"></i>
+                  </div>
+                  <div style="font-size:12px;color:#64748b;">Reset to unreviewed</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Internal Admin Note (Optional) -->
+            <div class="mb-3">
+              <label for="bulkAdminNote" class="form-label fw-bold text-uppercase" style="font-size:12px;letter-spacing:.5px;color:#475569;">
+                Internal HR Note <small class="text-muted text-lowercase font-monospace">(optional — appended with timestamp)</small>
+              </label>
+              <input type="text" name="admin_notes" id="bulkAdminNote" class="form-control" style="border-radius:10px;font-size:13.5px;" placeholder="e.g. Batch rejected after initial review / Shortlisted for round 1 screening">
+            </div>
+
+            <!-- Email Notification Options -->
+            <div class="card p-3 mb-2" style="background:#f8faff;border:1px solid #dbeafe;border-radius:12px;">
+              <div class="form-check form-switch d-flex align-items-center gap-2">
+                <input class="form-check-input" type="checkbox" role="switch" id="bulkSendEmailToggle" name="send_email" value="1" style="width:2.5em;height:1.3em;cursor:pointer;">
+                <label class="form-check-label fw-bold" for="bulkSendEmailToggle" style="color:#1e293b;cursor:pointer;font-size:13.5px;">
+                  <i class="fas fa-envelope-open-text me-1" style="color:#1C2280;"></i> Notify candidate(s) via branded email
+                </label>
+              </div>
+              <div id="bulkEmailComposerSection" style="margin-top:12px;display:none;">
+                <div class="mb-2">
+                  <label class="form-label fw-bold text-uppercase" style="font-size:11px;color:#64748b;">Email Subject</label>
+                  <input type="text" name="email_subject" id="bulkEmailSubject" class="form-control" style="border-radius:8px;font-size:13px;" value="Update regarding your application at <?= htmlspecialchars(SITE_NAME) ?>">
+                </div>
+                <div class="mb-1">
+                  <label class="form-label fw-bold text-uppercase" style="font-size:11px;color:#64748b;">Email Message Body</label>
+                  <textarea name="email_message" id="bulkEmailMessage" rows="5" class="form-control" style="border-radius:8px;font-size:13px;line-height:1.6;" placeholder="Custom email body..."></textarea>
+                  <small class="text-muted d-block mt-1" style="font-size:11px;">
+                    <i class="fas fa-info-circle me-1"></i> Placeholders <code>[Candidate Name]</code> and <code>[Position]</code> are automatically replaced with each candidate's real details.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="background:#f8fafc;border-top:1px solid #f1f5f9;padding:14px 24px;">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:8px;font-weight:600;font-size:13px;">Cancel</button>
+            <button type="submit" id="bulkStatusSubmitBtn" class="btn" style="border-radius:8px;font-weight:700;font-size:13px;background:#1C2280;color:#fff;padding:8px 22px;">
+              <i class="fas fa-check me-1"></i> <span id="statusModalSubmitBtnText">Apply Status Update</span>
             </button>
           </div>
         </form>
@@ -1282,6 +1749,152 @@ document.getElementById('sidebarCloseBtn')?.addEventListener('click', function()
           confirmAllInput.focus();
           return false;
         }
+      }
+    });
+  }
+
+  // --- Bulk Status Update Modal & Logic ---
+  const bulkStatusModalEl   = document.getElementById('bulkStatusModal');
+  const bulkStatusForm      = document.getElementById('bulkStatusForm');
+  const modalStatusScopeInput= document.getElementById('modalStatusScope');
+  const modalStatusIdsCont  = document.getElementById('modalStatusSelectedIdsContainer');
+  const statusModalTitleTxt = document.getElementById('statusModalTitleText');
+  const statusModalScopeTxt = document.getElementById('statusModalScopeText');
+  const statusSubmitBtnTxt  = document.getElementById('statusModalSubmitBtnText');
+  const bulkSendEmailToggle = document.getElementById('bulkSendEmailToggle');
+  const bulkEmailComposerSec= document.getElementById('bulkEmailComposerSection');
+  const bulkEmailSubject    = document.getElementById('bulkEmailSubject');
+  const bulkEmailMessage    = document.getElementById('bulkEmailMessage');
+  const statusCards         = document.querySelectorAll('.status-choice-card');
+
+  const defaultTemplates = {
+    rejected: {
+      subject: `Update regarding your application — <?= addslashes(SITE_NAME) ?>`,
+      message: `Dear [Candidate Name],\n\nThank you for your interest in <?= addslashes(SITE_NAME) ?> and for taking the time to apply for the [Position] role.\n\nAfter careful consideration of all applications, we regret to inform you that we have decided to move forward with other candidates whose profiles more closely match our current requirements.\n\nWe will keep your resume in our talent network and will gladly contact you should a suitable opportunity arise in the future.\n\nWe wish you the very best in your career pursuits.\n\nSincerely,\n<?= addslashes(SITE_NAME) ?> Talent Acquisition`
+    },
+    shortlisted: {
+      subject: `Application Shortlisted: [Position] — <?= addslashes(SITE_NAME) ?>`,
+      message: `Dear [Candidate Name],\n\nWe are pleased to inform you that your profile has been shortlisted for the [Position] role at <?= addslashes(SITE_NAME) ?>.\n\nOur recruitment team reviewed your qualifications and experience, and we would like to proceed with the next round of our hiring process. Our team will contact you shortly to coordinate your schedule.\n\nPlease keep your phone and email accessible.\n\nBest regards,\n<?= addslashes(SITE_NAME) ?> Recruitment Team`
+    },
+    interview: {
+      subject: `Interview Invitation: [Position] — <?= addslashes(SITE_NAME) ?>`,
+      message: `Dear [Candidate Name],\n\nWe would like to invite you for an interview for the [Position] role at <?= addslashes(SITE_NAME) ?>.\n\nOur team will share the schedule and meeting details shortly. Please reply to this email if you have specific availability constraints.\n\nBest regards,\n<?= addslashes(SITE_NAME) ?> Recruitment Team`
+    },
+    reviewed: {
+      subject: `Application Under Review: [Position] — <?= addslashes(SITE_NAME) ?>`,
+      message: `Dear [Candidate Name],\n\nThank you for applying for the [Position] position at <?= addslashes(SITE_NAME) ?>.\n\nWe wanted to let you know that your application is actively under review by our hiring team. We appreciate your patience while we evaluate candidates.\n\nBest regards,\n<?= addslashes(SITE_NAME) ?> Recruitment Team`
+    },
+    offered: {
+      subject: `Job Offer: [Position] — <?= addslashes(SITE_NAME) ?>`,
+      message: `Dear [Candidate Name],\n\nCongratulations! We are delighted to extend a job offer for the position of [Position] at <?= addslashes(SITE_NAME) ?>.\n\nOur HR team will reach out with details regarding the formal offer letter and compensation package.\n\nWarm regards,\n<?= addslashes(SITE_NAME) ?> HR Team`
+    },
+    new: {
+      subject: `Application Received: [Position] — <?= addslashes(SITE_NAME) ?>`,
+      message: `Dear [Candidate Name],\n\nThank you for your application for the [Position] position at <?= addslashes(SITE_NAME) ?>. We will review your profile shortly.\n\nBest regards,\n<?= addslashes(SITE_NAME) ?> Team`
+    }
+  };
+
+  function selectStatusCard(status) {
+    statusCards.forEach(card => {
+      const radio = card.querySelector('input[type=radio]');
+      if (card.getAttribute('data-status') === status) {
+        card.classList.add('active');
+        if (radio) radio.checked = true;
+      } else {
+        card.classList.remove('active');
+        if (radio) radio.checked = false;
+      }
+    });
+    if (defaultTemplates[status]) {
+      if (bulkEmailSubject) bulkEmailSubject.value = defaultTemplates[status].subject;
+      if (bulkEmailMessage) bulkEmailMessage.value = defaultTemplates[status].message;
+    }
+  }
+
+  statusCards.forEach(card => {
+    card.addEventListener('click', function() {
+      const status = this.getAttribute('data-status');
+      selectStatusCard(status);
+    });
+  });
+
+  if (bulkSendEmailToggle && bulkEmailComposerSec) {
+    bulkSendEmailToggle.addEventListener('change', function() {
+      bulkEmailComposerSec.style.display = this.checked ? 'block' : 'none';
+    });
+  }
+
+  window.triggerStatusScopeWithPreselect = function(scope, status) {
+    window.triggerStatusScope(scope, status);
+  };
+
+  window.triggerStatusScope = function(scope, preselectedStatus = null) {
+    if (!bulkStatusModalEl) return;
+    const modal = bootstrap.Modal.getOrCreateInstance(bulkStatusModalEl);
+    modalStatusScopeInput.value = scope;
+    modalStatusIdsCont.innerHTML = '';
+
+    if (scope === 'selected') {
+      const checked = Array.from(appCheckboxes).filter(cb => cb.checked);
+      if (checked.length === 0) {
+        alert('Please select at least one application profile using the checkboxes to update status.');
+        return;
+      }
+      checked.forEach(cb => {
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = 'selected_ids[]';
+        hidden.value = cb.value;
+        modalStatusIdsCont.appendChild(hidden);
+      });
+
+      statusModalTitleTxt.textContent = `Update Status for ${checked.length} Selected Application(s)`;
+      statusModalScopeTxt.innerHTML = `You are updating the status of <strong>${checked.length}</strong> selected candidate profile(s).`;
+      statusSubmitBtnTxt.textContent = `Update ${checked.length} Profile(s)`;
+
+    } else if (scope === 'filtered') {
+      if (filteredCount === 0) {
+        alert('There are no applications matching the current filter to update.');
+        return;
+      }
+      let filterDesc = [];
+      if (filterStatus) filterDesc.push(`Status: <strong>${filterStatus}</strong>`);
+      if (searchKeyword) filterDesc.push(`Search: <strong>${searchKeyword}</strong>`);
+      let filterDetails = filterDesc.length > 0 ? ` matching (${filterDesc.join(', ')})` : '';
+
+      statusModalTitleTxt.textContent = `Update All ${filteredCount} Filtered Applications`;
+      statusModalScopeTxt.innerHTML = `You are updating all <strong>${filteredCount}</strong> applications${filterDetails}.`;
+      statusSubmitBtnTxt.textContent = `Update All ${filteredCount} Filtered`;
+
+    } else if (scope === 'all') {
+      if (allCount === 0) {
+        alert('There are no applications in the database to update.');
+        return;
+      }
+      statusModalTitleTxt.textContent = `Update All ${allCount} Applications in Database`;
+      statusModalScopeTxt.innerHTML = `You are about to update all <strong>${allCount}</strong> applications across the entire portal.`;
+      statusSubmitBtnTxt.textContent = `Update All ${allCount} Applications`;
+    }
+
+    if (preselectedStatus) {
+      selectStatusCard(preselectedStatus);
+    } else {
+      const activeCard = document.querySelector('.status-choice-card.active');
+      if (!activeCard) {
+        selectStatusCard('rejected');
+      }
+    }
+
+    modal.show();
+  };
+
+  if (bulkStatusForm) {
+    bulkStatusForm.addEventListener('submit', function(e) {
+      const checkedRadio = bulkStatusForm.querySelector('input[name="new_status"]:checked');
+      if (!checkedRadio) {
+        e.preventDefault();
+        alert('Please choose a status from the status cards.');
+        return false;
       }
     });
   }
