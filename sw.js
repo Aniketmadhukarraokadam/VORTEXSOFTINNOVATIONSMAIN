@@ -1,5 +1,5 @@
-/* Vortexsoft Innovations Private Limited — Service Worker v11 */
-const CACHE = 'vortexsoft-v11';
+/* Vortexsoft Innovations Private Limited — Service Worker v12 */
+const CACHE = 'vortexsoft-v12';
 const CRITICAL = [
   '/',
   '/index.php',
@@ -8,8 +8,16 @@ const CRITICAL = [
   '/contact.php',
   '/careers.php',
   '/blog.php',
+  '/faq.php',
+  '/privacy.php',
+  '/terms.php',
+  '/title-settlement/index.php',
   '/assets/vortex-shared.css',
   '/assets/vortex-shared.js',
+  '/assets/usability-audit-fixes.css',
+  '/assets/usability-audit-fixes.js',
+  '/assets/vortex-extensions.css',
+  '/assets/vortex-extensions.js',
   '/assets/vendor/bootstrap.min.css',
   '/assets/vendor/bootstrap.bundle.min.js',
   '/assets/vendor/fonts.css',

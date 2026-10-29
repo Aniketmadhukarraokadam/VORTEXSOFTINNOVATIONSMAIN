@@ -4,10 +4,26 @@
  * Access in browser: https://vortexsoftinnovations.com/admin/setup_db.php
  */
 
+if (session_status() === PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 header('Content-Type: text/html; charset=utf-8');
+
+// ── Security Guard: Restrict access to authenticated Super Admin ──────
+$is_super_admin = (!empty($_SESSION[ADMIN_SESSION]) && (($_SESSION['vortex_admin_role'] ?? $_SESSION['admin_role'] ?? '') === 'super_admin'));
+$setup_key = $_GET['setup_key'] ?? '';
+$valid_setup_key = defined('SETUP_KEY') ? SETUP_KEY : 'VortexSetup2026SecureAdminKey';
+
+if (!$is_super_admin && !hash_equals($valid_setup_key, $setup_key)) {
+    http_response_code(403);
+    die("
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head><title>403 Forbidden — Access Restricted</title><style>body{font-family:sans-serif;background:#080b1a;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;}.box{background:#111638;padding:36px;border-radius:16px;border:1px solid #242c70;text-align:center;max-width:480px;box-shadow:0 20px 40px rgba(0,0,0,0.5);}</style></head>
+    <body><div class='box'><h2 style='color:#ef4444;margin-top:0;'>403 — Super Admin Required</h2><p style='color:#94a3b8;font-size:14px;line-height:1.6;'>This database and system installer is restricted to authenticated Super Administrators.</p><p><a href='/admin/login.php' style='display:inline-block;background:#3b82f6;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:10px;'>Sign in to Admin Panel</a></p></div></body></html>");
+}
 
 // 1. Update webhook_deploy.php on server
 $webhookCode = <<<'PHP'
@@ -379,13 +395,13 @@ foreach ($queries as $q) {
 }
 
 try {
-    $p1 = password_hash('Mrunal@9996', PASSWORD_BCRYPT, ['cost' => 10]);
-    $p2 = password_hash('ShivaG@1437', PASSWORD_BCRYPT, ['cost' => 10]);
-
-    $stmt = $db->prepare("REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-        (1, 'admin@vortexsoftinnovations.in', :p1, 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1),
-        (2, 'Aniket@vortexsoftinnovations.in', :p2, 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1)");
-    $stmt->execute([':p1' => $p1, ':p2' => $p2]);
+    $existingAdminCount = (int)$db->query("SELECT COUNT(*) FROM `admin_users`")->fetchColumn();
+    if ($existingAdminCount === 0) {
+        $p1 = password_hash('Admin@Vortex2026!', PASSWORD_BCRYPT, ['cost' => 10]);
+        $stmt = $db->prepare("INSERT INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
+            (1, 'admin@vortexsoftinnovations.in', :p1, 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1)");
+        $stmt->execute([':p1' => $p1]);
+    }
 } catch (Throwable $t) {}
 
 // Seed initial jobs (only if table is empty)
@@ -393,14 +409,15 @@ try {
     $cnt = $db->query("SELECT COUNT(*) FROM `jobs`")->fetchColumn();
     if ($cnt == 0) {
         $seedJobs = [
-            ['Medical Coder','Healthcare BPO','Full Time','Bengaluru','1–3 years','CPC Certified,ICD-10,CPT,E&M Coding','Review and code inpatient/outpatient medical records using ICD-10, CPT, and HCPCS codes. Ensure accuracy and compliance with payer requirements.',1,1],
-            ['PHP Developer','IT & Software','Full Time','Bengaluru/Remote','2–4 years','PHP,Laravel,MySQL,REST APIs','Develop and maintain scalable PHP applications. Work with Laravel framework, MySQL databases, and REST APIs. Build admin panels and client portals.',0,2],
-            ['Data Annotation Specialist','AI / Data','Full Time','Bengaluru','0–2 years','Image Annotation,CVAT,Labelbox,Quality Control','Perform high-quality image, video, audio, and text annotation for AI/ML training datasets. Work with tools like CVAT, Labelbox, and Scale AI.',0,3],
-            ['Publishing Editor','Publishing','Full Time','Bengaluru','2–5 years','InDesign,QuarkXPress,XML,ePUB3','Handle typesetting, layout, ePUB3 conversion, and proofreading of academic and trade books. Work with publishers from USA, UK, and Europe.',0,4],
-            ['Digital Marketing Executive','Marketing','Full Time','Bengaluru','1–3 years','SEO,Google Ads,Meta Ads,Content Marketing','Plan and execute SEO, PPC, and social media campaigns for B2B and B2C clients. Manage monthly performance reports and analytics dashboards.',0,5],
-            ['Lease Administrator','Real Estate BPO','Full Time','Pune','1–4 years','Lease Abstraction,CAM Reconciliation,MRI Software,Excel','Abstract and administer commercial real estate leases. Handle CAM reconciliation, rent roll management, and property accounting for US clients.',0,6],
-            ['HR Executive','Human Resources','Full Time','Bengaluru','1–3 years','Recruitment,Onboarding,HRMS,Labor Law','Manage end-to-end recruitment for IT and BPO roles. Handle onboarding, employee engagement, attendance, payroll coordination, and compliance.',0,7],
-            ['Accounts Executive','Finance & Accounting','Full Time','Bengaluru','1–3 years','Tally,QuickBooks,GST,TDS','Handle bookkeeping, accounts payable/receivable, GST filing, TDS, bank reconciliation, and monthly financial reporting for Indian and US clients.',0,8],
+            ['Java Developer','IT & Software','Full Time','Bengaluru / Pune / Remote','2–5 years','Java, Spring Boot, Microservices, Hibernate, REST APIs, SQL, Docker','Design, build, and maintain robust enterprise backend microservices and RESTful APIs using modern Java and Spring Boot. Optimize high-volume database queries and collaborate on cloud-native deployments.',1,1],
+            ['Python Developer','IT & Software','Full Time','Bengaluru / Remote','2–5 years','Python, Django, FastAPI, PostgreSQL, REST APIs, Celery, Docker','Develop scalable backend applications, automated data pipelines, and high-performance REST APIs. Collaborate with product teams to build clean architectures with Python, FastAPI, and PostgreSQL.',1,2],
+            ['Data Engineer','IT & Software','Full Time','Bengaluru / Remote','2–5 years','Python, SQL, Apache Spark, Airflow, ETL Pipelines, Snowflake, AWS','Design, construct, and operationalize resilient batch and real-time ETL pipelines. Manage data ingestion, transformation workflows, and cloud data warehouses ensuring high data reliability.',1,3],
+            ['HR Executive','Human Resources','Full Time','Pune / Bengaluru','1–4 years','Talent Acquisition, IT Recruitment, Onboarding, Employee Engagement, HR Operations','Manage end-to-end talent acquisition for engineering, AI, and BPO divisions. Coordinate interviews, campus drives, new hire onboarding, HR policies, and employee engagement programs.',0,4],
+            ['Associate Process Analyst','Business Operations','Full Time','Pune / Bengaluru','1–3 years','Process Mapping, Data Analysis, MIS Reporting, Workflow Optimization, Advanced Excel','Analyze business operations workflows, map process lifecycles, and identify operational bottlenecks. Create comprehensive MIS reporting dashboards and optimize client turnaround times.',0,5],
+            ['Title Search Executive','Real Estate BPO','Full Time','Pune HQ','1–4 years','40-Year Title Searches, Deed Chains, Mortgage Liens, Tax Searches, SoftPro, Qualia','Conduct detailed title searches and examinations on US county property records. Verify ownership deed chains, identify open liens and taxes, and prepare commitment packages for US title settlement clients.',1,6],
+            ['BPO Executive','Customer Operations','Full Time','Pune / Bengaluru','0–3 years','Voice & Non-Voice Support, Customer Engagement, CRM Systems, Email Support, Active Listening','Provide first-line client communication and transactional support across inbound, outbound, and digital channels. Resolve customer inquiries with precision while maintaining stellar SLA metrics.',0,7],
+            ['KPO Analyst','Research & Analytics','Full Time','Bengaluru / Pune','1–4 years','Market Research, Financial Analysis, Business Intelligence, Data Synthesis, Advanced Excel','Deliver high-value secondary research, industry benchmarking, and financial analysis for global clients. Synthesize complex data sets into actionable presentation decks and strategic intelligence reports.',0,8],
+            ['Medical Coder','Healthcare BPO','Full Time','Bengaluru / Remote','1–4 years','CPC / COC Certified, ICD-10-CM, CPT-4, HCPCS, E&M Coding, HIPAA Compliance','Review clinical documentation and provider charts to assign accurate diagnostic and procedural codes according to US healthcare standards. Maintain >96% accuracy and ensure strict HIPAA adherence.',1,9],
         ];
         $ins = $db->prepare("INSERT INTO `jobs` (title,department,type,location,experience_range,skills_json,description,is_urgent,sort_order) VALUES (?,?,?,?,?,?,?,?,?)");
         foreach ($seedJobs as $j) { $ins->execute($j); }
@@ -473,6 +490,31 @@ try {
         $stmtTpl = $db->prepare("INSERT INTO `email_templates` (template_key, name, subject, body_html, variables_json) VALUES (?,?,?,?,?)");
         foreach ($templates as $t) {
             $stmtTpl->execute([$t['template_key'], $t['name'], $t['subject'], $t['body_html'], $t['variables_json']]);
+        }
+    }
+} catch (Throwable $t) {}
+
+// Seed default SEO-optimized blog posts
+try {
+    require_once dirname(__DIR__) . '/includes/articles_data.php';
+    $staticArticles = get_vortex_blog_articles();
+    $bCount = (int)$db->query("SELECT COUNT(*) FROM `blog_posts`")->fetchColumn();
+    if ($bCount < count($staticArticles)) {
+        $ins = $db->prepare("REPLACE INTO blog_posts (title, slug, category, excerpt, content, author, cover_image, meta_title, meta_desc, tags, is_published, is_featured, published_at, created_at, updated_at) VALUES (:t, :s, :c, :e, :cnt, :a, :img, :mt, :md, :tags, 1, 1, :pub, NOW(), NOW())");
+        foreach ($staticArticles as $art) {
+            $ins->execute([
+                ':t'    => $art['title'],
+                ':s'    => $art['slug'],
+                ':c'    => $art['category'],
+                ':e'    => $art['excerpt'],
+                ':cnt'  => $art['content'],
+                ':a'    => $art['author'],
+                ':img'  => $art['cover_image'],
+                ':mt'   => $art['meta_title'],
+                ':md'   => $art['meta_desc'],
+                ':tags' => $art['tags'],
+                ':pub'  => $art['published_at'],
+            ]);
         }
     }
 } catch (Throwable $t) {}

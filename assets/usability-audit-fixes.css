@@ -3,7 +3,45 @@
 body{font-size:var(--ux-font-body)}
 body :is(button,a,.service-card,.hero-card,.motion-service-chip,.service-node-8d,.hero-stat-chip,.faq-item){border-radius:var(--ux-radius-md)}
 body :is(.btn-hero-primary,.btn-hero-secondary,.btn-primary-custom,.btn-cta-white,.btn-submit,.nav-cta){border-radius:var(--ux-radius-md)}
-body :is(p,.section-subtitle,.hero-description,.hero-card p,.service-card p){color:var(--ux-text)}
+/* Only apply dark text to elements inside light backgrounds */
+:is(section:not(.page-hero):not(.cta-banner):not(.footer), .service-card, .contact-card, .faq-item, .blog-card, .job-card) :is(p, .section-subtitle) { color: var(--ux-text); }
+
+/* ── HIGH-CONTRAST LIGHT TEXT ON ALL DARK SECTIONS ── */
+:is(.footer, .page-hero, .cta-banner, .contact-info-card, .topbar, #page-loader, .trust-marquee-wrapper) {
+  color: #f1f5f9 !important;
+}
+:is(.footer, .page-hero, .cta-banner, .contact-info-card, .topbar) :is(h1, h2, h3, h4, h5, h6, strong, .footer-title) {
+  color: #ffffff !important;
+}
+:is(.footer, .page-hero, .cta-banner, .contact-info-card) p {
+  color: #e2e8f0 !important;
+}
+
+/* Footer specific high-contrast light colors */
+.footer { background: #080B1A !important; color: #f1f5f9 !important; }
+.footer p, .footer .footer-desc, .footer-desc span { color: #e2e8f0 !important; font-size: 14.5px !important; line-height: 1.8 !important; }
+.footer .footer-desc strong { color: #ffffff !important; font-weight: 700 !important; }
+.footer-title { color: #ffffff !important; font-weight: 700 !important; font-size: 15px !important; border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important; padding-bottom: 10px !important; margin-bottom: 18px !important; }
+.footer-links li a { color: #cbd5e1 !important; font-size: 14px !important; transition: all 0.25s ease !important; text-decoration: none !important; }
+.footer-links li a:hover { color: #ffffff !important; text-shadow: 0 0 10px rgba(91,168,212,0.6) !important; padding-left: 6px !important; }
+.footer-contact-item span { color: #e2e8f0 !important; font-size: 13.5px !important; line-height: 1.6 !important; }
+.footer-contact-item a { color: #ffffff !important; text-decoration: none !important; font-weight: 600 !important; }
+.footer-contact-item a:hover { color: #5BA8D4 !important; }
+.footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.12) !important; padding: 22px 0 !important; background: #050713 !important; }
+.footer-bottom p { color: #cbd5e1 !important; font-size: 13.5px !important; }
+.footer-bottom a { color: #ffffff !important; font-weight: 600 !important; text-decoration: none !important; transition: color 0.2s ease !important; }
+.footer-bottom a:hover { color: #5BA8D4 !important; }
+.trust-item { color: #f8fafc !important; }
+
+/* ── CTA BANNER & HERO VISIBILITY ── */
+.cta-banner h2 { color: #ffffff !important; }
+.cta-banner p { color: #f1f5f9 !important; font-size: 16px !important; }
+.page-hero h1 { color: #ffffff !important; }
+.page-hero p { color: #f1f5f9 !important; }
+.page-hero .breadcrumb-item a { color: #e2e8f0 !important; }
+.page-hero .breadcrumb-item.active { color: #ffffff !important; }
+.page-hero .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,0.6) !important; }
+.contact-info-card h3, .contact-info-card p, .contact-info-card .label, .contact-info-card .value { color: #ffffff !important; }
 .topbar-badge{font-size:12px!important;letter-spacing:.6px;text-transform:none}
 .strip-header{font-size:12px!important;letter-spacing:.5px}
 .motion-service-chip{font-size:13px!important}.motion-service-chip i{font-size:13px!important}
@@ -27,3 +65,280 @@ body :is(p,.section-subtitle,.hero-description,.hero-card p,.service-card p){col
 .cta-banner{padding-top:88px!important;padding-bottom:88px!important;margin-bottom:28px}.footer{padding-top:76px!important}
 body :is(a,button,input,select,textarea):focus-visible{outline:3px solid rgba(91,168,212,.9);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.hero-scroll-track,.hero-scroll-track.reverse{animation:none!important}.hero-scroll-container{scroll-behavior:auto}}
+
+/* ==========================================================================
+   ENTERPRISE MOBILE & IPAD/TABLET RESPONSIVE SYSTEM
+   Ensures pixel-perfect layout, aligned positioning, and zero overflow
+   ========================================================================== */
+
+/* 1. Global Viewport & Container Containment */
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  position: relative;
+}
+
+/* 2. Form Inputs Mobile Zoom Prevention (iOS Safari requires min 16px to prevent zoom) */
+@media (max-width: 767.98px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  select,
+  textarea,
+  .form-control,
+  .form-select {
+    font-size: 16px !important;
+  }
+}
+
+/* 3. Mobile Viewports (Phones: <= 575.98px) */
+@media (max-width: 575.98px) {
+  /* Containers & Section Spacing */
+  .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .section-pad {
+    padding: 44px 0 !important;
+  }
+  .section-pad-sm {
+    padding: 32px 0 !important;
+  }
+
+  /* Typography */
+  .section-title {
+    font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important;
+    line-height: 1.22 !important;
+    margin-bottom: 12px !important;
+  }
+  .section-subtitle {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+  .hero-title, .page-hero h1 {
+    font-size: clamp(1.75rem, 6.8vw, 2.3rem) !important;
+    line-height: 1.2 !important;
+  }
+  .hero-description, .page-hero p {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Hero Button Stacking & Touch Sizing */
+  .hero-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+  .btn-hero-primary, .btn-hero-secondary, .btn-cta-white, .btn-primary-custom {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 13px 20px !important;
+    font-size: 14.5px !important;
+  }
+
+  /* Hero Stats Grid (Balanced 2x2 + 1 Center) */
+  .hero-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    margin-top: 22px !important;
+  }
+  .hero-stat-chip {
+    padding: 12px 10px !important;
+  }
+  .hero-stat-chip:nth-child(5) {
+    grid-column: span 2 !important;
+    text-align: center !important;
+  }
+  .hero-stat-chip .number {
+    font-size: 1.4rem !important;
+  }
+
+  /* Service Chips Bar */
+  .hero-8d-services-strip {
+    padding: 12px 14px !important;
+    margin-top: 18px !important;
+    border-radius: 14px !important;
+  }
+  .strip-chips {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-bottom: 4px !important;
+  }
+  .strip-chips::-webkit-scrollbar { display: none; }
+  .motion-service-chip {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+  }
+
+  /* All Cards Spacing */
+  .service-card, .whyus-card, .testimonial-card, .contact-card, .perk-card {
+    padding: 22px 18px !important;
+    border-radius: 16px !important;
+  }
+  .service-icon-wrap {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 22px !important;
+    border-radius: 14px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    padding: 50px 0 !important;
+  }
+  .cta-banner h2 {
+    font-size: 1.7rem !important;
+  }
+  .cta-banner p {
+    font-size: 14px !important;
+    margin-bottom: 22px !important;
+  }
+}
+
+/* 4. Large Phones & Small Tablets (576px - 767.98px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .section-pad {
+    padding: 54px 0 !important;
+  }
+  .section-title {
+    font-size: 2.1rem !important;
+  }
+  .hero-title, .page-hero h1 {
+    font-size: 2.3rem !important;
+  }
+  .hero-stats-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+  }
+  .hero-stat-chip:nth-child(4), .hero-stat-chip:nth-child(5) {
+    grid-column: span 1;
+  }
+  .hero-btns {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
+  .btn-hero-primary, .btn-hero-secondary {
+    flex: 1 1 calc(50% - 10px) !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
+
+/* 5. Tablets / iPads (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Fluid Containers for iPads */
+  .container {
+    max-width: 100% !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  .section-pad {
+    padding: 60px 0 !important;
+  }
+  .section-pad-sm {
+    padding: 44px 0 !important;
+  }
+
+  /* Headings */
+  .section-title {
+    font-size: clamp(2rem, 3.8vw, 2.5rem) !important;
+  }
+  .hero-title, .page-hero h1 {
+    font-size: clamp(2.2rem, 4.2vw, 2.9rem) !important;
+  }
+
+  /* 2-Column Balanced Grids for Tablets */
+  .col-md-6 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .col-md-6 > .service-card,
+  .col-md-6 > .whyus-card,
+  .col-md-6 > .testimonial-card,
+  .col-md-6 > .contact-card,
+  .col-md-6 > .perk-card {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Tablet Hero Stat Grid */
+  .hero-stats-grid {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 10px !important;
+  }
+  .hero-stat-chip {
+    padding: 12px 10px !important;
+  }
+  .hero-stat-chip .number {
+    font-size: 1.45rem !important;
+  }
+  .hero-stat-chip .label {
+    font-size: 10px !important;
+  }
+
+  /* Contact cards grid on iPad (2x2 balanced) */
+  .contact-card {
+    padding: 26px 20px !important;
+  }
+
+  /* Footer on Tablet: 2x2 column balance */
+  .footer .row > div {
+    margin-bottom: 24px !important;
+  }
+}
+
+/* 6. Floating Widgets Mobile Placement (Zero Overlap Guaranteed) */
+@media (max-width: 767.98px) {
+  .floating-whatsapp-widget {
+    bottom: 16px !important;
+    right: 16px !important;
+    z-index: 1040 !important;
+  }
+  .whatsapp-badge {
+    display: none !important;
+  }
+  .whatsapp-btn {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 24px !important;
+  }
+  #scrollTop {
+    bottom: 74px !important;
+    right: 18px !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 15px !important;
+    border-radius: 10px !important;
+    z-index: 1039 !important;
+  }
+}
+
+/* 7. Modal & Command Palette Mobile Optimizations */
+@media (max-width: 767.98px) {
+  #vortexCommandPalette {
+    padding: 60px 12px 16px !important;
+  }
+  .vcp-modal {
+    max-height: 85vh !important;
+    border-radius: 16px !important;
+  }
+  .modal-dialog {
+    margin: 12px !important;
+  }
+  .modal-content {
+    border-radius: 16px !important;
+  }
+}

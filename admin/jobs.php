@@ -69,6 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $val = (int)($_POST['value'] ?? 0);
             $db->prepare("UPDATE jobs SET is_urgent=?,updated_at=NOW() WHERE id=?")->execute([$val,$id]);
         }
+
+        // Clear careers cache so changes reflect instantly
+        @unlink(__DIR__ . '/../config/jobs_cache.json');
     }
 }
 

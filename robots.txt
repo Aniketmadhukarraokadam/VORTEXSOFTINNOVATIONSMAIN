@@ -88,6 +88,10 @@ Allow: /
 # Perplexity, ChatGPT, Claude, Gemini, Cursor
 Allow: /llms.txt
 Allow: /llms-full.txt
+Allow: /ai.txt
 
 Sitemap: https://www.vortexsoftinnovations.com/sitemap.xml
+Sitemap: https://www.vortexsoftinnovations.com/jobs-sitemap.xml
 Sitemap: https://www.vortexsoftinnovations.com/sitemap-images.xml
+Sitemap: https://www.vortexsoftinnovations.com/geo-sitemap.xml
+

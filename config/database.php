@@ -40,10 +40,12 @@ unset($_possible_env_files, $_env_file);
 
 define('DB_HOST',    !empty($_env['DB_HOST']) ? $_env['DB_HOST'] : 'localhost');
 define('DB_NAME',    !empty($_env['DB_NAME']) ? $_env['DB_NAME'] : 'u696371114_vortexsoftcom');
-define('DB_USER',    !empty($_env['DB_USER']) ? $_env['DB_USER'] : 'u696371114_vortexsoftcom');
-define('DB_PASS',    !empty($_env['DB_PASS']) ? $_env['DB_PASS'] : 'Madhukarrao@121');
+$_db_user = !empty($_env['DB_USER']) ? $_env['DB_USER'] : 'u696371114_Vortexsoftcom';
+if (strtolower($_db_user) === 'u696371114_vortexsoftcom') { $_db_user = 'u696371114_Vortexsoftcom'; }
+define('DB_USER',    $_db_user);
+define('DB_PASS',    !empty($_env['DB_PASS']) ? $_env['DB_PASS'] : 'ShivaG@1437');
 define('DB_CHARSET', 'utf8mb4');
-unset($_env);
+unset($_env, $_db_user);
 
 function getDB(): ?PDO {
     static $pdo = null;

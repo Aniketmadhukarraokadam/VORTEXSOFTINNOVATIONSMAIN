@@ -1,19 +1,6 @@
 <?php
 /**
- * Vortexsoft Innovations — privacy
- * Shared Header & Footer Integration
+ * 301 Permanent Redirect to canonical privacy.php
  */
-
-$page_title    = 'Redirecting to Privacy Policy... | Vortexsoft Innovations Private Limited';
-$page_desc     = '';
-$canonical_url = 'https://www.vortexsoftinnovations.com/privacy.html';
-$prefix        = '../';
-
-require_once __DIR__ . '/../config/constants.php';
-require_once __DIR__ . '/../includes/header.php';
-?>
-
-<div class="spinner"></div>
-  <p>Redirecting to <a href="../privacy.html">Privacy Policy</a>...</p>
-
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+header("Location: ../privacy.php", true, 301);
+exit;

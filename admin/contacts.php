@@ -17,8 +17,13 @@ $contacts = [];
 
 if ($db) {
     try {
-        // Delete Inquiry
+        // Delete Inquiry (CSRF Protected)
         if (isset($_GET['delete'])) {
+            $token = $_GET['csrf'] ?? $_POST['csrf_token'] ?? '';
+            if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {
+                header('Location: contacts.php?err=csrf');
+                exit;
+            }
             $did = (int)$_GET['delete'];
             $db->prepare("DELETE FROM contact_inquiries WHERE id = :id")->execute([':id' => $did]);
             header('Location: contacts.php?msg=deleted');
@@ -33,8 +38,12 @@ if ($db) {
             $view = $stmt->fetch() ?: null;
         }
 
-        // Save note
+        // Save note (CSRF Protected)
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['note'])) {
+            if (!verify_csrf()) {
+                header('Location: contacts.php?view=' . $view_id . '&err=csrf');
+                exit;
+            }
             $note = sanitize($_POST['note']);
             $db->prepare("UPDATE contact_inquiries SET notes=:n, is_replied=:r WHERE id=:id")
                ->execute([':n' => $note, ':r' => isset($_POST['is_replied']) ? 1 : 0, ':id' => $view_id]);
@@ -192,6 +201,7 @@ tr:hover td{background:#fafbff}
       <!-- Admin Notes -->
       <div class="col-12 mt-2">
         <form method="POST" action="contacts.php?view=<?= $view['id'] ?>">
+          <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
           <label style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;display:block;margin-bottom:6px;">Admin Notes</label>
           <textarea name="note" class="form-control" rows="3" placeholder="Internal notes about this inquiry..." style="border-radius:10px;border:1.5px solid #e2e8f0;font-size:14px;"><?= htmlspecialchars($view['notes'] ?? '') ?></textarea>
           <div class="mt-3 d-flex gap-3 align-items-center flex-wrap">
@@ -200,7 +210,7 @@ tr:hover td{background:#fafbff}
               <input type="checkbox" name="is_replied" value="1" <?= $view['is_replied']?'checked':'' ?>> Mark as Replied
             </label>
             <a href="mailto:<?= htmlspecialchars($view['email']) ?>" class="btn" style="background:rgba(28,34,128,.08);color:#1C2280;border-radius:8px;font-size:13px;font-weight:700;padding:10px 22px;"><i class="fas fa-reply me-1"></i> Reply via Email</a>
-            <a href="contacts.php?delete=<?= $view['id'] ?>" class="btn action-btn-delete" style="border-radius:8px;font-size:13px;font-weight:700;padding:10px 22px;" onclick="return confirm('Delete this inquiry permanently?');"><i class="fas fa-trash me-1"></i> Delete</a>
+            <a href="contacts.php?delete=<?= $view['id'] ?>&csrf=<?= htmlspecialchars(csrf_token()) ?>" class="btn action-btn-delete" style="border-radius:8px;font-size:13px;font-weight:700;padding:10px 22px;" onclick="return confirm('Delete this inquiry permanently?');"><i class="fas fa-trash me-1"></i> Delete</a>
           </div>
         </form>
       </div>
@@ -244,7 +254,7 @@ tr:hover td{background:#fafbff}
             </td>
             <td>
               <a href="contacts.php?view=<?= $c['id'] ?>" class="action-btn"><i class="fas fa-eye"></i> View</a>
-              <a href="contacts.php?delete=<?= $c['id'] ?>" class="action-btn action-btn-delete" onclick="return confirm('Delete this inquiry?');"><i class="fas fa-trash"></i></a>
+              <a href="contacts.php?delete=<?= $c['id'] ?>&csrf=<?= htmlspecialchars(csrf_token()) ?>" class="action-btn action-btn-delete" onclick="return confirm('Delete this inquiry?');"><i class="fas fa-trash"></i></a>
             </td>
           </tr>
           <?php endforeach; ?>

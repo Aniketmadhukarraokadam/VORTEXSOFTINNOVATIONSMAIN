@@ -7,6 +7,9 @@
 require_once __DIR__ . '/config/constants.php';
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/articles_data.php';
+
+$staticArticles = get_vortex_blog_articles();
 
 $slug = sanitize($_GET['slug'] ?? '');
 $id   = (int)($_GET['id'] ?? 0);
@@ -26,6 +29,27 @@ if ($db) {
             $post = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
+        // If post not found in DB but exists in static repository, auto-seed it into DB!
+        if (!$post && !empty($slug) && isset($staticArticles[$slug])) {
+            $art = $staticArticles[$slug];
+            $ins = $db->prepare("INSERT INTO blog_posts (title, slug, category, excerpt, content, author, cover_image, meta_title, meta_desc, tags, is_published, is_featured, published_at, created_at, updated_at) VALUES (:t, :s, :c, :e, :cnt, :a, :img, :mt, :md, :tags, 1, 1, :pub, NOW(), NOW())");
+            $ins->execute([
+                ':t'    => $art['title'],
+                ':s'    => $art['slug'],
+                ':c'    => $art['category'],
+                ':e'    => $art['excerpt'],
+                ':cnt'  => $art['content'],
+                ':a'    => $art['author'],
+                ':img'  => $art['cover_image'],
+                ':mt'   => $art['meta_title'],
+                ':md'   => $art['meta_desc'],
+                ':tags' => $art['tags'],
+                ':pub'  => $art['published_at'],
+            ]);
+            $art['id'] = (int)$db->lastInsertId();
+            $post = $art;
+        }
+
         // Increment view count
         if ($post && !empty($post['id'])) {
             $db->prepare("UPDATE blog_posts SET views = views + 1 WHERE id = :id")->execute([':id' => $post['id']]);
@@ -36,25 +60,20 @@ if ($db) {
     }
 }
 
-// Fallback sample post if DB offline or not found
+// Fallback to static articles repository if DB is offline or record not in DB
+if (!$post && !empty($slug) && isset($staticArticles[$slug])) {
+    $post = $staticArticles[$slug];
+}
+
+// Final fallback: if no slug specified or not found, pick first static article
 if (!$post) {
     if (!empty($slug)) {
-        // Redirect to blog directory if post truly not found
+        // Redirect to blog directory if slug truly does not exist
         header('Location: /blog.php');
         exit;
     }
-    $post = [
-        'id'           => 1,
-        'title'        => 'Healthcare RCM Automation in 2026: Modernizing Revenue Cycle Workflows',
-        'slug'         => 'healthcare-rcm-automation-2026',
-        'category'     => 'Healthcare BPO',
-        'author'       => 'Vortexsoft Insights Team',
-        'cover_image'  => '/uploads/blog/ai_blog_healthcare-rcm-test_1789099437.jpg',
-        'excerpt'      => 'Discover how healthcare RCM automation in 2026 reduces claim denials, streamlines prior authorization, and accelerates provider reimbursement.',
-        'content'      => '<p class="lead-aeo"><strong>Healthcare RCM automation</strong> in 2026 utilizes artificial intelligence and machine learning to automate medical coding, verify insurance eligibility in real time, and resolve billing discrepancies before claim submission. By eliminating manual touchpoints, healthcare providers cut claim denial rates by up to 40% and accelerate cash collection cycles.</p><h2>The Critical Shift to AI-Powered Revenue Cycle Management</h2><p>Modern healthcare systems face rising operational costs and increasingly stringent payer requirements. Manual data entry across legacy electronic health record (EHR) platforms causes delayed payments and high denial rates.</p><p>At <strong>Vortexsoft Innovations Private Limited</strong>, an ISO 27001:2013-certified and HIPAA-compliant IT and BPO leader, our dedicated revenue cycle delivery pods support global healthcare providers with automated ICD-11 coding, electronic remittance processing, and predictive denial analytics.</p><h2>Key Pillars of RCM Automation in 2026</h2><ul><li><strong>Real-time Eligibility Verification:</strong> Automatic verification directly via payer clearinghouse APIs within 3 seconds.</li><li><strong>AI Assisted Medical Coding:</strong> Natural language processing (NLP) scans physician documentation to generate high-accuracy CPT and ICD codes.</li><li><strong>Predictive Denial Analytics:</strong> Machine learning flags high-risk claims prior to transmission, enabling proactive remediation.</li></ul><h2>Frequently Asked Questions</h2><h3>How does AI automation improve medical billing accuracy?</h3><p>AI scans clinical notes directly from the EHR using NLP, cross-referencing payer guidelines to eliminate coding oversights and prevent medical necessity denials before submission.</p><h3>Is Vortexsoft Healthcare RCM HIPAA-compliant?</h3><p>Yes. Vortexsoft Innovations operates under strict HIPAA compliance and ISO 27001:2013 security standards with encrypted data pipelines and role-based access control.</p>',
-        'published_at' => date('Y-m-d H:i:s'),
-        'views'        => 318,
-    ];
+    $firstKey = array_key_first($staticArticles);
+    $post = $staticArticles[$firstKey];
 }
 
 $page_title    = (!empty($post['meta_title']) ? $post['meta_title'] : $post['title']) . ' | Vortexsoft Innovations';
@@ -111,7 +130,23 @@ require_once __DIR__ . '/includes/header.php';
       },
       "articleSection": "<?= addslashes($post['category'] ?? 'Technology') ?>",
       "keywords": "<?= addslashes($post['tags'] ?? 'Vortexsoft Innovations, AI, BPO, IT Outsourcing') ?>"
-    }
+    }<?php if (!empty($post['faqs'])): ?>,
+    {
+      "@type": "FAQPage",
+      "@id": "<?= $canonical_url ?>#faq",
+      "mainEntity": [
+        <?php foreach ($post['faqs'] as $idx => $f): ?>
+        {
+          "@type": "Question",
+          "name": "<?= addslashes($f['q']) ?>",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "<?= addslashes($f['a']) ?>"
+          }
+        }<?= $idx < count($post['faqs']) - 1 ? ',' : '' ?>
+        <?php endforeach; ?>
+      ]
+    }<?php endif; ?>
   ]
 }
 </script>
@@ -255,6 +290,29 @@ require_once __DIR__ . '/includes/header.php';
             <li class="mb-2"><strong style="color:#1C2280;">vortexsoftpublishing:</strong> Automated XML &amp; ePUB3</li>
             <li class="mb-0"><strong style="color:#1C2280;">Vortexreach:</strong> Intelligent B2B Outreach Engine</li>
           </ul>
+        </div>
+
+        <!-- Related Articles Card -->
+        <div class="blog-sidebar-card">
+          <h5>Latest Insights &amp; Guides</h5>
+          <div class="d-flex flex-column gap-3">
+            <?php 
+            $otherCount = 0;
+            foreach ($staticArticles as $otherSlug => $otherPost): 
+              if ($otherSlug === ($post['slug'] ?? '')) continue;
+              if (++$otherCount > 4) break;
+            ?>
+            <a href="blog-detail.php?slug=<?= htmlspecialchars($otherPost['slug']) ?>" class="text-decoration-none" style="display:flex;gap:12px;align-items:flex-start;">
+              <?php if (!empty($otherPost['cover_image'])): ?>
+                <img src="<?= htmlspecialchars($otherPost['cover_image']) ?>" alt="<?= htmlspecialchars($otherPost['title']) ?>" style="width:68px;height:52px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+              <?php endif; ?>
+              <div>
+                <span style="font-size:11px;font-weight:700;color:#CC2228;text-transform:uppercase;"><?= htmlspecialchars($otherPost['category']) ?></span>
+                <div style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.35;margin-top:2px;"><?= htmlspecialchars($otherPost['title']) ?></div>
+              </div>
+            </a>
+            <?php endforeach; ?>
+          </div>
         </div>
 
         <!-- Explore Categories -->

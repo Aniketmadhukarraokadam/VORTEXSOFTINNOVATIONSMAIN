@@ -5,7 +5,9 @@
  */
 
 ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', 1);
+if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) {
+    ini_set('session.cookie_secure', 1);
+}
 ini_set('session.use_strict_mode', 1);
 ini_set('session.cookie_samesite', 'Lax');
 session_start();
@@ -101,12 +103,13 @@ function auto_install_tables(PDO $db): void {
     ];
     foreach ($queries as $q) { try { $db->exec($q); } catch (Throwable $t) {} }
     try {
-        $p1 = password_hash('ShivaG@1437',  PASSWORD_BCRYPT, ['cost' => 10]);
-        $p2 = password_hash('Mrunal@9996', PASSWORD_BCRYPT, ['cost' => 10]);
-        $stmt = $db->prepare("REPLACE INTO `admin_users` (`id`,`username`,`password_hash`,`email`,`full_name`,`role`,`is_active`) VALUES
-            (1,'admin@vortexsoftinnovations.in',:p1,'admin@vortexsoftinnovations.in','Super Admin','super_admin',1),
-            (2,'Aniket@vortexsoftinnovations.in',:p2,'Aniket@vortexsoftinnovations.in','Aniket Kadam','admin',1)");
-        $stmt->execute([':p1' => $p1, ':p2' => $p2]);
+        $existingAdmin = (int)$db->query("SELECT COUNT(*) FROM `admin_users`")->fetchColumn();
+        if ($existingAdmin === 0) {
+            $p1 = password_hash('Admin@Vortex2026!', PASSWORD_BCRYPT, ['cost' => 10]);
+            $stmt = $db->prepare("INSERT INTO `admin_users` (`id`,`username`,`password_hash`,`email`,`full_name`,`role`,`is_active`) VALUES
+                (1,'admin@vortexsoftinnovations.in',:p1,'admin@vortexsoftinnovations.in','Super Admin','super_admin',1)");
+            $stmt->execute([':p1' => $p1]);
+        }
     } catch (Throwable $t) {}
 }
 
@@ -133,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $admin = false;
 
-            // Try DB first
+            // Database Authentication (Strict password_verify verification)
             $db = getDB();
             if ($db) {
                 try {
@@ -151,23 +154,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($admin && !password_verify($password, $admin['password_hash'])) {
                     $admin = false;
                 }
-            }
-
-            // Fallback: hardcoded accounts when DB unavailable
-            if (!$admin) {
-                $fallback = [
-                    'admin@vortexsoftinnovations.in'  => ['id'=>1,'username'=>'admin@vortexsoftinnovations.in','email'=>'admin@vortexsoftinnovations.in','full_name'=>'Super Admin','role'=>'super_admin','pass'=>'ShivaG@1437'],
-                    'aniket@vortexsoftinnovations.in' => ['id'=>2,'username'=>'Aniket@vortexsoftinnovations.in','email'=>'Aniket@vortexsoftinnovations.in','full_name'=>'Aniket Kadam','role'=>'admin','pass'=>'Mrunal@9996'],
-                ];
-                $ukey = strtolower($username);
-                foreach ($fallback as $key => $fa) {
-                    if (strtolower($key) === $ukey || strtolower($fa['email']) === $ukey) {
-                        if ($password === $fa['pass']) {
-                            $admin = $fa;
-                        }
-                        break;
-                    }
-                }
+            } else {
+                $error = 'Database service is temporarily unavailable. Please try again shortly or contact support.';
             }
 
             if ($admin) {

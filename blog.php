@@ -13,15 +13,40 @@ $prefix       = './';
 require_once __DIR__ . '/config/constants.php';
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/articles_data.php';
+
+$staticArticles = get_vortex_blog_articles();
 
 // Fetch published blog posts
-$db   = getDB();
+$db    = getDB();
 $posts = [];
+$cat   = sanitize($_GET['cat'] ?? '');
+$search= sanitize($_GET['q']   ?? '');
+$page  = max(1, (int)($_GET['page'] ?? 1));
+
 if ($db) {
     try {
-        $cat    = sanitize($_GET['cat'] ?? '');
-        $search = sanitize($_GET['q']   ?? '');
-        $page   = max(1, (int)($_GET['page'] ?? 1));
+        // Auto-seed missing articles if table is empty or has fewer posts than static repository
+        $checkStmt = $db->query("SELECT COUNT(*) FROM blog_posts");
+        $dbCount = (int)$checkStmt->fetchColumn();
+        if ($dbCount < count($staticArticles)) {
+            $ins = $db->prepare("REPLACE INTO blog_posts (title, slug, category, excerpt, content, author, cover_image, meta_title, meta_desc, tags, is_published, is_featured, published_at, created_at, updated_at) VALUES (:t, :s, :c, :e, :cnt, :a, :img, :mt, :md, :tags, 1, 1, :pub, NOW(), NOW())");
+            foreach ($staticArticles as $art) {
+                $ins->execute([
+                    ':t'    => $art['title'],
+                    ':s'    => $art['slug'],
+                    ':c'    => $art['category'],
+                    ':e'    => $art['excerpt'],
+                    ':cnt'  => $art['content'],
+                    ':a'    => $art['author'],
+                    ':img'  => $art['cover_image'],
+                    ':mt'   => $art['meta_title'],
+                    ':md'   => $art['meta_desc'],
+                    ':tags' => $art['tags'],
+                    ':pub'  => $art['published_at'],
+                ]);
+            }
+        }
 
         $where  = "WHERE is_published = 1";
         $params = [];
@@ -38,27 +63,43 @@ if ($db) {
         $stmt->bindValue(':limit',  $pg['per_page'],  PDO::PARAM_INT);
         $stmt->bindValue(':offset', $pg['offset'],    PDO::PARAM_INT);
         $stmt->execute();
-        $posts = $stmt->fetchAll();
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $cats_stmt = $db->query("SELECT category, COUNT(*) as cnt FROM blog_posts WHERE is_published=1 GROUP BY category ORDER BY cnt DESC");
-        $categories = $cats_stmt->fetchAll();
+        $categories = $cats_stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         error_log($e->getMessage());
     }
 }
 
-// Fallback sample posts if DB is empty or not yet configured
+// Fallback if DB is offline or returned empty
 if (empty($posts)) {
-    $posts = [
-        ['id'=>1,'title'=>'How Vortexsoft Transforms Healthcare Revenue Cycle Management','slug'=>'healthcare-rcm-transformation','excerpt'=>'Learn how our end-to-end medical billing and coding services help healthcare providers reduce claim denials by up to 40% and improve cash flow.','author'=>'Vortexsoft Team','category'=>'Healthcare BPO','cover_image'=>null,'published_at'=>date('Y-m-d H:i:s',strtotime('-2 days')),'views'=>142],
-        ['id'=>2,'title'=>'ePUB3 Accessibility & WCAG 2.1 Compliance in Academic Publishing','slug'=>'epub3-accessibility-wcag','excerpt'=>'A comprehensive guide to creating fully accessible digital publications that comply with WCAG 2.1 and international accessibility standards.','author'=>'Publishing Team','category'=>'Publishing','cover_image'=>null,'published_at'=>date('Y-m-d H:i:s',strtotime('-5 days')),'views'=>98],
-        ['id'=>3,'title'=>'AI Data Annotation Best Practices for Computer Vision Projects','slug'=>'ai-data-annotation-best-practices','excerpt'=>'Explore the key quality metrics, annotation tools, and quality control processes that ensure high-accuracy training datasets for AI models.','author'=>'AI Research Team','category'=>'AI & Data','cover_image'=>null,'published_at'=>date('Y-m-d H:i:s',strtotime('-8 days')),'views'=>215],
-        ['id'=>4,'title'=>'Top 5 Benefits of Outsourcing Real Estate CAM Audit Services','slug'=>'real-estate-cam-audit-outsourcing','excerpt'=>'Commercial real estate firms save 50%+ in operational costs and dramatically improve lease compliance when outsourcing CAM reconciliation.','author'=>'Real Estate Team','category'=>'Real Estate BPO','cover_image'=>null,'published_at'=>date('Y-m-d H:i:s',strtotime('-12 days')),'views'=>76],
-        ['id'=>5,'title'=>'Why Indian BPO Companies Dominate Global IT Outsourcing in 2025','slug'=>'india-bpo-it-outsourcing-2025','excerpt'=>'India\'s BPO sector continues to lead global outsourcing with cost efficiency, skilled workforce, and rapidly advancing AI capabilities.','author'=>'Vortexsoft Team','category'=>'Industry Insights','cover_image'=>null,'published_at'=>date('Y-m-d H:i:s',strtotime('-16 days')),'views'=>324],
-        ['id'=>6,'title'=>'Generative AI in Business Process Outsourcing: Opportunities & Challenges','slug'=>'generative-ai-bpo-opportunities','excerpt'=>'GenAI is reshaping BPO operations from document processing to customer service automation. Here\'s how businesses can leverage the opportunity.','author'=>'AI Research Team','category'=>'AI & Data','cover_image'=>null,'published_at'=>date('Y-m-d H:i:s',strtotime('-20 days')),'views'=>189],
-    ];
-    $pg = paginate(count($posts), 9, 1);
-    $categories = [['category'=>'Healthcare BPO','cnt'=>1],['category'=>'Publishing','cnt'=>1],['category'=>'AI & Data','cnt'=>2],['category'=>'Real Estate BPO','cnt'=>1],['category'=>'Industry Insights','cnt'=>1]];
+    $filtered = array_values($staticArticles);
+    if (!empty($cat)) {
+        $filtered = array_values(array_filter($filtered, function($p) use ($cat) {
+            return strcasecmp($p['category'], $cat) === 0;
+        }));
+    }
+    if (!empty($search)) {
+        $s = strtolower($search);
+        $filtered = array_values(array_filter($filtered, function($p) use ($s) {
+            return str_contains(strtolower($p['title']), $s) || str_contains(strtolower($p['excerpt']), $s) || str_contains(strtolower($p['tags']), $s);
+        }));
+    }
+    $total = count($filtered);
+    $pg = paginate($total, 9, $page);
+    $posts = array_slice($filtered, $pg['offset'], $pg['per_page']);
+
+    // Build categories tally
+    $catCounts = [];
+    foreach ($staticArticles as $art) {
+        $c = $art['category'];
+        $catCounts[$c] = ($catCounts[$c] ?? 0) + 1;
+    }
+    $categories = [];
+    foreach ($catCounts as $c => $cnt) {
+        $categories[] = ['category' => $c, 'cnt' => $cnt];
+    }
 }
 
 $cat_icons = ['Healthcare BPO'=>'fa-heartbeat','Publishing'=>'fa-book','AI & Data'=>'fa-robot','Real Estate BPO'=>'fa-building','Industry Insights'=>'fa-lightbulb','Company News'=>'fa-newspaper','Technology'=>'fa-laptop-code','Finance'=>'fa-chart-bar','General'=>'fa-pen'];

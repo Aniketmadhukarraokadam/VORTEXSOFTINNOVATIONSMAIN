@@ -79,5 +79,23 @@
       <image:title>Vortexsoft Innovations Bengaluru Tech Delivery Center</image:title>
       <image:caption>Advanced Tech Center at HSR Layout 5th Sector, Bengaluru, Karnataka 560068</image:caption>
     </image:image>
+  <!-- Blog Article Assets -->
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/blog.php</loc>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/uploads/blog/us-title-search-abstracting.jpg</image:loc>
+      <image:title>US Title Search &amp; Settlement Abstracting</image:title>
+      <image:caption>Comprehensive 40-Year Title Search and Commitment Examination</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/uploads/blog/ai-document-extraction-workflows.jpg</image:loc>
+      <image:title>AI Document Extraction and Real Estate RPA</image:title>
+      <image:caption>Intelligent Document Processing and Commercial Lease Abstraction</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.vortexsoftinnovations.com/uploads/blog/medical-coding-rcm-accuracy.jpg</image:loc>
+      <image:title>Medical Coding and Denial Management in Healthcare RCM</image:title>
+      <image:caption>Certified Medical Coding for Clean Claims and Rapid Reimbursement</image:caption>
+    </image:image>
   </url>
 </urlset>

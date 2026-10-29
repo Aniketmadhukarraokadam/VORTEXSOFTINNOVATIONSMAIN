@@ -18,8 +18,13 @@ $all_count = 0;
 
 if ($db) {
     try {
-        // Delete Single Application (Direct Permanent Delete - No Trash)
+        // Delete Single Application (CSRF Protected)
         if (isset($_GET['delete'])) {
+            $token = $_GET['csrf'] ?? $_POST['csrf_token'] ?? '';
+            if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {
+                header('Location: applications.php?err=csrf');
+                exit;
+            }
             $did = (int)$_GET['delete'];
             if ($did > 0) {
                 // Remove stored resume file from server disk if present
@@ -144,7 +149,7 @@ if ($db) {
             }
 
             $status_scope     = sanitize($_POST['status_scope'] ?? 'selected');
-            $target_status    = sanitize($_POST['target_status'] ?? '');
+            $target_status    = sanitize($_POST['target_status'] ?? $_POST['new_status'] ?? '');
             $allowed_statuses = ['new', 'reviewed', 'shortlisted', 'interview', 'offered', 'rejected', 'withdrawn'];
 
             if (!in_array($target_status, $allowed_statuses, true)) {
@@ -152,7 +157,7 @@ if ($db) {
                 exit;
             }
 
-            $admin_note_append = trim($_POST['bulk_admin_notes'] ?? '');
+            $admin_note_append = trim($_POST['bulk_admin_notes'] ?? $_POST['admin_notes'] ?? '');
             $send_emails       = !empty($_POST['send_bulk_emails']);
             $email_subject     = trim($_POST['bulk_email_subject'] ?? '');
             $email_message     = trim($_POST['bulk_email_message'] ?? '');
@@ -361,7 +366,7 @@ if ($db) {
             }
 
             $mail_info = $send_emails ? "&emails_sent={$emails_sent_count}" : "";
-            header("Location: applications.php?msg=bulk_status_updated&count={$updated_count}&status={$target_status}&scope={$status_scope}{$mail_info}");
+            header("Location: applications.php?msg=bulk_status_updated&count={$updated_count}&status={$target_status}&new_status={$target_status}&scope={$status_scope}{$mail_info}");
             exit;
         }
 
@@ -1155,7 +1160,7 @@ tr.selected-row td{background-color:#eef2ff !important}
               <a href="mailto:<?= htmlspecialchars($view['email']) ?>?subject=Regarding your application for <?= urlencode($view['job_title']) ?>" class="btn" style="background:rgba(28,34,128,.08);color:#1C2280;border-radius:8px;font-size:13px;font-weight:600;padding:10px 18px;" title="Open in default desktop email client">
                 <i class="fas fa-external-link-alt me-1"></i> Desktop Client
               </a>
-              <a href="applications.php?delete=<?= $view['id'] ?>" class="btn action-btn-delete ms-auto" style="border-radius:8px;font-size:13px;font-weight:700;padding:10px 20px;" onclick="return confirm('Delete this application permanently?');">
+              <a href="applications.php?delete=<?= $view['id'] ?>&csrf=<?= htmlspecialchars(csrf_token()) ?>" class="btn action-btn-delete ms-auto" style="border-radius:8px;font-size:13px;font-weight:700;padding:10px 20px;" onclick="return confirm('Delete this application permanently?');">
                 <i class="fas fa-trash me-1"></i> Delete Application
               </a>
             </div>
@@ -1392,7 +1397,7 @@ tr.selected-row td{background-color:#eef2ff !important}
             <div class="row g-2 mb-3" id="statusChoiceContainer">
               <div class="col-sm-6 col-md-4">
                 <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="rejected">
-                  <input type="radio" name="new_status" value="rejected" class="d-none">
+                  <input type="radio" name="target_status" value="rejected" class="d-none">
                   <div class="d-flex align-items-center justify-content-between mb-1">
                     <span class="badge bg-danger">Rejected</span>
                     <i class="fas fa-times-circle text-danger"></i>
@@ -1402,7 +1407,7 @@ tr.selected-row td{background-color:#eef2ff !important}
               </div>
               <div class="col-sm-6 col-md-4">
                 <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="shortlisted">
-                  <input type="radio" name="new_status" value="shortlisted" class="d-none">
+                  <input type="radio" name="target_status" value="shortlisted" class="d-none">
                   <div class="d-flex align-items-center justify-content-between mb-1">
                     <span class="badge" style="background:#f59e0b;color:#fff;">Shortlisted</span>
                     <i class="fas fa-star text-warning"></i>
@@ -1412,7 +1417,7 @@ tr.selected-row td{background-color:#eef2ff !important}
               </div>
               <div class="col-sm-6 col-md-4">
                 <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="interview">
-                  <input type="radio" name="new_status" value="interview" class="d-none">
+                  <input type="radio" name="target_status" value="interview" class="d-none">
                   <div class="d-flex align-items-center justify-content-between mb-1">
                     <span class="badge" style="background:#6366f1;color:#fff;">Interview</span>
                     <i class="fas fa-calendar-check text-primary"></i>
@@ -1422,7 +1427,7 @@ tr.selected-row td{background-color:#eef2ff !important}
               </div>
               <div class="col-sm-6 col-md-4">
                 <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="reviewed">
-                  <input type="radio" name="new_status" value="reviewed" class="d-none">
+                  <input type="radio" name="target_status" value="reviewed" class="d-none">
                   <div class="d-flex align-items-center justify-content-between mb-1">
                     <span class="badge bg-success">Reviewed</span>
                     <i class="fas fa-check text-success"></i>
@@ -1432,7 +1437,7 @@ tr.selected-row td{background-color:#eef2ff !important}
               </div>
               <div class="col-sm-6 col-md-4">
                 <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="offered">
-                  <input type="radio" name="new_status" value="offered" class="d-none">
+                  <input type="radio" name="target_status" value="offered" class="d-none">
                   <div class="d-flex align-items-center justify-content-between mb-1">
                     <span class="badge bg-info text-white">Offered</span>
                     <i class="fas fa-award text-info"></i>
@@ -1442,7 +1447,7 @@ tr.selected-row td{background-color:#eef2ff !important}
               </div>
               <div class="col-sm-6 col-md-4">
                 <div class="status-choice-card d-block p-3 rounded-3" style="cursor:pointer;" data-status="new">
-                  <input type="radio" name="new_status" value="new" class="d-none">
+                  <input type="radio" name="target_status" value="new" class="d-none">
                   <div class="d-flex align-items-center justify-content-between mb-1">
                     <span class="badge bg-secondary">New</span>
                     <i class="fas fa-undo text-secondary"></i>
@@ -1457,7 +1462,7 @@ tr.selected-row td{background-color:#eef2ff !important}
               <label for="bulkAdminNote" class="form-label fw-bold text-uppercase" style="font-size:12px;letter-spacing:.5px;color:#475569;">
                 Internal HR Note <small class="text-muted text-lowercase font-monospace">(optional — appended with timestamp)</small>
               </label>
-              <input type="text" name="admin_notes" id="bulkAdminNote" class="form-control" style="border-radius:10px;font-size:13.5px;" placeholder="e.g. Batch rejected after initial review / Shortlisted for round 1 screening">
+              <input type="text" name="bulk_admin_notes" id="bulkAdminNote" class="form-control" style="border-radius:10px;font-size:13.5px;" placeholder="e.g. Batch rejected after initial review / Shortlisted for round 1 screening">
             </div>
 
             <!-- Email Notification Options -->
@@ -1890,7 +1895,7 @@ document.getElementById('sidebarCloseBtn')?.addEventListener('click', function()
 
   if (bulkStatusForm) {
     bulkStatusForm.addEventListener('submit', function(e) {
-      const checkedRadio = bulkStatusForm.querySelector('input[name="new_status"]:checked');
+      const checkedRadio = bulkStatusForm.querySelector('input[name="target_status"]:checked, input[name="new_status"]:checked');
       if (!checkedRadio) {
         e.preventDefault();
         alert('Please choose a status from the status cards.');

@@ -68,6 +68,22 @@ $prefix = $prefix ?? './';
 </div>
 
 <!-- ═══════ MAIN FOOTER ═══════ -->
+<style>
+.footer { background: #080B1A !important; color: #f1f5f9 !important; }
+.footer p, .footer .footer-desc { color: #e2e8f0 !important; font-size: 14.5px !important; line-height: 1.8 !important; }
+.footer .footer-desc strong { color: #ffffff !important; font-weight: 700 !important; }
+.footer .footer-desc span { color: #e2e8f0 !important; }
+.footer-title { color: #ffffff !important; font-weight: 700 !important; font-size: 15px !important; border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important; padding-bottom: 10px !important; margin-bottom: 18px !important; }
+.footer-links li a { color: #cbd5e1 !important; font-size: 14px !important; transition: all 0.25s ease !important; text-decoration: none !important; }
+.footer-links li a:hover { color: #ffffff !important; text-shadow: 0 0 10px rgba(91,168,212,0.6) !important; padding-left: 6px !important; }
+.footer-contact-item span { color: #e2e8f0 !important; font-size: 13.5px !important; line-height: 1.6 !important; }
+.footer-contact-item a { color: #ffffff !important; text-decoration: none !important; font-weight: 600 !important; }
+.footer-contact-item a:hover { color: #5BA8D4 !important; }
+.footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.12) !important; padding: 22px 0 !important; background: #050713 !important; }
+.footer-bottom p { color: #cbd5e1 !important; font-size: 13.5px !important; }
+.footer-bottom a { color: #ffffff !important; font-weight: 600 !important; text-decoration: none !important; transition: color 0.2s ease !important; }
+.footer-bottom a:hover { color: #5BA8D4 !important; }
+</style>
 <footer class="footer">
   <div class="container">
     <div class="row gy-5">
@@ -81,19 +97,19 @@ $prefix = $prefix ?? './';
           </picture>
         </a>
 
-        <p class="footer-desc">
-          <strong style="color:rgba(255,255,255,0.95);">Vortexsoft Innovations Private Limited</strong>
-          is an ISO 27001:2013 certified and HIPAA-compliant global IT and BPO outsourcing partner headquartered in Pune with advanced tech delivery in Bengaluru and a corporate presence in Wyoming, USA. Empowering 150+ international clients across AI Software, Healthcare RCM, Publishing, Data Annotation, and Enterprise BPO.
+        <p class="footer-desc" style="color:#e2e8f0 !important;font-size:14.5px;line-height:1.8;margin-bottom:20px;">
+          <strong style="color:#ffffff !important;font-weight:700;">Vortexsoft Innovations Private Limited</strong>
+          <span style="color:#e2e8f0 !important;">is an ISO 27001:2013 certified and HIPAA-compliant global IT and BPO outsourcing partner headquartered in Pune with advanced tech delivery in Bengaluru and a corporate presence in Wyoming, USA. Empowering 150+ international clients across AI Software, Healthcare RCM, Publishing, Data Annotation, and Enterprise BPO.</span>
         </p>
-        <div class="d-flex gap-2 flex-wrap mt-2 mb-3" style="font-size:11px;color:rgba(255,255,255,0.8);font-weight:600;">
-          <span style="background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);"><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001:2013</span>
-          <span style="background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);"><i class="fas fa-user-md text-info me-1"></i> HIPAA Compliant</span>
-          <span style="background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);"><i class="fas fa-award text-warning me-1"></i> Startup India</span>
+        <div class="d-flex gap-2 flex-wrap mt-2 mb-3" style="font-size:11px;color:#f8fafc;font-weight:600;">
+          <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:4px 9px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);"><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001:2013</span>
+          <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:4px 9px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);"><i class="fas fa-user-md text-info me-1"></i> HIPAA Compliant</span>
+          <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:4px 9px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);"><i class="fas fa-award text-warning me-1"></i> Startup India</span>
         </div>
         <div class="footer-social">
-          <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.2);"><i class="fab fa-facebook-f" style="color:#fff;"></i></a>
+          <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.2);"><i class="fab fa-instagram" style="color:#fff;"></i></a>
+          <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.2);"><i class="fab fa-linkedin-in" style="color:#fff;"></i></a>
         </div>
 
       </div>
@@ -107,7 +123,7 @@ $prefix = $prefix ?? './';
           <li><a href="<?= $prefix ?>service.php">Services</a></li>
           <li><a href="<?= $prefix ?>careers.php">Careers</a></li>
           <li><a href="<?= $prefix ?>blog.php">Blog</a></li>
-          <li><a href="<?= $prefix ?>index.php#faq">FAQ</a></li>
+          <li><a href="<?= $prefix ?>faq.php">FAQ</a></li>
           <li><a href="<?= $prefix ?>privacy.php">Privacy Policy</a></li>
           <li><a href="<?= $prefix ?>terms.php">Terms of Service</a></li>
           <li><a href="<?= $prefix ?>contact.php">Contact</a></li>
@@ -148,37 +164,37 @@ $prefix = $prefix ?? './';
         </div>
         <!-- Secondary Bengaluru Branch -->
         <div class="footer-contact-item" style="margin-bottom:10px;">
-          <i class="fas fa-map-marker-alt" style="color:rgba(255,255,255,0.6);flex-shrink:0;margin-top:3px;"></i>
+          <i class="fas fa-map-marker-alt" style="color:#5BA8D4;flex-shrink:0;margin-top:3px;"></i>
           <span>
-            <a href="https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" style="color:rgba(255,255,255,0.85);font-weight:600;display:block;text-decoration:none;font-size:13px;">Bengaluru Branch Office <i class="fas fa-external-link-alt" style="font-size:9px;opacity:0.5;"></i></a>
-            No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068
+            <a href="https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" style="color:#ffffff;font-weight:700;display:block;text-decoration:none;font-size:13.5px;">Bengaluru Branch Office <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.8;"></i></a>
+            <span style="color:#e2e8f0;">No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068</span>
           </span>
         </div>
         <!-- USA Office -->
         <div class="footer-contact-item" style="margin-bottom:10px;">
-          <i class="fas fa-globe-americas" style="color:rgba(255,255,255,0.6);flex-shrink:0;margin-top:3px;"></i>
+          <i class="fas fa-globe-americas" style="color:#5BA8D4;flex-shrink:0;margin-top:3px;"></i>
           <span>
-            <a href="https://maps.google.com/?cid=4698826826648482061" target="_blank" style="color:rgba(255,255,255,0.85);font-weight:600;display:block;text-decoration:none;font-size:13px;">USA Office <i class="fas fa-external-link-alt" style="font-size:9px;opacity:0.5;"></i></a>
-            30 N Gould St Ste 100, Sheridan, WY 82801, USA
+            <a href="https://maps.google.com/?cid=4698826826648482061" target="_blank" style="color:#ffffff;font-weight:700;display:block;text-decoration:none;font-size:13.5px;">USA Office <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.8;"></i></a>
+            <span style="color:#e2e8f0;">30 N Gould St Ste 100, Sheridan, WY 82801, USA</span>
           </span>
         </div>
         <div class="footer-contact-item mt-2">
-          <i class="fas fa-envelope" style="color:var(--accent);"></i>
+          <i class="fas fa-envelope" style="color:#ff6b6b;"></i>
           <span>
-            <a href="mailto:support@vortexsoftinnovations.com" style="color:#fff;font-weight:600;">support@vortexsoftinnovations.com</a>
+            <a href="mailto:support@vortexsoftinnovations.com" style="color:#ffffff;font-weight:600;">support@vortexsoftinnovations.com</a>
           </span>
         </div>
         <div class="footer-contact-item">
-          <i class="fas fa-phone-alt" style="color:var(--accent);"></i>
+          <i class="fas fa-phone-alt" style="color:#ff6b6b;"></i>
           <span>
-            <a href="tel:+918308906690" style="color:#fff;font-weight:600;"><?= PHONE_INDIA ?></a>
+            <a href="tel:+918308906690" style="color:#ffffff;font-weight:600;"><?= PHONE_INDIA ?></a>
           </span>
         </div>
         <div class="footer-contact-item">
           <i class="fas fa-clock" style="color:#10b981;"></i>
           <span>
             <strong style="color:#10b981;">24/7 Digital Inquiries &amp; Support</strong><br>
-            <small style="color:rgba(255,255,255,0.6);">Physical Office: Mon–Sat, 9 AM – 6 PM IST</small>
+            <small style="color:#cbd5e1;">Physical Office: Mon–Sat, 9 AM – 6 PM IST</small>
           </span>
         </div>
 
@@ -200,74 +216,158 @@ $prefix = $prefix ?? './';
   <div class="footer-bottom">
     <div class="container">
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-        <p>Copyright &copy; <?= date('Y') ?> Vortexsoft Innovations Private Limited. All rights reserved.</p>
-        <p style="margin:0;display:flex;gap:16px;">
-          <a href="<?= $prefix ?>index.php#faq" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">FAQ</a>
-          <a href="<?= $prefix ?>privacy.php" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">Privacy Policy</a>
-          <a href="<?= $prefix ?>terms.php" style="color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">Terms &amp; Conditions</a>
+        <p style="color:#cbd5e1 !important;font-size:13.5px;margin:0;">Copyright &copy; <?= date('Y') ?> Vortexsoft Innovations Private Limited. All rights reserved.</p>
+        <p style="margin:0;display:flex;gap:20px;flex-wrap:wrap;">
+          <a href="<?= $prefix ?>faq.php" style="color:#ffffff !important;font-size:13.5px;text-decoration:none;font-weight:600;">FAQ</a>
+          <a href="<?= $prefix ?>privacy.php" style="color:#ffffff !important;font-size:13.5px;text-decoration:none;font-weight:600;">Privacy Policy</a>
+          <a href="<?= $prefix ?>terms.php" style="color:#ffffff !important;font-size:13.5px;text-decoration:none;font-weight:600;">Terms &amp; Conditions</a>
         </p>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- ═══════ FLOATING WIDGETS ═══════ -->
-<!-- WhatsApp Multi-Intent Modal / Popup -->
-<div id="whatsappChoicePopup" style="display:none;position:fixed;bottom:92px;right:24px;width:340px;max-width:calc(100vw - 36px);background:#fff;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,0.25),0 0 0 1px rgba(0,0,0,0.06);z-index:99999;overflow:hidden;font-family:'Inter',sans-serif;animation:waSlideUp .28s cubic-bezier(0.16,1,0.3,1);">
-  <div style="background:linear-gradient(135deg,#075E54 0%,#128C7E 100%);color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">
-        <i class="fab fa-whatsapp"></i>
-      </div>
-      <div>
-        <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:14.5px;line-height:1.2;">Vortexsoft Helpdesk</div>
-        <div style="font-size:11.5px;color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:5px;margin-top:2px;">
-          <span style="width:7px;height:7px;border-radius:50%;background:#25d366;box-shadow:0 0 6px #25d366;"></span> Online &bull; Replies in &lt;15 mins
-        </div>
-      </div>
-    </div>
-    <button type="button" onclick="closeWhatsAppModal()" style="background:none;border:none;color:rgba(255,255,255,0.7);font-size:22px;line-height:1;cursor:pointer;padding:2px 6px;" aria-label="Close">&times;</button>
-  </div>
-  
-  <div style="padding:18px 16px;background:#f8fafc;">
-    <div style="font-size:12.5px;color:#64748b;font-weight:600;margin-bottom:12px;">Please select your inquiry type:</div>
-    
-    <!-- Business Option -->
-    <a href="<?= SOCIAL_WHATSAPP_SERVICES ?>" target="_blank" rel="noopener" onclick="closeWhatsAppModal()" style="display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:13px 14px;margin-bottom:10px;text-decoration:none;transition:all .2s ease;" onmouseover="this.style.borderColor='#128C7E';this.style.background='#f0fdf4';this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#e2e8f0';this.style.background='#fff';this.style.transform='translateY(0)';">
-      <div style="width:38px;height:38px;border-radius:10px;background:rgba(28,34,128,0.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
-        <i class="fas fa-briefcase"></i>
-      </div>
-      <div style="flex:1;">
-        <strong style="display:block;font-size:13.5px;color:#0F172A;font-weight:700;">Business &amp; Services Inquiry</strong>
-        <span style="display:block;font-size:11.5px;color:#64748b;margin-top:2px;">I need IT, BPO, AI or Software services for my company</span>
-      </div>
-      <i class="fas fa-chevron-right" style="color:#94a3b8;font-size:11px;"></i>
-    </a>
-
-    <!-- Candidate Option -->
-    <a href="<?= SOCIAL_WHATSAPP_CAREERS ?>" target="_blank" rel="noopener" onclick="closeWhatsAppModal()" style="display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:13px 14px;text-decoration:none;transition:all .2s ease;" onmouseover="this.style.borderColor='#CC2228';this.style.background='#fff1f2';this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#e2e8f0';this.style.background='#fff';this.style.transform='translateY(0)';">
-      <div style="width:38px;height:38px;border-radius:10px;background:rgba(204,34,40,0.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
-        <i class="fas fa-user-graduate"></i>
-      </div>
-      <div style="flex:1;">
-        <strong style="display:block;font-size:13.5px;color:#0F172A;font-weight:700;">Job Careers &amp; HR Recruitment</strong>
-        <span style="display:block;font-size:11.5px;color:#64748b;margin-top:2px;">I am a candidate looking for open roles &amp; submitting my CV</span>
-      </div>
-      <i class="fas fa-chevron-right" style="color:#94a3b8;font-size:11px;"></i>
-    </a>
-  </div>
-</div>
-
+<!-- ═══════ FLOATING WIDGETS (UNIFIED RIGHT-SIDE WHATSAPP BOT) ═══════ -->
 <style>
 @keyframes waSlideUp {
-  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.whatsapp-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.45);
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.whatsapp-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 14px 34px rgba(37, 211, 102, 0.6);
+  color: #fff;
+}
+.whatsapp-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.5);
+  animation: waRing 2.5s infinite;
+  pointer-events: none;
+}
+@keyframes waRing {
+  0% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+#scrollTop {
+  position: fixed;
+  bottom: 94px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  background: var(--gradient-primary, linear-gradient(135deg, #1C2280 0%, #2D35C4 100%));
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(28, 34, 128, 0.28);
+  z-index: 998;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+}
+#scrollTop.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+#scrollTop:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(28, 34, 128, 0.45);
+}
+@media (max-width: 576px) {
+  #vortexWhatsAppWidget { bottom: 18px; right: 18px; }
+  #scrollTop { bottom: 84px; right: 18px; width: 40px; height: 40px; }
+  #whatsappChoicePopup { right: 0; width: calc(100vw - 36px) !important; }
 }
 </style>
 
-<button type="button" id="whatsappFloatingBtn" class="whatsapp-btn" aria-label="Chat on WhatsApp" onclick="toggleWhatsAppModal(event)">
-  <i class="fab fa-whatsapp"></i>
-</button>
+<div id="vortexWhatsAppWidget" style="position:fixed;bottom:24px;right:24px;z-index:99999;font-family:'Inter',sans-serif;">
+  <!-- WhatsApp Bot Interactive Popup -->
+  <div id="whatsappChoicePopup" style="display:none;position:absolute;bottom:70px;right:0;width:360px;max-width:calc(100vw - 32px);background:#ffffff;border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,0.25),0 0 0 1px rgba(0,0,0,0.06);overflow:hidden;animation:waSlideUp .28s cubic-bezier(0.16,1,0.3,1);">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#075E54 0%,#128C7E 100%);color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <div>
+          <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;line-height:1.2;">Vortexsoft WhatsApp Bot</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.9);display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:#25d366;box-shadow:0 0 6px #25d366;"></span> Online &bull; Instant Connect
+          </div>
+        </div>
+      </div>
+      <button type="button" onclick="closeWhatsAppModal()" style="background:none;border:none;color:rgba(255,255,255,0.85);font-size:24px;line-height:1;cursor:pointer;padding:2px 6px;" aria-label="Close">&times;</button>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:16px;background:#f8fafc;">
+      <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #e2e8f0;font-size:13px;color:#334155;line-height:1.5;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+        👋 <strong>Hello!</strong> Welcome to Vortexsoft Innovations. How can our team assist you today?
+      </div>
+
+      <!-- Quick Option 1: Business -->
+      <a href="<?= SOCIAL_WHATSAPP_SERVICES ?>" target="_blank" rel="noopener noreferrer" onclick="closeWhatsAppModal()" style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1.5px solid #e2e8f0;border-radius:14px;padding:12px 14px;margin-bottom:10px;text-decoration:none;transition:all .2s ease;" onmouseover="this.style.borderColor='#128C7E';this.style.background='#f0fdf4';this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#e2e8f0';this.style.background='#ffffff';this.style.transform='translateY(0)';">
+        <div style="width:38px;height:38px;border-radius:10px;background:rgba(28,34,128,0.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <div style="flex:1;">
+          <strong style="display:block;font-size:13.5px;color:#0F172A;font-weight:700;">Business &amp; Outsourcing</strong>
+          <span style="display:block;font-size:11.5px;color:#64748b;margin-top:2px;">US Title Search, Healthcare BPO, AI, IT Solutions</span>
+        </div>
+        <i class="fas fa-chevron-right" style="color:#94a3b8;font-size:11px;"></i>
+      </a>
+
+      <!-- Quick Option 2: Careers -->
+      <a href="<?= SOCIAL_WHATSAPP_CAREERS ?>" target="_blank" rel="noopener noreferrer" onclick="closeWhatsAppModal()" style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1.5px solid #e2e8f0;border-radius:14px;padding:12px 14px;margin-bottom:14px;text-decoration:none;transition:all .2s ease;" onmouseover="this.style.borderColor='#CC2228';this.style.background='#fff1f2';this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#e2e8f0';this.style.background='#ffffff';this.style.transform='translateY(0)';">
+        <div style="width:38px;height:38px;border-radius:10px;background:rgba(204,34,40,0.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
+          <i class="fas fa-user-tie"></i>
+        </div>
+        <div style="flex:1;">
+          <strong style="display:block;font-size:13.5px;color:#0F172A;font-weight:700;">Careers &amp; Recruitment</strong>
+          <span style="display:block;font-size:11.5px;color:#64748b;margin-top:2px;">Job Openings, Apply Online, Submit Resume</span>
+        </div>
+        <i class="fas fa-chevron-right" style="color:#94a3b8;font-size:11px;"></i>
+      </a>
+
+      <!-- Custom message input -->
+      <form onsubmit="sendCustomWhatsApp(event)" style="display:flex;gap:8px;">
+        <input type="text" id="waCustomMessage" placeholder="Type your inquiry here..." style="flex:1;border:1.5px solid #cbd5e1;border-radius:10px;padding:9px 12px;font-size:13px;outline:none;background:#fff;" onfocus="this.style.borderColor='#128C7E'" onblur="this.style.borderColor='#cbd5e1'">
+        <button type="submit" style="background:#25d366;color:#fff;border:none;border-radius:10px;padding:9px 14px;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Trigger Button -->
+  <button type="button" id="whatsappFloatingBtn" class="whatsapp-btn" aria-label="Open WhatsApp Bot" onclick="toggleWhatsAppModal(event)" style="border:none;cursor:pointer;">
+    <i class="fab fa-whatsapp"></i>
+  </button>
+</div>
+
 <button id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <i class="fas fa-chevron-up"></i>
 </button>
@@ -286,6 +386,17 @@ function toggleWhatsAppModal(e) {
 function closeWhatsAppModal() {
   var popup = document.getElementById('whatsappChoicePopup');
   if (popup) popup.style.display = 'none';
+}
+function sendCustomWhatsApp(e) {
+  e.preventDefault();
+  var input = document.getElementById('waCustomMessage');
+  var msg = (input ? input.value : '').trim();
+  if (!msg) {
+    msg = 'Hello Vortexsoft Innovations, I would like to inquire about your services.';
+  }
+  var url = 'https://wa.me/918308906690?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank', 'noopener,noreferrer');
+  closeWhatsAppModal();
 }
 document.addEventListener('click', function(e) {
   var popup = document.getElementById('whatsappChoicePopup');
@@ -332,53 +443,24 @@ document.addEventListener('click', function(e) {
   </div>
 </div>
 
-<!-- ═══════ FLOATING WHATSAPP CONVERSION WIDGET ═══════ -->
-<style>
-.floating-whatsapp-widget{position:fixed;bottom:24px;right:24px;z-index:1040;display:flex;align-items:center;gap:12px;text-decoration:none;transition:transform .3s cubic-bezier(0.34,1.56,0.64,1)}
-.floating-whatsapp-widget:hover{transform:translateY(-4px)}
-.whatsapp-badge{background:#fff;color:#0F172A;padding:8px 16px;border-radius:24px;font-size:12.5px;font-weight:700;box-shadow:0 10px 25px rgba(0,0,0,0.15);display:flex;align-items:center;gap:8px;border:1px solid rgba(0,0,0,0.06);white-space:nowrap;transition:opacity .3s,transform .3s;font-family:'Poppins',sans-serif}
-.whatsapp-badge .status-dot{width:8px;height:8px;background:#25D366;border-radius:50%;box-shadow:0 0 8px #25D366;animation:waPulse 2s infinite}
-.whatsapp-btn{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 10px 25px rgba(37,211,102,0.4);position:relative}
-.whatsapp-btn::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,0.5);animation:waRing 2.5s infinite;pointer-events:none}
-@keyframes waPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
-@keyframes waRing{0%{transform:scale(0.95);opacity:1}100%{transform:scale(1.3);opacity:0}}
-@media(max-width:767px){
-  .floating-whatsapp-widget{bottom:18px;right:18px}
-  .whatsapp-badge{display:none}
-  .whatsapp-btn{width:50px;height:50px;font-size:25px}
-}
-</style>
-<a href="https://api.whatsapp.com/send/?phone=918308906690&text=Hi%20Vortexsoft%20Innovations%20team,%20I%20am%20interested%20in%20your%20IT%2FBPO%20outsourcing%20services%20and%20would%20like%20a%20proposal." 
-   target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" aria-label="Chat with Vortexsoft Enterprise Solutions on WhatsApp">
-  <div class="whatsapp-badge">
-    <span class="status-dot"></span>
-    <span>Chat with Solutions Team</span>
-  </div>
-  <div class="whatsapp-btn">
-    <i class="fab fa-whatsapp"></i>
-  </div>
-</a>
-
 <!-- Bootstrap JS -->
 <script src="<?= $prefix ?>assets/vendor/bootstrap.bundle.min.js"></script>
 <!-- Shared JS -->
 <script src="<?= $prefix ?>assets/vortex-shared.js?v=20260810"></script>
 <script src="<?= $prefix ?>assets/usability-audit-fixes.js?v=20260928"></script>
+<script src="<?= $prefix ?>assets/vortex-extensions.js?v=20261027"></script>
 <script>
-// ── Loader ──────────────────────────────────────────────────
+// ── Loader (Instant Dismissal) ──────────────────────────────
 (function(){
   var loader = document.getElementById('page-loader');
   if (!loader) return;
-  var pct = document.querySelector('.loading-pct') || document.getElementById('loader-pct');
-  if (pct) pct.textContent = '100%';
-  setTimeout(function(){ loader.classList.add('hide'); }, 50);
-  setTimeout(function(){ if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 350);
+  loader.classList.add('hide');
+  setTimeout(function(){ if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 150);
 })();
 window.addEventListener('load', function(){
   var loader = document.getElementById('page-loader');
-  if (loader) {
-    loader.classList.add('hide');
-    setTimeout(function(){ if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 300);
+  if (loader && loader.parentNode) {
+    loader.parentNode.removeChild(loader);
   }
 });
 

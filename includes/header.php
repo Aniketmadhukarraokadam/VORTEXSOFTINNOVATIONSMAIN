@@ -7,7 +7,11 @@
  */
 
 if (!ob_get_level() && !headers_sent()) {
-    ob_start();
+    if (extension_loaded('zlib') && !ini_get('zlib.output_compression')) {
+        @ob_start('ob_gzhandler');
+    } else {
+        @ob_start();
+    }
 }
 
 if (!defined('SITE_NAME')) {
@@ -44,15 +48,15 @@ function nav_active(string $page, string $path): string {
         html,body{width:100%;max-width:100%;overflow-x:clip;overflow-x:hidden}
         body{font-family:'Inter',sans-serif;color:#0D0F2B;background:#fff;line-height:1.7}
         h1,h2,h3,h4,h5,h6{font-family:'Poppins',sans-serif;font-weight:700;line-height:1.25}
-        #page-loader{position:fixed;inset:0;background:#0A0D1F;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;transition:opacity .5s ease,visibility .5s ease;overflow:hidden}
-        #page-loader.hide{opacity:0;visibility:hidden}
+        #page-loader{position:fixed;inset:0;background:#0A0D1F;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;transition:opacity .15s ease,visibility .15s ease;overflow:hidden;pointer-events:none}
+        #page-loader.hide{opacity:0;visibility:hidden;display:none !important}
         .loader-content{position:relative;z-index:2;text-align:center;width:100%;max-width:480px;padding:0 20px}
         .loader-brand{font-family:'Poppins',sans-serif;font-size:clamp(32px,6vw,56px);font-weight:900;letter-spacing:4px;line-height:1;margin-bottom:12px;display:flex;justify-content:center}
         .l-blue{color:#3544C4}.l-red{color:#DE252A}
         .loader-sub{font-size:clamp(10px,2vw,15px);font-weight:400;letter-spacing:6px;color:#8F949F;margin-bottom:50px}
         .loader-status{display:flex;justify-content:space-between;font-size:13px;font-weight:600;letter-spacing:2px;color:#565C6B;margin-bottom:12px;font-family:'Inter',sans-serif;padding:0 4px}
         .loader-track-new{width:100%;height:5px;background:#181B34;border-radius:6px;overflow:hidden;margin-bottom:24px}
-        .loader-bar-new{height:100%;width:0;background:linear-gradient(90deg,#3544C4,#943BA8,#DE252A);border-radius:6px;animation:loaderFillNew 1s cubic-bezier(.4,0,.2,1) forwards;box-shadow:0 0 10px rgba(148,59,168,.5)}
+        .loader-bar-new{height:100%;width:0;background:linear-gradient(90deg,#3544C4,#943BA8,#DE252A);border-radius:6px;animation:loaderFillNew .3s cubic-bezier(.4,0,.2,1) forwards;box-shadow:0 0 10px rgba(148,59,168,.5)}
         @keyframes loaderFillNew{0%{width:0}100%{width:100%}}
         .loader-tagline{font-size:13px;font-weight:500;letter-spacing:4px;color:#414757;font-family:'Inter',sans-serif}
         .topbar{background:#080B1A;padding:9px 0;font-size:13px;font-weight:500;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.05)}
@@ -67,31 +71,89 @@ function nav_active(string $page, string $path): string {
     <title><?= htmlspecialchars($page_title) ?></title>
     <meta name="description" content="<?= htmlspecialchars($page_desc) ?>">
     <meta name="author" content="Vortexsoft Innovations Private Limited">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="rating" content="general">
-    <meta name="revisit-after" content="5 days">
+    <meta name="designer" content="Vortexsoft Innovations Enterprise Engineering">
+    <meta name="publisher" content="Vortexsoft Innovations Private Limited">
+    <meta name="owner" content="Vortexsoft Innovations Private Limited">
+    <meta name="copyright" content="Copyright © 2026 Vortexsoft Innovations Private Limited. All Rights Reserved.">
+    <meta name="reply-to" content="support@vortexsoftinnovations.com">
+    <meta name="classification" content="Business, IT Outsourcing, Artificial Intelligence, Healthcare Technology, BPO, Software Development, Data Annotation">
+    <meta name="target" content="all">
+    <meta name="audience" content="Global Enterprises, Healthcare Providers, Real Estate Operators, STM Publishers, Tech Startups, Financial Institutions">
+    <meta name="coverage" content="Worldwide (India, United States, United Kingdom, European Union, Australia, Canada)">
+    <meta name="distribution" content="Global">
+    <meta name="rating" content="General">
+    <meta name="revisit-after" content="3 days">
     <meta name="language" content="English">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="color-scheme" content="light dark">
+    <meta name="format-detection" content="telephone=yes, address=yes, email=yes">
+    <meta name="url" content="<?= htmlspecialchars($canonical_url) ?>">
+    <meta name="identifier-URL" content="<?= htmlspecialchars($canonical_url) ?>">
+    <meta name="directory" content="submission">
+    <meta name="category" content="Information Technology &amp; Business Process Outsourcing">
 
+    <!-- Search Engine Crawler Directives -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1, notranslate">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot-news" content="index, follow">
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="slurp" content="index, follow">
+    <meta name="duckduckbot" content="index, follow">
+    <meta name="baiduspider" content="index, follow">
+    <meta name="yandex" content="index, follow">
+
+    <!-- AI Agent & LLM Crawlers (AEO / GEO Optimization for Perplexity, ChatGPT, Claude, Gemini) -->
+    <meta name="GPTBot" content="index, follow">
+    <meta name="ChatGPT-User" content="index, follow">
+    <meta name="Google-Extended" content="index, follow">
+    <meta name="PerplexityBot" content="index, follow">
+    <meta name="Anthropic-ai" content="index, follow">
+    <meta name="Claude-Web" content="index, follow">
+    <meta name="Cohere-ai" content="index, follow">
+    <meta name="Applebot-Extended" content="index, follow">
+    <meta name="CCBot" content="index, follow">
+
+    <!-- Keywords & Semantic Categorization -->
     <meta name="keywords" content="<?= htmlspecialchars($page_keywords) ?>">
-    <meta name="news_keywords" content="Vortexsoft Innovations, Vortexsoft, AI outsourcing India, Healthcare RCM, Medical Coding, Data Annotation, IT Services Pune Bengaluru, VortexEXHO, vortexsofthrms, Lease Abstraction, S1000D XML">
+    <meta name="news_keywords" content="Vortexsoft Innovations, Vortexsoft, AI outsourcing India, Healthcare RCM, Medical Coding, Data Annotation, IT Services Pune Bengaluru, VortexEXHO, vortexsofthrms, Lease Abstraction, S1000D XML, US Title Search">
 
+    <!-- Canonical & Alternate Multi-Region URLs -->
     <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
     <link rel="alternate" hreflang="en-IN" href="<?= htmlspecialchars($in_url) ?>">
     <link rel="alternate" hreflang="en-US" href="<?= htmlspecialchars($com_url) ?>">
+    <link rel="alternate" hreflang="en-GB" href="<?= htmlspecialchars($com_url) ?>">
+    <link rel="alternate" hreflang="en-AU" href="<?= htmlspecialchars($com_url) ?>">
+    <link rel="alternate" hreflang="en-CA" href="<?= htmlspecialchars($com_url) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= htmlspecialchars($com_url) ?>">
 
-    <!-- GEO & Local Business Coordinates (Pune HQ, Bengaluru Delivery Hub & US Entity) -->
+    <!-- Dublin Core (DC) Semantic Metadata for Enterprise & Research Discovery -->
+    <meta name="DC.title" content="<?= htmlspecialchars($page_title) ?>">
+    <meta name="DC.creator" content="Vortexsoft Innovations Private Limited">
+    <meta name="DC.subject" content="AI Solutions, Healthcare BPO, RCM, Data Annotation, Custom Software Engineering, Prepress STM Publishing, Title Search, Lease Abstraction">
+    <meta name="DC.description" content="<?= htmlspecialchars($page_desc) ?>">
+    <meta name="DC.publisher" content="Vortexsoft Innovations Private Limited">
+    <meta name="DC.contributor" content="Aniket Madhukarrao Kadam">
+    <meta name="DC.date" scheme="W3CDTF" content="2026-10-29">
+    <meta name="DC.type" scheme="DCMIType" content="InteractiveResource">
+    <meta name="DC.format" scheme="IMT" content="text/html">
+    <meta name="DC.identifier" scheme="URI" content="<?= htmlspecialchars($canonical_url) ?>">
+    <meta name="DC.language" scheme="ISO639-1" content="en">
+    <meta name="DC.coverage" content="Worldwide">
+    <meta name="DC.rights" content="Copyright © 2026 Vortexsoft Innovations Private Limited. All Rights Reserved.">
+
+    <!-- GEO & Local Business Coordinates (Pune Global HQ & Bengaluru Tech Hub) -->
     <meta name="geo.region" content="IN-MH">
     <meta name="geo.placename" content="Pune, Maharashtra, India">
     <meta name="geo.position" content="18.4792;73.8329">
     <meta name="ICBM" content="18.4792, 73.8329">
-    <meta name="format-detection" content="telephone=yes, address=yes, email=yes">
 
-    <!-- OpenGraph -->
+    <!-- OpenGraph (Facebook, LinkedIn, Pinterest, WhatsApp, Slack, Teams) -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Vortexsoft Innovations Private Limited">
     <meta property="og:locale" content="en_IN">
     <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_AU">
     <meta property="og:url" content="<?= htmlspecialchars($canonical_url) ?>">
     <meta property="og:title" content="<?= htmlspecialchars($page_title) ?>">
     <meta property="og:description" content="<?= htmlspecialchars($page_desc) ?>">
@@ -101,15 +163,51 @@ function nav_active(string $page, string $path): string {
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:alt" content="Vortexsoft Innovations Private Limited — Global AI, IT &amp; BPO Partner">
+    <meta property="og:updated_time" content="2026-10-29T12:00:00+05:30">
+    <meta property="article:publisher" content="https://www.linkedin.com/company/vortexsoft-innovations-private-limited/">
+    <meta property="business:contact_data:street_address" content="502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk">
+    <meta property="business:contact_data:locality" content="Pune">
+    <meta property="business:contact_data:region" content="Maharashtra">
+    <meta property="business:contact_data:postal_code" content="411041">
+    <meta property="business:contact_data:country_name" content="India">
+    <meta property="business:contact_data:email" content="support@vortexsoftinnovations.com">
+    <meta property="business:contact_data:phone_number" content="+91-8308906690">
 
-    <!-- Twitter Cards -->
+    <!-- Twitter / X Cards Optimization -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@vortexsoft">
     <meta name="twitter:creator" content="@vortexsoft">
+    <meta name="twitter:domain" content="vortexsoftinnovations.com">
+    <meta name="twitter:url" content="<?= htmlspecialchars($canonical_url) ?>">
     <meta name="twitter:title" content="<?= htmlspecialchars($page_title) ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($page_desc) ?>">
     <meta name="twitter:image" content="<?= htmlspecialchars($og_image) ?>">
     <meta name="twitter:image:alt" content="Vortexsoft Innovations Private Limited">
+    <meta name="twitter:label1" content="Services Portfolio">
+    <meta name="twitter:data1" content="75+ Enterprise AI, IT &amp; BPO Services">
+    <meta name="twitter:label2" content="Certifications">
+    <meta name="twitter:data2" content="ISO 27001:2013 | HIPAA Compliant | Startup India">
+
+    <!-- Marketing & Conversion Tracking DataLayer (GTM, GA4, Meta Pixel Ready) -->
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'vortex_page_view',
+        'page_title': <?= json_encode($page_title) ?>,
+        'page_path': <?= json_encode($current_path) ?>,
+        'canonical_url': <?= json_encode($canonical_url) ?>,
+        'site_locale': 'en',
+        'site_category': 'B2B Enterprise Technology & BPO',
+        'timestamp': new Date().toISOString()
+    });
+    </script>
+
+    <!-- DNS Prefetch & Preconnect Resource Hints -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Sitewide Breadcrumb, WebSite, Corporation & Knowledge Graph Schema -->
     <script type="application/ld+json">
@@ -437,8 +535,9 @@ function nav_active(string $page, string $path): string {
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fontawesome/all.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fonts.css">
-    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-shared.css?v=20260917">
-    <link rel="stylesheet" href="<?= $prefix ?>assets/usability-audit-fixes.css?v=20260928">
+    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-shared.css?v=20261027b">
+    <link rel="stylesheet" href="<?= $prefix ?>assets/usability-audit-fixes.css?v=20261027c">
+    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-extensions.css?v=20261027b">
     <style>@media (prefers-reduced-motion: reduce) { .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right { opacity: 1 !important; transform: none !important; transition: none !important; } }</style>
 
     <?php if (!empty($extra_head)) echo $extra_head; ?>
@@ -517,8 +616,76 @@ function nav_active(string $page, string $path): string {
 .navbar-phone-info{border-left:1.5px solid rgba(28,34,128,.1);padding-left:18px;margin-left:6px}
 .pn-number{font-family:'Poppins',sans-serif;font-size:12.5px;font-weight:700;color:#1a1d3a;white-space:nowrap;line-height:1.4}
 .pn-hours{font-size:11px;color:rgba(28,34,128,.55);font-weight:500}
-.navbar-toggler{border:none !important;padding:6px;box-shadow:none !important;outline:none !important}
-@media(max-width:991px){#mainNavbar .dropdown-menu{min-width:unset !important;box-shadow:0 4px 20px rgba(0,0,0,.1)}.mega-menu-grid{grid-template-columns:1fr 1fr}#mainNavbar .nav-cta{margin:10px 14px 6px;display:inline-flex !important}}
+.navbar-toggler{border:none !important;padding:6px;box-shadow:none !important;outline:none !important;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+@media(min-width:992px){
+  #mainNavbar .dropdown-menu{min-width:760px}
+}
+@media(max-width:991.98px){
+  #mainNavbar{
+    width:calc(100% - 20px) !important;
+    top:10px !important;
+    margin:0 auto 10px !important;
+    border-radius:16px !important;
+  }
+  #mainNavbar .container{
+    min-height:60px !important;
+    flex-wrap:wrap !important;
+    justify-content:space-between !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
+  }
+  .navbar-brand img{
+    height:42px !important;
+    max-height:44px !important;
+  }
+  #mainNavbar .navbar-collapse{
+    max-height:calc(85vh - 70px) !important;
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+    padding:10px 4px 18px !important;
+    border-top:1px solid rgba(28,34,128,0.08) !important;
+    margin-top:8px !important;
+  }
+  #mainNavbar .dropdown-menu{
+    min-width:100% !important;
+    max-width:100% !important;
+    box-shadow:none !important;
+    border:1px solid rgba(28,34,128,0.08) !important;
+    padding:12px !important;
+    border-radius:12px !important;
+    background:#f8fafc !important;
+  }
+  .mega-menu-grid{
+    grid-template-columns:1fr 1fr !important;
+    gap:8px !important;
+  }
+  #mainNavbar .nav-link{
+    padding:10px 14px !important;
+    font-size:15px !important;
+  }
+  #mainNavbar .nav-cta{
+    margin:10px 0 6px !important;
+    display:inline-flex !important;
+    width:100% !important;
+    justify-content:center !important;
+    text-align:center !important;
+  }
+}
+@media(max-width:575.98px){
+  #mainNavbar{
+    width:calc(100% - 14px) !important;
+    top:8px !important;
+    border-radius:14px !important;
+  }
+  .navbar-brand img{
+    height:36px !important;
+    max-height:38px !important;
+  }
+  .mega-menu-grid{
+    grid-template-columns:1fr !important;
+    gap:4px !important;
+  }
+}
 </style>
 
 <div class="topbar d-none d-md-block">
@@ -553,10 +720,17 @@ function nav_active(string $page, string $path): string {
     </a>
 
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars" style="color:#1C2280;font-size:22px;"></i>
-    </button>
+    <!-- Mobile Search Trigger -->
+    <!-- Mobile Search Trigger & Hamburger Toggler -->
+    <div class="d-flex align-items-center d-lg-none gap-2">
+      <button type="button" class="btn btn-sm btn-light border-0" onclick="window.vortexOpenPalette()" aria-label="Search Services" style="width:44px;height:44px;border-radius:12px;background:rgba(28,34,128,0.06);color:#1C2280;display:inline-flex;align-items:center;justify-content:center;">
+        <i class="fas fa-search" style="font-size:16px;"></i>
+      </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" style="width:44px;height:44px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;">
+        <i class="fas fa-bars" style="color:#1C2280;font-size:22px;"></i>
+      </button>
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
@@ -567,7 +741,7 @@ function nav_active(string $page, string $path): string {
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle <?= nav_active('service', $current_path) ?>" href="<?= $prefix ?>service.php"
              id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
-          <ul class="dropdown-menu p-3" style="min-width:760px;">
+          <ul class="dropdown-menu p-3">
             <div class="mega-menu-grid">
               <!-- Col 1: AI Automations + Publishing -->
               <div>
@@ -618,7 +792,7 @@ function nav_active(string $page, string $path): string {
               <div>
                 <h6 class="dropdown-header">More Services</h6>
                 <li><a class="dropdown-item" href="<?= $prefix ?>logistics-services/index.php"><i class="fas fa-truck"></i> Logistics</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-home"></i> Title &amp; Settlement</a></li>
+                <li><a class="dropdown-item fw-bold" href="<?= $prefix ?>title-settlement/index.php" style="color:#1C2280;"><i class="fas fa-crown text-warning"></i> Title &amp; Settlement <span class="badge bg-warning text-dark ms-1" style="font-size:9px;">#1 IN INDIA</span></a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>mortgage-escrow/index.php"><i class="fas fa-landmark"></i> Mortgage &amp; Escrow</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>background-verification-service/index.php"><i class="fas fa-user-check"></i> Background Verification</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>technical-writing/index.php"><i class="fas fa-file-alt"></i> Technical Writing</a></li>
@@ -638,7 +812,14 @@ function nav_active(string $page, string $path): string {
 
         <li class="nav-item"><a class="nav-link <?= nav_active('careers', $current_path) ?>" href="<?= $prefix ?>careers.php">Careers</a></li>
         <li class="nav-item"><a class="nav-link <?= nav_active('blog', $current_path) ?>" href="<?= $prefix ?>blog.php">Blog</a></li>
+        <li class="nav-item"><a class="nav-link <?= nav_active('faq', $current_path) ?>" href="<?= $prefix ?>faq.php">FAQ</a></li>
         <li class="nav-item"><a class="nav-link <?= nav_active('contact', $current_path) ?>" href="<?= $prefix ?>contact.php">Contact</a></li>
+        <!-- Mobile Quote CTA inside Hamburger Menu -->
+        <li class="nav-item d-lg-none mt-3 pt-3 border-top">
+          <a href="<?= $prefix ?>contact.php" class="nav-cta w-100 justify-content-center d-flex align-items-center gap-2" style="padding:12px 20px !important;">
+            <i class="fas fa-paper-plane"></i> Get Free Quote
+          </a>
+        </li>
       </ul>
 
       <!-- Phone Info -->
@@ -648,6 +829,11 @@ function nav_active(string $page, string $path): string {
           <div class="pn-hours">24/7 Online Inquiry &nbsp;|&nbsp; Mon–Sat 9AM–6PM IST</div>
         </div>
       </div>
+
+      <!-- Desktop Search Trigger -->
+      <button type="button" class="nav-search-trigger d-none d-lg-inline-flex" onclick="window.vortexOpenPalette()" aria-label="Search Services">
+        <i class="fas fa-search"></i> <span>Search</span> <span class="search-kbd">Ctrl K</span>
+      </button>
 
       <!-- CTA Button -->
       <a href="<?= $prefix ?>contact.php" class="nav-link nav-cta ms-3 d-none d-lg-inline-flex align-items-center gap-2 magnetic">

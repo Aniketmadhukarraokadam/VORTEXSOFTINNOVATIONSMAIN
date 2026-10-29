@@ -1,5 +1,12 @@
 <?php
-define('DEPLOY_TOKEN', 'VortexDeploy6498286f401141b8');
+// Load DEPLOY_TOKEN from config/.env
+$envFile = dirname(__DIR__) . '/config/.env';
+$envToken = '';
+if (file_exists($envFile)) {
+    $parsed = @parse_ini_file($envFile);
+    if (!empty($parsed['DEPLOY_TOKEN'])) $envToken = $parsed['DEPLOY_TOKEN'];
+}
+define('DEPLOY_TOKEN', $envToken ?: 'VortexDeploy6498286f401141b8');
 define('GITHUB_USER',   'Aniketmadhukarraokadam');
 define('GITHUB_REPO',   'VORTEXSOFTINNOVATIONSMAIN');
 define('GITHUB_BRANCH', 'main');
