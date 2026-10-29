@@ -1291,6 +1291,25 @@ require_once __DIR__ . '/includes/header.php';
   transform: translateY(-2px);
 }
 
+/* Inline General Application Form Section */
+.general-application-form-section {
+  padding: 60px 0 80px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+.general-form-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(28, 34, 128, 0.08);
+  overflow: hidden;
+}
+@media (max-width: 991.98px) {
+  .general-form-card .row > div:first-child {
+    border-radius: 20px 20px 0 0 !important;
+  }
+}
+
 @media (max-width: 575.98px) {
   .careers-hero { padding: 42px 0 36px !important; }
   .hero-headline { font-size: 1.8rem !important; line-height: 1.22 !important; }
@@ -1573,6 +1592,182 @@ require_once __DIR__ . '/includes/header.php';
         <button onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-warning" style="font-weight:700;padding:8px 22px;border-radius:8px;background:#f59e0b;border-color:#f59e0b;color:#0f172a;">
           <i class="fas fa-file-upload me-1"></i> Submit General Application
         </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DEDICATED INLINE GENERAL APPLICATION FORM SECTION ────────────── -->
+<section class="general-application-form-section" id="general-application">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-badge-center"><i class="fas fa-sparkles text-warning me-1"></i> Open Invitation</span>
+      <h2 class="section-main-heading">General Job Application Form</h2>
+      <p class="section-sub-heading">
+        Submit your credentials directly into our corporate talent acquisition stream. Our recruitment team matches candidate profiles with ongoing and upcoming hiring requisitions across India and global delivery pods.
+      </p>
+    </div>
+
+    <div class="general-form-card">
+      <div class="row g-0 align-items-stretch">
+        <!-- Left Column: Context, SLA & Direct Connect -->
+        <div class="col-lg-4 d-flex flex-column justify-content-between p-4 p-md-5 text-white" style="background:linear-gradient(145deg, #0f172a 0%, #1C2280 100%);">
+          <div>
+            <span class="badge mb-3 px-3 py-2" style="background:rgba(245,158,11,0.2);color:#fbbf24;font-weight:700;font-size:11.5px;letter-spacing:1px;border:1px solid rgba(245,158,11,0.35);">
+              TALENT NETWORK
+            </span>
+            <h3 style="font-family:'Poppins',sans-serif;font-weight:800;font-size:24px;line-height:1.25;color:#ffffff;margin-bottom:14px;">
+              Join Vortexsoft Innovations
+            </h3>
+            <p style="font-size:13.5px;color:#cbd5e1;line-height:1.65;margin-bottom:28px;">
+              Whether your passion lies in high-scale Software Engineering, US Title Abstracting, Healthcare RCM, Customer BPO, or Analytics, we welcome applications from driven professionals.
+            </p>
+
+            <div class="d-flex flex-column gap-3 mb-4">
+              <div class="d-flex align-items-start gap-3">
+                <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;color:#4ade80;font-size:15px;flex-shrink:0;">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <div>
+                  <div style="font-weight:700;font-size:13.5px;color:#fff;">48-Hour Review SLA</div>
+                  <div style="font-size:12px;color:#94a3b8;">Our recruitment team reviews and screens all submissions within 2 business days.</div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-start gap-3">
+                <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;color:#60a5fa;font-size:15px;flex-shrink:0;">
+                  <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div>
+                  <div style="font-weight:700;font-size:13.5px;color:#fff;">Flexible Delivery Models</div>
+                  <div style="font-size:12px;color:#94a3b8;">Pune Headquarters, Bengaluru Technology Hub, or 100% Remote / WFH.</div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-start gap-3">
+                <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;color:#f59e0b;font-size:15px;flex-shrink:0;">
+                  <i class="fas fa-shield-halved"></i>
+                </div>
+                <div>
+                  <div style="font-weight:700;font-size:13.5px;color:#fff;">ISO 27001 Data Privacy</div>
+                  <div style="font-size:12px;color:#94a3b8;">Your resume and information are handled under certified international data protection.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-top" style="border-color:rgba(255,255,255,0.12) !important;">
+            <div style="font-size:12px;color:#94a3b8;margin-bottom:6px;">Have urgent HR questions?</div>
+            <a href="https://wa.me/918308906690?text=Hi%20Vortexsoft%20HR,%20I%20have%20submitted%20my%20general%20job%20application" target="_blank" class="d-inline-flex align-items-center gap-2 text-decoration-none" style="color:#4ade80;font-weight:700;font-size:13.5px;">
+              <i class="fab fa-whatsapp"></i> WhatsApp HR Team (+91-8308906690)
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Inline Application Form -->
+        <div class="col-lg-8 p-4 p-md-5" style="background:#ffffff;">
+          <div id="inline-apply-feedback" class="d-none mb-4" role="alert"></div>
+
+          <form id="inlineGeneralApplyForm" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="job_title" value="General Application">
+            <input type="text" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
+
+            <div class="row g-3">
+              <!-- Full Name & Email -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Full Name <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-user"></i></span>
+                  <input type="text" class="form-control border-start-0" name="applicant_name" placeholder="Enter your full name" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Email Address <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-envelope"></i></span>
+                  <input type="email" class="form-control border-start-0" name="email" placeholder="you@example.com" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                </div>
+              </div>
+
+              <!-- Phone & Location -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Phone / WhatsApp <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-phone-alt"></i></span>
+                  <input type="tel" class="form-control border-start-0" name="phone" placeholder="+91 XXXXX XXXXX" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Current City &amp; State</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-map-marker-alt"></i></span>
+                  <input type="text" class="form-control border-start-0" name="current_location" placeholder="e.g. Pune, Maharashtra" style="border-radius:0 10px 10px 0;font-size:14px;">
+                </div>
+              </div>
+
+              <!-- Preferred Domain -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">
+                  <i class="fas fa-layer-group text-primary me-1"></i> Preferred Domain / Functional Area <span class="text-danger">*</span>
+                </label>
+                <select class="form-select" name="department" style="border-radius:10px;font-size:14px;background:#ffffff;border-color:#cbd5e1;" required>
+                  <option value="IT & Software Engineering">IT &amp; Software Engineering (Java, Python, React, Cloud, DevOps, AI)</option>
+                  <option value="Real Estate BPO & Title Search">Real Estate BPO &amp; Title Search (Title Examiner, Lease Analyst, Taxes)</option>
+                  <option value="Healthcare BPO & Medical Coding">Healthcare BPO &amp; Medical Coding (ICD-10, Medical Billing, AR Caller)</option>
+                  <option value="Customer Operations & BPO">Customer Operations &amp; BPO (Voice, Non-Voice, Team Leader, Support)</option>
+                  <option value="Research & KPO Analytics">Research &amp; KPO Analytics (Data Analyst, Market Research)</option>
+                  <option value="Corporate, Finance & HR">Corporate, Finance, Accounts &amp; Human Resources</option>
+                  <option value="Publishing & Prepress">Publishing Prepress &amp; XML Typesetting</option>
+                  <option value="Any Department / Open to Opportunities" selected>Any Department / Open to Best Match</option>
+                </select>
+              </div>
+
+              <!-- Experience & Notice Period -->
+              <div class="col-md-3 col-sm-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Experience</label>
+                <select class="form-select" name="experience_years" style="border-radius:10px;font-size:14px;">
+                  <option value="0">Fresher (0–1 yrs)</option>
+                  <option value="1">1–2 Years</option>
+                  <option value="3" selected>2–4 Years</option>
+                  <option value="5">5+ Years</option>
+                </select>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Notice Period</label>
+                <select class="form-select" name="notice_period" style="border-radius:10px;font-size:14px;">
+                  <option value="Immediate" selected>Immediate / 7 Days</option>
+                  <option value="15 Days">15 Days</option>
+                  <option value="30 Days">30 Days</option>
+                  <option value="60+ Days">60+ Days</option>
+                </select>
+              </div>
+
+              <!-- Resume Upload -->
+              <div class="col-12">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">
+                  Upload Resume / CV (.pdf, .docx, .doc — max 5MB) <span class="text-danger">*</span>
+                </label>
+                <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;padding:9px 14px;" required>
+              </div>
+
+              <!-- Note / Profile Links -->
+              <div class="col-12">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Candidate Summary / Portfolio / LinkedIn Profile</label>
+                <textarea class="form-control" name="cover_letter" rows="3" placeholder="Tell us about your background, key technical skills, notable achievements, or paste your LinkedIn / GitHub URL..." style="border-radius:10px;font-size:14px;"></textarea>
+              </div>
+
+              <!-- Submit Button & Security Note -->
+              <div class="col-12 mt-4 pt-3 border-top d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div style="font-size:12.5px;color:#64748b;">
+                  <i class="fas fa-lock text-primary me-1"></i> Certified ISO 27001 &amp; GDPR Data Protection.
+                </div>
+                <button type="submit" id="inlineApplySubmitBtn" class="btn btn-primary btn-lg shadow-sm" style="background:#1C2280;border-color:#1C2280;font-family:'Poppins',sans-serif;font-weight:700;font-size:14.5px;padding:12px 34px;border-radius:12px;">
+                  <i class="fas fa-paper-plane me-2"></i> Submit General Application
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -2222,7 +2417,50 @@ document.getElementById('applyForm')?.addEventListener('submit', function(e) {
     fb.className = 'alert alert-danger mb-3';
     fb.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i> Network error. Please try again or email your resume to hr@vortexsoftinnovations.com.';
     submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit Application';
+// Inline General Application Form Submission via Fetch
+document.getElementById('inlineGeneralApplyForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = this;
+  const submitBtn = document.getElementById('inlineApplySubmitBtn');
+  const fb = document.getElementById('inline-apply-feedback');
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Submitting Profile...';
+
+  const formData = new FormData(form);
+
+  fetch('api/apply.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      fb.className = 'alert alert-success mb-4';
+      fb.innerHTML = '<div class="d-flex align-items-center gap-2"><i class="fas fa-check-circle fs-5"></i> <div><strong>General Application Submitted Successfully!</strong><br>' + (data.message || 'Our talent acquisition team has received your profile and resume. We will contact you within 48 business hours.') + '</div></div>';
+      form.reset();
+      submitBtn.innerHTML = '<i class="fas fa-check me-2"></i> Application Sent!';
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'general_job_application_submitted',
+        submission_type: 'inline_general_form'
+      });
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit Another Application';
+      }, 5000);
+    } else {
+      fb.className = 'alert alert-danger mb-4';
+      fb.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i> ' + (data.error || 'Submission error. Please ensure all required fields and resume file are provided.');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit General Application';
+    }
+  })
+  .catch(err => {
+    fb.className = 'alert alert-danger mb-4';
+    fb.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i> Network error. Please try again or email your resume directly to careers@vortexsoftinnovations.com.';
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit General Application';
   });
 });
 </script>
