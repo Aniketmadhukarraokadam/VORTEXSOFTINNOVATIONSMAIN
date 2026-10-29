@@ -1742,12 +1742,12 @@ require_once __DIR__ . '/includes/header.php';
                 </select>
               </div>
 
-              <!-- Resume Upload -->
+              <!-- Resume Upload (Optional) -->
               <div class="col-12">
                 <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">
-                  Upload Resume / CV (.pdf, .docx, .doc — max 5MB) <span class="text-danger">*</span>
+                  Upload Resume / CV (.pdf, .docx, .doc — max 5MB) <span class="text-muted fw-normal">(Optional)</span>
                 </label>
-                <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;padding:9px 14px;" required>
+                <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;padding:9px 14px;">
               </div>
 
               <!-- Note / Profile Links -->
@@ -2138,8 +2138,8 @@ require_once __DIR__ . '/includes/header.php';
               </select>
             </div>
             <div class="col-12">
-              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Upload Resume (.pdf, .docx, .doc — max 5MB) <span class="text-danger">*</span></label>
-              <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;" required>
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Upload Resume (.pdf, .docx, .doc — max 5MB) <span class="text-muted fw-normal">(Optional)</span></label>
+              <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;">
             </div>
             <div class="col-12">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Brief Note / GitHub / Portfolio Link</label>

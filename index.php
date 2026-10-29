@@ -104,21 +104,29 @@ $extra_head = '
 .ring-orbit-3d.ring-3{width:360px;height:360px;border:1px dashed rgba(16,185,129,.25);animation:rotate3dOrbit3 24s linear infinite}
 @keyframes rotate3dOrbit{0%{transform:rotateX(65deg) rotateY(15deg) rotateZ(0deg)}100%{transform:rotateX(65deg) rotateY(15deg) rotateZ(360deg)}}
 @keyframes rotate3dOrbit3{0%{transform:rotateX(-35deg) rotateY(55deg) rotateZ(0deg)}100%{transform:rotateX(-35deg) rotateY(55deg) rotateZ(360deg)}}
-.hero-scroll-container{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;max-width:100vw;overflow:hidden;padding:14px 0;mask-image:linear-gradient(to right,transparent,black 6%,black 94%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 6%,black 94%,transparent);display:flex;flex-direction:column;gap:16px}
-.hero-scroll-track{display:flex;flex-direction:row;gap:20px;animation:scroll-horizontal 35s linear infinite;width:max-content}
-.hero-scroll-track.reverse{animation:scroll-horizontal-reverse 40s linear infinite;margin-left:-150px}
+.hero-8d-stream-section{position:relative;width:100%;overflow:hidden;padding:36px 0 44px;background:linear-gradient(180deg,rgba(240,244,252,.85) 0%,#ffffff 100%);border-top:1px solid rgba(28,34,128,.08);border-bottom:1px solid rgba(28,34,128,.08)}
+.hero-8d-stream-section::before{content:\'\';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#CC2228 25%,#1C2280 50%,#5BA8D4 75%,transparent)}
+.stream-header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.stream-pill{display:inline-flex;align-items:center;gap:9px;background:rgba(28,34,128,.06);border:1px solid rgba(28,34,128,.14);padding:7px 18px;border-radius:100px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--primary);box-shadow:0 2px 10px rgba(28,34,128,.04)}
+.stream-pill .pulse-radar{width:8px;height:8px;border-radius:50%;background:#CC2228;box-shadow:0 0 10px #CC2228;animation:pulse-glow 1.5s infinite alternate}
+.hero-scroll-container{width:100%;position:relative;overflow:hidden;padding:12px 0;mask-image:linear-gradient(to right,transparent,black 4%,black 96%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 4%,black 96%,transparent);display:flex;flex-direction:column;gap:18px}
+.hero-scroll-track{display:flex;flex-direction:row;gap:22px;animation:scroll-horizontal 42s linear infinite;width:max-content;will-change:transform}
+.hero-scroll-track.reverse{animation:scroll-horizontal-reverse 45s linear infinite}
 .hero-scroll-container:hover .hero-scroll-track{animation-play-state:paused}
-@keyframes scroll-horizontal{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 10px))}}
-@keyframes scroll-horizontal-reverse{0%{transform:translateX(calc(-50% - 10px))}100%{transform:translateX(0)}}
-.hero-card{background:#fff;border:1px solid rgba(28,34,128,.06);border-radius:18px;padding:20px 18px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.035);width:310px;max-width:85vw;display:flex;flex-direction:column;text-align:left;flex-shrink:0;white-space:normal}
-.hero-card::before{content:\'\';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--gradient-primary);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;border-radius:18px 18px 0 0}
-.hero-card:hover{transform:translateY(-5px) scale(1.015);border-color:rgba(28,34,128,.14);box-shadow:0 16px 40px rgba(0,0,0,.07);z-index:10}
-.hero-card:hover::before{transform:scaleX(1)}
-.hero-card .service-icon{width:42px;height:42px;border-radius:10px;background:rgba(28,34,128,.07);border:1px solid rgba(28,34,128,.09);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--primary);margin-bottom:11px;transition:var(--transition)}
-.hero-card:hover .service-icon{background:var(--primary);color:#fff;transform:scale(1.1) rotate(-6deg)}
-.hero-card h5{font-size:14.5px;font-weight:700;color:#1e293b;margin-bottom:6px}
-.hero-card p{font-size:12.5px;color:#475569;margin:0;line-height:1.55}
-.hero-tag{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:100px;background:rgba(28,34,128,.07);color:var(--primary);border:1px solid rgba(28,34,128,.1)}
+@keyframes scroll-horizontal{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 11px))}}
+@keyframes scroll-horizontal-reverse{0%{transform:translateX(calc(-50% - 11px))}100%{transform:translateX(0)}}
+.hero-card{background:#ffffff;border:1px solid rgba(28,34,128,.1);border-radius:20px;padding:22px 22px 18px;width:340px;max-width:88vw;display:flex;flex-direction:column;text-align:left;flex-shrink:0;white-space:normal;position:relative;overflow:hidden;box-shadow:0 6px 22px rgba(13,16,53,.05),0 1px 3px rgba(0,0,0,.04);transform-style:preserve-3d;perspective:1000px;transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease,border-color .3s ease}
+.hero-card::before{content:\'\';position:absolute;top:0;left:0;right:0;height:3.5px;background:var(--card-accent,var(--gradient-primary));opacity:.95}
+.hero-card::after{content:\'\';position:absolute;inset:0;background:radial-gradient(circle at top right,var(--card-glow,rgba(28,34,128,.06)),transparent 70%);pointer-events:none}
+.hero-card:hover{transform:translateY(-8px) scale(1.025) translateZ(24px);border-color:var(--card-accent,var(--primary));box-shadow:0 20px 48px var(--card-shadow,rgba(13,16,53,.15)),0 0 25px var(--card-glow,rgba(28,34,128,.1));z-index:20}
+.hero-card .hero-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:2}
+.hero-card .service-icon{width:46px;height:46px;border-radius:13px;background:var(--icon-bg,rgba(28,34,128,.08));border:1px solid rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--icon-color,var(--primary));transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 12px rgba(0,0,0,.04)}
+.hero-card:hover .service-icon{transform:scale(1.15) rotate(-6deg)}
+.hero-card .hero-tag{font-size:10.5px;font-weight:700;text-transform:uppercase;padding:4px 11px;border-radius:100px;background:var(--tag-bg,rgba(28,34,128,.07));color:var(--tag-color,var(--primary));border:1px solid var(--tag-border,rgba(28,34,128,.12));letter-spacing:.5px}
+.hero-card h5{font-family:\'Poppins\',sans-serif;font-size:16px;font-weight:800;color:#0f172a;margin-bottom:8px;line-height:1.35;position:relative;z-index:2}
+.hero-card p{font-size:13px;color:#475569;margin:0 0 16px 0;line-height:1.65;flex-grow:1;position:relative;z-index:2}
+.hero-card .hero-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid rgba(0,0,0,.06);font-size:11.5px;font-weight:600;color:#64748b;position:relative;z-index:2}
+.hero-card .hero-card-footer .metric-chip{display:inline-flex;align-items:center;gap:5px;color:var(--metric-color,#10b981);font-weight:700}
 /* ── SERVICES ─────────────────────────────── */
 .services-section{background:var(--bg-light)}
 .service-card{background:#fff;border-radius:var(--radius-lg);padding:32px 28px;border:1px solid var(--border-light);transition:var(--transition);height:100%;position:relative;overflow:hidden}
@@ -352,37 +360,420 @@ require_once __DIR__ . '/includes/header.php';
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Hero Scrolling Cards (Seamless Edge-to-Edge Marquee) -->
-  <div class="hero-scroll-container full-bleed mt-3">
+<!-- ═══════ 8D KINETIC CAPABILITIES VELOCITY STREAM ═══════ -->
+<section class="hero-8d-stream-section" id="capabilities-stream">
+  <div class="container mb-2">
+    <div class="stream-header">
+      <div class="stream-pill">
+        <span class="pulse-radar"></span>
+        <span>8D Kinetic Capability Stream &bull; Live Enterprise Velocity</span>
+      </div>
+      <div class="d-none d-md-flex align-items-center gap-3 text-muted small fw-semibold">
+        <span><i class="fas fa-bolt text-warning me-1"></i> Sub-Second AI Processing</span>
+        <span>&bull;</span>
+        <span><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001:2013</span>
+        <span>&bull;</span>
+        <span><i class="fas fa-clock text-primary me-1"></i> 24/7/365 Continuity</span>
+        <span>&bull;</span>
+        <span><i class="fas fa-check-circle text-danger me-1"></i> 99.8% Accuracy SLA</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-container">
     <div class="hero-scroll-track">
-      <?php $track1 = [
-        ['tag'=>'Software','icon'=>'fa-users-cog','title'=>'HR &amp; Payroll Software','desc'=>'vortexsofthrms: Autonomous payroll, biometric attendance &amp; AI HRMS.'],
-        ['tag'=>'AI / ML','icon'=>'fa-robot','title'=>'AI Automations','desc'=>'Agentic AI workflows, intelligent document processing & enterprise task automation.'],
-        ['tag'=>'Tech','icon'=>'fa-laptop-code','title'=>'Custom Software','desc'=>'Scalable web & mobile apps tailored to your unique business workflows.'],
-        ['tag'=>'Medical','icon'=>'fa-heartbeat','title'=>'Healthcare BPO','desc'=>'End-to-end medical billing, coding, and denial management maximizing ROI.'],
-        ['tag'=>'Finance','icon'=>'fa-calculator','title'=>'Accounting Solutions','desc'=>'Accurate bookkeeping, payroll processing, and complex financial reporting.'],
-        ['tag'=>'Media','icon'=>'fa-book-open','title'=>'Publishing Services','desc'=>'ePUB3 conversion, typesetting, accessibility, and high-end editorial prepress.'],
+      <?php $streamTrack1 = [
+        [
+          'tag' => 'Proprietary Software',
+          'icon' => 'fa-users-cog',
+          'title' => 'HR &amp; Payroll Software (vortexsofthrms)',
+          'desc' => 'Enterprise AI HRMS: autonomous payroll computation, biometric sync, tax compliance, and self-service mobile portal.',
+          'metric' => '<i class="fas fa-star me-1 text-danger"></i> AI HRMS &amp; Payroll',
+          'accent' => '#E11D48',
+          'icon_color' => '#E11D48',
+          'icon_bg' => 'rgba(225,29,72,0.1)',
+          'tag_color' => '#E11D48',
+          'tag_border' => 'rgba(225,29,72,0.25)',
+          'tag_bg' => 'rgba(225,29,72,0.08)',
+          'glow' => 'rgba(225,29,72,0.12)',
+          'shadow' => 'rgba(225,29,72,0.2)',
+          'link' => '#ai-products'
+        ],
+        [
+          'tag' => '#1 In India',
+          'icon' => 'fa-landmark',
+          'title' => 'Title Abstracting &amp; Real Estate Search',
+          'desc' => 'Trusted by 40+ US title companies and settlement attorneys across 50 US States with rapid 24-48h turnaround.',
+          'metric' => '<i class="fas fa-crown me-1 text-warning"></i> 40+ Happy US Clients',
+          'accent' => '#1C2280',
+          'icon_color' => '#1C2280',
+          'icon_bg' => 'rgba(28,34,128,0.1)',
+          'tag_color' => '#1C2280',
+          'tag_border' => 'rgba(28,34,128,0.25)',
+          'tag_bg' => 'rgba(28,34,128,0.08)',
+          'glow' => 'rgba(28,34,128,0.12)',
+          'shadow' => 'rgba(28,34,128,0.2)',
+          'link' => 'title-settlement/index.php'
+        ],
+        [
+          'tag' => 'Agentic AI',
+          'icon' => 'fa-brain',
+          'title' => 'Next-Gen AI &amp; Enterprise Automation',
+          'desc' => 'Autonomous task execution, Intelligent Document Processing (IDP), and multi-agent AI pipelines cutting costs up to 70%.',
+          'metric' => '<i class="fas fa-bolt me-1 text-danger"></i> 70% Operational Savings',
+          'accent' => '#CC2228',
+          'icon_color' => '#CC2228',
+          'icon_bg' => 'rgba(204,34,40,0.1)',
+          'tag_color' => '#CC2228',
+          'tag_border' => 'rgba(204,34,40,0.25)',
+          'tag_bg' => 'rgba(204,34,40,0.08)',
+          'glow' => 'rgba(204,34,40,0.12)',
+          'shadow' => 'rgba(204,34,40,0.2)',
+          'link' => 'service.php'
+        ],
+        [
+          'tag' => 'Healthcare RCM',
+          'icon' => 'fa-heartbeat',
+          'title' => 'Healthcare BPO &amp; Medical Coding',
+          'desc' => 'HIPAA-compliant AAPC certified coders, automated claims scrubbers, and AR recovery reducing denials by 42%.',
+          'metric' => '<i class="fas fa-shield-alt me-1 text-info"></i> 98.6% Clean Claims Rate',
+          'accent' => '#0284C7',
+          'icon_color' => '#0284C7',
+          'icon_bg' => 'rgba(2,132,199,0.1)',
+          'tag_color' => '#0284C7',
+          'tag_border' => 'rgba(2,132,199,0.25)',
+          'tag_bg' => 'rgba(2,132,199,0.08)',
+          'glow' => 'rgba(2,132,199,0.12)',
+          'shadow' => 'rgba(2,132,199,0.2)',
+          'link' => 'health-care-services/index.php'
+        ],
+        [
+          'tag' => 'Full-Stack Tech',
+          'icon' => 'fa-laptop-code',
+          'title' => 'Custom Software &amp; Cloud DevOps',
+          'desc' => 'Scalable web, mobile, and ERP SaaS architectures engineered with Next.js, PHP, Python, and cloud infrastructure.',
+          'metric' => '<i class="fas fa-rocket me-1 text-primary"></i> 200+ Projects Delivered',
+          'accent' => '#6366F1',
+          'icon_color' => '#6366F1',
+          'icon_bg' => 'rgba(99,102,241,0.1)',
+          'tag_color' => '#6366F1',
+          'tag_border' => 'rgba(99,102,241,0.25)',
+          'tag_bg' => 'rgba(99,102,241,0.08)',
+          'glow' => 'rgba(99,102,241,0.12)',
+          'shadow' => 'rgba(99,102,241,0.2)',
+          'link' => 'software-solutions/index.php'
+        ],
+        [
+          'tag' => 'Publishing AI',
+          'icon' => 'fa-book-open',
+          'title' => 'Publishing Prepress &amp; XML AI',
+          'desc' => 'ePUB3, Kindle, JATS/BITS XML restructuring, and WCAG 2.1 AA accessibility tagging with 5x faster turnarounds.',
+          'metric' => '<i class="fas fa-check-double me-1 text-purple"></i> 5x Faster Delivery',
+          'accent' => '#8B5CF6',
+          'icon_color' => '#8B5CF6',
+          'icon_bg' => 'rgba(139,92,246,0.1)',
+          'tag_color' => '#8B5CF6',
+          'tag_border' => 'rgba(139,92,246,0.25)',
+          'tag_bg' => 'rgba(139,92,246,0.08)',
+          'glow' => 'rgba(139,92,246,0.12)',
+          'shadow' => 'rgba(139,92,246,0.2)',
+          'link' => 'publishing-services/index.php'
+        ],
       ];
-      foreach(array_merge($track1,$track1) as $c): ?>
-      <div class="hero-card tilt-card-3d"><div class="hero-tag"><?= $c['tag'] ?></div><div class="service-icon"><i class="fas <?= $c['icon'] ?>"></i></div><h5><?= $c['title'] ?></h5><p><?= $c['desc'] ?></p></div>
+      foreach(array_merge($streamTrack1, $streamTrack1) as $c): ?>
+      <div class="hero-card tilt-card-3d" style="--card-accent:<?= $c['accent'] ?>;--icon-color:<?= $c['icon_color'] ?>;--icon-bg:<?= $c['icon_bg'] ?>;--tag-color:<?= $c['tag_color'] ?>;--tag-border:<?= $c['tag_border'] ?>;--tag-bg:<?= $c['tag_bg'] ?>;--card-glow:<?= $c['glow'] ?>;--card-shadow:<?= $c['shadow'] ?>;">
+        <div class="hero-card-head">
+          <div class="service-icon"><i class="fas <?= $c['icon'] ?>"></i></div>
+          <span class="hero-tag"><?= $c['tag'] ?></span>
+        </div>
+        <h5><?= $c['title'] ?></h5>
+        <p><?= $c['desc'] ?></p>
+        <div class="hero-card-footer">
+          <span class="metric-chip"><?= $c['metric'] ?></span>
+          <a href="<?= $c['link'] ?>" style="color:var(--primary);text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:4px;">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></a>
+        </div>
+      </div>
       <?php endforeach; ?>
     </div>
+
     <div class="hero-scroll-track reverse">
-      <?php $track2 = [
-        ['tag'=>'AI Payroll','icon'=>'fa-calculator','title'=>'Automated Payroll AI','desc'=>'One-click statutory tax filing, biometric attendance sync &amp; self-service employee portal.'],
-        ['tag'=>'Property','icon'=>'fa-building','title'=>'Real Estate Services','desc'=>'Lease abstraction, CAM audits, and proactive property management workflows.'],
-        ['tag'=>'AI/ML','icon'=>'fa-tags','title'=>'Data Annotation','desc'=>'High-precision image, video, and text labeling to train state-of-the-art AI models.'],
-        ['tag'=>'Growth','icon'=>'fa-bullhorn','title'=>'Digital Marketing','desc'=>'Data-driven SEO, dynamic PPC campaigns, and engaging social media strategies.'],
-        ['tag'=>'HR','icon'=>'fa-users','title'=>'Manpower Supply','desc'=>'Strategic staff augmentation and dedicated offshore recruitment for rapid scaling.'],
-        ['tag'=>'Legal','icon'=>'fa-file-contract','title'=>'Title & Settlement','desc'=>'Comprehensive title searches, policy typing, and mortgage settlement support.'],
+      <?php $streamTrack2 = [
+        [
+          'tag' => 'AI Payroll',
+          'icon' => 'fa-calculator',
+          'title' => '1-Click Autonomous Payroll AI',
+          'desc' => 'One-click statutory PF, ESIC, PT and TDS filing, automated biometric reconciliation, and direct salary bank sync.',
+          'metric' => '<i class="fas fa-bolt me-1 text-danger"></i> 100% Tax Compliant',
+          'accent' => '#E11D48',
+          'icon_color' => '#E11D48',
+          'icon_bg' => 'rgba(225,29,72,0.1)',
+          'tag_color' => '#E11D48',
+          'tag_border' => 'rgba(225,29,72,0.25)',
+          'tag_bg' => 'rgba(225,29,72,0.08)',
+          'glow' => 'rgba(225,29,72,0.12)',
+          'shadow' => 'rgba(225,29,72,0.2)',
+          'link' => '#ai-products'
+        ],
+        [
+          'tag' => '50 US States',
+          'icon' => 'fa-file-contract',
+          'title' => 'Title Search, Typing &amp; Settlement',
+          'desc' => 'Comprehensive 40-year deed search, 2-owner chain of title, municipal lien search, and title commitment typing.',
+          'metric' => '<i class="fas fa-clock me-1 text-warning"></i> 24-48h SLA',
+          'accent' => '#F59E0B',
+          'icon_color' => '#d97706',
+          'icon_bg' => 'rgba(245,158,11,0.1)',
+          'tag_color' => '#d97706',
+          'tag_border' => 'rgba(245,158,11,0.25)',
+          'tag_bg' => 'rgba(245,158,11,0.08)',
+          'glow' => 'rgba(245,158,11,0.12)',
+          'shadow' => 'rgba(245,158,11,0.2)',
+          'link' => 'title-settlement/index.php'
+        ],
+        [
+          'tag' => 'AI / ML Training',
+          'icon' => 'fa-tags',
+          'title' => '3D LiDAR &amp; High-Precision Data Annotation',
+          'desc' => 'Sub-pixel bounding box, semantic segmentation, audio/NLP dataset preparation, and RLHF validation.',
+          'metric' => '<i class="fas fa-check-circle me-1 text-success"></i> 99.82% QA Score',
+          'accent' => '#10B981',
+          'icon_color' => '#10b981',
+          'icon_bg' => 'rgba(16,185,129,0.1)',
+          'tag_color' => '#10b981',
+          'tag_border' => 'rgba(16,185,129,0.25)',
+          'tag_bg' => 'rgba(16,185,129,0.08)',
+          'glow' => 'rgba(16,185,129,0.12)',
+          'shadow' => 'rgba(16,185,129,0.2)',
+          'link' => 'data-annotation-services/index.php'
+        ],
+        [
+          'tag' => 'Real Estate BPO',
+          'icon' => 'fa-building',
+          'title' => 'Commercial Lease Abstraction &amp; CAM Audit',
+          'desc' => 'Multi-tenant commercial lease audits, common area maintenance reconciliation, and Yardi/MRI portfolio synchronization.',
+          'metric' => '<i class="fas fa-dollar-sign me-1 text-info"></i> .2M Unbilled CAM Recovered',
+          'accent' => '#0284C7',
+          'icon_color' => '#0284c7',
+          'icon_bg' => 'rgba(2,132,199,0.1)',
+          'tag_color' => '#0284c7',
+          'tag_border' => 'rgba(2,132,199,0.25)',
+          'tag_bg' => 'rgba(2,132,199,0.08)',
+          'glow' => 'rgba(2,132,199,0.12)',
+          'shadow' => 'rgba(2,132,199,0.2)',
+          'link' => 'real-estate-services/index.php'
+        ],
+        [
+          'tag' => 'Follow-the-Sun',
+          'icon' => 'fa-headset',
+          'title' => '24/7 Global BPO Operations Pods',
+          'desc' => 'Follow-the-sun business operations pods providing bilingual voice, chat, email, and back-office task fulfillment.',
+          'metric' => '<i class="fas fa-globe me-1 text-primary"></i> US, UK &amp; APAC Timezones',
+          'accent' => '#1C2280',
+          'icon_color' => '#1C2280',
+          'icon_bg' => 'rgba(28,34,128,0.1)',
+          'tag_color' => '#1C2280',
+          'tag_border' => 'rgba(28,34,128,0.25)',
+          'tag_bg' => 'rgba(28,34,128,0.08)',
+          'glow' => 'rgba(28,34,128,0.12)',
+          'shadow' => 'rgba(28,34,128,0.2)',
+          'link' => 'service.php'
+        ],
+        [
+          'tag' => 'Digital Growth',
+          'icon' => 'fa-bullhorn',
+          'title' => 'Data-Driven SEO &amp; Growth Marketing',
+          'desc' => 'Enterprise SEO, programmatic PPC campaigns, conversion rate optimization, and multi-channel lead funnels.',
+          'metric' => '<i class="fas fa-chart-line me-1 text-danger"></i> 3x Organic Traffic Multiplier',
+          'accent' => '#EC4899',
+          'icon_color' => '#ec4899',
+          'icon_bg' => 'rgba(236,72,153,0.1)',
+          'tag_color' => '#ec4899',
+          'tag_border' => 'rgba(236,72,153,0.25)',
+          'tag_bg' => 'rgba(236,72,153,0.08)',
+          'glow' => 'rgba(236,72,153,0.12)',
+          'shadow' => 'rgba(236,72,153,0.2)',
+          'link' => 'digital-marketing-service/index.php'
+        ],
       ];
-      foreach(array_merge($track2,$track2) as $c): ?>
-      <div class="hero-card tilt-card-3d"><div class="hero-tag"><?= $c['tag'] ?></div><div class="service-icon"><i class="fas <?= $c['icon'] ?>"></i></div><h5><?= $c['title'] ?></h5><p><?= $c['desc'] ?></p></div>
+      foreach(array_merge($streamTrack2, $streamTrack2) as $c): ?>
+      <div class="hero-card tilt-card-3d" style="--card-accent:<?= $c['accent'] ?>;--icon-color:<?= $c['icon_color'] ?>;--icon-bg:<?= $c['icon_bg'] ?>;--tag-color:<?= $c['tag_color'] ?>;--tag-border:<?= $c['tag_border'] ?>;--tag-bg:<?= $c['tag_bg'] ?>;--card-glow:<?= $c['glow'] ?>;--card-shadow:<?= $c['shadow'] ?>;">
+        <div class="hero-card-head">
+          <div class="service-icon"><i class="fas <?= $c['icon'] ?>"></i></div>
+          <span class="hero-tag"><?= $c['tag'] ?></span>
+        </div>
+        <h5><?= $c['title'] ?></h5>
+        <p><?= $c['desc'] ?></p>
+        <div class="hero-card-footer">
+          <span class="metric-chip"><?= $c['metric'] ?></span>
+          <a href="<?= $c['link'] ?>" style="color:var(--primary);text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:4px;">Explore <i class="fas fa-arrow-right" style="font-size:10px;"></i></a>
+        </div>
+      </div>
       <?php endforeach; ?>
     </div>
   </div>
 </section>
+
+<!-- ═══════ 3 FLAGSHIP POWERHOUSE CAPABILITIES (MOVED TO TOP OF FOLD) ═══════ -->
+<!-- â•â•â•â•â•â•â• AI, BPO AUTOMATION & TITLE ABSTRACTING HIGHLIGHT â•â•â•â•â•â•â• -->
+<section class="section-pad" id="enterprise-capabilities" style="background:linear-gradient(180deg,#f8faff 0%,#eef2ff 100%);position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-100px;right:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(28,34,128,0.08) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-120px;left:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(204,34,40,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div class="container position-relative" style="z-index:2;">
+    <!-- Section Header -->
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="section-tag" style="background:rgba(28,34,128,0.08);color:var(--primary);border:1px solid rgba(28,34,128,0.18);">
+        <i class="fas fa-brain me-1 text-danger"></i> Enterprise Scalability &amp; Precision
+      </div>
+      <h2 class="section-title">
+        Full-Spectrum <span class="highlight">IT &amp; Non-IT Services</span> Built with Cutting-Edge AI Automations
+      </h2>
+      <div class="section-divider"></div>
+      <p class="section-subtitle" style="max-width:760px;margin:0 auto;color:#475569;">
+        From small-scale agile businesses to Fortune 500 enterprises, we architect custom AI automations, scalable BPO workflows, and lead the industry as <strong>India's #1 Title Abstracting &amp; Real Estate Search Partner</strong>.
+      </p>
+    </div>
+
+    <!-- Quick Stat Badges -->
+    <div class="row g-3 justify-content-center mb-5 scroll-reveal">
+      <div class="col-6 col-md-3">
+        <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #1C2280;">
+          <div style="font-size:26px;font-weight:900;color:#1C2280;font-family:'Poppins',sans-serif;">40+</div>
+          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Happy Title Abstracting Clients</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #CC2228;">
+          <div style="font-size:26px;font-weight:900;color:#CC2228;font-family:'Poppins',sans-serif;">Large &amp; Small</div>
+          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Enterprise Scale AI Automations</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #10b981;">
+          <div style="font-size:26px;font-weight:900;color:#10b981;font-family:'Poppins',sans-serif;">99.8%</div>
+          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">SLA Quality &amp; Accuracy</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #5BA8D4;">
+          <div style="font-size:26px;font-weight:900;color:#0284c7;font-family:'Poppins',sans-serif;">50 US States</div>
+          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Title &amp; Settlement Coverage</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Core Strategic Pillars -->
+    <div class="row g-4 align-items-stretch">
+
+      <!-- Card 1: IT & Non-IT + Custom AI Automations -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
+        <div style="background:#fff;border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.07);border:1px solid #e0e7ff;height:100%;display:flex;flex-direction:column;transition:all 0.3s ease;" class="hover-lift">
+          <div style="width:60px;height:60px;border-radius:16px;background:rgba(28,34,128,0.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <div style="display:inline-block;padding:4px 10px;background:#eef2ff;color:#1C2280;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
+            IT &amp; Non-IT Services
+          </div>
+          <h3 style="font-size:20px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:14px;">
+            AI Automations for Large &amp; Small Scale Enterprises
+          </h3>
+          <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:18px;flex-grow:1;">
+            We engineer autonomous AI agents, enterprise LLM pipelines, RPA bot workflows, and custom SaaS platforms. Whether you need an agile automation for a 5-person team or complex high-throughput automation for 5,000+ users, we deliver turnkey reliability.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:#334155;line-height:1.8;">
+            <li><i class="fas fa-check-circle text-primary me-2"></i> Custom Generative AI &amp; Agentic Workflows</li>
+            <li><i class="fas fa-check-circle text-primary me-2"></i> Full-Stack Software, APIs &amp; DevOps Pipelines</li>
+            <li><i class="fas fa-check-circle text-primary me-2"></i> Non-IT Staffing, Payroll &amp; Operations Support</li>
+          </ul>
+          <a href="service.php" class="btn btn-sm btn-outline-primary fw-bold" style="border-radius:10px;padding:8px 16px;">
+            Explore AI Solutions <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: BPO Automations & Intelligent Operations -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
+        <div style="background:#fff;border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.07);border:1px solid #fee2e2;height:100%;display:flex;flex-direction:column;transition:all 0.3s ease;" class="hover-lift">
+          <div style="width:60px;height:60px;border-radius:16px;background:rgba(204,34,40,0.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div style="display:inline-block;padding:4px 10px;background:#fee2e2;color:#CC2228;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
+            BPO Automations
+          </div>
+          <h3 style="font-size:20px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:14px;">
+            Intelligent BPO &amp; Robotic Process Automation
+          </h3>
+          <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:18px;flex-grow:1;">
+            Modernize back-office operations with AI-powered speech analytics, automated claims processing, smart OCR invoice extraction, and zero-defect data pipelines that operate 24/7 with human-in-the-loop quality controls.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:#334155;line-height:1.8;">
+            <li><i class="fas fa-check-circle text-danger me-2"></i> Real-Time Call Sentiment &amp; Quality Analytics</li>
+            <li><i class="fas fa-check-circle text-danger me-2"></i> Automated Healthcare RCM, Coding &amp; Billing</li>
+            <li><i class="fas fa-check-circle text-danger me-2"></i> High-Speed Data Annotation &amp; Computer Vision</li>
+          </ul>
+          <a href="service.php#healthcare" class="btn btn-sm btn-outline-danger fw-bold" style="border-radius:10px;padding:8px 16px;">
+            Explore BPO Services <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: India's Best Title Abstracting Company (40+ Happy Clients) -->
+      <div class="col-lg-4 col-md-12 scroll-reveal delay-3">
+        <div style="background:linear-gradient(135deg,#0d1035 0%,#1C2280 100%);border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.18);border:1px solid rgba(255,255,255,0.15);height:100%;display:flex;flex-direction:column;color:#fff;position:relative;overflow:hidden;" class="hover-lift">
+          <div style="position:absolute;top:12px;right:16px;">
+            <span class="badge bg-warning text-dark fw-bold px-2 py-1" style="font-size:11px;letter-spacing:0.5px;">
+              <i class="fas fa-crown me-1 text-dark"></i> #1 IN INDIA
+            </span>
+          </div>
+          <div style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.12);color:#fbbf24;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
+            <i class="fas fa-landmark"></i>
+          </div>
+          <div style="display:inline-block;padding:4px 10px;background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
+            Title Search &amp; Settlement
+          </div>
+          <h3 style="font-size:20px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:14px;">
+            India's Best Title Abstracting Company
+          </h3>
+          <p style="font-size:14px;color:rgba(255,255,255,0.9);line-height:1.75;margin-bottom:18px;flex-grow:1;">
+            Trusted by <strong>more than 40+ happy clients</strong> across US title companies, attorneys, lenders, and settlement agencies. We provide lightning-fast 24-to-48 hour abstracting turnaround with 99.8% title examination accuracy across all 50 US States.
+          </p>
+          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:rgba(255,255,255,0.92);line-height:1.8;">
+            <li><i class="fas fa-check-circle text-warning me-2"></i> 40-Year Searches, 2-Owner Searches &amp; Updates</li>
+            <li><i class="fas fa-check-circle text-warning me-2"></i> Municipal Lien, Judgment &amp; Tax Delinquency Research</li>
+            <li><i class="fas fa-check-circle text-warning me-2"></i> Title Commitment Prep, Deed Reports &amp; Easement Plotting</li>
+          </ul>
+          <a href="title-settlement/index.php" class="btn btn-sm btn-warning fw-bold text-dark" style="border-radius:10px;padding:8px 16px;">
+            View Title Abstracting Services <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /.row -->
+
+    <!-- Interactive Trust Bar -->
+    <div class="mt-5 p-4 rounded-4 scroll-reveal" style="background:#fff;border:1px solid #e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,0.03);">
+      <div class="row align-items-center gy-3 text-center text-md-start">
+        <div class="col-md-8">
+          <h4 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:4px;">
+            <i class="fas fa-check-double text-success me-2"></i> Need Custom AI Automation or Title Abstracting Pods?
+          </h4>
+          <p style="font-size:13.5px;color:#64748b;margin:0;">
+            Get dedicated offshore delivery teams with ISO 27001 security, 24/7 SLA execution, and direct escalation channels.
+          </p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <a href="contact.php" class="btn btn-primary-custom" style="padding:10px 22px;font-size:14px;">
+            <i class="fas fa-headset me-1"></i> Speak to Our Specialists
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
 <!-- ═══════ SERVICES SECTION ═══════ -->
 <section class="services-section section-pad" id="services">
@@ -969,163 +1360,7 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
-<!-- â•â•â•â•â•â•â• AI, BPO AUTOMATION & TITLE ABSTRACTING HIGHLIGHT â•â•â•â•â•â•â• -->
-<section class="section-pad" id="enterprise-capabilities" style="background:linear-gradient(180deg,#f8faff 0%,#eef2ff 100%);position:relative;overflow:hidden;">
-  <div style="position:absolute;top:-100px;right:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(28,34,128,0.08) 0%,transparent 70%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:-120px;left:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(204,34,40,0.06) 0%,transparent 70%);pointer-events:none;"></div>
 
-  <div class="container position-relative" style="z-index:2;">
-    <!-- Section Header -->
-    <div class="text-center mb-5 scroll-reveal">
-      <div class="section-tag" style="background:rgba(28,34,128,0.08);color:var(--primary);border:1px solid rgba(28,34,128,0.18);">
-        <i class="fas fa-brain me-1 text-danger"></i> Enterprise Scalability &amp; Precision
-      </div>
-      <h2 class="section-title">
-        Full-Spectrum <span class="highlight">IT &amp; Non-IT Services</span> Built with Cutting-Edge AI Automations
-      </h2>
-      <div class="section-divider"></div>
-      <p class="section-subtitle" style="max-width:760px;margin:0 auto;color:#475569;">
-        From small-scale agile businesses to Fortune 500 enterprises, we architect custom AI automations, scalable BPO workflows, and lead the industry as <strong>India's #1 Title Abstracting &amp; Real Estate Search Partner</strong>.
-      </p>
-    </div>
-
-    <!-- Quick Stat Badges -->
-    <div class="row g-3 justify-content-center mb-5 scroll-reveal">
-      <div class="col-6 col-md-3">
-        <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #1C2280;">
-          <div style="font-size:26px;font-weight:900;color:#1C2280;font-family:'Poppins',sans-serif;">40+</div>
-          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Happy Title Abstracting Clients</div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #CC2228;">
-          <div style="font-size:26px;font-weight:900;color:#CC2228;font-family:'Poppins',sans-serif;">Large &amp; Small</div>
-          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Enterprise Scale AI Automations</div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #10b981;">
-          <div style="font-size:26px;font-weight:900;color:#10b981;font-family:'Poppins',sans-serif;">99.8%</div>
-          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">SLA Quality &amp; Accuracy</div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #5BA8D4;">
-          <div style="font-size:26px;font-weight:900;color:#0284c7;font-family:'Poppins',sans-serif;">50 US States</div>
-          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Title &amp; Settlement Coverage</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3 Core Strategic Pillars -->
-    <div class="row g-4 align-items-stretch">
-
-      <!-- Card 1: IT & Non-IT + Custom AI Automations -->
-      <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
-        <div style="background:#fff;border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.07);border:1px solid #e0e7ff;height:100%;display:flex;flex-direction:column;transition:all 0.3s ease;" class="hover-lift">
-          <div style="width:60px;height:60px;border-radius:16px;background:rgba(28,34,128,0.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
-            <i class="fas fa-microchip"></i>
-          </div>
-          <div style="display:inline-block;padding:4px 10px;background:#eef2ff;color:#1C2280;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
-            IT &amp; Non-IT Services
-          </div>
-          <h3 style="font-size:20px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:14px;">
-            AI Automations for Large &amp; Small Scale Enterprises
-          </h3>
-          <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:18px;flex-grow:1;">
-            We engineer autonomous AI agents, enterprise LLM pipelines, RPA bot workflows, and custom SaaS platforms. Whether you need an agile automation for a 5-person team or complex high-throughput automation for 5,000+ users, we deliver turnkey reliability.
-          </p>
-          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:#334155;line-height:1.8;">
-            <li><i class="fas fa-check-circle text-primary me-2"></i> Custom Generative AI &amp; Agentic Workflows</li>
-            <li><i class="fas fa-check-circle text-primary me-2"></i> Full-Stack Software, APIs &amp; DevOps Pipelines</li>
-            <li><i class="fas fa-check-circle text-primary me-2"></i> Non-IT Staffing, Payroll &amp; Operations Support</li>
-          </ul>
-          <a href="service.php" class="btn btn-sm btn-outline-primary fw-bold" style="border-radius:10px;padding:8px 16px;">
-            Explore AI Solutions <i class="fas fa-arrow-right ms-1"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Card 2: BPO Automations & Intelligent Operations -->
-      <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
-        <div style="background:#fff;border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.07);border:1px solid #fee2e2;height:100%;display:flex;flex-direction:column;transition:all 0.3s ease;" class="hover-lift">
-          <div style="width:60px;height:60px;border-radius:16px;background:rgba(204,34,40,0.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
-            <i class="fas fa-robot"></i>
-          </div>
-          <div style="display:inline-block;padding:4px 10px;background:#fee2e2;color:#CC2228;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
-            BPO Automations
-          </div>
-          <h3 style="font-size:20px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:14px;">
-            Intelligent BPO &amp; Robotic Process Automation
-          </h3>
-          <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:18px;flex-grow:1;">
-            Modernize back-office operations with AI-powered speech analytics, automated claims processing, smart OCR invoice extraction, and zero-defect data pipelines that operate 24/7 with human-in-the-loop quality controls.
-          </p>
-          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:#334155;line-height:1.8;">
-            <li><i class="fas fa-check-circle text-danger me-2"></i> Real-Time Call Sentiment &amp; Quality Analytics</li>
-            <li><i class="fas fa-check-circle text-danger me-2"></i> Automated Healthcare RCM, Coding &amp; Billing</li>
-            <li><i class="fas fa-check-circle text-danger me-2"></i> High-Speed Data Annotation &amp; Computer Vision</li>
-          </ul>
-          <a href="service.php#healthcare" class="btn btn-sm btn-outline-danger fw-bold" style="border-radius:10px;padding:8px 16px;">
-            Explore BPO Services <i class="fas fa-arrow-right ms-1"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Card 3: India's Best Title Abstracting Company (40+ Happy Clients) -->
-      <div class="col-lg-4 col-md-12 scroll-reveal delay-3">
-        <div style="background:linear-gradient(135deg,#0d1035 0%,#1C2280 100%);border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.18);border:1px solid rgba(255,255,255,0.15);height:100%;display:flex;flex-direction:column;color:#fff;position:relative;overflow:hidden;" class="hover-lift">
-          <div style="position:absolute;top:12px;right:16px;">
-            <span class="badge bg-warning text-dark fw-bold px-2 py-1" style="font-size:11px;letter-spacing:0.5px;">
-              <i class="fas fa-crown me-1 text-dark"></i> #1 IN INDIA
-            </span>
-          </div>
-          <div style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.12);color:#fbbf24;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
-            <i class="fas fa-landmark"></i>
-          </div>
-          <div style="display:inline-block;padding:4px 10px;background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
-            Title Search &amp; Settlement
-          </div>
-          <h3 style="font-size:20px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:14px;">
-            India's Best Title Abstracting Company
-          </h3>
-          <p style="font-size:14px;color:rgba(255,255,255,0.9);line-height:1.75;margin-bottom:18px;flex-grow:1;">
-            Trusted by <strong>more than 40+ happy clients</strong> across US title companies, attorneys, lenders, and settlement agencies. We provide lightning-fast 24-to-48 hour abstracting turnaround with 99.8% title examination accuracy across all 50 US States.
-          </p>
-          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:rgba(255,255,255,0.92);line-height:1.8;">
-            <li><i class="fas fa-check-circle text-warning me-2"></i> 40-Year Searches, 2-Owner Searches &amp; Updates</li>
-            <li><i class="fas fa-check-circle text-warning me-2"></i> Municipal Lien, Judgment &amp; Tax Delinquency Research</li>
-            <li><i class="fas fa-check-circle text-warning me-2"></i> Title Commitment Prep, Deed Reports &amp; Easement Plotting</li>
-          </ul>
-          <a href="title-settlement/index.php" class="btn btn-sm btn-warning fw-bold text-dark" style="border-radius:10px;padding:8px 16px;">
-            View Title Abstracting Services <i class="fas fa-arrow-right ms-1"></i>
-          </a>
-        </div>
-      </div>
-
-    </div><!-- /.row -->
-
-    <!-- Interactive Trust Bar -->
-    <div class="mt-5 p-4 rounded-4 scroll-reveal" style="background:#fff;border:1px solid #e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,0.03);">
-      <div class="row align-items-center gy-3 text-center text-md-start">
-        <div class="col-md-8">
-          <h4 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:4px;">
-            <i class="fas fa-check-double text-success me-2"></i> Need Custom AI Automation or Title Abstracting Pods?
-          </h4>
-          <p style="font-size:13.5px;color:#64748b;margin:0;">
-            Get dedicated offshore delivery teams with ISO 27001 security, 24/7 SLA execution, and direct escalation channels.
-          </p>
-        </div>
-        <div class="col-md-4 text-md-end">
-          <a href="contact.php" class="btn btn-primary-custom" style="padding:10px 22px;font-size:14px;">
-            <i class="fas fa-headset me-1"></i> Speak to Our Specialists
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══════ INDUSTRIES SECTION ═══════ -->
 <section class="section-pad" style="background:#fff;">
