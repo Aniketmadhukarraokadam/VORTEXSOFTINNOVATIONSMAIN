@@ -9,7 +9,7 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Active Corporate Positions: Java, Python, Data Engineer, HR, Process Analyst, Title Search, BPO, KPO, Medical Coding -->
+  <!-- 23 Active Corporate Openings: Small, Focused Professional Roles -->
   <url>
     <loc>https://www.vortexsoftinnovations.com/careers.php?job=1</loc>
     <lastmod>2026-10-29</lastmod>
@@ -32,13 +32,13 @@
     <loc>https://www.vortexsoftinnovations.com/careers.php?job=4</loc>
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://www.vortexsoftinnovations.com/careers.php?job=5</loc>
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://www.vortexsoftinnovations.com/careers.php?job=6</loc>
@@ -62,6 +62,90 @@
     <loc>https://www.vortexsoftinnovations.com/careers.php?job=9</loc>
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=10</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=11</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=12</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=13</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=14</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=15</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=16</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=17</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=18</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=19</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=20</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=21</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=22</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=23</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
 </urlset>

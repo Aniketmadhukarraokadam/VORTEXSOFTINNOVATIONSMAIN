@@ -22,7 +22,7 @@ $cache_ttl  = 1800; // 30 minutes
 
 if (file_exists($cache_file) && (time() - filemtime($cache_file) < $cache_ttl)) {
     $cached = @json_decode(@file_get_contents($cache_file), true);
-    if (is_array($cached) && !empty($cached)) {
+    if (is_array($cached) && count($cached) >= 23) {
         // Verify cache does not contain obsolete internship titles
         $has_old = false;
         foreach ($cached as $cj) {
@@ -36,6 +36,8 @@ if (file_exists($cache_file) && (time() - filemtime($cache_file) < $cache_ttl)) 
         } else {
             @unlink($cache_file);
         }
+    } else {
+        @unlink($cache_file);
     }
 }
 
@@ -48,20 +50,34 @@ if (empty($jobs)) {
                 $db->exec("DELETE FROM jobs WHERE title LIKE '%intern%' OR type LIKE '%intern%' OR description LIKE '%internship%'");
             } catch (Throwable $t) {}
 
-            // If table is empty, auto-seed the 9 official corporate openings
+            // Ensure database is populated with the complete 23 corporate openings
             $existing_count = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active=1")->fetchColumn();
-            if ($existing_count === 0) {
-                $seed_stmt = $db->prepare("INSERT INTO jobs (title, department, type, location, experience_range, skills_json, description, is_urgent, is_active, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?)");
+            if ($existing_count < 23) {
+                $seed_stmt = $db->prepare("REPLACE INTO jobs (id, title, department, type, location, experience_range, skills_json, description, is_urgent, is_active, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?)");
                 $seed_rows = [
-                    ['Java Developer', 'IT & Software', 'Full Time', 'Bengaluru / Pune / Remote', '2–5 years', 'Java, Spring Boot, Microservices, Hibernate, REST APIs, SQL, Docker', 'Design, build, and maintain robust enterprise backend microservices and RESTful APIs using modern Java and Spring Boot. Optimize high-volume database queries and collaborate on cloud-native deployments.', 1, 1],
-                    ['Python Developer', 'IT & Software', 'Full Time', 'Bengaluru / Remote', '2–5 years', 'Python, Django, FastAPI, PostgreSQL, REST APIs, Celery, Docker', 'Develop scalable backend applications, automated data pipelines, and high-performance REST APIs. Collaborate with product teams to build clean architectures with Python, FastAPI, and PostgreSQL.', 1, 2],
-                    ['Data Engineer', 'IT & Software', 'Full Time', 'Bengaluru / Remote', '2–5 years', 'Python, SQL, Apache Spark, Airflow, ETL Pipelines, Snowflake, AWS', 'Design, construct, and operationalize resilient batch and real-time ETL pipelines. Manage data ingestion, transformation workflows, and cloud data warehouses ensuring high data reliability.', 1, 3],
-                    ['HR Executive', 'Human Resources', 'Full Time', 'Pune / Bengaluru', '1–4 years', 'Talent Acquisition, IT Recruitment, Onboarding, Employee Engagement, HR Operations', 'Manage end-to-end talent acquisition for engineering, AI, and BPO divisions. Coordinate interviews, campus drives, new hire onboarding, HR policies, and employee engagement programs.', 0, 4],
-                    ['Associate Process Analyst', 'Business Operations', 'Full Time', 'Pune / Bengaluru', '1–3 years', 'Process Mapping, Data Analysis, MIS Reporting, Workflow Optimization, Advanced Excel', 'Analyze business operations workflows, map process lifecycles, and identify operational bottlenecks. Create comprehensive MIS reporting dashboards and optimize client turnaround times.', 0, 5],
-                    ['Title Search Executive', 'Real Estate BPO', 'Full Time', 'Pune HQ', '1–4 years', '40-Year Title Searches, Deed Chains, Mortgage Liens, Tax Searches, SoftPro, Qualia', 'Conduct detailed title searches and examinations on US county property records. Verify ownership deed chains, identify open liens and taxes, and prepare commitment packages for US title settlement clients.', 1, 6],
-                    ['BPO Executive', 'Customer Operations', 'Full Time', 'Pune / Bengaluru', '0–3 years', 'Voice & Non-Voice Support, Customer Engagement, CRM Systems, Email Support, Active Listening', 'Provide first-line client communication and transactional support across inbound, outbound, and digital channels. Resolve customer inquiries with precision while maintaining stellar SLA metrics.', 0, 7],
-                    ['KPO Analyst', 'Research & Analytics', 'Full Time', 'Bengaluru / Pune', '1–4 years', 'Market Research, Financial Analysis, Business Intelligence, Data Synthesis, Advanced Excel', 'Deliver high-value secondary research, industry benchmarking, and financial analysis for global clients. Synthesize complex data sets into actionable presentation decks and strategic intelligence reports.', 0, 8],
-                    ['Medical Coder', 'Healthcare BPO', 'Full Time', 'Bengaluru / Remote', '1–4 years', 'CPC / COC Certified, ICD-10-CM, CPT-4, HCPCS, E&M Coding, HIPAA Compliance', 'Review clinical documentation and provider charts to assign accurate diagnostic and procedural codes according to US healthcare standards. Maintain >96% accuracy and ensure strict HIPAA adherence.', 1, 9],
+                    [1, 'Java Developer', 'IT & Software', 'Full Time', 'Bengaluru / Pune / Remote', '2–5 years', 'Java, Spring Boot, Microservices, Hibernate, REST APIs, SQL, Docker', 'Design, build, and maintain robust enterprise backend microservices and RESTful APIs using modern Java and Spring Boot. Optimize high-volume database queries and collaborate on cloud-native deployments.', 1, 1],
+                    [2, 'Python Developer', 'IT & Software', 'Full Time', 'Bengaluru / Remote', '2–5 years', 'Python, Django, FastAPI, PostgreSQL, REST APIs, Celery, Docker', 'Develop scalable backend applications, automated data pipelines, and high-performance REST APIs. Collaborate with product teams to build clean architectures with Python, FastAPI, and PostgreSQL.', 1, 2],
+                    [3, 'Data Engineer', 'IT & Software', 'Full Time', 'Bengaluru / Remote', '2–5 years', 'Python, SQL, Apache Spark, Airflow, ETL Pipelines, Snowflake, AWS', 'Design, construct, and operationalize resilient batch and real-time ETL pipelines. Manage data ingestion, transformation workflows, and cloud data warehouses ensuring high data reliability.', 1, 3],
+                    [4, 'React Developer', 'IT & Software', 'Full Time', 'Bengaluru / Pune / Remote', '2–4 years', 'React.js, TypeScript, Redux Toolkit, Tailwind CSS, Next.js, REST APIs', 'Build responsive, accessible, high-performance web applications and enterprise dashboards using React.js and modern front-end state architectures.', 1, 4],
+                    [5, 'DevOps Engineer', 'IT & Software', 'Full Time', 'Bengaluru / Remote', '2–5 years', 'AWS, Docker, Kubernetes, CI/CD, Terraform, GitHub Actions, Linux', 'Architect resilient CI/CD release pipelines, manage container orchestration with Kubernetes, and maintain cloud infrastructure on AWS with automated telemetry.', 1, 5],
+                    [6, 'AI Engineer', 'IT & Software', 'Full Time', 'Bengaluru / Remote', '2–5 years', 'PyTorch, LLMs, LangChain, Hugging Face, Computer Vision, FastAPI', 'Design and implement production-grade generative AI pipelines, computer vision models, and fine-tune large language models for enterprise clients.', 1, 6],
+                    [7, 'QA Engineer', 'IT & Software', 'Full Time', 'Pune / Bengaluru', '1–4 years', 'Selenium, Cypress, Manual Testing, API Testing, Postman, JIRA, SQL', 'Execute rigorous end-to-end regression, automated browser testing, and API verification to guarantee zero-defect software releases.', 0, 7],
+                    [8, 'HR Executive', 'Human Resources', 'Full Time', 'Pune / Bengaluru', '1–4 years', 'Talent Acquisition, IT Recruitment, Onboarding, Employee Engagement, HR Operations', 'Manage end-to-end talent acquisition for engineering, AI, and BPO divisions. Coordinate interviews, campus drives, new hire onboarding, HR policies, and employee engagement programs.', 0, 8],
+                    [9, 'IT Recruiter', 'Human Resources', 'Full Time', 'Bengaluru / Pune', '1–4 years', 'Technical Sourcing, LinkedIn Recruiter, Candidate Screening, Offer Negotiation', 'Source, engage, and recruit top technical talent across software engineering, cloud, data science, and AI disciplines for high-growth client engagements.', 0, 9],
+                    [10, 'Accounts Executive', 'Finance & Accounting', 'Full Time', 'Pune HQ', '1–4 years', 'Tally Prime, QuickBooks, GST Filing, TDS, Invoicing, Bank Reconciliation', 'Manage day-to-day corporate financial transactions, accounts payable, receivables, statutory tax filings, payroll disbursements, and vendor reconciliations.', 0, 10],
+                    [11, 'Associate Process Analyst', 'Business Operations', 'Full Time', 'Pune / Bengaluru', '1–3 years', 'Process Mapping, Data Analysis, MIS Reporting, Workflow Optimization, Advanced Excel', 'Analyze business operations workflows, map process lifecycles, and identify operational bottlenecks. Create comprehensive MIS reporting dashboards and optimize client turnaround times.', 0, 11],
+                    [12, 'Operations Coordinator', 'Business Operations', 'Full Time', 'Pune HQ', '1–3 years', 'SLA Tracking, Client Reporting, Shift Management, Workflow Coordination', 'Monitor real-time operational delivery queues, track adherence to stringent client SLAs, and coordinate daily shift handovers across multidisciplinary BPO teams.', 0, 12],
+                    [13, 'Title Search Executive', 'Real Estate BPO', 'Full Time', 'Pune HQ', '1–4 years', '40-Year Title Searches, Deed Chains, Mortgage Liens, Tax Searches, SoftPro, Qualia', 'Conduct detailed title searches and examinations on US county property records. Verify ownership deed chains, identify open liens and taxes, and prepare commitment packages for US title settlement clients.', 1, 13],
+                    [14, 'Lease Analyst', 'Real Estate BPO', 'Full Time', 'Pune / Bengaluru', '1–4 years', 'Commercial Lease Abstraction, Rent Roll Audit, CAM Reconciliation, MRI, Yardi', 'Abstract complex commercial lease agreements, extract critical financial terms, dates, and CAM escalation clauses into industry ERP platforms like Yardi and MRI.', 1, 14],
+                    [15, 'Tax Search Analyst', 'Real Estate BPO', 'Full Time', 'Pune HQ', '1–3 years', 'Property Tax Research, Municipal Liens, Tax Certificates, County Portal Audits', 'Audit municipal property tax records, delinquent assessment rolls, and municipal utility liens across 3,000+ US county assessor portals.', 0, 15],
+                    [16, 'BPO Executive', 'Customer Operations', 'Full Time', 'Pune / Bengaluru', '0–3 years', 'Voice & Non-Voice Support, Customer Engagement, CRM Systems, Email Support, Active Listening', 'Provide first-line client communication and transactional support across inbound, outbound, and digital channels. Resolve customer inquiries with precision while maintaining stellar SLA metrics.', 0, 16],
+                    [17, 'Team Leader', 'Customer Operations', 'Full Time', 'Pune / Bengaluru', '3–6 years', 'Team Management, Quality Auditing, SLA Adherence, Escalation Handling, Coaching', 'Lead, mentor, and coach frontline operational teams. Drive productivity, monitor KPI scorecards, handle critical client escalations, and champion quality improvement.', 1, 17],
+                    [18, 'KPO Analyst', 'Research & Analytics', 'Full Time', 'Bengaluru / Pune', '1–4 years', 'Market Research, Financial Analysis, Business Intelligence, Data Synthesis, Advanced Excel', 'Deliver high-value secondary research, industry benchmarking, and financial analysis for global clients. Synthesize complex data sets into actionable presentation decks and strategic intelligence reports.', 0, 18],
+                    [19, 'Data Analyst', 'Research & Analytics', 'Full Time', 'Bengaluru / Pune', '1–4 years', 'SQL, Power BI, Tableau, Python, Data Cleansing, Dashboard Reporting', 'Extract, transform, and analyze enterprise data to build intuitive interactive dashboards and deliver strategic insights for executive decision-makers.', 1, 19],
+                    [20, 'Medical Coder', 'Healthcare BPO', 'Full Time', 'Bengaluru / Remote', '1–4 years', 'CPC / COC Certified, ICD-10-CM, CPT-4, HCPCS, E&M Coding, HIPAA Compliance', 'Review clinical documentation and provider charts to assign accurate diagnostic and procedural codes according to US healthcare standards. Maintain >96% accuracy and ensure strict HIPAA adherence.', 1, 20],
+                    [21, 'Medical Biller', 'Healthcare BPO', 'Full Time', 'Bengaluru / Remote', '1–4 years', 'Charge Entry, Payment Posting, Claim Scrubbing, CMS-1500, UB-04, Kareo', 'Handle claims scrubbing, electronic submission via clearinghouses, charge entry, payment posting, and insurance verification for US hospital networks.', 1, 21],
+                    [22, 'AR Caller', 'Healthcare BPO', 'Full Time', 'Bengaluru / Pune', '1–4 years', 'Denial Management, Payer Follow-up, Claim Appeals, Insurance Verification, EOB Review', 'Proactively follow up with commercial and government payers on aged accounts receivable, investigate claim denial reasons, and file appeals to recover revenue.', 1, 22],
+                    [23, 'XML Typesetter', 'Publishing & Prepress', 'Full Time', 'Pune / Remote', '1–4 years', 'JATS XML, BITS XML, InDesign Prepress, MathML, ePUB3, WCAG 2.1 AA', 'Format and convert complex STM academic manuscripts into validated JATS/BITS XML, accessible ePUB3 files, and camera-ready InDesign print layouts.', 0, 23],
                 ];
                 foreach ($seed_rows as $sr) {
                     $seed_stmt->execute($sr);
@@ -73,20 +89,22 @@ if (empty($jobs)) {
                 $dept_lower  = strtolower($r['department'] ?? '');
                 $title_lower = strtolower($r['title'] ?? '');
 
-                if (str_contains($dept_lower, 'it') || str_contains($dept_lower, 'software') || str_contains($title_lower, 'developer') || str_contains($title_lower, 'engineer')) {
+                if (str_contains($dept_lower, 'it') || str_contains($dept_lower, 'software') || str_contains($title_lower, 'developer') || str_contains($title_lower, 'engineer') || str_contains($title_lower, 'qa')) {
                     $cat = 'IT & Software';
-                } elseif (str_contains($dept_lower, 'real estate') || str_contains($title_lower, 'title')) {
+                } elseif (str_contains($dept_lower, 'real estate') || str_contains($title_lower, 'title') || str_contains($title_lower, 'lease') || str_contains($title_lower, 'tax')) {
                     $cat = 'Real Estate BPO';
-                } elseif (str_contains($dept_lower, 'health') || str_contains($title_lower, 'medical')) {
+                } elseif (str_contains($dept_lower, 'health') || str_contains($title_lower, 'medical') || str_contains($title_lower, 'coder') || str_contains($title_lower, 'biller') || str_contains($title_lower, 'ar caller')) {
                     $cat = 'Healthcare BPO';
-                } elseif (str_contains($dept_lower, 'customer') || str_contains($title_lower, 'bpo')) {
+                } elseif (str_contains($dept_lower, 'customer') || str_contains($title_lower, 'bpo') || str_contains($title_lower, 'team leader')) {
                     $cat = 'Customer & BPO';
-                } elseif (str_contains($dept_lower, 'research') || str_contains($title_lower, 'kpo')) {
+                } elseif (str_contains($dept_lower, 'research') || str_contains($title_lower, 'kpo') || str_contains($title_lower, 'data analyst')) {
                     $cat = 'Research & KPO';
-                } elseif (str_contains($dept_lower, 'business') || str_contains($dept_lower, 'operation') || str_contains($title_lower, 'process')) {
+                } elseif (str_contains($dept_lower, 'business') || str_contains($dept_lower, 'operation') || str_contains($title_lower, 'process') || str_contains($title_lower, 'coordinator')) {
                     $cat = 'Business Operations';
-                } elseif (str_contains($dept_lower, 'human') || str_contains($dept_lower, 'hr') || str_contains($title_lower, 'hr')) {
+                } elseif (str_contains($dept_lower, 'human') || str_contains($dept_lower, 'hr') || str_contains($title_lower, 'hr') || str_contains($title_lower, 'recruiter') || str_contains($dept_lower, 'finance') || str_contains($title_lower, 'accounts')) {
                     $cat = 'Corporate & HR';
+                } elseif (str_contains($dept_lower, 'publishing') || str_contains($title_lower, 'xml') || str_contains($title_lower, 'epub')) {
+                    $cat = 'Publishing & Media';
                 } else {
                     $cat = $r['department'] ?: 'General';
                 }
@@ -113,7 +131,7 @@ if (empty($jobs)) {
     }
 }
 
-// Clean fallback — 9 curated corporate positions with small, precise titles
+// Clean fallback — 23 curated corporate positions with small, precise titles
 if (empty($jobs)) {
     $jobs = [
       [
@@ -154,6 +172,54 @@ if (empty($jobs)) {
       ],
       [
         'id'         => 4,
+        'title'      => 'React Developer',
+        'department' => 'IT & Software',
+        'category'   => 'IT & Software',
+        'type'       => 'Full Time',
+        'location'   => 'Bengaluru / Pune / Remote',
+        'exp'        => '2–4 years',
+        'skills'     => ['React.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS', 'Next.js', 'REST APIs'],
+        'desc'       => 'Build responsive, accessible, high-performance web applications and enterprise dashboards using React.js and modern front-end state architectures.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 5,
+        'title'      => 'DevOps Engineer',
+        'department' => 'IT & Software',
+        'category'   => 'IT & Software',
+        'type'       => 'Full Time',
+        'location'   => 'Bengaluru / Remote',
+        'exp'        => '2–5 years',
+        'skills'     => ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Terraform', 'GitHub Actions', 'Linux'],
+        'desc'       => 'Architect resilient CI/CD release pipelines, manage container orchestration with Kubernetes, and maintain cloud infrastructure on AWS with automated telemetry.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 6,
+        'title'      => 'AI Engineer',
+        'department' => 'IT & Software',
+        'category'   => 'IT & Software',
+        'type'       => 'Full Time',
+        'location'   => 'Bengaluru / Remote',
+        'exp'        => '2–5 years',
+        'skills'     => ['PyTorch', 'LLMs', 'LangChain', 'Hugging Face', 'Computer Vision', 'FastAPI'],
+        'desc'       => 'Design and implement production-grade generative AI pipelines, computer vision models, and fine-tune large language models for enterprise clients.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 7,
+        'title'      => 'QA Engineer',
+        'department' => 'IT & Software',
+        'category'   => 'IT & Software',
+        'type'       => 'Full Time',
+        'location'   => 'Pune / Bengaluru',
+        'exp'        => '1–4 years',
+        'skills'     => ['Selenium', 'Cypress', 'Manual Testing', 'API Testing', 'Postman', 'JIRA', 'SQL'],
+        'desc'       => 'Execute rigorous end-to-end regression, automated browser testing, and API verification to guarantee zero-defect software releases.',
+        'urgent'     => false,
+      ],
+      [
+        'id'         => 8,
         'title'      => 'HR Executive',
         'department' => 'Human Resources',
         'category'   => 'Corporate & HR',
@@ -165,7 +231,31 @@ if (empty($jobs)) {
         'urgent'     => false,
       ],
       [
-        'id'         => 5,
+        'id'         => 9,
+        'title'      => 'IT Recruiter',
+        'department' => 'Human Resources',
+        'category'   => 'Corporate & HR',
+        'type'       => 'Full Time',
+        'location'   => 'Bengaluru / Pune',
+        'exp'        => '1–4 years',
+        'skills'     => ['Technical Sourcing', 'LinkedIn Recruiter', 'Candidate Screening', 'Offer Negotiation'],
+        'desc'       => 'Source, engage, and recruit top technical talent across software engineering, cloud, data science, and AI disciplines for high-growth client engagements.',
+        'urgent'     => false,
+      ],
+      [
+        'id'         => 10,
+        'title'      => 'Accounts Executive',
+        'department' => 'Finance & Accounting',
+        'category'   => 'Corporate & HR',
+        'type'       => 'Full Time',
+        'location'   => 'Pune HQ',
+        'exp'        => '1–4 years',
+        'skills'     => ['Tally Prime', 'QuickBooks', 'GST Filing', 'TDS', 'Invoicing', 'Bank Reconciliation'],
+        'desc'       => 'Manage day-to-day corporate financial transactions, accounts payable, receivables, statutory tax filings, payroll disbursements, and vendor reconciliations.',
+        'urgent'     => false,
+      ],
+      [
+        'id'         => 11,
         'title'      => 'Associate Process Analyst',
         'department' => 'Business Operations',
         'category'   => 'Business Operations',
@@ -177,7 +267,19 @@ if (empty($jobs)) {
         'urgent'     => false,
       ],
       [
-        'id'         => 6,
+        'id'         => 12,
+        'title'      => 'Operations Coordinator',
+        'department' => 'Business Operations',
+        'category'   => 'Business Operations',
+        'type'       => 'Full Time',
+        'location'   => 'Pune HQ',
+        'exp'        => '1–3 years',
+        'skills'     => ['SLA Tracking', 'Client Reporting', 'Shift Management', 'Workflow Coordination'],
+        'desc'       => 'Monitor real-time operational delivery queues, track adherence to stringent client SLAs, and coordinate daily shift handovers across multidisciplinary BPO teams.',
+        'urgent'     => false,
+      ],
+      [
+        'id'         => 13,
         'title'      => 'Title Search Executive',
         'department' => 'Real Estate BPO',
         'category'   => 'Real Estate BPO',
@@ -189,7 +291,31 @@ if (empty($jobs)) {
         'urgent'     => true,
       ],
       [
-        'id'         => 7,
+        'id'         => 14,
+        'title'      => 'Lease Analyst',
+        'department' => 'Real Estate BPO',
+        'category'   => 'Real Estate BPO',
+        'type'       => 'Full Time',
+        'location'   => 'Pune / Bengaluru',
+        'exp'        => '1–4 years',
+        'skills'     => ['Commercial Lease Abstraction', 'Rent Roll Audit', 'CAM Reconciliation', 'MRI', 'Yardi'],
+        'desc'       => 'Abstract complex commercial lease agreements, extract critical financial terms, dates, and CAM escalation clauses into industry ERP platforms like Yardi and MRI.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 15,
+        'title'      => 'Tax Search Analyst',
+        'department' => 'Real Estate BPO',
+        'category'   => 'Real Estate BPO',
+        'type'       => 'Full Time',
+        'location'   => 'Pune HQ',
+        'exp'        => '1–3 years',
+        'skills'     => ['Property Tax Research', 'Municipal Liens', 'Tax Certificates', 'County Portal Audits'],
+        'desc'       => 'Audit municipal property tax records, delinquent assessment rolls, and municipal utility liens across 3,000+ US county assessor portals.',
+        'urgent'     => false,
+      ],
+      [
+        'id'         => 16,
         'title'      => 'BPO Executive',
         'department' => 'Customer Operations',
         'category'   => 'Customer & BPO',
@@ -201,7 +327,19 @@ if (empty($jobs)) {
         'urgent'     => false,
       ],
       [
-        'id'         => 8,
+        'id'         => 17,
+        'title'      => 'Team Leader',
+        'department' => 'Customer Operations',
+        'category'   => 'Customer & BPO',
+        'type'       => 'Full Time',
+        'location'   => 'Pune / Bengaluru',
+        'exp'        => '3–6 years',
+        'skills'     => ['Team Management', 'Quality Auditing', 'SLA Adherence', 'Escalation Handling', 'Coaching'],
+        'desc'       => 'Lead, mentor, and coach frontline operational teams. Drive productivity, monitor KPI scorecards, handle critical client escalations, and champion quality improvement.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 18,
         'title'      => 'KPO Analyst',
         'department' => 'Research & Analytics',
         'category'   => 'Research & KPO',
@@ -213,7 +351,19 @@ if (empty($jobs)) {
         'urgent'     => false,
       ],
       [
-        'id'         => 9,
+        'id'         => 19,
+        'title'      => 'Data Analyst',
+        'department' => 'Research & Analytics',
+        'category'   => 'Research & KPO',
+        'type'       => 'Full Time',
+        'location'   => 'Bengaluru / Pune',
+        'exp'        => '1–4 years',
+        'skills'     => ['SQL', 'Power BI', 'Tableau', 'Python', 'Data Cleansing', 'Dashboard Reporting'],
+        'desc'       => 'Extract, transform, and analyze enterprise data to build intuitive interactive dashboards and deliver strategic insights for executive decision-makers.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 20,
         'title'      => 'Medical Coder',
         'department' => 'Healthcare BPO',
         'category'   => 'Healthcare BPO',
@@ -224,11 +374,47 @@ if (empty($jobs)) {
         'desc'       => 'Review clinical documentation and provider charts to assign accurate diagnostic and procedural codes according to US healthcare standards. Maintain >96% accuracy and ensure strict HIPAA adherence.',
         'urgent'     => true,
       ],
+      [
+        'id'         => 21,
+        'title'      => 'Medical Biller',
+        'department' => 'Healthcare BPO',
+        'category'   => 'Healthcare BPO',
+        'type'       => 'Full Time',
+        'location'   => 'Bengaluru / Remote',
+        'exp'        => '1–4 years',
+        'skills'     => ['Charge Entry', 'Payment Posting', 'Claim Scrubbing', 'CMS-1500', 'UB-04', 'Kareo'],
+        'desc'       => 'Handle claims scrubbing, electronic submission via clearinghouses, charge entry, payment posting, and insurance verification for US hospital networks.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 22,
+        'title'      => 'AR Caller',
+        'department' => 'Healthcare BPO',
+        'category'   => 'Healthcare BPO',
+        'type'       => 'Full Time',
+        'location'   => 'Bengaluru / Pune',
+        'exp'        => '1–4 years',
+        'skills'     => ['Denial Management', 'Payer Follow-up', 'Claim Appeals', 'Insurance Verification', 'EOB Review'],
+        'desc'       => 'Proactively follow up with commercial and government payers on aged accounts receivable, investigate claim denial reasons, and file appeals to recover revenue.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 23,
+        'title'      => 'XML Typesetter',
+        'department' => 'Publishing & Prepress',
+        'category'   => 'Publishing & Media',
+        'type'       => 'Full Time',
+        'location'   => 'Pune / Remote',
+        'exp'        => '1–4 years',
+        'skills'     => ['JATS XML', 'BITS XML', 'InDesign Prepress', 'MathML', 'ePUB3', 'WCAG 2.1 AA'],
+        'desc'       => 'Format and convert complex STM academic manuscripts into validated JATS/BITS XML, accessible ePUB3 files, and camera-ready InDesign print layouts.',
+        'urgent'     => false,
+      ],
     ];
 }
 
 // Build unique categories for filter tabs
-$ordered_categories = ['All', 'IT & Software', 'Real Estate BPO', 'Healthcare BPO', 'Customer & BPO', 'Research & KPO', 'Business Operations', 'Corporate & HR'];
+$ordered_categories = ['All', 'IT & Software', 'Real Estate BPO', 'Healthcare BPO', 'Customer & BPO', 'Research & KPO', 'Business Operations', 'Corporate & HR', 'Publishing & Media'];
 $available_categories = array_unique(array_column($jobs, 'category'));
 $categories = [];
 foreach ($ordered_categories as $c) {
