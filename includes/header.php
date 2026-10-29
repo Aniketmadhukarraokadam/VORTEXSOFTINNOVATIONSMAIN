@@ -132,7 +132,7 @@ function nav_active(string $page, string $path): string {
     <meta name="DC.subject" content="AI Solutions, Healthcare BPO, RCM, Data Annotation, Custom Software Engineering, Prepress STM Publishing, Title Search, Lease Abstraction">
     <meta name="DC.description" content="<?= htmlspecialchars($page_desc) ?>">
     <meta name="DC.publisher" content="Vortexsoft Innovations Private Limited">
-    <meta name="DC.contributor" content="Aniket Madhukarrao Kadam">
+    <meta name="DC.contributor" content="Vortexsoft Innovations Private Limited">
     <meta name="DC.date" scheme="W3CDTF" content="2026-10-29">
     <meta name="DC.type" scheme="DCMIType" content="InteractiveResource">
     <meta name="DC.format" scheme="IMT" content="text/html">
@@ -257,10 +257,6 @@ function nav_active(string $page, string $path): string {
           "logo": "<?= SITE_URL ?>/logo-header.png",
           "image": "<?= SITE_URL ?>/logo-header.png",
           "foundingDate": "2020",
-          "founder": {
-            "@type": "Person",
-            "name": "Aniket Madhukarrao Kadam"
-          },
           "numberOfEmployees": {
             "@type": "QuantitativeValue",
             "value": "200+"

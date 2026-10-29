@@ -180,7 +180,7 @@ require_once __DIR__ . '/includes/header.php';
         </h4>
         <div style="font-size:14px;color:#334155;line-height:1.75;">
           <strong>Entity:</strong> Vortexsoft Innovations Private Limited<br>
-          <strong>Director &amp; Legal Representative:</strong> Aniket Madhukarrao Kadam<br>
+          <strong>Corporate Legal Desk:</strong> Vortexsoft Innovations Legal &amp; Compliance Division<br>
           <strong>Email:</strong> <a href="mailto:support@vortexsoftinnovations.com" class="text-primary fw-bold">support@vortexsoftinnovations.com</a><br>
           <strong>Phone:</strong> <a href="tel:+918308906690" class="text-dark fw-bold"><?= PHONE_INDIA ?></a><br>
           <strong>Registered Office:</strong> 502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune, Maharashtra 411041, India

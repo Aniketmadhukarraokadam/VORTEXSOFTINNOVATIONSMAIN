@@ -177,7 +177,7 @@ require_once __DIR__ . '/includes/header.php';
           <i class="fas fa-building me-2"></i> Vortexsoft Innovations Private Limited
         </h4>
         <div style="font-size:14px;color:#334155;line-height:1.75;">
-          <strong>Compliance &amp; Data Protection Officer:</strong> Aniket Madhukarrao Kadam<br>
+          <strong>Compliance &amp; Data Protection Officer:</strong> Vortexsoft Information Security &amp; Compliance Office<br>
           <strong>Email:</strong> <a href="mailto:support@vortexsoftinnovations.com" class="text-primary fw-bold">support@vortexsoftinnovations.com</a> / <a href="mailto:info@vortexsoftinnovations.com" class="text-primary fw-bold">info@vortexsoftinnovations.com</a><br>
           <strong>Corporate Phone:</strong> <a href="tel:+918308906690" class="text-dark fw-bold"><?= PHONE_INDIA ?></a><br>
           <strong>Pune HQ:</strong> 502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune, Maharashtra 411041<br>
