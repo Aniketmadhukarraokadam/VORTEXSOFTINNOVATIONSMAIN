@@ -1265,6 +1265,32 @@ require_once __DIR__ . '/includes/header.php';
   .apply-contact-card { width: 100%; }
 }
 
+/* General Job Application Showcase Banner */
+.general-apply-banner {
+  background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+  border: 1.5px solid #e0e7ff;
+  border-radius: 20px;
+  padding: 32px 36px;
+  box-shadow: 0 10px 30px rgba(28, 34, 128, 0.05);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.general-apply-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, #f59e0b 0%, #1C2280 100%);
+}
+.general-apply-banner:hover {
+  border-color: #c7d2fe;
+  box-shadow: 0 14px 40px rgba(28, 34, 128, 0.09);
+  transform: translateY(-2px);
+}
+
 @media (max-width: 575.98px) {
   .careers-hero { padding: 42px 0 36px !important; }
   .hero-headline { font-size: 1.8rem !important; line-height: 1.22 !important; }
@@ -1309,6 +1335,9 @@ require_once __DIR__ . '/includes/header.php';
           <a href="#openings" class="btn btn-primary" style="background:#4f46e5;border-color:#4f46e5;font-weight:600;padding:12px 26px;border-radius:10px;">
             <i class="fas fa-arrow-down me-2"></i> View Openings (<?= count($jobs) ?>)
           </a>
+          <button type="button" onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-warning" style="font-weight:700;padding:12px 24px;border-radius:10px;background:#f59e0b;border-color:#f59e0b;color:#0f172a;">
+            <i class="fas fa-file-upload me-2"></i> General Application
+          </button>
           <a href="https://wa.me/918308906690?text=Hi%20Vortexsoft%20HR,%20I%20am%20applying%20for%20an%20open%20position" target="_blank" class="btn btn-outline-light" style="font-weight:600;padding:12px 24px;border-radius:10px;border-color:rgba(255,255,255,.3);">
             <i class="fab fa-whatsapp me-2 text-success"></i> WhatsApp HR Desk
           </a>
@@ -1508,6 +1537,28 @@ require_once __DIR__ . '/includes/header.php';
       <?php endforeach; ?>
     </div>
 
+    <!-- General Job Application Submission Banner -->
+    <div class="general-apply-banner mt-5">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <span class="badge mb-2 px-3 py-2" style="background:#fef3c7;color:#92400e;font-weight:700;border-radius:8px;font-size:12px;">
+            <i class="fas fa-bolt text-warning me-1"></i> GENERAL TALENT POOL
+          </span>
+          <h3 style="font-family:'Poppins',sans-serif;font-weight:800;font-size:22px;color:#0f172a;margin-bottom:8px;">
+            Don't See Your Specific Role Listed? Submit a General Application
+          </h3>
+          <p style="color:#64748b;font-size:14px;line-height:1.6;margin-bottom:0;max-width:720px;">
+            We are continuously expanding our teams. Submit your resume to our general talent pool. Our talent acquisition recruiters review submissions weekly and proactively reach out for new opportunities across Software Engineering, US Title Search, Healthcare RCM, Customer BPO, Analytics, and Corporate Operations.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+          <button type="button" onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-primary btn-lg shadow-sm" style="background:#1C2280;border-color:#1C2280;font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;padding:14px 28px;border-radius:12px;">
+            <i class="fas fa-paper-plane me-2"></i> Submit General Application
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Empty State Box -->
     <div class="empty-jobs-box d-none" id="emptyJobsBox">
       <div style="font-size:36px;margin-bottom:12px;">🔍</div>
@@ -1515,9 +1566,14 @@ require_once __DIR__ . '/includes/header.php';
       <p style="color:#64748b;font-size:14px;max-width:520px;margin:0 auto 20px;">
         Try clearing your search terms or selecting another category. You can also submit a general application, and our recruiters will review your profile for upcoming batches.
       </p>
-      <button onclick="resetFilters()" class="btn btn-outline-primary" style="font-weight:600;padding:8px 22px;border-radius:8px;">
-        <i class="fas fa-undo me-1"></i> Show All Positions
-      </button>
+      <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+        <button onclick="resetFilters()" class="btn btn-outline-primary" style="font-weight:600;padding:8px 22px;border-radius:8px;">
+          <i class="fas fa-undo me-1"></i> Show All Positions
+        </button>
+        <button onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-warning" style="font-weight:700;padding:8px 22px;border-radius:8px;background:#f59e0b;border-color:#f59e0b;color:#0f172a;">
+          <i class="fas fa-file-upload me-1"></i> Submit General Application
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -1833,6 +1889,23 @@ require_once __DIR__ . '/includes/header.php';
           <input type="text" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
 
           <div class="row g-3">
+            <div class="col-12 d-none" id="generalDeptSelectGroup">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">
+                <i class="fas fa-layer-group text-primary me-1"></i> Preferred Domain / Functional Area <span class="text-danger">*</span>
+              </label>
+              <select class="form-select" id="generalDeptSelect" style="border-radius:10px;font-size:14px;background:#ffffff;border-color:#cbd5e1;">
+                <option value="IT & Software Engineering">IT &amp; Software Engineering (Java, Python, React, Cloud, DevOps)</option>
+                <option value="Real Estate BPO & Title Search">Real Estate BPO &amp; Title Search (40-Yr Searches, Deeds, Taxes)</option>
+                <option value="Healthcare BPO & Medical Coding">Healthcare BPO &amp; Medical Coding (ICD-10, Medical Billing, AR)</option>
+                <option value="Customer Operations & BPO">Customer Operations &amp; BPO (Voice, Non-Voice, CRM Support)</option>
+                <option value="Research & KPO Analytics">Research &amp; KPO Analytics (Data Analytics, Market Research)</option>
+                <option value="Finance, Accounts & HR">Corporate, Finance, Accounts &amp; Human Resources</option>
+                <option value="Publishing & Prepress">Publishing Prepress &amp; XML Typesetting</option>
+                <option value="Any Department / Open to Opportunities" selected>Any Department / Open to Best Match</option>
+              </select>
+              <small class="text-muted" style="font-size:12px;">Select the operational domain closest to your skillset and interest.</small>
+            </div>
+
             <div class="col-md-6">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Full Name <span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="applicant_name" placeholder="Your full legal name" style="border-radius:10px;font-size:14px;" required>
@@ -2049,10 +2122,28 @@ require_once __DIR__ . '/includes/header.php';
 
 // Application Modal Functions
 function openApplyModal(title, dept, jobId) {
-  document.getElementById('modal-job-title').textContent = title || 'Open Position';
-  document.getElementById('form-job-title').value = title || 'General Application';
-  document.getElementById('form-department').value = dept || 'General';
-  document.getElementById('form-job-id').value = jobId || '';
+  const isGeneral = (!title || title === 'General Application');
+  const modalTitle = document.getElementById('modal-job-title');
+  const deptGroup  = document.getElementById('generalDeptSelectGroup');
+  const deptSelect = document.getElementById('generalDeptSelect');
+
+  if (isGeneral) {
+    if (modalTitle) modalTitle.textContent = 'General Application (Open Talent Pool)';
+    document.getElementById('form-job-title').value = 'General Application';
+    document.getElementById('form-department').value = dept || 'Any Department / Open to Opportunities';
+    document.getElementById('form-job-id').value = '0';
+    if (deptGroup) deptGroup.classList.remove('d-none');
+    if (deptSelect && dept && dept !== 'General' && dept !== 'General Talent Pool') {
+      deptSelect.value = dept;
+    }
+  } else {
+    if (modalTitle) modalTitle.textContent = title;
+    document.getElementById('form-job-title').value = title;
+    document.getElementById('form-department').value = dept || 'General';
+    document.getElementById('form-job-id').value = jobId || '';
+    if (deptGroup) deptGroup.classList.add('d-none');
+  }
+
   const fb = document.getElementById('apply-feedback');
   if (fb) {
     fb.className = 'd-none mb-3';
@@ -2061,6 +2152,10 @@ function openApplyModal(title, dept, jobId) {
   const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('applyModal'));
   modal.show();
 }
+
+document.getElementById('generalDeptSelect')?.addEventListener('change', function() {
+  document.getElementById('form-department').value = this.value;
+});
 
 // Share Modal Functions
 function openJobShare(job) {
