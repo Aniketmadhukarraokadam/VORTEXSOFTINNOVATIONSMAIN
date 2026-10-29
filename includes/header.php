@@ -531,9 +531,9 @@ function nav_active(string $page, string $path): string {
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fontawesome/all.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="<?= $prefix ?>assets/vendor/fonts.css">
-    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-shared.css?v=20261027b">
-    <link rel="stylesheet" href="<?= $prefix ?>assets/usability-audit-fixes.css?v=20261027c">
-    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-extensions.css?v=20261027b">
+    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-shared.css?v=20261029opt">
+    <link rel="stylesheet" href="<?= $prefix ?>assets/usability-audit-fixes.css?v=20261029opt">
+    <link rel="stylesheet" href="<?= $prefix ?>assets/vortex-extensions.css?v=20261029opt">
     <style>@media (prefers-reduced-motion: reduce) { .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right { opacity: 1 !important; transform: none !important; transition: none !important; } }</style>
 
     <?php if (!empty($extra_head)) echo $extra_head; ?>

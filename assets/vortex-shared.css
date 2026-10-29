@@ -611,3 +611,46 @@ section,
 .text-teal { color: #06B6D4 !important; }
 .text-pink { color: #EC4899 !important; }
 
+/* ==========================================================================
+   PERFORMANCE & ULTRA-SMOOTH RENDERING ENGINE
+   ========================================================================== */
+/* Offscreen rendering optimization - skips rendering calculations until approaching viewport */
+.hero-8d-stream-section,
+.services-section,
+#services,
+#about,
+#industries,
+#process,
+#case-studies,
+#ai-products,
+#enterprise-tech,
+#faq,
+#testimonials,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 650px;
+}
+
+/* GPU hardware layer acceleration & sub-pixel smoothing */
+.hero-card,
+.service-node-8d,
+.vortex-8d-core,
+.tilt-card-3d,
+.motion-service-chip,
+.service-card {
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Smooth scrolling with fixed header clearance */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+/* Image rendering optimization */
+img, picture {
+  content-visibility: auto;
+}
+

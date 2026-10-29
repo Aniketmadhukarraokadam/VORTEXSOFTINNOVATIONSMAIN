@@ -113,7 +113,28 @@ function initParticleCanvas(canvasId){
     }
 
     let lastTime = performance.now();
+    let isParticleVisible = true;
+    let particleAnimId = null;
+
+    if ('IntersectionObserver' in window && canvas) {
+        const pObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isParticleVisible = entry.isIntersecting;
+                if (isParticleVisible && !particleAnimId) {
+                    lastTime = performance.now();
+                    particleAnimId = requestAnimationFrame(render);
+                }
+            });
+        }, { rootMargin: '60px 0px', threshold: 0.01 });
+        pObs.observe(canvas);
+    }
+
     function render(now) {
+        if (!isParticleVisible) {
+            particleAnimId = null;
+            return;
+        }
+
         const dt = Math.min((now - lastTime) / 1000, 0.1);
         lastTime = now;
 
@@ -171,9 +192,9 @@ function initParticleCanvas(canvasId){
             ctx.restore();
         }
 
-        requestAnimationFrame(render);
+        particleAnimId = requestAnimationFrame(render);
     }
-    requestAnimationFrame(render);
+    particleAnimId = requestAnimationFrame(render);
 }
 function initMagneticButtons(){document.querySelectorAll('.magnetic').forEach(btn=>{btn.addEventListener('mousemove',e=>{const rect=btn.getBoundingClientRect();const x=e.clientX-rect.left-rect.width/2;const y=e.clientY-rect.top-rect.height/2;btn.style.transform=`translate(${x * 0.18}px, ${y * 0.18}px)`;});btn.addEventListener('mouseleave',()=>{btn.style.transform='';btn.style.transition='transform 0.5s cubic-bezier(0.4,0,0.2,1)';});btn.addEventListener('mouseenter',()=>{btn.style.transition='transform 0.1s ease';});});}
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initMagneticButtons):initMagneticButtons();function initTyped(el,words,speed){if(!el)return;let wi=0,ci=0,deleting=false,waiting=false;function tick(){if(waiting)return;const word=words[wi];if(!deleting){el.textContent=word.slice(0,ci+1);ci++;if(ci===word.length){waiting=true;setTimeout(()=>{waiting=false;deleting=true;},2000);setTimeout(tick,2100);return;}}else{el.textContent=word.slice(0,ci-1);ci--;if(ci===0){deleting=false;wi=(wi+1)%words.length;}}
@@ -401,8 +422,28 @@ function init8DMotionEngine() {
     });
 
     let startTime = performance.now();
+    let isStageVisible = true;
+    let stageAnimId = null;
+
+    if ('IntersectionObserver' in window && stage) {
+        const stageObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isStageVisible = entry.isIntersecting;
+                if (isStageVisible && !stageAnimId) {
+                    startTime = performance.now();
+                    stageAnimId = requestAnimationFrame(animate8D);
+                }
+            });
+        }, { rootMargin: '80px 0px', threshold: 0.02 });
+        stageObs.observe(stage);
+    }
 
     function animate8D(now) {
+        if (!isStageVisible) {
+            stageAnimId = null;
+            return;
+        }
+
         const t = (now - startTime) * 0.0015;
 
         // Detect idle (no mouse movement for 2 seconds) — gentle auto-rotation
@@ -511,10 +552,10 @@ function init8DMotionEngine() {
             n.el.style.transform = `${baseOffset}translate3d(${posX.toFixed(2)}px, ${posY.toFixed(2)}px, ${posZ.toFixed(1)}px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) rotateZ(${rotZ.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
         }
 
-        requestAnimationFrame(animate8D);
+        stageAnimId = requestAnimationFrame(animate8D);
     }
 
-    requestAnimationFrame(animate8D);
+    stageAnimId = requestAnimationFrame(animate8D);
 }
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init8DMotionEngine):init8DMotionEngine();
 function initStaggeredReveal(){document.querySelectorAll('.row .scroll-reveal, .row .scroll-reveal-left, .row .scroll-reveal-right').forEach((el,i)=>{if(!el.style.transitionDelay){const delay=Math.min((i%4)*0.06,0.24);el.style.transitionDelay=delay+'s';}});}

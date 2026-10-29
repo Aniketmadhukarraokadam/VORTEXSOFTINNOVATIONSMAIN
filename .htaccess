@@ -146,10 +146,19 @@ ServerSignature Off
         Header set Cache-Control "max-age=31536000, public, immutable"
         Header unset ETag
     </FilesMatch>
-    # HTML/PHP responses
+    # HTML/PHP responses: fast browser caching with stale-while-revalidate for instantaneous loads
     <FilesMatch "\.(html|htm|php)$">
-        Header set Cache-Control "max-age=600, private, must-revalidate"
+        Header set Cache-Control "max-age=600, public, stale-while-revalidate=86400, stale-if-error=604800"
     </FilesMatch>
+</IfModule>
+
+# ── LiteSpeed Web Server Performance & Cache ──────────────────────
+<IfModule LiteSpeed>
+    CacheEnable public
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} ^HEAD|GET$
+    RewriteCond %{REQUEST_URI} !^/(admin|api)/
+    RewriteRule .* - [E=Cache-Control:max-age=1800]
 </IfModule>
 
 # Disable redundant ETags
@@ -171,4 +180,5 @@ FileETag None
     php_value zlib.output_compression_level 5
     php_value memory_limit 128M
 </IfModule>
+
 

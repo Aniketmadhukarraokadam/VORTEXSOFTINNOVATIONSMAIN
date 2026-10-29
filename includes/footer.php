@@ -93,7 +93,7 @@ $prefix = $prefix ?? './';
         <a href="<?= $prefix ?>index.php">
           <picture>
             <source srcset="<?= $prefix ?>logo-footer.webp?v=20261008" type="image/webp">
-            <img src="<?= $prefix ?>logo-footer.png?v=20261008" alt="Vortexsoft Innovations" class="footer-logo" width="200" height="55" loading="lazy">
+            <img src="<?= $prefix ?>logo-footer.png?v=20261008" alt="Vortexsoft Innovations" class="footer-logo" width="200" height="55" loading="lazy" decoding="async">
           </picture>
         </a>
 
@@ -444,11 +444,11 @@ document.addEventListener('click', function(e) {
 </div>
 
 <!-- Bootstrap JS -->
-<script src="<?= $prefix ?>assets/vendor/bootstrap.bundle.min.js"></script>
+<script defer src="<?= $prefix ?>assets/vendor/bootstrap.bundle.min.js"></script>
 <!-- Shared JS -->
-<script src="<?= $prefix ?>assets/vortex-shared.js?v=20260810"></script>
-<script src="<?= $prefix ?>assets/usability-audit-fixes.js?v=20260928"></script>
-<script src="<?= $prefix ?>assets/vortex-extensions.js?v=20261027"></script>
+<script defer src="<?= $prefix ?>assets/vortex-shared.js?v=20261029opt"></script>
+<script defer src="<?= $prefix ?>assets/usability-audit-fixes.js?v=20261029opt"></script>
+<script defer src="<?= $prefix ?>assets/vortex-extensions.js?v=20261029opt"></script>
 <script>
 // ── Loader (Instant Dismissal) ──────────────────────────────
 (function(){
