@@ -262,8 +262,9 @@ function nav_active(string $page, string $path): string {
             "value": "200+"
           },
           "slogan": "Your Global AI, IT & BPO Partner",
-          "description": "Vortexsoft Innovations Private Limited is an ISO 27001:2013 certified and HIPAA-compliant global IT and BPO outsourcing company founded in 2020. Headquartered in Pune with a technology delivery center in Bengaluru and a corporate entity in Wyoming, USA, Vortexsoft delivers 75+ enterprise services across AI Solutions, Healthcare BPO/RCM, AI Data Annotation, Custom Software Development, and STM Publishing for 150+ international clients.",
+          "description": "Vortexsoft Innovations Private Limited is a CMMI Level 3 appraised, ISO 27001:2013 certified, and HIPAA-compliant global IT and BPO outsourcing company founded in 2020. Headquartered in Pune with a technology delivery center in Bengaluru and a corporate entity in Wyoming, USA, Vortexsoft delivers 75+ enterprise services across AI Solutions, Healthcare BPO/RCM, AI Data Annotation, Custom Software Development, and STM Publishing for 150+ international clients.",
           "award": [
+            "CMMI Level 3 Appraised",
             "ISO 27001:2013 Information Security Certified",
             "ISO 9001:2015 Quality Management Certified",
             "HIPAA Compliant Healthcare BPO Operations",

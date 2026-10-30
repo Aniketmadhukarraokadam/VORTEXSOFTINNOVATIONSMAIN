@@ -321,7 +321,7 @@ $faqs = [
     'cat_label' => 'Compliance & SLAs',
     'badge_color' => 'success',
     'q'   => 'Is Vortexsoft Innovations formally ISO certified and government registered?',
-    'a'   => 'Yes. Vortexsoft Innovations Private Limited is formally certified under <strong>ISO 27001:2013</strong> (Information Security Management Systems), operates under <strong>ISO 9001:2015</strong> quality guidelines, is fully <strong>HIPAA</strong> compliant for healthcare operations, and is recognized under the <strong>Startup India</strong> initiative by DPIIT, Government of India.'
+    'a'   => 'Yes. Vortexsoft Innovations Private Limited is a <strong>CMMI Level 3 appraised</strong> organization, formally certified under <strong>ISO 27001:2013</strong> (Information Security Management Systems), operates under <strong>ISO 9001:2015</strong> quality guidelines, is fully <strong>HIPAA</strong> compliant for healthcare operations, and is recognized under the <strong>Startup India</strong> initiative by DPIIT, Government of India.'
   ],
   [
     'cat' => 'compliance',

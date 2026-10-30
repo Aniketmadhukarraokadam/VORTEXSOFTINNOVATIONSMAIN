@@ -47,6 +47,7 @@ $prefix = $prefix ?? './';
 </style>
 <div class="trust-marquee-wrapper">
   <div class="trust-marquee">
+    <div class="trust-item"><div class="trust-icon-box gold"><i class="fas fa-certificate"></i></div> CMMI Level 3 Certified</div>
     <div class="trust-item"><div class="trust-icon-box cyan"><i class="fas fa-shield-alt"></i></div> ISO 27001 Certified</div>
     <div class="trust-item"><div class="trust-icon-box gold"><i class="fas fa-medal"></i></div> ISO 9001:2015 Quality</div>
     <div class="trust-item"><div class="trust-icon-box"><i class="fas fa-user-md"></i></div> HIPAA Compliant</div>
@@ -56,6 +57,7 @@ $prefix = $prefix ?? './';
     <div class="trust-item"><div class="trust-icon-box"><i class="fas fa-users"></i></div> 200+ Professionals</div>
     <div class="trust-item"><div class="trust-icon-box green"><i class="fas fa-award"></i></div> Startup India Registered</div>
     <!-- Duplicate for infinite effect -->
+    <div class="trust-item"><div class="trust-icon-box gold"><i class="fas fa-certificate"></i></div> CMMI Level 3 Certified</div>
     <div class="trust-item"><div class="trust-icon-box cyan"><i class="fas fa-shield-alt"></i></div> ISO 27001 Certified</div>
     <div class="trust-item"><div class="trust-icon-box gold"><i class="fas fa-medal"></i></div> ISO 9001:2015 Quality</div>
     <div class="trust-item"><div class="trust-icon-box"><i class="fas fa-user-md"></i></div> HIPAA Compliant</div>
@@ -99,9 +101,10 @@ $prefix = $prefix ?? './';
 
         <p class="footer-desc" style="color:#e2e8f0 !important;font-size:14px;line-height:1.75;margin-bottom:18px;">
           <strong style="color:#ffffff !important;font-weight:700;">Vortexsoft Innovations Private Limited</strong>
-          <span style="color:#cbd5e1 !important;">is an ISO 27001:2013 certified and HIPAA-compliant global technology, AI solutions, and specialized business process outsourcing partner serving enterprises worldwide.</span>
+          <span style="color:#cbd5e1 !important;">is a CMMI Level 3 appraised, ISO 27001:2013 certified, and HIPAA-compliant global technology, AI solutions, and specialized business process outsourcing partner serving enterprises worldwide.</span>
         </p>
         <div class="d-flex gap-2 flex-wrap mt-2 mb-3" style="font-size:11px;color:#f8fafc;font-weight:600;">
+          <span style="background:rgba(255,255,255,0.1);color:#ffffff;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.16);"><i class="fas fa-certificate text-warning me-1"></i> CMMI Level 3</span>
           <span style="background:rgba(255,255,255,0.1);color:#ffffff;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.16);"><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001</span>
           <span style="background:rgba(255,255,255,0.1);color:#ffffff;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.16);"><i class="fas fa-user-md text-info me-1"></i> HIPAA</span>
           <span style="background:rgba(255,255,255,0.1);color:#ffffff;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.16);"><i class="fas fa-award text-warning me-1"></i> Startup India</span>

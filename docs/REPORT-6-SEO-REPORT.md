@@ -33,7 +33,7 @@
 ## 2. Structured Data (Schema.org JSON-LD)
 
 Implemented schemas across the site:
-- **Organization Schema:** Declares legal corporate name (*Vortexsoft Innovations Private Limited*), registration status (Startup India, ISO 9001/27001), official logos, telephone, email, and social profiles.
+- **Organization Schema:** Declares legal corporate name (*Vortexsoft Innovations Private Limited*), registration status (CMMI Level 3 Appraised, Startup India, ISO 9001/27001), official logos, telephone, email, and social profiles.
 - **WebSite Schema:** Declares site search query potential (`SearchAction`).
 - **LocalBusiness Schema:** Multi-location schema for Pune Headquarters, Bengaluru branch, and Sheridan USA office.
 - **Service Schema:** Configured on all 52 service subpages detailing service type, provider, area served, and terms.

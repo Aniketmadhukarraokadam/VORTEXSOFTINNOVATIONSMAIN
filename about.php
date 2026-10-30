@@ -64,7 +64,7 @@ require_once __DIR__ . '/includes/header.php';
         <h2 class="section-title">Global IT &amp; Business Process <span class="highlight">Outoutsourcing Partner</span></h2>
         <div class="section-divider"></div>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.8;">
-          <strong>Vortexsoft Innovations Private Limited</strong> is an <strong>ISO 27001:2013 certified</strong> IT software and business process outsourcing organization headquartered in <strong>Pune, Maharashtra, India</strong> with delivery operations in <strong>Bengaluru</strong> and an international corporate entity in <strong>Sheridan, Wyoming, USA</strong>.
+          <strong>Vortexsoft Innovations Private Limited</strong> is a <strong>CMMI Level 3 appraised</strong>, <strong>ISO 27001:2013 certified</strong>, and <strong>ISO 9001:2015 quality accredited</strong> IT software and business process outsourcing organization headquartered in <strong>Pune, Maharashtra, India</strong> with delivery operations in <strong>Bengaluru</strong> and an international corporate entity in <strong>Sheridan, Wyoming, USA</strong>.
         </p>
         <p style="color:var(--text-muted);font-size:15px;line-height:1.8;">
           Founded in <strong>2020</strong>, over <strong>6+ years</strong> of continuous innovation we have grown into a multi-disciplinary technology powerhouse. We manage <strong>65+ specialized service domains</strong>, supporting healthcare providers, commercial real estate firms, global STM publishers, financial institutions, technology startups, and fortune enterprises across North America, Europe, Australia, and Asia-Pacific.
@@ -104,7 +104,14 @@ require_once __DIR__ . '/includes/header.php';
 
       <!-- Feature Grid -->
       <div class="col-lg-6 scroll-reveal-right">
-        <div class="row g-4">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="about-card">
+              <div class="about-icon" style="background:rgba(245,158,11,.08);color:#f59e0b;"><i class="fas fa-certificate"></i></div>
+              <h5 style="font-weight:700;color:#1e293b;">CMMI Level 3</h5>
+              <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">Appraised organizational process maturity delivering consistent international software quality.</p>
+            </div>
+          </div>
           <div class="col-6">
             <div class="about-card">
               <div class="about-icon"><i class="fas fa-shield-alt"></i></div>
@@ -121,6 +128,13 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div class="col-6">
             <div class="about-card">
+              <div class="about-icon" style="background:rgba(28,34,128,.08);color:#1C2280;"><i class="fas fa-medal"></i></div>
+              <h5 style="font-weight:700;color:#1e293b;">ISO 9001:2015</h5>
+              <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">Certified Quality Management Systems ensuring rigorous operational precision.</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="about-card">
               <div class="about-icon" style="background:rgba(91,168,212,.08);color:#5BA8D4;"><i class="fas fa-award"></i></div>
               <h5 style="font-weight:700;color:#1e293b;">Startup India</h5>
               <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">Recognized under Government of India's flagship Startup India Innovation Initiative.</p>
@@ -132,7 +146,6 @@ require_once __DIR__ . '/includes/header.php';
               <h5 style="font-weight:700;color:#1e293b;">Global Presence</h5>
               <p style="font-size:13px;color:#64748b;margin:0;line-height:1.6;">Pune Corporate HQ, Bengaluru Center, and Wyoming USA International Subsidiary.</p>
             </div>
-          </div>
         </div>
       </div>
     </div>

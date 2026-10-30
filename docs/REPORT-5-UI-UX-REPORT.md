@@ -76,7 +76,7 @@ The corporate aesthetic was elevated to establish Vortexsoft as a credible, inte
 
 ### D. Corporate Footer Standard
 - 5-column responsive corporate grid featuring:
-  1. Corporate identity, certifications (ISO 9001/27001, HIPAA, Startup India), and business description.
+  1. Corporate identity, certifications (CMMI Level 3, ISO 9001/27001, HIPAA, Startup India), and business description.
   2. Company & Resources links.
   3. Core Service practices.
   4. Proprietary software platforms.

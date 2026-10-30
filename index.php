@@ -1237,29 +1237,36 @@ require_once __DIR__ . '/includes/header.php';
           <h4 style="font-size:18px;font-weight:800;margin:0;color:#fff;">Rigorous Security &amp; Compliance Standards</h4>
         </div>
         <div class="col-lg-9">
-          <div class="row g-3 text-center">
-            <div class="col-6 col-md-3">
+          <div class="row row-cols-2 row-cols-md-5 g-3 text-center">
+            <div class="col">
               <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
-                <i class="fas fa-shield-alt text-warning mb-1" style="font-size:20px;"></i>
+                <i class="fas fa-certificate text-warning mb-1" style="font-size:20px;"></i>
+                <div style="font-weight:700;font-size:13px;">CMMI Level 3</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);">Appraised Maturity</div>
+              </div>
+            </div>
+            <div class="col">
+              <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
+                <i class="fas fa-shield-alt text-info mb-1" style="font-size:20px;"></i>
                 <div style="font-weight:700;font-size:13px;">ISO 27001:2022</div>
                 <div style="font-size:11px;color:rgba(255,255,255,0.7);">InfoSec Certified</div>
               </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col">
               <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
                 <i class="fas fa-user-lock text-success mb-1" style="font-size:20px;"></i>
                 <div style="font-weight:700;font-size:13px;">HIPAA &amp; HITECH</div>
                 <div style="font-size:11px;color:rgba(255,255,255,0.7);">PHI Data Protection</div>
               </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col">
               <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
-                <i class="fas fa-award text-info mb-1" style="font-size:20px;"></i>
+                <i class="fas fa-award text-primary mb-1" style="font-size:20px;"></i>
                 <div style="font-weight:700;font-size:13px;">ISO 9001:2015</div>
                 <div style="font-size:11px;color:rgba(255,255,255,0.7);">Quality Management</div>
               </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col">
               <div style="background:rgba(255,255,255,0.08);padding:14px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);">
                 <i class="fas fa-flag text-danger mb-1" style="font-size:20px;"></i>
                 <div style="font-weight:700;font-size:13px;">Startup India</div>

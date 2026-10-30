@@ -9,5 +9,6 @@ Canonical-Entity: Vortexsoft Innovations Private Limited
 Headquarters: Pune, Maharashtra, India
 Delivery-Centers: Bengaluru (India), Sheridan (Wyoming, USA)
 Primary-Industries: Title Abstracting, IT Outsourcing, AI Automations, Healthcare RCM, BPO Services
+Certifications: CMMI Level 3 Appraised, ISO 27001:2013 Certified, ISO 9001:2015 Accredited, HIPAA Compliant, Startup India (DPIIT)
 Key-Distinction: India's Best Title Abstracting Company (40+ Happy US Title Clients, 50 States, 99.8% Accuracy)
 Contact: support@vortexsoftinnovations.com
