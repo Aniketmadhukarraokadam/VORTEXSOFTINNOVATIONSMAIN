@@ -638,11 +638,7 @@ function nav_active(string $page, string $path): string {
 .smart-company-menu{min-width:320px;padding:12px !important}
 
 /* Smart Action Cluster (Right) */
-.smart-nav-actions{display:flex;align-items:center;gap:8px}
-.smart-search-btn{background:rgba(28,34,128,.05);border:1px solid rgba(28,34,128,.12);border-radius:8px;padding:7px 12px;color:#1C2280;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;cursor:pointer;transition:all .2s ease}
-.smart-search-btn:hover{background:#1C2280;color:#fff;border-color:#1C2280;box-shadow:0 4px 12px rgba(28,34,128,.2)}
-.smart-search-btn kbd{background:rgba(0,0,0,.06);border-radius:4px;padding:1px 5px;font-size:10px;font-weight:700;color:inherit}
-.smart-search-btn:hover kbd{background:rgba(255,255,255,.2);color:#fff}
+.smart-nav-actions{display:flex;align-items:center;gap:10px}
 .smart-call-btn{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:7px 11px;color:#334155;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;text-decoration:none !important;transition:all .2s ease}
 .smart-call-btn:hover{background:#fff;color:#1C2280;border-color:#cbd5e1;box-shadow:0 3px 8px rgba(0,0,0,.05)}
 .smart-call-btn i{color:#CC2228;font-size:11px}
@@ -698,16 +694,11 @@ function nav_active(string $page, string $path): string {
       </picture>
     </a>
 
-    <!-- Mobile Action Cluster (Quick Search + Hamburger) -->
-    <div class="d-flex align-items-center d-lg-none gap-2">
-      <button type="button" class="btn btn-sm btn-light border-0" onclick="window.vortexOpenPalette()" aria-label="Search Services" style="width:42px;height:42px;border-radius:10px;background:rgba(28,34,128,0.06);color:#1C2280;display:inline-flex;align-items:center;justify-content:center;">
-        <i class="fas fa-search" style="font-size:15px;"></i>
-      </button>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" style="width:42px;height:42px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;border:none !important;">
-        <i class="fas fa-bars" style="color:#1C2280;font-size:20px;"></i>
-      </button>
-    </div>
+    <!-- Mobile Hamburger Toggler -->
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" style="width:42px;height:42px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;border:none !important;background:rgba(28,34,128,0.06);">
+      <i class="fas fa-bars" style="color:#1C2280;font-size:20px;"></i>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <!-- Primary Clean Navigation Links -->
@@ -820,18 +811,16 @@ function nav_active(string $page, string $path): string {
           </ul>
         </li>
 
-        <!-- 4. Company (About, Insights, Compliance, Hubs) -->
+        <!-- 4. Company (About, Compliance, Hubs) -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle <?= (str_contains($current_path, 'about') || str_contains($current_path, 'blog') || str_contains($current_path, 'faq')) ? 'active' : '' ?>" href="#"
+          <a class="nav-link dropdown-toggle <?= str_contains($current_path, 'about') ? 'active' : '' ?>" href="#"
              id="companyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Company <i class="fas fa-chevron-down nav-chevron"></i>
           </a>
           <ul class="dropdown-menu smart-company-menu p-2" aria-labelledby="companyDropdown">
             <li><a class="dropdown-item" href="<?= $prefix ?>about.php"><i class="fas fa-info-circle text-primary"></i> <div><strong>About Vortexsoft</strong><div class="sub-item-desc">Mission, Leadership &amp; Global Story</div></div></a></li>
-            <li><a class="dropdown-item" href="<?= $prefix ?>blog.php"><i class="fas fa-newspaper text-info"></i> <div><strong>Insights &amp; Research</strong><div class="sub-item-desc">Tech Articles, AI Trends &amp; Whitepapers</div></div></a></li>
             <li><a class="dropdown-item" href="<?= $prefix ?>about.php#certifications"><i class="fas fa-shield-alt text-success"></i> <div><strong>Quality &amp; Compliance</strong><div class="sub-item-desc">ISO 27001:2013 &amp; HIPAA Certified</div></div></a></li>
             <li><a class="dropdown-item" href="<?= $prefix ?>about.php#locations"><i class="fas fa-map-marked-alt text-danger"></i> <div><strong>Global Delivery Hubs</strong><div class="sub-item-desc">Pune HQ, BLR, HYD, MUM &amp; USA</div></div></a></li>
-            <li><a class="dropdown-item" href="<?= $prefix ?>faq.php"><i class="fas fa-question-circle text-warning"></i> <div><strong>Frequently Asked Questions</strong><div class="sub-item-desc">Direct answers on SLAs &amp; models</div></div></a></li>
           </ul>
         </li>
 
@@ -845,13 +834,6 @@ function nav_active(string $page, string $path): string {
 
       <!-- Smart Right-Side Actions -->
       <div class="smart-nav-actions d-none d-lg-flex">
-        <!-- Quick Search -->
-        <button type="button" class="smart-search-btn" onclick="window.vortexOpenPalette()" aria-label="Search Services" title="Search all 75+ services (Ctrl + K)">
-          <i class="fas fa-search"></i>
-          <span class="d-none d-xl-inline">Search</span>
-          <kbd>Ctrl K</kbd>
-        </button>
-
         <!-- Quick Call Pill -->
         <a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>" class="smart-call-btn" title="Call Sales &amp; Inquiries: <?= PHONE_INDIA ?>" aria-label="Call <?= PHONE_INDIA ?>">
           <i class="fas fa-phone-alt"></i>
