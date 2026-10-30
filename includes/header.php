@@ -581,111 +581,89 @@ function nav_active(string $page, string $path): string {
 
 <!-- ── TOPBAR ────────────────────────────────────── -->
 <style>
-.topbar{background:linear-gradient(90deg,#111827 0%,#1a2068 100%);padding:11px 0;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar{background:linear-gradient(90deg,#111827 0%,#1a2068 100%);padding:10px 0;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.08)}
 .topbar a{color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s;display:inline-flex;align-items:center;gap:6px}
 .topbar a:hover{color:#fff}
 .topbar i{font-size:11px;color:#E31E25}
-.topbar-badge{background:#E31E25;color:#fff;font-size:10px;font-weight:800;padding:3px 13px;border-radius:100px;letter-spacing:1.2px;text-transform:uppercase}
+.topbar-badge{background:#E31E25;color:#fff;font-size:10px;font-weight:800;padding:3px 12px;border-radius:100px;letter-spacing:1px;text-transform:uppercase}
 .topbar-sep{width:1px;height:14px;background:rgba(255,255,255,.15);display:inline-block;vertical-align:middle}
-.topbar-social a{color:#fff !important;width:29px;height:29px;border-radius:7px;background:rgba(255,255,255,.15);display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;transition:background .2s,color .2s}
+.topbar-social a{color:#fff !important;width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.15);display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;transition:background .2s,color .2s}
 .topbar-social a:hover{background:#E31E25;color:#fff !important}
-.topbar-social a i{color:#ffffff !important;font-size:13px}
-#mainNavbar{background:#FFFFFF;border:1px solid #E5E7EB;padding:0;position:sticky;top:12px;z-index:1030;box-shadow:0 10px 30px rgba(17,24,39,.06);transition:all .3s ease;width:96%;max-width:1740px;margin:0 auto 15px;border-radius:14px}
-@media(min-width:2560px){#mainNavbar{max-width:2100px}}
-#mainNavbar.scrolled{top:8px;box-shadow:0 14px 40px rgba(17,24,39,.10)}
-#mainNavbar .container{min-height:72px;display:flex;align-items:center}
-.navbar-brand img{height:52px;max-height:56px;width:auto;object-fit:contain;transition:all .3s ease}
-#mainNavbar .nav-link{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:#111827 !important;padding:8px 12px !important;border-radius:6px;position:relative;transition:color .2s,background .2s}
-#mainNavbar .nav-link::after{content:'';position:absolute;bottom:2px;left:12px;right:12px;height:2px;background:#252B83;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
-#mainNavbar .nav-link:hover,#mainNavbar .nav-link.active{color:#252B83 !important;background:rgba(37,43,131,.04)}
-#mainNavbar .nav-link:hover::after,#mainNavbar .nav-link.active::after{transform:scaleX(1)}
-#mainNavbar .dropdown-menu{border:1px solid #E5E7EB;border-radius:12px;box-shadow:0 20px 50px rgba(17,24,39,.12);padding:18px;margin-top:8px;animation:dropFade .18s ease;background:#fff}
-@keyframes dropFade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.topbar-social a i{color:#ffffff !important;font-size:12.5px}
+
+/* ═══════ SMART NAVBAR DESIGN SYSTEM ═══════ */
+#mainNavbar{background:rgba(255,255,255,.96);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(229,231,235,.85);padding:0;position:sticky;top:12px;z-index:1030;box-shadow:0 10px 30px rgba(17,24,39,.06);transition:all .28s cubic-bezier(.16,1,.3,1);width:96%;max-width:1680px;margin:0 auto 15px;border-radius:14px}
+@media(min-width:2560px){#mainNavbar{max-width:2000px}}
+#mainNavbar.scrolled{top:8px;background:rgba(255,255,255,.98);box-shadow:0 14px 40px rgba(17,24,39,.10);border-color:rgba(28,34,128,.14)}
+#mainNavbar .container{min-height:68px;display:flex;align-items:center;justify-content:space-between;transition:min-height .25s ease}
+#mainNavbar.scrolled .container{min-height:60px}
+.navbar-brand img{height:46px;max-height:50px;width:auto;object-fit:contain;transition:height .25s ease}
+#mainNavbar.scrolled .navbar-brand img{height:40px}
+
+/* Smart Primary Nav Links */
+#mainNavbar .navbar-nav{gap:2px}
+#mainNavbar .nav-link{font-family:'Poppins',sans-serif;font-size:13.5px;font-weight:600;color:#1e293b !important;padding:8px 13px !important;border-radius:8px;display:inline-flex;align-items:center;gap:6px;position:relative;transition:all .18s ease;white-space:nowrap}
+#mainNavbar .nav-link:hover,#mainNavbar .nav-link.active{color:#1C2280 !important;background:rgba(28,34,128,.05)}
+.nav-chevron{font-size:9.5px;opacity:.6;transition:transform .2s ease;margin-left:2px}
+
+/* Desktop Hover Trigger for Dropdowns */
+@media(min-width:992px){
+  #mainNavbar .nav-item.dropdown:hover > .dropdown-menu{display:block;opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  #mainNavbar .nav-item.dropdown > .dropdown-menu{display:block;opacity:0;visibility:hidden;transform:translateY(8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease,visibility .18s}
+  #mainNavbar .nav-item.dropdown:hover > .nav-link .nav-chevron{transform:rotate(180deg)}
+}
+
+/* Smart Hiring Pulse Badge */
+.smart-hiring-pill{display:inline-flex;align-items:center;gap:5px;background:#fef2f2;color:#dc2626;border:1px solid #fecaca;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:.4px;margin-left:4px}
+.smart-hiring-pill .pulse-dot{width:6px;height:6px;background:#dc2626;border-radius:50%;box-shadow:0 0 0 0 rgba(220,38,38,.7);animation:smartPulse 1.8s infinite}
+@keyframes smartPulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(220,38,38,.7)}70%{transform:scale(1);box-shadow:0 0 0 6px rgba(220,38,38,0)}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(220,38,38,0)}}
+
+/* Dropdowns Base */
+#mainNavbar .dropdown-menu{border:1px solid #E5E7EB;border-radius:14px;box-shadow:0 22px 50px rgba(15,23,42,.12);padding:16px;margin-top:10px;background:#fff}
+#mainNavbar .dropdown-header{font-family:'Poppins',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#1C2280;padding:6px 10px 6px;border-bottom:1.5px solid #F1F5F9;margin-bottom:6px}
+#mainNavbar .dropdown-item{font-size:12.5px;font-weight:600;color:#1e293b;padding:7px 10px;border-radius:7px;transition:all .15s ease;display:flex;align-items:center;gap:9px}
+#mainNavbar .dropdown-item:hover{background:rgba(28,34,128,.05);color:#1C2280;padding-left:14px}
+.sub-item-desc{font-size:11px;font-weight:400;color:#64748b;line-height:1.3;margin-top:1px}
+
+/* Mega Menu Grid for Services */
 .mega-menu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0 10px}
-#mainNavbar .dropdown-header{font-family:'Poppins',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#252B83;padding:8px 10px 6px;border-bottom:1.5px solid #E5E7EB;margin-bottom:6px}
-#mainNavbar .dropdown-item{font-size:12.5px;font-weight:500;color:#334155;padding:6px 10px;border-radius:6px;transition:background .15s,color .15s,padding-left .15s;display:flex;align-items:center;gap:7px}
-#mainNavbar .dropdown-item i{font-size:11.5px;width:15px;color:#252B83;opacity:.85}
-#mainNavbar .dropdown-item:hover{background:rgba(37,43,131,.05);color:#252B83;padding-left:14px}
-#mainNavbar .nav-cta{background:#252B83 !important;color:#fff !important;font-family:'Poppins',sans-serif;font-size:13.5px !important;font-weight:700 !important;padding:10px 22px !important;border-radius:8px !important;letter-spacing:.2px;box-shadow:0 4px 14px rgba(37,43,131,.25) !important;transition:transform .2s,box-shadow .2s,background .2s !important;white-space:nowrap}
-#mainNavbar .nav-cta::after{display:none !important}
-#mainNavbar .nav-cta i{color:#ffffff !important}
-#mainNavbar .nav-cta:hover{background:#1a1f68 !important;color:#fff !important;transform:translateY(-2px) !important;box-shadow:0 8px 20px rgba(37,43,131,.35) !important}
-.navbar-phone-info{border-left:1.5px solid #E5E7EB;padding-left:16px;margin-left:6px}
-.pn-number{font-family:'Poppins',sans-serif;font-size:12.5px;font-weight:700;color:#111827;white-space:nowrap;line-height:1.4}
-.pn-hours{font-size:11px;color:#64748B;font-weight:500}
-.navbar-toggler{border:none !important;padding:6px;box-shadow:none !important;outline:none !important;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-@media(min-width:1200px){
-  #mainNavbar .dropdown-menu{min-width:1080px;left:50% !important;transform:translateX(-50%) !important}
-}
-@media(min-width:992px) and (max-width:1199.98px){
-  #mainNavbar .dropdown-menu{min-width:920px;left:0 !important}
-  .mega-menu-grid{grid-template-columns:repeat(3,1fr);gap:10px}
-}
+@media(min-width:1200px){.smart-services-menu{min-width:1080px;left:50% !important;transform:translateX(-50%) !important}}
+@media(min-width:992px) and (max-width:1199.98px){.smart-services-menu{min-width:900px;left:0 !important}.mega-menu-grid{grid-template-columns:repeat(3,1fr);gap:10px}}
+
+/* Solutions 2-Column Dropdown */
+.smart-solutions-menu{min-width:620px;padding:18px !important}
+.solutions-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* Company Dropdown */
+.smart-company-menu{min-width:320px;padding:12px !important}
+
+/* Smart Action Cluster (Right) */
+.smart-nav-actions{display:flex;align-items:center;gap:8px}
+.smart-search-btn{background:rgba(28,34,128,.05);border:1px solid rgba(28,34,128,.12);border-radius:8px;padding:7px 12px;color:#1C2280;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;cursor:pointer;transition:all .2s ease}
+.smart-search-btn:hover{background:#1C2280;color:#fff;border-color:#1C2280;box-shadow:0 4px 12px rgba(28,34,128,.2)}
+.smart-search-btn kbd{background:rgba(0,0,0,.06);border-radius:4px;padding:1px 5px;font-size:10px;font-weight:700;color:inherit}
+.smart-search-btn:hover kbd{background:rgba(255,255,255,.2);color:#fff}
+.smart-call-btn{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:7px 11px;color:#334155;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;text-decoration:none !important;transition:all .2s ease}
+.smart-call-btn:hover{background:#fff;color:#1C2280;border-color:#cbd5e1;box-shadow:0 3px 8px rgba(0,0,0,.05)}
+.smart-call-btn i{color:#CC2228;font-size:11px}
+.smart-quote-cta{background:linear-gradient(135deg,#1C2280 0%,#151a66 100%) !important;color:#fff !important;font-family:'Poppins',sans-serif;font-size:13px !important;font-weight:700 !important;padding:8px 18px !important;border-radius:8px !important;display:inline-flex;align-items:center;gap:7px;text-decoration:none !important;letter-spacing:.2px;box-shadow:0 4px 12px rgba(28,34,128,.22);transition:all .2s ease;white-space:nowrap}
+.smart-quote-cta:hover{background:linear-gradient(135deg,#252b8c 0%,#1a2068 100%) !important;color:#fff !important;transform:translateY(-2px);box-shadow:0 6px 18px rgba(28,34,128,.32)}
+.smart-quote-cta i{font-size:11.5px;transition:transform .2s ease}
+.smart-quote-cta:hover i{transform:translateX(3px)}
+
+/* Mobile Responsive */
 @media(max-width:991.98px){
-  #mainNavbar{
-    width:calc(100% - 20px) !important;
-    top:10px !important;
-    margin:0 auto 10px !important;
-    border-radius:16px !important;
-  }
-  #mainNavbar .container{
-    min-height:60px !important;
-    flex-wrap:wrap !important;
-    justify-content:space-between !important;
-    padding-left:14px !important;
-    padding-right:14px !important;
-  }
-  .navbar-brand img{
-    height:42px !important;
-    max-height:44px !important;
-  }
-  #mainNavbar .navbar-collapse{
-    max-height:calc(85vh - 70px) !important;
-    overflow-y:auto !important;
-    -webkit-overflow-scrolling:touch !important;
-    padding:10px 4px 18px !important;
-    border-top:1px solid rgba(28,34,128,0.08) !important;
-    margin-top:8px !important;
-  }
-  #mainNavbar .dropdown-menu{
-    min-width:100% !important;
-    max-width:100% !important;
-    box-shadow:none !important;
-    border:1px solid rgba(28,34,128,0.08) !important;
-    padding:12px !important;
-    border-radius:12px !important;
-    background:#f8fafc !important;
-  }
-  .mega-menu-grid{
-    grid-template-columns:1fr 1fr !important;
-    gap:8px !important;
-  }
-  #mainNavbar .nav-link{
-    padding:10px 14px !important;
-    font-size:15px !important;
-  }
-  #mainNavbar .nav-cta{
-    margin:10px 0 6px !important;
-    display:inline-flex !important;
-    width:100% !important;
-    justify-content:center !important;
-    text-align:center !important;
-  }
+  #mainNavbar{width:calc(100% - 20px) !important;top:8px !important;border-radius:14px !important}
+  #mainNavbar .container{min-height:58px !important;padding-left:14px !important;padding-right:14px !important}
+  .navbar-brand img{height:38px !important;max-height:40px !important}
+  #mainNavbar .navbar-collapse{max-height:calc(85vh - 65px) !important;overflow-y:auto !important;-webkit-overflow-scrolling:touch !important;padding:12px 6px 18px !important;border-top:1px solid rgba(28,34,128,.08) !important;margin-top:8px !important}
+  #mainNavbar .dropdown-menu{min-width:100% !important;max-width:100% !important;box-shadow:none !important;border:1px solid rgba(28,34,128,.08) !important;padding:12px !important;border-radius:12px !important;background:#f8fafc !important}
+  .mega-menu-grid,.solutions-grid{grid-template-columns:1fr !important;gap:12px !important}
+  #mainNavbar .nav-link{padding:9px 12px !important;font-size:14.5px !important}
 }
 @media(max-width:575.98px){
-  #mainNavbar{
-    width:calc(100% - 14px) !important;
-    top:8px !important;
-    border-radius:14px !important;
-  }
-  .navbar-brand img{
-    height:36px !important;
-    max-height:38px !important;
-  }
-  .mega-menu-grid{
-    grid-template-columns:1fr !important;
-    gap:4px !important;
-  }
+  #mainNavbar{width:calc(100% - 14px) !important;top:6px !important}
+  .navbar-brand img{height:34px !important;max-height:36px !important}
 }
 </style>
 
@@ -710,130 +688,197 @@ function nav_active(string $page, string $path): string {
   </div>
 </div>
 
-<!-- ── MAIN NAVBAR ────────────────────────────────────── -->
+<!-- ── SMART MAIN NAVBAR ────────────────────────────────────── -->
 <nav class="navbar navbar-expand-lg" id="mainNavbar">
   <div class="container">
-    <a class="navbar-brand" href="<?= $prefix ?>index.php">
+    <a class="navbar-brand" href="<?= $prefix ?>index.php" aria-label="Vortexsoft Innovations Home">
       <picture>
         <source srcset="<?= $prefix ?>logo-header.webp?v=20261008" type="image/webp">
-        <img src="<?= $prefix ?>logo-header.png?v=20261008" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="240" height="70" fetchpriority="high">
+        <img src="<?= $prefix ?>logo-header.png?v=20261008" alt="Vortexsoft Innovations — Global IT &amp; BPO Company" width="220" height="64" fetchpriority="high">
       </picture>
     </a>
 
-
-    <!-- Mobile Search Trigger -->
-    <!-- Mobile Search Trigger & Hamburger Toggler -->
+    <!-- Mobile Action Cluster (Quick Search + Hamburger) -->
     <div class="d-flex align-items-center d-lg-none gap-2">
-      <button type="button" class="btn btn-sm btn-light border-0" onclick="window.vortexOpenPalette()" aria-label="Search Services" style="width:44px;height:44px;border-radius:12px;background:rgba(28,34,128,0.06);color:#1C2280;display:inline-flex;align-items:center;justify-content:center;">
-        <i class="fas fa-search" style="font-size:16px;"></i>
+      <button type="button" class="btn btn-sm btn-light border-0" onclick="window.vortexOpenPalette()" aria-label="Search Services" style="width:42px;height:42px;border-radius:10px;background:rgba(28,34,128,0.06);color:#1C2280;display:inline-flex;align-items:center;justify-content:center;">
+        <i class="fas fa-search" style="font-size:15px;"></i>
       </button>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" style="width:44px;height:44px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;">
-        <i class="fas fa-bars" style="color:#1C2280;font-size:22px;"></i>
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" style="width:42px;height:42px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;border:none !important;">
+        <i class="fas fa-bars" style="color:#1C2280;font-size:20px;"></i>
       </button>
     </div>
 
     <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Primary Clean Navigation Links -->
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link <?= nav_active('home', $current_path) ?>" href="<?= $prefix ?>index.php">Home</a></li>
-        <li class="nav-item"><a class="nav-link <?= nav_active('about', $current_path) ?>" href="<?= $prefix ?>about.php">About Us</a></li>
+        <!-- 1. Home -->
+        <li class="nav-item">
+          <a class="nav-link <?= nav_active('home', $current_path) ?>" href="<?= $prefix ?>index.php">Home</a>
+        </li>
 
-        <!-- Services Mega Menu (5 Core Divisions) -->
+        <!-- 2. Services (Interactive Mega Menu) -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle <?= nav_active('service', $current_path) ?>" href="<?= $prefix ?>service.php"
-             id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
-          <ul class="dropdown-menu p-3" aria-labelledby="servicesDropdown">
+             id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Services <i class="fas fa-chevron-down nav-chevron"></i>
+          </a>
+          <ul class="dropdown-menu smart-services-menu p-3" aria-labelledby="servicesDropdown">
             <div class="mega-menu-grid">
-              <!-- Group 1: Technology & AI -->
+              <!-- Division 1: Technology & AI -->
               <div>
                 <h6 class="dropdown-header"><i class="fas fa-microchip me-1"></i> Technology &amp; AI</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>software-solutions/index.php"><i class="fas fa-laptop-code"></i> Software Development</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-robot"></i> AI &amp; Machine Learning</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>data-annotation-services/index.php"><i class="fas fa-tags"></i> Data Annotation</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>data-extraction-service/index.php"><i class="fas fa-database"></i> Data Extraction</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>development-services/index.php"><i class="fas fa-cloud"></i> Cloud &amp; Tech Consulting</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>software-solutions/index.php"><i class="fas fa-laptop-code text-primary"></i> Software Development</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-robot text-primary"></i> AI &amp; Machine Learning</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>data-annotation-services/index.php"><i class="fas fa-tags text-primary"></i> Data Annotation</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>data-extraction-service/index.php"><i class="fas fa-database text-primary"></i> Data Extraction</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>development-services/index.php"><i class="fas fa-cloud text-primary"></i> Cloud &amp; Consulting</a></li>
               </div>
 
-              <!-- Group 2: Healthcare -->
+              <!-- Division 2: Healthcare & RCM -->
               <div>
-                <h6 class="dropdown-header"><i class="fas fa-heartbeat me-1"></i> Healthcare</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>medical-coding-services/index.php"><i class="fas fa-file-medical"></i> Medical Coding</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>medical-billing-services/index.php"><i class="fas fa-file-invoice-dollar"></i> Medical Billing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>health-care-services/index.php"><i class="fas fa-sync-alt"></i> Revenue Cycle Mgmt</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>ar-recovery-services/index.php"><i class="fas fa-hand-holding-usd"></i> AR Recovery</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>denial-management-services/index.php"><i class="fas fa-shield-alt"></i> Denial Management</a></li>
+                <h6 class="dropdown-header"><i class="fas fa-heartbeat me-1"></i> Healthcare &amp; RCM</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>medical-coding-services/index.php"><i class="fas fa-file-medical text-danger"></i> Medical Coding</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>medical-billing-services/index.php"><i class="fas fa-file-invoice-dollar text-danger"></i> Medical Billing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>health-care-services/index.php"><i class="fas fa-sync-alt text-danger"></i> Revenue Cycle Mgmt</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>ar-recovery-services/index.php"><i class="fas fa-hand-holding-usd text-danger"></i> AR Recovery</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>denial-management-services/index.php"><i class="fas fa-shield-alt text-danger"></i> Denial Management</a></li>
               </div>
 
-              <!-- Group 3: Publishing -->
+              <!-- Division 3: Publishing & Prepress -->
               <div>
-                <h6 class="dropdown-header"><i class="fas fa-book-open me-1"></i> Publishing</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>publishing-services/index.php"><i class="fas fa-book"></i> Digital Publishing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>ebook-conversion-services/index.php"><i class="fas fa-tablet-alt"></i> eBook Conversion</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>pdf-accessibility-services/index.php"><i class="fas fa-universal-access"></i> PDF Accessibility</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>s1000d-xml-conversion-services/index.php"><i class="fas fa-code"></i> XML Conversion</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>technical-writing/index.php"><i class="fas fa-pen-nib"></i> Technical Writing</a></li>
+                <h6 class="dropdown-header"><i class="fas fa-book-open me-1"></i> Publishing &amp; Prepress</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>publishing-services/index.php"><i class="fas fa-book text-info"></i> Digital Publishing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>ebook-conversion-services/index.php"><i class="fas fa-tablet-alt text-info"></i> eBook Conversion</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>pdf-accessibility-services/index.php"><i class="fas fa-universal-access text-info"></i> PDF Accessibility</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>s1000d-xml-conversion-services/index.php"><i class="fas fa-code text-info"></i> XML Conversion</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>technical-writing/index.php"><i class="fas fa-pen-nib text-info"></i> Technical Writing</a></li>
               </div>
 
-              <!-- Group 4: Real Estate & Title -->
+              <!-- Division 4: Real Estate & Title -->
               <div>
                 <h6 class="dropdown-header"><i class="fas fa-landmark me-1"></i> Real Estate &amp; Title</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-search-location"></i> Title Search</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-home"></i> Title &amp; Settlement</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>mortgage-escrow/index.php"><i class="fas fa-file-signature"></i> Mortgage Support</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>lease-abstraction-services/index.php"><i class="fas fa-scroll"></i> Lease Abstraction</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>property-accounting-services/index.php"><i class="fas fa-calculator"></i> Property Accounting</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-search-location text-warning"></i> Title Search</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-home text-warning"></i> Title &amp; Settlement</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>mortgage-escrow/index.php"><i class="fas fa-file-signature text-warning"></i> Mortgage Support</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>lease-abstraction-services/index.php"><i class="fas fa-scroll text-warning"></i> Lease Abstraction</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>property-accounting-services/index.php"><i class="fas fa-calculator text-warning"></i> Property Accounting</a></li>
               </div>
 
-              <!-- Group 5: Business Operations -->
+              <!-- Division 5: Business Operations -->
               <div>
                 <h6 class="dropdown-header"><i class="fas fa-briefcase me-1"></i> Business Operations</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>accounting-services/index.php"><i class="fas fa-balance-scale"></i> Accounting</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>payroll-processing-services/index.php"><i class="fas fa-money-check-alt"></i> Payroll</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>manpower-payroll-services/index.php"><i class="fas fa-users-cog"></i> Manpower Supply</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>background-verification-service/index.php"><i class="fas fa-user-check"></i> Staffing &amp; Screening</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>service.php"><i class="fas fa-headset"></i> BPO &amp; Support</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>accounting-services/index.php"><i class="fas fa-balance-scale text-success"></i> Accounting</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>payroll-processing-services/index.php"><i class="fas fa-money-check-alt text-success"></i> Payroll Processing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>manpower-payroll-services/index.php"><i class="fas fa-users-cog text-success"></i> Manpower Supply</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>background-verification-service/index.php"><i class="fas fa-user-check text-success"></i> Staffing &amp; Screening</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>service.php"><i class="fas fa-headset text-success"></i> BPO Operations</a></li>
               </div>
 
               <!-- Mega Menu Footer Action Strip -->
-              <div class="pt-2 mt-3 border-top d-flex align-items-center justify-content-between flex-wrap gap-2" style="grid-column: 1 / -1; font-size:12.5px; background:#F4F5F7; padding:10px 14px; border-radius:8px;">
-                <span><i class="fas fa-layer-group text-primary me-1"></i> Enterprise Portfolio: <strong>75+ Scalable Solutions</strong> across India &amp; Global Operations</span>
-                <a href="<?= $prefix ?>service.php" class="btn btn-sm text-white px-3 fw-semibold" style="background:#252B83; font-size:11.5px; border-radius:6px;">View Full Services Directory <i class="fas fa-arrow-right ms-1"></i></a>
+              <div class="pt-2 mt-3 border-top d-flex align-items-center justify-content-between flex-wrap gap-2" style="grid-column: 1 / -1; font-size:12.5px; background:#F8FAFC; padding:10px 16px; border-radius:8px;">
+                <span><i class="fas fa-layer-group text-primary me-1"></i> Global Enterprise Portfolio: <strong>75+ Scalable Solutions</strong> across India &amp; Worldwide</span>
+                <a href="<?= $prefix ?>service.php" class="btn btn-sm text-white px-3 fw-semibold" style="background:#1C2280; font-size:11.5px; border-radius:6px;">Explore All 75+ Services <i class="fas fa-arrow-right ms-1"></i></a>
               </div>
             </div>
           </ul>
         </li>
 
-        <li class="nav-item"><a class="nav-link" href="<?= $prefix ?>index.php#ai-products">Products</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?= $prefix ?>index.php#industries">Industries</a></li>
-        <li class="nav-item"><a class="nav-link <?= nav_active('blog', $current_path) ?>" href="<?= $prefix ?>blog.php">Insights</a></li>
-        <li class="nav-item"><a class="nav-link <?= nav_active('careers', $current_path) ?>" href="<?= $prefix ?>careers.php">Careers</a></li>
-        <li class="nav-item"><a class="nav-link <?= nav_active('contact', $current_path) ?>" href="<?= $prefix ?>contact.php">Contact Us</a></li>
+        <!-- 3. Solutions (Products + Industries Smart Dropdown) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="solutionsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Solutions <i class="fas fa-chevron-down nav-chevron"></i>
+          </a>
+          <ul class="dropdown-menu smart-solutions-menu p-3" aria-labelledby="solutionsDropdown">
+            <div class="solutions-grid">
+              <!-- Left: Enterprise AI Platforms -->
+              <div>
+                <h6 class="dropdown-header"><i class="fas fa-cubes me-1"></i> Proprietary AI Platforms</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>index.php#ai-products"><i class="fas fa-id-card-alt text-primary"></i> <div><strong>VortexEXHO</strong><div class="sub-item-desc">Enterprise Workforce OS &amp; Copilot</div></div></a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>index.php#ai-products"><i class="fas fa-user-astronaut text-primary"></i> <div><strong>vortexHire</strong><div class="sub-item-desc">Autonomous AI Candidate Screening</div></div></a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>index.php#ai-products"><i class="fas fa-headset text-primary"></i> <div><strong>vortexKonnect</strong><div class="sub-item-desc">Call Center Speech &amp; Sentiment AI</div></div></a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>index.php#ai-products"><i class="fas fa-bullhorn text-primary"></i> <div><strong>Vortexreach</strong><div class="sub-item-desc">Autonomous B2B Outreach Engine</div></div></a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>publishing-services/index.php"><i class="fas fa-book-reader text-primary"></i> <div><strong>vortexsoftpublishing</strong><div class="sub-item-desc">Automated STM &amp; XML Typesetting</div></div></a></li>
+              </div>
 
-        <!-- Mobile Quote CTA inside Hamburger Menu -->
-        <li class="nav-item d-lg-none mt-3 pt-3 border-top">
-          <a href="<?= $prefix ?>contact.php" class="nav-cta w-100 justify-content-center d-flex align-items-center gap-2" style="padding:12px 20px !important;">
-            <i class="fas fa-paper-plane"></i> Get Free Quote
+              <!-- Right: Key Industry Verticals -->
+              <div>
+                <h6 class="dropdown-header"><i class="fas fa-industry me-1"></i> Key Industries Served</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>health-care-services/index.php"><i class="fas fa-hospital text-danger"></i> <div><strong>Healthcare &amp; Hospital Systems</strong><div class="sub-item-desc">Hospitals, Clinics, RCM &amp; Payers</div></div></a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-building text-warning"></i> <div><strong>Real Estate &amp; Title Settlement</strong><div class="sub-item-desc">Underwriters, Escrow &amp; Mortgages</div></div></a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>publishing-services/index.php"><i class="fas fa-newspaper text-info"></i> <div><strong>Publishing &amp; Media</strong><div class="sub-item-desc">STM Journals, eBooks &amp; Prepress</div></div></a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>accounting-services/index.php"><i class="fas fa-chart-line text-success"></i> <div><strong>BFSI &amp; Corporate Accounting</strong><div class="sub-item-desc">Statutory Tax, Audit &amp; Payroll</div></div></a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>software-solutions/index.php"><i class="fas fa-code text-primary"></i> <div><strong>Tech &amp; High-Growth Startups</strong><div class="sub-item-desc">Offshore Pods &amp; Dedicated Devs</div></div></a></li>
+              </div>
+
+              <!-- Bottom Action -->
+              <div class="pt-2 mt-2 border-top d-flex align-items-center justify-content-between" style="grid-column: 1 / -1; font-size:12px; background:#F8FAFC; padding:8px 14px; border-radius:6px;">
+                <span><i class="fas fa-award text-warning me-1"></i> Proven Track Record across 150+ Global Enterprise Engagements</span>
+                <a href="<?= $prefix ?>index.php#case-studies" class="fw-bold text-primary" style="font-size:11.5px; text-decoration:none;">View Case Studies <i class="fas fa-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </ul>
+        </li>
+
+        <!-- 4. Company (About, Insights, Compliance, Hubs) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle <?= (str_contains($current_path, 'about') || str_contains($current_path, 'blog') || str_contains($current_path, 'faq')) ? 'active' : '' ?>" href="#"
+             id="companyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Company <i class="fas fa-chevron-down nav-chevron"></i>
+          </a>
+          <ul class="dropdown-menu smart-company-menu p-2" aria-labelledby="companyDropdown">
+            <li><a class="dropdown-item" href="<?= $prefix ?>about.php"><i class="fas fa-info-circle text-primary"></i> <div><strong>About Vortexsoft</strong><div class="sub-item-desc">Mission, Leadership &amp; Global Story</div></div></a></li>
+            <li><a class="dropdown-item" href="<?= $prefix ?>blog.php"><i class="fas fa-newspaper text-info"></i> <div><strong>Insights &amp; Research</strong><div class="sub-item-desc">Tech Articles, AI Trends &amp; Whitepapers</div></div></a></li>
+            <li><a class="dropdown-item" href="<?= $prefix ?>about.php#certifications"><i class="fas fa-shield-alt text-success"></i> <div><strong>Quality &amp; Compliance</strong><div class="sub-item-desc">ISO 27001:2013 &amp; HIPAA Certified</div></div></a></li>
+            <li><a class="dropdown-item" href="<?= $prefix ?>about.php#locations"><i class="fas fa-map-marked-alt text-danger"></i> <div><strong>Global Delivery Hubs</strong><div class="sub-item-desc">Pune HQ, BLR, HYD, MUM &amp; USA</div></div></a></li>
+            <li><a class="dropdown-item" href="<?= $prefix ?>faq.php"><i class="fas fa-question-circle text-warning"></i> <div><strong>Frequently Asked Questions</strong><div class="sub-item-desc">Direct answers on SLAs &amp; models</div></div></a></li>
+          </ul>
+        </li>
+
+        <!-- 5. Careers (Standout with Vibrant Live Hiring Pill) -->
+        <li class="nav-item">
+          <a class="nav-link <?= nav_active('careers', $current_path) ?>" href="<?= $prefix ?>careers.php">
+            Careers <span class="smart-hiring-pill"><span class="pulse-dot"></span> Hiring 30+</span>
           </a>
         </li>
       </ul>
 
-      <!-- Phone Info -->
-      <div class="d-none d-xl-flex align-items-center navbar-phone-info">
-        <div>
-          <div class="pn-number"><i class="fas fa-phone-alt" style="color:#CC2228;font-size:11px;margin-right:5px;"></i><?= PHONE_INDIA ?></div>
-          <div class="pn-hours">24/7 Online Inquiry &nbsp;|&nbsp; Mon–Sat 9AM–6PM IST</div>
-        </div>
+      <!-- Smart Right-Side Actions -->
+      <div class="smart-nav-actions d-none d-lg-flex">
+        <!-- Quick Search -->
+        <button type="button" class="smart-search-btn" onclick="window.vortexOpenPalette()" aria-label="Search Services" title="Search all 75+ services (Ctrl + K)">
+          <i class="fas fa-search"></i>
+          <span class="d-none d-xl-inline">Search</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+
+        <!-- Quick Call Pill -->
+        <a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>" class="smart-call-btn" title="Call Sales &amp; Inquiries: <?= PHONE_INDIA ?>" aria-label="Call <?= PHONE_INDIA ?>">
+          <i class="fas fa-phone-alt"></i>
+          <span class="d-none d-xxl-inline"><?= PHONE_INDIA ?></span>
+        </a>
+
+        <!-- Primary CTA: Get Free Quote -->
+        <a href="<?= $prefix ?>contact.php" class="smart-quote-cta magnetic" aria-label="Get Free Project Quote">
+          <span>Get Free Quote</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
 
-      <!-- Desktop Search Trigger -->
-      <button type="button" class="nav-search-trigger d-none d-lg-inline-flex" onclick="window.vortexOpenPalette()" aria-label="Search Services">
-        <i class="fas fa-search"></i> <span>Search</span> <span class="search-kbd">Ctrl K</span>
-      </button>
-
-      <!-- CTA Button -->
-      <a href="<?= $prefix ?>contact.php" class="nav-link nav-cta ms-3 d-none d-lg-inline-flex align-items-center gap-2 magnetic">
-        <i class="fas fa-paper-plane"></i> Get Free Quote
-      </a>
+      <!-- Mobile Menu Actions inside Collapse -->
+      <div class="d-lg-none mt-3 pt-3 border-top">
+        <div class="d-flex flex-column gap-2">
+          <a href="<?= $prefix ?>contact.php" class="btn btn-primary w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2" style="background:#1C2280; border-color:#1C2280; border-radius:10px;">
+            <i class="fas fa-paper-plane"></i> Get Free Quote
+          </a>
+          <a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>" class="btn btn-outline-secondary w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" style="border-radius:10px;">
+            <i class="fas fa-phone-alt text-danger"></i> Call: <?= PHONE_INDIA ?>
+          </a>
+          <a href="https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%20Team" target="_blank" class="btn btn-outline-success w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" style="border-radius:10px;">
+            <i class="fab fa-whatsapp"></i> WhatsApp Support
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
