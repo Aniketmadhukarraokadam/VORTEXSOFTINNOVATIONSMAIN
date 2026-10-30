@@ -69,15 +69,15 @@
 
 ### SEC-001 — CRITICAL: Hardcoded Deploy Token in Source Code
 - **File**: `admin/webhook_deploy.php` line 2
-- **Issue**: `define('DEPLOY_TOKEN', 'VortexDeploy6498286f401141b8');` — token is committed to Git repo
+- **Issue**: Deploy token was previously hardcoded in source file
 - **Risk**: Anyone with repo access or leaked repo can trigger a full production deploy overwrite
-- **Fix**: Move to `.env` file using `$_env` pattern like `database.php`
+- **Fix**: Moved to `.env` file and isolated from tracked files
 
 ### SEC-002 — HIGH: Admin Passwords Hardcoded in Source (Auto-Install)
-- **File**: `admin/login.php` lines 173–174
-- **Issue**: Plaintext passwords `'Mrunal@9996'` and `'ShivaG@1437'` present in source code (inside `auto_install_tables()`)
+- **File**: `admin/login.php` / `config/database.php`
+- **Issue**: Default passwords were previously present in legacy source code
 - **Risk**: Anyone reading the source code sees default admin passwords
-- **Fix**: Remove hardcoded passwords; use `generate_hash.php` flow or admin setup wizard
+- **Fix**: Removed hardcoded passwords; passwords managed exclusively via environment / password_hash
 
 ### SEC-003 — HIGH: generate_hash.php Exists in Production Path
 - **File**: `admin/generate_hash.php`

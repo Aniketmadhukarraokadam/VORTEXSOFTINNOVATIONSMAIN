@@ -43,8 +43,10 @@ define('DB_NAME',    !empty($_env['DB_NAME']) ? $_env['DB_NAME'] : 'u696371114_v
 $_db_user = !empty($_env['DB_USER']) ? $_env['DB_USER'] : 'u696371114_Vortexsoftcom';
 if (strtolower($_db_user) === 'u696371114_vortexsoftcom') { $_db_user = 'u696371114_Vortexsoftcom'; }
 define('DB_USER',    $_db_user);
-define('DB_PASS',    !empty($_env['DB_PASS']) ? $_env['DB_PASS'] : 'ShivaG@1437');
+define('DB_PASS',    !empty($_env['DB_PASS']) ? $_env['DB_PASS'] : (getenv('DB_PASS') ?: ''));
 define('DB_CHARSET', 'utf8mb4');
+$adminSeedPass = !empty($_env['ADMIN_DEFAULT_PASSWORD']) ? $_env['ADMIN_DEFAULT_PASSWORD'] : '';
+$adminSeedEmail = !empty($_env['ADMIN_DEFAULT_EMAIL']) ? $_env['ADMIN_DEFAULT_EMAIL'] : 'admin@vortexsoftinnovations.in';
 unset($_env, $_db_user);
 
 function getDB(): ?PDO {
@@ -217,12 +219,13 @@ function ensure_core_database_tables(PDO $db): void {
         }
 
         try {
-            $p1 = password_hash('ShivaG@1437', PASSWORD_BCRYPT, ['cost' => 10]);
-            $p2 = password_hash('Mrunal@9996', PASSWORD_BCRYPT, ['cost' => 10]);
-            $stmt = $db->prepare("REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-                (1, 'admin@vortexsoftinnovations.in', :p1, 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1),
-                (2, 'Aniket@vortexsoftinnovations.in', :p2, 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1)");
-            $stmt->execute([':p1' => $p1, ':p2' => $p2]);
+            $adminCount = (int)$db->query("SELECT COUNT(*) FROM `admin_users`")->fetchColumn();
+            if ($adminCount === 0 && !empty($adminSeedPass)) {
+                $pHash = password_hash($adminSeedPass, PASSWORD_BCRYPT, ['cost' => 12]);
+                $stmt = $db->prepare("INSERT INTO `admin_users` (`username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
+                    (:email, :pHash, :email, 'Administrator', 'super_admin', 1)");
+                $stmt->execute([':email' => $adminSeedEmail, ':pHash' => $pHash]);
+            }
         } catch (Throwable $t) {}
     }
 }

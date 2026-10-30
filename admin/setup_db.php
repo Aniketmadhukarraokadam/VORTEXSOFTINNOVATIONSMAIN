@@ -14,9 +14,9 @@ header('Content-Type: text/html; charset=utf-8');
 // ── Security Guard: Restrict access to authenticated Super Admin ──────
 $is_super_admin = (!empty($_SESSION[ADMIN_SESSION]) && (($_SESSION['vortex_admin_role'] ?? $_SESSION['admin_role'] ?? '') === 'super_admin'));
 $setup_key = $_GET['setup_key'] ?? '';
-$valid_setup_key = defined('SETUP_KEY') ? SETUP_KEY : 'VortexSetup2026SecureAdminKey';
+$valid_setup_key = defined('SETUP_KEY') ? SETUP_KEY : (getenv('SETUP_KEY') ?: '');
 
-if (!$is_super_admin && !hash_equals($valid_setup_key, $setup_key)) {
+if (!$is_super_admin && (empty($valid_setup_key) || !hash_equals($valid_setup_key, $setup_key))) {
     http_response_code(403);
     die("
     <!DOCTYPE html>
@@ -28,7 +28,14 @@ if (!$is_super_admin && !hash_equals($valid_setup_key, $setup_key)) {
 // 1. Update webhook_deploy.php on server
 $webhookCode = <<<'PHP'
 <?php
-define('DEPLOY_TOKEN', 'VortexDeploy6498286f401141b8');
+// Load DEPLOY_TOKEN from config/.env
+$envFile = dirname(__DIR__) . '/config/.env';
+$envToken = '';
+if (file_exists($envFile)) {
+    $parsed = @parse_ini_file($envFile);
+    if (!empty($parsed['DEPLOY_TOKEN'])) $envToken = $parsed['DEPLOY_TOKEN'];
+}
+define('DEPLOY_TOKEN', $envToken ?: (getenv('DEPLOY_TOKEN') ?: ''));
 define('GITHUB_USER',   'Aniketmadhukarraokadam');
 define('GITHUB_REPO',   'VORTEXSOFTINNOVATIONSMAIN');
 define('GITHUB_BRANCH', 'main');
@@ -36,8 +43,16 @@ define('PUBLIC_HTML',   dirname(__DIR__));
 
 header('Content-Type: application/json');
 
+if (empty(DEPLOY_TOKEN)) {
+    http_response_code(503);
+    die(json_encode(['error' => 'DEPLOY_TOKEN not configured in environment.']));
+}
+
 $receivedToken = $_SERVER['HTTP_X_DEPLOY_TOKEN'] ?? $_GET['token'] ?? '';
 if (!hash_equals(DEPLOY_TOKEN, $receivedToken)) {
+    http_response_code(403);
+    die(json_encode(['error' => 'Unauthorized']));
+}
     http_response_code(403);
     die(json_encode(['error' => 'Unauthorized']));
 }
@@ -396,8 +411,9 @@ foreach ($queries as $q) {
 
 try {
     $existingAdminCount = (int)$db->query("SELECT COUNT(*) FROM `admin_users`")->fetchColumn();
-    if ($existingAdminCount === 0) {
-        $p1 = password_hash('Admin@Vortex2026!', PASSWORD_BCRYPT, ['cost' => 10]);
+    $envSeedPass = !empty($_env['ADMIN_DEFAULT_PASSWORD']) ? $_env['ADMIN_DEFAULT_PASSWORD'] : (getenv('ADMIN_DEFAULT_PASSWORD') ?: '');
+    if ($existingAdminCount === 0 && !empty($envSeedPass)) {
+        $p1 = password_hash($envSeedPass, PASSWORD_BCRYPT, ['cost' => 12]);
         $stmt = $db->prepare("INSERT INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
             (1, 'admin@vortexsoftinnovations.in', :p1, 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1)");
         $stmt->execute([':p1' => $p1]);
@@ -545,9 +561,9 @@ try {
         <p>All database tables and auto-deploy webhook scripts are ready on Hostinger database <code>u696371114_vortexsoftcom</code>.</p>
 
         <div class="info-box">
-            <div><strong>Super Admin:</strong> <code>admin@vortexsoftinnovations.in</code> | Pass: <code>Mrunal@9996</code></div>
-            <div><strong>Admin:</strong> <code>Aniket@vortexsoftinnovations.in</code> | Pass: <code>ShivaG@1437</code></div>
-            <div><strong>Auto-Deploy Webhook:</strong> <code>Active ✅</code></div>
+            <div><strong>Super Admin:</strong> <code>admin@vortexsoftinnovations.in</code> (Configured in Database / .env)</div>
+            <div><strong>Admin:</strong> <code>Aniket@vortexsoftinnovations.in</code> (Configured in Database / .env)</div>
+            <div><strong>Auto-Deploy Webhook:</strong> <code>Active ✅ (Protected via DEPLOY_TOKEN)</code></div>
         </div>
 
         <a href="/admin/login.php" class="btn">Go to Admin Login →</a>

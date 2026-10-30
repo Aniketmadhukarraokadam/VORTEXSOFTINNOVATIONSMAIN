@@ -181,10 +181,9 @@ CREATE TABLE IF NOT EXISTS `ai_generation_logs` (
 -- 8. SEED INITIAL DATA
 -- ────────────────────────────────────────────────────────────
 
--- Admin Accounts
-REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
-(1, 'admin@vortexsoftinnovations.in', '$2y$12$8IpMP6IJeshSPurTe5.baubMZF5rGtkdX4KDIAWiwN6tSSGiwR5SW', 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1),
-(2, 'Aniket@vortexsoftinnovations.in', '$2y$12$AmQgvWVp/eQKMCnDzD3TK.a.0GwTVdoRcE4rS6i0VnA9cAWdP5Xta', 'Aniket@vortexsoftinnovations.in', 'Aniket Kadam', 'admin', 1);
+-- Admin Accounts (Initial bootstrap template - configure credentials via .env and setup_db.php)
+-- INSERT IGNORE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
+-- (1, 'admin@vortexsoftinnovations.in', '[REPLACE_WITH_BCRYPT_HASH]', 'admin@vortexsoftinnovations.in', 'Super Admin', 'super_admin', 1);
 
 -- Default Settings
 REPLACE INTO `system_settings` (`setting_key`, `setting_value`) VALUES

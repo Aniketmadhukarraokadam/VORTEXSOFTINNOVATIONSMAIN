@@ -7,21 +7,22 @@ VORTEXSOFT WEBSITE COMPREHENSIVE OVERVIEW
 MySQL Database: u696371114_vortexsoftcom
 MySQL User:     u696371114_vortexsoftcom
 MySQL Host:     localhost
-MySQL Password: ShivaG@1437
+MySQL Password: [SECURE_ENV_VARIABLE_DB_PASS]
 
 Admin Credentials:
 1. Super Admin:
    - Username/Email: admin@vortexsoftinnovations.in
-   - Password:       Mrunal@9996
+   - Password:       [CONFIGURED_IN_ENV_OR_ROTATED]
    - Role:           super_admin
 2. Admin:
    - Username/Email: Aniket@vortexsoftinnovations.in
-   - Password:       ShivaG@1437
+   - Password:       [CONFIGURED_IN_ENV_OR_ROTATED]
    - Role:           admin
 
 FTP Access Details:
 - Hostname:  ftp.vortexsoftinnovations.com (IP: 82.180.143.14)
 - Username:  u696371114.vortexsoftinnovations.com
+- Password:  [CONFIGURED_IN_ENV_FTP_PASS]
 - Port:      21
 - Directory: public_html
 

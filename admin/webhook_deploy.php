@@ -6,13 +6,18 @@ if (file_exists($envFile)) {
     $parsed = @parse_ini_file($envFile);
     if (!empty($parsed['DEPLOY_TOKEN'])) $envToken = $parsed['DEPLOY_TOKEN'];
 }
-define('DEPLOY_TOKEN', $envToken ?: 'VortexDeploy6498286f401141b8');
+define('DEPLOY_TOKEN', $envToken ?: (getenv('DEPLOY_TOKEN') ?: ''));
 define('GITHUB_USER',   'Aniketmadhukarraokadam');
 define('GITHUB_REPO',   'VORTEXSOFTINNOVATIONSMAIN');
 define('GITHUB_BRANCH', 'main');
 define('PUBLIC_HTML',   dirname(__DIR__));
 
 header('Content-Type: application/json');
+
+if (empty(DEPLOY_TOKEN)) {
+    http_response_code(503);
+    die(json_encode(['error' => 'DEPLOY_TOKEN not configured in environment.']));
+}
 
 $receivedToken = $_SERVER['HTTP_X_DEPLOY_TOKEN'] ?? $_GET['token'] ?? '';
 if (!hash_equals(DEPLOY_TOKEN, $receivedToken)) {

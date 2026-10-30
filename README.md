@@ -160,7 +160,7 @@ VORTEXSOFTINNOVATIONSMAIN/
    - Import `database/setup.sql`.
 3. **Admin Password Setup**:
    - Open `https://vortexsoftinnovations.com/admin/generate_hash.php`.
-   - Enter your password (e.g. `ShivaG@1437`), click **Generate**.
+   - Enter your secure corporate password, click **Generate**.
    - Copy the generated SQL query, run it in phpMyAdmin, and **delete** `generate_hash.php`.
 
 ---

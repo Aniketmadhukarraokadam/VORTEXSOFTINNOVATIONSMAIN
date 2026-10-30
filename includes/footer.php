@@ -88,123 +88,115 @@ $prefix = $prefix ?? './';
   <div class="container">
     <div class="row gy-5">
 
-      <!-- Brand Column -->
+      <!-- Col 1: Brand & Credentials -->
       <div class="col-lg-3 col-md-6 scroll-reveal">
         <a href="<?= $prefix ?>index.php">
           <picture>
             <source srcset="<?= $prefix ?>logo-footer.webp?v=20261008" type="image/webp">
-            <img src="<?= $prefix ?>logo-footer.png?v=20261008" alt="Vortexsoft Innovations" class="footer-logo" width="200" height="55" loading="lazy" decoding="async">
+            <img src="<?= $prefix ?>logo-footer.png?v=20261008" alt="Vortexsoft Innovations Private Limited" class="footer-logo" width="200" height="55" loading="lazy" decoding="async">
           </picture>
         </a>
 
-        <p class="footer-desc" style="color:#e2e8f0 !important;font-size:14.5px;line-height:1.8;margin-bottom:20px;">
+        <p class="footer-desc" style="color:#e2e8f0 !important;font-size:14px;line-height:1.75;margin-bottom:18px;">
           <strong style="color:#ffffff !important;font-weight:700;">Vortexsoft Innovations Private Limited</strong>
-          <span style="color:#e2e8f0 !important;">is an ISO 27001:2013 certified and HIPAA-compliant global IT and BPO outsourcing partner headquartered in Pune with advanced tech delivery in Bengaluru and a corporate presence in Wyoming, USA. Empowering 150+ international clients across AI Software, Healthcare RCM, Publishing, Data Annotation, and Enterprise BPO.</span>
+          <span style="color:#cbd5e1 !important;">is an ISO 27001:2013 certified and HIPAA-compliant global technology, AI solutions, and specialized business process outsourcing partner serving enterprises worldwide.</span>
         </p>
         <div class="d-flex gap-2 flex-wrap mt-2 mb-3" style="font-size:11px;color:#f8fafc;font-weight:600;">
-          <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:4px 9px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);"><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001:2013</span>
-          <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:4px 9px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);"><i class="fas fa-user-md text-info me-1"></i> HIPAA Compliant</span>
-          <span style="background:rgba(255,255,255,0.12);color:#ffffff;padding:4px 9px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);"><i class="fas fa-award text-warning me-1"></i> Startup India</span>
+          <span style="background:rgba(255,255,255,0.1);color:#ffffff;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.16);"><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001</span>
+          <span style="background:rgba(255,255,255,0.1);color:#ffffff;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.16);"><i class="fas fa-user-md text-info me-1"></i> HIPAA</span>
+          <span style="background:rgba(255,255,255,0.1);color:#ffffff;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.16);"><i class="fas fa-award text-warning me-1"></i> Startup India</span>
         </div>
         <div class="footer-social">
           <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.2);"><i class="fab fa-facebook-f" style="color:#fff;"></i></a>
           <a href="<?= SOCIAL_INSTAGRAM ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.2);"><i class="fab fa-instagram" style="color:#fff;"></i></a>
           <a href="<?= SOCIAL_LINKEDIN ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.2);"><i class="fab fa-linkedin-in" style="color:#fff;"></i></a>
         </div>
-
       </div>
 
-      <!-- Quick Links -->
-      <div class="col-lg-2 col-md-6 scroll-reveal" style="transition-delay:0.1s">
-        <h6 class="footer-title">Quick Links</h6>
+      <!-- Col 2: Company & Resources -->
+      <div class="col-lg-2 col-md-4 col-6 scroll-reveal" style="transition-delay:0.1s">
+        <h6 class="footer-title">Company</h6>
         <ul class="footer-links">
-          <li><a href="<?= $prefix ?>index.php">Home</a></li>
           <li><a href="<?= $prefix ?>about.php">About Us</a></li>
-          <li><a href="<?= $prefix ?>service.php">Services</a></li>
+          <li><a href="<?= $prefix ?>about.php#leadership">Leadership</a></li>
+          <li><a href="<?= $prefix ?>contact.php#locations">Our Locations</a></li>
           <li><a href="<?= $prefix ?>careers.php">Careers</a></li>
-          <li><a href="<?= $prefix ?>blog.php">Blog</a></li>
-          <li><a href="<?= $prefix ?>faq.php">FAQ</a></li>
-          <li><a href="<?= $prefix ?>privacy.php">Privacy Policy</a></li>
-          <li><a href="<?= $prefix ?>terms.php">Terms of Service</a></li>
-          <li><a href="<?= $prefix ?>contact.php">Contact</a></li>
+          <li><a href="<?= $prefix ?>blog.php">Insights &amp; Blog</a></li>
+          <li><a href="<?= $prefix ?>faq.php">FAQs</a></li>
+          <li><a href="<?= $prefix ?>contact.php">Contact Us</a></li>
         </ul>
       </div>
 
-      <!-- Our Services -->
-      <div class="col-lg-3 col-md-6 scroll-reveal" style="transition-delay:0.2s">
-        <h6 class="footer-title">Our Services</h6>
+      <!-- Col 3: Services -->
+      <div class="col-lg-2 col-md-4 col-6 scroll-reveal" style="transition-delay:0.15s">
+        <h6 class="footer-title">Services</h6>
         <ul class="footer-links">
-          <li><a href="<?= $prefix ?>index.php#ai-products" style="color:#ff8585;font-weight:700;"><i class="fas fa-users-cog me-1"></i> HR &amp; Payroll Software <span class="badge bg-danger ms-1" style="font-size:9px;">vortexsofthrms</span></a></li>
-          <li><a href="<?= $prefix ?>software-solutions/index.php">Software Solutions</a></li>
-          <li><a href="<?= $prefix ?>publishing-services/index.php">Publishing Services</a></li>
-          <li><a href="<?= $prefix ?>health-care-services/index.php">Health Care Services</a></li>
-          <li><a href="<?= $prefix ?>real-estate-services/index.php">Real Estate Services</a></li>
+          <li><a href="<?= $prefix ?>software-solutions/index.php">IT &amp; Software</a></li>
+          <li><a href="<?= $prefix ?>health-care-services/index.php">Healthcare RCM</a></li>
+          <li><a href="<?= $prefix ?>publishing-services/index.php">Digital Publishing</a></li>
+          <li><a href="<?= $prefix ?>title-settlement/index.php">Real Estate &amp; Title</a></li>
+          <li><a href="<?= $prefix ?>data-annotation-services/index.php">AI &amp; Data Annotation</a></li>
           <li><a href="<?= $prefix ?>accounting-services/index.php">Accounting Services</a></li>
-          <li><a href="<?= $prefix ?>manpower-payroll-services/index.php">Manpower &amp; Payroll</a></li>
-          <li><a href="<?= $prefix ?>digital-marketing-service/index.php">Digital Marketing</a></li>
-          <li><a href="<?= $prefix ?>data-annotation-services/index.php">Data Annotation</a></li>
-          <li><a href="<?= $prefix ?>title-settlement/index.php">Title &amp; Settlement</a></li>
+          <li><a href="<?= $prefix ?>manpower-payroll-services/index.php">Staffing &amp; Payroll</a></li>
         </ul>
-
-
       </div>
 
-      <!-- Contact Info -->
-      <div class="col-lg-4 col-md-6 scroll-reveal" style="transition-delay:0.3s">
-        <h6 class="footer-title">Headquarters &amp; Offices</h6>
+      <!-- Col 4: Products -->
+      <div class="col-lg-2 col-md-4 col-6 scroll-reveal" style="transition-delay:0.2s">
+        <h6 class="footer-title">Platforms</h6>
+        <ul class="footer-links">
+          <li><a href="<?= $prefix ?>index.php#ai-products" style="color:#ff8585 !important;font-weight:600;"><i class="fas fa-microchip me-1"></i> vortexsofthrms</a></li>
+          <li><a href="<?= $prefix ?>index.php#ai-products">vortexHire</a></li>
+          <li><a href="<?= $prefix ?>index.php#ai-products">vortexKonnect</a></li>
+          <li><a href="<?= $prefix ?>index.php#ai-products">Vortexreach</a></li>
+          <li><a href="<?= $prefix ?>index.php#ai-products">vortexsoftpublishing</a></li>
+          <li><a href="<?= $prefix ?>service.php#ai-automation">All AI Solutions</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 5: Contact & Offices -->
+      <div class="col-lg-3 col-md-8 col-12 scroll-reveal" style="transition-delay:0.25s">
+        <h6 class="footer-title">Global Offices</h6>
         <!-- Highlighted Pune HQ -->
-        <div class="footer-contact-item" style="background:rgba(204,34,40,0.12);padding:10px 14px;border-radius:10px;border:1px solid rgba(204,34,40,0.3);margin-bottom:12px;">
-          <i class="fas fa-building" style="color:#ff6b6b;flex-shrink:0;margin-top:3px;font-size:16px;"></i>
+        <div class="footer-contact-item" style="background:rgba(227,30,37,0.10);padding:8px 12px;border-radius:8px;border:1px solid rgba(227,30,37,0.25);margin-bottom:10px;">
+          <i class="fas fa-building" style="color:#ff6b6b;flex-shrink:0;margin-top:3px;font-size:14px;"></i>
           <span>
-            <a href="https://share.google/XKt2SVYsKfiNqrVGx" target="_blank" style="color:#fff;font-weight:800;display:block;text-decoration:none;font-size:14px;">
-              <span class="badge me-1" style="background:#CC2228;color:#fff;font-size:10px;padding:3px 7px;vertical-align:middle;">HEAD OFFICE</span> Pune Headquarters <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.8;"></i>
+            <a href="https://share.google/XKt2SVYsKfiNqrVGx" target="_blank" rel="noopener noreferrer" style="color:#fff;font-weight:700;display:block;text-decoration:none;font-size:13px;">
+              <span class="badge me-1" style="background:#E31E25;color:#fff;font-size:9px;padding:2px 6px;">HEAD OFFICE</span> Pune HQ <i class="fas fa-external-link-alt" style="font-size:9px;opacity:0.8;"></i>
             </a>
-            502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune, Maharashtra 411041
+            <small style="color:#cbd5e1;font-size:12px;">502, 4th Flr, Dangat Patil Empire, Vadgaon Budruk, Pune 411041</small>
           </span>
         </div>
         <!-- Secondary Bengaluru Branch -->
-        <div class="footer-contact-item" style="margin-bottom:10px;">
-          <i class="fas fa-map-marker-alt" style="color:#5BA8D4;flex-shrink:0;margin-top:3px;"></i>
+        <div class="footer-contact-item" style="margin-bottom:8px;">
+          <i class="fas fa-map-marker-alt" style="color:#5BA8D4;flex-shrink:0;margin-top:3px;font-size:13px;"></i>
           <span>
-            <a href="https://www.google.com/maps/search/?api=1&query=Second+floor+No.125+Ranganath+Complex+Madiwala+HSR+Layout+Bengaluru+560068" target="_blank" style="color:#ffffff;font-weight:700;display:block;text-decoration:none;font-size:13.5px;">Bengaluru Branch Office <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.8;"></i></a>
-            <span style="color:#e2e8f0;">No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068</span>
+            <strong style="color:#ffffff;font-size:12.5px;display:block;">Bengaluru Branch</strong>
+            <small style="color:#cbd5e1;font-size:12px;">No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068</small>
           </span>
         </div>
         <!-- USA Office -->
-        <div class="footer-contact-item" style="margin-bottom:10px;">
-          <i class="fas fa-globe-americas" style="color:#5BA8D4;flex-shrink:0;margin-top:3px;"></i>
+        <div class="footer-contact-item" style="margin-bottom:8px;">
+          <i class="fas fa-globe-americas" style="color:#5BA8D4;flex-shrink:0;margin-top:3px;font-size:13px;"></i>
           <span>
-            <a href="https://maps.google.com/?cid=4698826826648482061" target="_blank" style="color:#ffffff;font-weight:700;display:block;text-decoration:none;font-size:13.5px;">USA Office <i class="fas fa-external-link-alt" style="font-size:10px;opacity:0.8;"></i></a>
-            <span style="color:#e2e8f0;">30 N Gould St Ste 100, Sheridan, WY 82801, USA</span>
+            <strong style="color:#ffffff;font-size:12.5px;display:block;">USA Corporate Office</strong>
+            <small style="color:#cbd5e1;font-size:12px;">30 N Gould St Ste 100, Sheridan, WY 82801, USA</small>
           </span>
         </div>
         <div class="footer-contact-item mt-2">
-          <i class="fas fa-envelope" style="color:#ff6b6b;"></i>
-          <span>
-            <a href="mailto:support@vortexsoftinnovations.com" style="color:#ffffff;font-weight:600;">support@vortexsoftinnovations.com</a>
-          </span>
+          <i class="fas fa-envelope" style="color:#E31E25;font-size:13px;"></i>
+          <span><a href="mailto:support@vortexsoftinnovations.com" style="color:#ffffff;font-weight:600;font-size:13px;">support@vortexsoftinnovations.com</a></span>
         </div>
         <div class="footer-contact-item">
-          <i class="fas fa-phone-alt" style="color:#ff6b6b;"></i>
-          <span>
-            <a href="tel:+918308906690" style="color:#ffffff;font-weight:600;"><?= PHONE_INDIA ?></a>
-          </span>
+          <i class="fas fa-phone-alt" style="color:#E31E25;font-size:13px;"></i>
+          <span><a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>" style="color:#ffffff;font-weight:600;font-size:13px;"><?= PHONE_INDIA ?></a></span>
         </div>
-        <div class="footer-contact-item">
-          <i class="fas fa-clock" style="color:#10b981;"></i>
-          <span>
-            <strong style="color:#10b981;">24/7 Digital Inquiries &amp; Support</strong><br>
-            <small style="color:#cbd5e1;">Physical Office: Mon–Sat, 9 AM – 6 PM IST</small>
-          </span>
-        </div>
-
 
         <!-- Newsletter Form -->
-        <div class="mt-4">
-          <h6 class="footer-title" style="border:none;padding:0;margin-bottom:12px;">Stay Updated</h6>
+        <div class="mt-3">
           <form id="newsletter-form" class="d-flex gap-2" onsubmit="submitNewsletter(event)">
-            <input type="email" name="email" id="nl-email" class="form-control" placeholder="Your email address" required style="background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.15);color:#fff;border-radius:8px;">
-            <button type="submit" class="btn" style="background:var(--accent);color:#fff;border-radius:8px;padding:8px 16px;white-space:nowrap;font-size:13px;font-weight:600;">Subscribe</button>
+            <input type="email" name="email" id="nl-email" class="form-control form-control-sm" placeholder="Your business email" required style="background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.15);color:#fff;border-radius:6px;font-size:12px;">
+            <button type="submit" class="btn btn-sm" style="background:#252B83;color:#fff;border-radius:6px;padding:6px 14px;white-space:nowrap;font-size:12px;font-weight:600;">Subscribe</button>
           </form>
           <div id="nl-msg" class="mt-2" style="font-size:12px;display:none;"></div>
         </div>

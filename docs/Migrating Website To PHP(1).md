@@ -245,7 +245,7 @@ Still to build: `about.php`, `service.php`, `privacy.php`, `404.php`, and `admin
 
 ### User Input
 
-What is the MySQL password for user u696371114_adminvortex? = ShivaG@1437
+What is the MySQL password for user u696371114_adminvortex? = [REDACTED_PASSWORD]
 Should HTML files be kept alongside the new PHP files, or replaced entirely? replace entire
 Admin dashboard needed? Do you want a backend admin panel (/admin) to manage contacts, job applications, and blog posts? yes want 
 Blog content — Should blog posts come from the database (editable), or keep the static blog.html? yes keep static
@@ -284,7 +284,7 @@ All conversion work is **100% complete**! Your static website has been fully con
 |------|-------|
 | **MySQL Database** | `u696371114_adminvortex` |
 | **MySQL User** | `u696371114_adminvortex` |
-| **MySQL Password** | `ShivaG@1437` *(updated in `config/database.php`)* |
+| **MySQL Password** | `[REDACTED_PASSWORD]` *(updated in `config/database.php`)* |
 | **HR Notification Email** | `careers@vortexsoftinnovations.in` *(updated in `config/constants.php`)* |
 | **Support Email** | `support@vortexsoftinnovations.com` |
 | **Admin Panel URL** | `https://vortexsoftinnovations.com/admin/login.php` |
@@ -337,7 +337,7 @@ VORTEXSOFTINNOVATIONSMAIN/
 
 2. **Set Admin Password**:
    - Visit `https://vortexsoftinnovations.com/admin/generate_hash.php` in your browser.
-   - Enter your admin password (e.g. `ShivaG@1437`), click **Generate**.
+   - Enter your admin password (e.g. `[REDACTED_PASSWORD]`), click **Generate**.
    - Copy the SQL query generated and run it in phpMyAdmin to set your password.
    - **Delete** `admin/generate_hash.php` after use for security.
 
@@ -1055,7 +1055,7 @@ All Quality Control (QC) checks, performance accelerations, security hardening, 
 | **Upload Security** | Secured `uploads/resumes/` with `.htaccess` to block arbitrary script execution | ✅ **Secured** |
 | **Admin Panel & Auth** | Tested `/admin/login.php`, `dashboard.php`, `contacts.php`, `applications.php`, `blog-posts.php` | ✅ **Protected & Verified** |
 | **SEO, AEO & GEO** | Verified Meta Tags, 14 AEO Q&As, `FAQPage` JSON-LD, 4K Logos, and multi-location schemas | ✅ **Verified** |
-| **Database Connection** | Configured for Hostinger MySQL (`u696371114_adminvortex` with password `ShivaG@1437`) | ✅ **Configured** |
+| **Database Connection** | Configured for Hostinger MySQL (`u696371114_adminvortex` with password `[REDACTED_PASSWORD]`) | ✅ **Configured** |
 
 ---
 
@@ -1073,7 +1073,7 @@ Your project is ready to deploy directly to Hostinger! Follow these 3 simple ste
 
 3. **Set Admin Password**:
    - Open `https://vortexsoftinnovations.com/admin/generate_hash.php` in your browser.
-   - Enter your preferred admin password (e.g., `ShivaG@1437`) and click **Generate**.
+   - Enter your preferred admin password (e.g., `[REDACTED_PASSWORD]`) and click **Generate**.
    - Copy the generated SQL statement, run it in phpMyAdmin to set your admin password, and **delete** `admin/generate_hash.php` after use.
 
 ### User Input
@@ -1189,7 +1189,7 @@ when i am clicking this link in brozer 403 error is coming
 
 *Viewed [.htaccess](file:///c:/Users/kadam/OneDrive/Documents/VORTEXSOFTINNOVATIONSMAIN-main/.htaccess) *
 
-*User accepted the command `C:\Users\kadam\php\php.exe -r "echo password_hash('ShivaG@1437', PASSWORD_BCRYPT);"`*
+*User accepted the command `C:\Users\kadam\php\php.exe -r "echo password_hash('[REDACTED_PASSWORD]', PASSWORD_BCRYPT);"`*
 
 *Edited relevant file*
 
@@ -1222,7 +1222,7 @@ You can set your admin password immediately in **phpMyAdmin** without opening an
 4. Click **Go**.
 5. Log in immediately at **`https://vortexsoftinnovations.com/admin/login.php`**:
    - **Username**: `admin`
-   - **Password**: `ShivaG@1437`
+   - **Password**: `[REDACTED_PASSWORD]`
 
 ---
 
@@ -1284,9 +1284,9 @@ REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_na
 Go to: **`https://vortexsoftinnovations.com/admin/login.php`**
 
 - **Username**: `admin`
-- **Password**: `ShivaG@1437`
+- **Password**: `[REDACTED_PASSWORD]`
 
-This creates the table if missing and creates/resets the `admin` account with your password `ShivaG@1437`.
+This creates the table if missing and creates/resets the `admin` account with your password `[REDACTED_PASSWORD]`.
 
 ### User Input
 
@@ -1294,7 +1294,7 @@ i want to reset sql thing in hostinger
 
 ### Planner Response
 
-Here is the **Complete Hostinger Database Reset Script**. Running this will wipe clean any partial setup and build a fresh, 100% working database with your admin account (`admin` / `ShivaG@1437`) ready immediately.
+Here is the **Complete Hostinger Database Reset Script**. Running this will wipe clean any partial setup and build a fresh, 100% working database with your admin account (`admin` / `[REDACTED_PASSWORD]`) ready immediately.
 
 ---
 
@@ -1434,7 +1434,7 @@ CREATE TABLE `admin_users` (
   UNIQUE KEY `uk_email`    (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 7. CREATE DEFAULT ADMIN USER (Username: admin | Password: ShivaG@1437)
+-- 7. CREATE DEFAULT ADMIN USER (Username: admin | Password: [REDACTED_PASSWORD])
 INSERT INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
 (1, 'admin', '$2y$10$Y0XP/OdpmbuvJ9a5wy1psOn3OUVhtz37EEEtRFLoH6lGgXMlAdULe', 'careers@vortexsoftinnovations.in', 'Vortexsoft Admin', 'super_admin', 1);
 
@@ -1461,7 +1461,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 Go to: **`https://vortexsoftinnovations.com/admin/login.php`**
 - **Username**: `admin`
-- **Password**: `ShivaG@1437`
+- **Password**: `[REDACTED_PASSWORD]`
 
 ### User Input
 
@@ -1491,14 +1491,14 @@ do chnages and give me from start i will reupload website code again
 *Edited relevant file*
 
 *User accepted the command `git add .
-git commit -m "Embed exact working admin password hash for ShivaG@1437 into database/setup.sql"
+git commit -m "Embed exact working admin password hash for [REDACTED_PASSWORD] into database/setup.sql"
 git push origin main`*
 
 ### Planner Response
 
 ### 🚀 Fresh Out-Of-The-Box Deployment Guide
 
-Everything has been updated and pushed to your GitHub repository (**`main`** branch). `database/setup.sql` now has the password **`ShivaG@1437`** pre-configured out-of-the-box!
+Everything has been updated and pushed to your GitHub repository (**`main`** branch). `database/setup.sql` now has the password **`[REDACTED_PASSWORD]`** pre-configured out-of-the-box!
 
 Follow these 3 simple steps to set up your fresh database and website from scratch:
 
@@ -1521,7 +1521,7 @@ Upload your project files (or download the latest code from your GitHub reposito
    - Click **Choose File** and select `database/setup.sql` from your code files.
    - Scroll down and click **Go**.
 
-> *That's it! `database/setup.sql` creates all 5 tables (`contact_inquiries`, `job_applications`, `blog_posts`, `newsletter_subscribers`, `admin_users`) and inserts the `admin` account with password `ShivaG@1437` automatically.*
+> *That's it! `database/setup.sql` creates all 5 tables (`contact_inquiries`, `job_applications`, `blog_posts`, `newsletter_subscribers`, `admin_users`) and inserts the `admin` account with password `[REDACTED_PASSWORD]` automatically.*
 
 ---
 
@@ -1530,7 +1530,7 @@ Upload your project files (or download the latest code from your GitHub reposito
 1. **Live Website**: Visit **`https://vortexsoftinnovations.com`**
 2. **Admin Panel**: Visit **`https://vortexsoftinnovations.com/admin/login.php`**
    - **Username**: `admin`
-   - **Password**: `ShivaG@1437`
+   - **Password**: `[REDACTED_PASSWORD]`
 
 ### User Input
 
@@ -1615,7 +1615,7 @@ Now that your site and database are live on Hostinger, run these **4 quick check
 - Visit **`https://vortexsoftinnovations.com/admin/login.php`**
 - Log in with:
   - **Username**: `admin`
-  - **Password**: `ShivaG@1437`
+  - **Password**: `[REDACTED_PASSWORD]`
 - View your live dashboard stats, contact inquiries (`/admin/contacts.php`), candidate resumes (`/admin/applications.php`), and blog post manager (`/admin/blog-posts.php`)!
 
 ### User Input
@@ -1718,7 +1718,7 @@ To populate your newly created database:
 2. Click **Import**, select `database/setup.sql` from your project files, and click **Go**.
 3. Log in at **`https://vortexsoftinnovations.com/admin/login.php`**:
    - **Username**: `admin`
-   - **Password**: `ShivaG@1437`
+   - **Password**: `[REDACTED_PASSWORD]`
 4. Navigate to **`/admin/applications.php`** to view all candidate applications!
 
 ### User Input
@@ -1887,7 +1887,7 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
   UNIQUE KEY `uk_email`    (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 6. ADMIN ACCOUNT (admin / ShivaG@1437)
+-- 6. ADMIN ACCOUNT (admin / [REDACTED_PASSWORD])
 REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
 (1, 'admin', '$2y$10$Y0XP/OdpmbuvJ9a5wy1psOn3OUVhtz37EEEtRFLoH6lGgXMlAdULe', 'careers@vortexsoftinnovations.in', 'Vortexsoft Admin', 'super_admin', 1);
 
@@ -1904,7 +1904,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 Visit: **`https://vortexsoftinnovations.com/admin/login.php`**
 - **Username**: `admin`
-- **Password**: `ShivaG@1437`
+- **Password**: `[REDACTED_PASSWORD]`
 
 ### User Input
 
@@ -1931,7 +1931,7 @@ Your database settings in `config/database.php` are pre-configured to match your
 - **MySQL Database**: `u696371114_adminvortex`
 - **MySQL User**: `u696371114_adminvortex`
 - **Host**: `localhost`
-- **Password**: `ShivaG@1437`
+- **Password**: `[REDACTED_PASSWORD]`
 
 ---
 
@@ -2059,7 +2059,7 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
   UNIQUE KEY `uk_email`    (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 6. ADMIN ACCOUNT (admin / ShivaG@1437)
+-- 6. ADMIN ACCOUNT (admin / [REDACTED_PASSWORD])
 REPLACE INTO `admin_users` (`id`, `username`, `password_hash`, `email`, `full_name`, `role`, `is_active`) VALUES
 (1, 'admin', '$2y$10$Y0XP/OdpmbuvJ9a5wy1psOn3OUVhtz37EEEtRFLoH6lGgXMlAdULe', 'careers@vortexsoftinnovations.in', 'Vortexsoft Admin', 'super_admin', 1);
 
@@ -2076,7 +2076,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 Visit: **`https://vortexsoftinnovations.com/admin/login.php`**
 - **Username**: `admin`
-- **Password**: `ShivaG@1437`
+- **Password**: `[REDACTED_PASSWORD]`
 
 ### User Input
 
@@ -2491,7 +2491,7 @@ What is your **Hostinger FTP password**? (This is the same as your Hostinger hPa
 
 ### User Input
 
-ShivaG@1437
+[REDACTED_PASSWORD]
 
 *User accepted the command `$token = "ghp_REDACTED_GITHUB_TOKEN"
 $repo = "Aniketmadhukarraokadam/VORTEXSOFTINNOVATIONSMAIN"
@@ -2585,7 +2585,7 @@ function Set-GHSecret($name, $value) {
 
 Set-GHSecret "FTP_SERVER"   "82.180.143.14"
 Set-GHSecret "FTP_USERNAME" "u696371114"
-Set-GHSecret "FTP_PASSWORD" "ShivaG@1437"`*
+Set-GHSecret "FTP_PASSWORD" "[REDACTED_PASSWORD]"`*
 
 *User accepted the command `$token = "ghp_REDACTED_GITHUB_TOKEN"
 $repo = "Aniketmadhukarraokadam/VORTEXSOFTINNOVATIONSMAIN"
@@ -2629,7 +2629,7 @@ function Set-GHSecret($name, $value) {
 
 Set-GHSecret "FTP_SERVER"   "82.180.143.14"
 Set-GHSecret "FTP_USERNAME" "u696371114"
-Set-GHSecret "FTP_PASSWORD" "ShivaG@1437"`*
+Set-GHSecret "FTP_PASSWORD" "[REDACTED_PASSWORD]"`*
 
 *User accepted the command `# Write the C# source to a temp file with proper escaped path and compile it
 $sodiumDllPath = "C:\\Users\\kadam\\AppData\\Local\\Temp\\sodium_ps\\packages\\libsodium.1.0.19\\runtimes\\win-x64\\native\\libsodium.dll"
@@ -2693,7 +2693,7 @@ function Set-GHSecret($name, $value) {
 
 Set-GHSecret "FTP_SERVER"   "82.180.143.14"
 Set-GHSecret "FTP_USERNAME" "u696371114"
-Set-GHSecret "FTP_PASSWORD" "ShivaG@1437"`*
+Set-GHSecret "FTP_PASSWORD" "[REDACTED_PASSWORD]"`*
 
 *User accepted the command `# Trigger a deploy by making a dummy commit (touch a file)
 $token = "ghp_REDACTED_GITHUB_TOKEN"
@@ -2933,7 +2933,7 @@ function Set-GHSecret2($name, $value) {
 # Hostinger FTP username format: u696371114 (primary account user)
 # Password is hPanel account password
 Set-GHSecret2 "FTP_USERNAME" "u696371114"
-Set-GHSecret2 "FTP_PASSWORD" "ShivaG@1437"
+Set-GHSecret2 "FTP_PASSWORD" "[REDACTED_PASSWORD]"
 Write-Host "Done - check Hostinger FTP Accounts page for exact username"`*
 
 ### Planner Response
@@ -2972,7 +2972,7 @@ FTP IP (hostname)	ftp://82.180.143.14
 FTP username	u696371114
 FTP port	21
 Folder to upload files	public_html 
-passsword = ShivaG@1437
+passsword = [REDACTED_PASSWORD]
 
 ### Planner Response
 
@@ -2988,14 +2988,14 @@ The FTP credentials match what I have stored. The problem is likely that Hosting
 
 ### Why is this happening?
 
-Hostinger's FTP password is independent from your hPanel login (`ShivaG@1437`). When you first created your hosting account, no FTP password may have been set, so it's rejecting the login with **`530 Login incorrect`**.
+Hostinger's FTP password is independent from your hPanel login (`[REDACTED_PASSWORD]`). When you first created your hosting account, no FTP password may have been set, so it's rejecting the login with **`530 Login incorrect`**.
 
 Once you reset it and give me the new password, the auto-deploy will work immediately. 🚀
 
 ### User Input
 
 
-password ShivaG@1437
+password [REDACTED_PASSWORD]
 
 
 ### Planner Response
@@ -3044,7 +3044,7 @@ function Set-GHSecret3($name, $value) {
 # Fix: use correct FTP username from Hostinger FTP Accounts page
 Set-GHSecret3 "FTP_SERVER"   "ftp.vortexsoftinnovations.com"
 Set-GHSecret3 "FTP_USERNAME" "u696371114.VortexFTP2026"
-Set-GHSecret3 "FTP_PASSWORD" "ShivaG@1437"`*
+Set-GHSecret3 "FTP_PASSWORD" "[REDACTED_PASSWORD]"`*
 
 *User accepted the command `git commit --allow-empty -m "Trigger deploy: fix FTP username to u696371114.VortexFTP2026"
 git push origin main`*
@@ -3612,10 +3612,10 @@ if ($r.status -eq "completed") {
 
 Checking workflow execution result...
 
-*User accepted the command `$res = Invoke-RestMethod -Uri "https://vortexsoftinnovations.com/admin/webhook_deploy.php?token=VortexDeploy6498286f401141b8" -Method Get
+*User accepted the command `$res = Invoke-RestMethod -Uri "https://vortexsoftinnovations.com/admin/webhook_deploy.php?token=[REDACTED_DEPLOY_TOKEN]" -Method Get
 $res | ConvertTo-Json`*
 
-*User accepted the command `$headers = @{ "X-Deploy-Token" = "VortexDeploy6498286f401141b8" }
+*User accepted the command `$headers = @{ "X-Deploy-Token" = "[REDACTED_DEPLOY_TOKEN]" }
 try {
     $res = Invoke-RestMethod -Uri "https://vortexsoftinnovations.com/admin/webhook_deploy.php" -Headers $headers -Method Post
     $res | ConvertTo-Json
@@ -3634,7 +3634,7 @@ try {
 git commit -m "Fix webhook_deploy.php temp directory to bypass open_basedir restrictions"
 git push origin main`*
 
-*User accepted the command `$headers = @{ "X-Deploy-Token" = "VortexDeploy6498286f401141b8" }
+*User accepted the command `$headers = @{ "X-Deploy-Token" = "[REDACTED_DEPLOY_TOKEN]" }
 try {
     $res = Invoke-RestMethod -Uri "https://vortexsoftinnovations.com/admin/webhook_deploy.php" -Headers $headers -Method Post
     $res | ConvertTo-Json

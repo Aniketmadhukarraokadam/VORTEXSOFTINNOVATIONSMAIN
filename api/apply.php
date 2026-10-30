@@ -102,6 +102,24 @@ if (!empty($_FILES['resume']) && is_array($_FILES['resume']) && ($_FILES['resume
         json_response(false, 'Invalid file type detected. Please ensure your resume is an authentic PDF, DOC, or DOCX file.');
     }
 
+    // Magic-byte signature verification
+    $fh = @fopen($file['tmp_name'], 'rb');
+    if ($fh) {
+        $header = fread($fh, 8);
+        fclose($fh);
+        $isValidSignature = false;
+        if ($ext === 'pdf' && strpos($header, '%PDF-') === 0) {
+            $isValidSignature = true;
+        } elseif ($ext === 'docx' && strpos($header, "PK\x03\x04") === 0) {
+            $isValidSignature = true;
+        } elseif ($ext === 'doc' && strpos($header, "\xD0\xCF\x11\xE0") === 0) {
+            $isValidSignature = true;
+        }
+        if (!$isValidSignature) {
+            json_response(false, 'The uploaded file signature does not match authentic PDF, DOC, or DOCX format.');
+        }
+    }
+
     if (($file['size'] ?? 0) > 5 * 1024 * 1024) { // 5MB limit
         json_response(false, 'Resume file size must be under 5MB.');
     }
@@ -112,7 +130,7 @@ if (!empty($_FILES['resume']) && is_array($_FILES['resume']) && ($_FILES['resume
         @mkdir($upload_dir, 0755, true);
     }
     if (!file_exists($upload_dir . '.htaccess')) {
-        @file_put_contents($upload_dir . '.htaccess', "Options -Indexes\n<FilesMatch \"\\.(php|phtml|php3|php4|php5|phps|cgi|pl|exe|sh)$\">\n    Order allow,deny\n    Deny from all\n</FilesMatch>\n");
+        @file_put_contents($upload_dir . '.htaccess', "Options -Indexes\n<IfModule mod_authz_core.c>\n    Require all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\n    Order allow,deny\n    Deny from all\n</IfModule>\n");
     }
 
     $safe_name       = preg_replace('/[^a-zA-Z0-9\-_]/', '_', pathinfo($file['name'], PATHINFO_FILENAME));

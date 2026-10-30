@@ -37,7 +37,7 @@ $rootDir = $PSScriptRoot
 $envFile = Join-Path $rootDir "config\.env"
 $ftpHost = "82.180.143.14"
 $ftpUser = "u696371114.vortexsoftinnovations.com"
-$ftpPass = "ShivaG@1437"
+$ftpPass = if ($env:FTP_PASS) { $env:FTP_PASS } else { "" }
 $ftpDir  = ""
 
 if (Test-Path $envFile) {
@@ -53,6 +53,11 @@ if (Test-Path $envFile) {
             if ($key -eq 'FTP_DIR'  -and $val) { $ftpDir  = $val }
         }
     }
+}
+
+if (-not $ftpPass) {
+    Write-Error "FTP_PASS is not configured. Please set FTP_PASS in config/.env or as an environment variable before deploying."
+    exit 1
 }
 
 Write-Host "====================================================" -ForegroundColor Cyan

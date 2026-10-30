@@ -580,41 +580,45 @@ function nav_active(string $page, string $path): string {
 
 <!-- ── TOPBAR ────────────────────────────────────── -->
 <style>
-.topbar{background:linear-gradient(90deg,#080B1A 0%,#111536 100%);padding:11px 0;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06)}
-.topbar a{color:rgba(255,255,255,.75);text-decoration:none;transition:color .2s;display:inline-flex;align-items:center;gap:6px}
+.topbar{background:linear-gradient(90deg,#111827 0%,#1a2068 100%);padding:11px 0;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar a{color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s;display:inline-flex;align-items:center;gap:6px}
 .topbar a:hover{color:#fff}
-.topbar i{font-size:11px;color:#CC2228}
-.topbar-badge{background:#CC2228;color:#fff;font-size:10px;font-weight:800;padding:3px 13px;border-radius:100px;letter-spacing:1.2px;text-transform:uppercase}
-.topbar-sep{width:1px;height:14px;background:rgba(255,255,255,.12);display:inline-block;vertical-align:middle}
+.topbar i{font-size:11px;color:#E31E25}
+.topbar-badge{background:#E31E25;color:#fff;font-size:10px;font-weight:800;padding:3px 13px;border-radius:100px;letter-spacing:1.2px;text-transform:uppercase}
+.topbar-sep{width:1px;height:14px;background:rgba(255,255,255,.15);display:inline-block;vertical-align:middle}
 .topbar-social a{color:#fff !important;width:29px;height:29px;border-radius:7px;background:rgba(255,255,255,.15);display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;transition:background .2s,color .2s}
-.topbar-social a:hover{background:#CC2228;color:#fff !important}
+.topbar-social a:hover{background:#E31E25;color:#fff !important}
 .topbar-social a i{color:#ffffff !important;font-size:13px}
-#mainNavbar{background:rgba(255,255,255,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.9);padding:0;position:sticky;top:15px;z-index:1030;box-shadow:0 12px 40px rgba(28,34,128,.08);transition:all .4s ease;width:96%;max-width:1740px;margin:0 auto 15px;border-radius:20px}
+#mainNavbar{background:#FFFFFF;border:1px solid #E5E7EB;padding:0;position:sticky;top:12px;z-index:1030;box-shadow:0 10px 30px rgba(17,24,39,.06);transition:all .3s ease;width:96%;max-width:1740px;margin:0 auto 15px;border-radius:14px}
 @media(min-width:2560px){#mainNavbar{max-width:2100px}}
-#mainNavbar.scrolled{top:10px;background:rgba(255,255,255,0.96);box-shadow:0 15px 50px rgba(28,34,128,.12)}
+#mainNavbar.scrolled{top:8px;box-shadow:0 14px 40px rgba(17,24,39,.10)}
 #mainNavbar .container{min-height:72px;display:flex;align-items:center}
-.navbar-brand img{height:54px;max-height:58px;width:auto;object-fit:contain;transition:all .3s ease;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.05))}
-#mainNavbar .nav-link{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;color:#1a1d3a !important;padding:8px 15px !important;border-radius:8px;position:relative;transition:color .2s,background .2s;letter-spacing:.1px}
-#mainNavbar .nav-link::after{content:'';position:absolute;bottom:3px;left:15px;right:15px;height:2.5px;background:#CC2228;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
-#mainNavbar .nav-link:hover,#mainNavbar .nav-link.active{color:#1C2280 !important;background:rgba(28,34,128,.05)}
+.navbar-brand img{height:52px;max-height:56px;width:auto;object-fit:contain;transition:all .3s ease}
+#mainNavbar .nav-link{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:#111827 !important;padding:8px 12px !important;border-radius:6px;position:relative;transition:color .2s,background .2s}
+#mainNavbar .nav-link::after{content:'';position:absolute;bottom:2px;left:12px;right:12px;height:2px;background:#252B83;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+#mainNavbar .nav-link:hover,#mainNavbar .nav-link.active{color:#252B83 !important;background:rgba(37,43,131,.04)}
 #mainNavbar .nav-link:hover::after,#mainNavbar .nav-link.active::after{transform:scaleX(1)}
-#mainNavbar .dropdown-menu{border:none;border-radius:14px;box-shadow:0 20px 60px rgba(28,34,128,.14),0 0 0 1px rgba(28,34,128,.06);padding:20px;margin-top:8px;animation:dropFade .18s ease}
+#mainNavbar .dropdown-menu{border:1px solid #E5E7EB;border-radius:12px;box-shadow:0 20px 50px rgba(17,24,39,.12);padding:18px;margin-top:8px;animation:dropFade .18s ease;background:#fff}
 @keyframes dropFade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.mega-menu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0 8px}
-#mainNavbar .dropdown-header{font-family:'Poppins',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#1C2280;padding:10px 12px 6px;border-bottom:1.5px solid rgba(28,34,128,.1);margin-bottom:4px}
-#mainNavbar .dropdown-item{font-size:13px;font-weight:500;color:#2d3060;padding:6px 12px;border-radius:8px;transition:background .15s,color .15s,padding-left .15s;display:flex;align-items:center;gap:8px}
-#mainNavbar .dropdown-item i{font-size:12px;width:16px;color:#CC2228;opacity:.8}
-#mainNavbar .dropdown-item:hover{background:rgba(28,34,128,.06);color:#1C2280;padding-left:18px}
-#mainNavbar .nav-cta{background:linear-gradient(135deg,#CC2228 0%,#a31720 100%) !important;color:#fff !important;font-family:'Poppins',sans-serif;font-size:13.5px !important;font-weight:700 !important;padding:11px 24px !important;border-radius:10px !important;letter-spacing:.2px;box-shadow:0 4px 16px rgba(204,34,40,.28) !important;transition:transform .2s,box-shadow .2s !important;white-space:nowrap}
+.mega-menu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0 10px}
+#mainNavbar .dropdown-header{font-family:'Poppins',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#252B83;padding:8px 10px 6px;border-bottom:1.5px solid #E5E7EB;margin-bottom:6px}
+#mainNavbar .dropdown-item{font-size:12.5px;font-weight:500;color:#334155;padding:6px 10px;border-radius:6px;transition:background .15s,color .15s,padding-left .15s;display:flex;align-items:center;gap:7px}
+#mainNavbar .dropdown-item i{font-size:11.5px;width:15px;color:#252B83;opacity:.85}
+#mainNavbar .dropdown-item:hover{background:rgba(37,43,131,.05);color:#252B83;padding-left:14px}
+#mainNavbar .nav-cta{background:#252B83 !important;color:#fff !important;font-family:'Poppins',sans-serif;font-size:13.5px !important;font-weight:700 !important;padding:10px 22px !important;border-radius:8px !important;letter-spacing:.2px;box-shadow:0 4px 14px rgba(37,43,131,.25) !important;transition:transform .2s,box-shadow .2s,background .2s !important;white-space:nowrap}
 #mainNavbar .nav-cta::after{display:none !important}
 #mainNavbar .nav-cta i{color:#ffffff !important}
-#mainNavbar .nav-cta:hover{color:#fff !important;transform:translateY(-2px) !important;box-shadow:0 8px 24px rgba(204,34,40,.4) !important}
-.navbar-phone-info{border-left:1.5px solid rgba(28,34,128,.1);padding-left:18px;margin-left:6px}
-.pn-number{font-family:'Poppins',sans-serif;font-size:12.5px;font-weight:700;color:#1a1d3a;white-space:nowrap;line-height:1.4}
-.pn-hours{font-size:11px;color:rgba(28,34,128,.55);font-weight:500}
+#mainNavbar .nav-cta:hover{background:#1a1f68 !important;color:#fff !important;transform:translateY(-2px) !important;box-shadow:0 8px 20px rgba(37,43,131,.35) !important}
+.navbar-phone-info{border-left:1.5px solid #E5E7EB;padding-left:16px;margin-left:6px}
+.pn-number{font-family:'Poppins',sans-serif;font-size:12.5px;font-weight:700;color:#111827;white-space:nowrap;line-height:1.4}
+.pn-hours{font-size:11px;color:#64748B;font-weight:500}
 .navbar-toggler{border:none !important;padding:6px;box-shadow:none !important;outline:none !important;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-@media(min-width:992px){
-  #mainNavbar .dropdown-menu{min-width:760px}
+@media(min-width:1200px){
+  #mainNavbar .dropdown-menu{min-width:1080px;left:50% !important;transform:translateX(-50%) !important}
+}
+@media(min-width:992px) and (max-width:1199.98px){
+  #mainNavbar .dropdown-menu{min-width:920px;left:0 !important}
+  .mega-menu-grid{grid-template-columns:repeat(3,1fr);gap:10px}
 }
 @media(max-width:991.98px){
   #mainNavbar{
@@ -731,85 +735,79 @@ function nav_active(string $page, string $path): string {
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link <?= nav_active('home', $current_path) ?>" href="<?= $prefix ?>index.php">Home</a></li>
-        <li class="nav-item"><a class="nav-link <?= nav_active('about', $current_path) ?>" href="<?= $prefix ?>about.php">About</a></li>
+        <li class="nav-item"><a class="nav-link <?= nav_active('about', $current_path) ?>" href="<?= $prefix ?>about.php">About Us</a></li>
 
-        <!-- Services Mega Menu -->
+        <!-- Services Mega Menu (5 Core Divisions) -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle <?= nav_active('service', $current_path) ?>" href="<?= $prefix ?>service.php"
              id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
-          <ul class="dropdown-menu p-3">
+          <ul class="dropdown-menu p-3" aria-labelledby="servicesDropdown">
             <div class="mega-menu-grid">
-              <!-- Col 1: AI Automations + Publishing -->
+              <!-- Group 1: Technology & AI -->
               <div>
-                <h6 class="dropdown-header" style="color:#CC2228;"><i class="fas fa-robot me-1"></i> AI &amp; Automations</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-brain"></i> AI Automation Services</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-cogs"></i> Agentic AI Workflows</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-file-contract"></i> Intelligent Doc Processing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>data-annotation-services/index.php"><i class="fas fa-tags"></i> AI Data Annotation</a></li>
-                <h6 class="dropdown-header mt-2">Publishing</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>publishing-services/index.php"><i class="fas fa-book"></i> Publishing Services</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>editorial-services/index.php"><i class="fas fa-pencil-alt"></i> Editorial Services</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>digital-prepress-services/index.php"><i class="fas fa-print"></i> Digital Prepress</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>ebook-conversion-services/index.php"><i class="fas fa-tablet-alt"></i> eBook Conversion</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>alt-text-writing-services/index.php"><i class="fas fa-image"></i> Alt Text Writing</a></li>
+                <h6 class="dropdown-header"><i class="fas fa-microchip me-1"></i> Technology &amp; AI</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>software-solutions/index.php"><i class="fas fa-laptop-code"></i> Software Development</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>service.php#ai-automation"><i class="fas fa-robot"></i> AI &amp; Machine Learning</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>data-annotation-services/index.php"><i class="fas fa-tags"></i> Data Annotation</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>data-extraction-service/index.php"><i class="fas fa-database"></i> Data Extraction</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>development-services/index.php"><i class="fas fa-cloud"></i> Cloud &amp; Tech Consulting</a></li>
               </div>
-              <!-- Col 2: Health Care + Real Estate -->
+
+              <!-- Group 2: Healthcare -->
               <div>
-                <h6 class="dropdown-header">Health Care</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>medical-coding-services/index.php"><i class="fas fa-code"></i> Medical Coding</a></li>
+                <h6 class="dropdown-header"><i class="fas fa-heartbeat me-1"></i> Healthcare</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>medical-coding-services/index.php"><i class="fas fa-file-medical"></i> Medical Coding</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>medical-billing-services/index.php"><i class="fas fa-file-invoice-dollar"></i> Medical Billing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>payment-posting-services/index.php"><i class="fas fa-credit-card"></i> Payment Posting</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>denial-management-services/index.php"><i class="fas fa-ban"></i> Denial Management</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>ar-recovery-services/index.php"><i class="fas fa-undo"></i> AR Recovery</a></li>
-                <h6 class="dropdown-header mt-2">Real Estate</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>cam-audit-services/index.php"><i class="fas fa-search-dollar"></i> CAM Audit</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>cam-reconciliation-services/index.php"><i class="fas fa-balance-scale"></i> CAM Reconciliation</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>lease-administration-services/index.php"><i class="fas fa-file-contract"></i> Lease Administration</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>health-care-services/index.php"><i class="fas fa-sync-alt"></i> Revenue Cycle Mgmt</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>ar-recovery-services/index.php"><i class="fas fa-hand-holding-usd"></i> AR Recovery</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>denial-management-services/index.php"><i class="fas fa-shield-alt"></i> Denial Management</a></li>
+              </div>
+
+              <!-- Group 3: Publishing -->
+              <div>
+                <h6 class="dropdown-header"><i class="fas fa-book-open me-1"></i> Publishing</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>publishing-services/index.php"><i class="fas fa-book"></i> Digital Publishing</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>ebook-conversion-services/index.php"><i class="fas fa-tablet-alt"></i> eBook Conversion</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>pdf-accessibility-services/index.php"><i class="fas fa-universal-access"></i> PDF Accessibility</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>s1000d-xml-conversion-services/index.php"><i class="fas fa-code"></i> XML Conversion</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>technical-writing/index.php"><i class="fas fa-pen-nib"></i> Technical Writing</a></li>
+              </div>
+
+              <!-- Group 4: Real Estate & Title -->
+              <div>
+                <h6 class="dropdown-header"><i class="fas fa-landmark me-1"></i> Real Estate &amp; Title</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-search-location"></i> Title Search</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>title-settlement/index.php"><i class="fas fa-home"></i> Title &amp; Settlement</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>mortgage-escrow/index.php"><i class="fas fa-file-signature"></i> Mortgage Support</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>lease-abstraction-services/index.php"><i class="fas fa-scroll"></i> Lease Abstraction</a></li>
                 <li><a class="dropdown-item" href="<?= $prefix ?>property-accounting-services/index.php"><i class="fas fa-calculator"></i> Property Accounting</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>property-management-service/index.php"><i class="fas fa-building"></i> Property Management</a></li>
               </div>
-              <!-- Col 3: Accounting + IT & Digital -->
-              <div>
-                <h6 class="dropdown-header">Accounting &amp; HR Software</h6>
-                <li style="background:rgba(225,29,72,0.08);border-radius:8px;margin:2px 0;"><a class="dropdown-item fw-bold" href="<?= $prefix ?>index.php#ai-products" style="color:#e11d48;"><i class="fas fa-users-cog text-danger"></i> HR &amp; Payroll Software <span class="badge bg-danger ms-1" style="font-size:9px;">AI SOFTWARE</span></a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>bookkeeping-services/index.php"><i class="fas fa-book-open"></i> Bookkeeping</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>payroll-processing-services/index.php"><i class="fas fa-money-check-alt"></i> Payroll Processing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>manpower-payroll-services/index.php"><i class="fas fa-users"></i> Manpower &amp; Staffing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>financial-reporting-services/index.php"><i class="fas fa-chart-bar"></i> Financial Reporting</a></li>
-                <h6 class="dropdown-header mt-2">IT &amp; Digital</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>software-solutions/index.php"><i class="fas fa-laptop-code"></i> Software Solutions</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>digital-marketing-service/index.php"><i class="fas fa-bullhorn"></i> Digital Marketing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>ecommerce-solutions/index.php"><i class="fas fa-shopping-cart"></i> E-Commerce</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>data-analytics-as-a-service/index.php"><i class="fas fa-chart-line"></i> Data Analytics</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>crm-software-services/index.php"><i class="fas fa-users"></i> CRM Services</a></li>
-              </div>
-              <!-- Col 4: More Services + View All -->
-              <div>
-                <h6 class="dropdown-header">More Services</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>logistics-services/index.php"><i class="fas fa-truck"></i> Logistics</a></li>
-                <li><a class="dropdown-item fw-bold" href="<?= $prefix ?>title-settlement/index.php" style="color:#1C2280;"><i class="fas fa-crown text-warning"></i> Title &amp; Settlement <span class="badge bg-warning text-dark ms-1" style="font-size:9px;">#1 IN INDIA</span></a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>mortgage-escrow/index.php"><i class="fas fa-landmark"></i> Mortgage &amp; Escrow</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>background-verification-service/index.php"><i class="fas fa-user-check"></i> Background Verification</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>technical-writing/index.php"><i class="fas fa-file-alt"></i> Technical Writing</a></li>
-                <li><a class="dropdown-item" href="<?= $prefix ?>digital-accessibility-services/index.php"><i class="fas fa-universal-access"></i> Digital Accessibility</a></li>
 
-                <h6 class="dropdown-header mt-2">View All</h6>
-                <li><a class="dropdown-item" href="<?= $prefix ?>service.php" style="font-weight:700;color:#CC2228;"><i class="fas fa-th-large"></i> All Services</a></li>
+              <!-- Group 5: Business Operations -->
+              <div>
+                <h6 class="dropdown-header"><i class="fas fa-briefcase me-1"></i> Business Operations</h6>
+                <li><a class="dropdown-item" href="<?= $prefix ?>accounting-services/index.php"><i class="fas fa-balance-scale"></i> Accounting</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>payroll-processing-services/index.php"><i class="fas fa-money-check-alt"></i> Payroll</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>manpower-payroll-services/index.php"><i class="fas fa-users-cog"></i> Manpower Supply</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>background-verification-service/index.php"><i class="fas fa-user-check"></i> Staffing &amp; Screening</a></li>
+                <li><a class="dropdown-item" href="<?= $prefix ?>service.php"><i class="fas fa-headset"></i> BPO &amp; Support</a></li>
               </div>
-              <!-- Featured Platform Strip -->
-              <div class="pt-2 mt-2 border-top d-flex align-items-center justify-content-between flex-wrap gap-2" style="grid-column: 1 / -1; font-size:12.5px; background:rgba(225,29,72,0.04); padding:8px 12px; border-radius:8px;">
-                <span><i class="fas fa-star text-warning me-1"></i> Featured Platform: <strong style="color:#e11d48;">vortexsofthrms</strong> — Enterprise AI HRMS &amp; Autonomous Payroll Software</span>
-                <a href="<?= $prefix ?>index.php#ai-products" class="btn btn-sm btn-danger py-1 px-3 fw-bold" style="font-size:11px;border-radius:6px;background:#e11d48;border-color:#e11d48;">Explore vortexsofthrms <i class="fas fa-arrow-right ms-1"></i></a>
+
+              <!-- Mega Menu Footer Action Strip -->
+              <div class="pt-2 mt-3 border-top d-flex align-items-center justify-content-between flex-wrap gap-2" style="grid-column: 1 / -1; font-size:12.5px; background:#F4F5F7; padding:10px 14px; border-radius:8px;">
+                <span><i class="fas fa-layer-group text-primary me-1"></i> Enterprise Portfolio: <strong>75+ Scalable Solutions</strong> across India &amp; Global Operations</span>
+                <a href="<?= $prefix ?>service.php" class="btn btn-sm text-white px-3 fw-semibold" style="background:#252B83; font-size:11.5px; border-radius:6px;">View Full Services Directory <i class="fas fa-arrow-right ms-1"></i></a>
               </div>
             </div>
           </ul>
         </li>
 
+        <li class="nav-item"><a class="nav-link" href="<?= $prefix ?>index.php#ai-products">Products</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= $prefix ?>index.php#industries">Industries</a></li>
+        <li class="nav-item"><a class="nav-link <?= nav_active('blog', $current_path) ?>" href="<?= $prefix ?>blog.php">Insights</a></li>
         <li class="nav-item"><a class="nav-link <?= nav_active('careers', $current_path) ?>" href="<?= $prefix ?>careers.php">Careers</a></li>
-        <li class="nav-item"><a class="nav-link <?= nav_active('blog', $current_path) ?>" href="<?= $prefix ?>blog.php">Blog</a></li>
-        <li class="nav-item"><a class="nav-link <?= nav_active('faq', $current_path) ?>" href="<?= $prefix ?>faq.php">FAQ</a></li>
-        <li class="nav-item"><a class="nav-link <?= nav_active('contact', $current_path) ?>" href="<?= $prefix ?>contact.php">Contact</a></li>
+        <li class="nav-item"><a class="nav-link <?= nav_active('contact', $current_path) ?>" href="<?= $prefix ?>contact.php">Contact Us</a></li>
+
         <!-- Mobile Quote CTA inside Hamburger Menu -->
         <li class="nav-item d-lg-none mt-3 pt-3 border-top">
           <a href="<?= $prefix ?>contact.php" class="nav-cta w-100 justify-content-center d-flex align-items-center gap-2" style="padding:12px 20px !important;">

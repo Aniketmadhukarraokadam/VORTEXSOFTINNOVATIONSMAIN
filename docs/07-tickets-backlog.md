@@ -12,17 +12,17 @@
 
 ### WEB-SEC-001 — Remove Hardcoded Deploy Token from Source Code
 - **File**: `admin/webhook_deploy.php` line 2
-- **Issue**: `define('DEPLOY_TOKEN', 'VortexDeploy6498286f401141b8')` is committed to GitHub. Anyone who accesses the repo can trigger a full production deployment.
-- **Impact**: Full server compromise — attacker can overwrite all production files
-- **Fix**: Read token from `config/.env` using the same pattern as `database.php`
+- **Issue**: Deploy token was previously hardcoded in source.
+- **Impact**: Full server compromise — attacker could trigger production deployment
+- **Fix**: Read token exclusively from `config/.env` or environment
 - **Effort**: Small (~30 min)
 - **Risk of Fix**: LOW — simple env variable read
 
 ### WEB-SEC-002 — Remove Hardcoded Admin Passwords from Source Code
-- **File**: `admin/login.php` lines 173–174
-- **Issue**: Plaintext passwords `'Mrunal@9996'` and `'ShivaG@1437'` in the `auto_install_tables()` function
+- **File**: `admin/login.php` / `config/database.php`
+- **Issue**: Plaintext default passwords were previously present in legacy bootstrap code
 - **Impact**: Credential exposure, account compromise
-- **Fix**: Remove the auto-install function entirely or generate hashes at runtime without exposing plaintext
+- **Fix**: Removed hardcoded values and manage authentication via environment variables
 - **Effort**: Small (~30 min)
 - **Risk of Fix**: LOW — remove hardcoded values
 

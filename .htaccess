@@ -54,6 +54,9 @@ ServerSignature Off
     RewriteRule ^terms-conditions/?$ /terms.php [L,R=301]
     RewriteRule ^terms/?$ /terms.php [L,R=301]
     
+    # Redirect typo/old slug data-annotation-servic to canonical data-annotation-services
+    RewriteRule ^data-annotation-servic/?$ /data-annotation-services/ [L,R=301]
+
     # Blog single post dynamic routing
     RewriteRule ^blog/([a-zA-Z0-9_\-]+)\.php$ /blog-detail.php?slug=$1 [L,QSA]
     RewriteRule ^blog/([a-zA-Z0-9_\-]+)/?$ /blog-detail.php?slug=$1 [L,QSA]
@@ -108,7 +111,9 @@ ServerSignature Off
     RewriteRule ^includes/.*$        - [F,L]
     RewriteRule ^database/.*$        - [F,L]
     RewriteRule ^backups/.*$         - [F,L]
+    RewriteRule ^scratch/.*$         - [F,L]
     RewriteRule ^uploads/resumes/.*$ - [F,L]
+    RewriteRule ^website_info\.txt$  - [F,L]
 </IfModule>
 
 # ── Performance: Full GZIP Compression & Fast Caching ──────────────

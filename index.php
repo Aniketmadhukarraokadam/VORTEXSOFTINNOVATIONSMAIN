@@ -223,19 +223,18 @@ require_once __DIR__ . '/includes/header.php';
       <!-- Left Column: High-Impact Typography & Values -->
       <div class="col-lg-7 col-xl-7 hero-content text-start">
         <div class="glass-pill-3d mb-3 hero-badge-anim" data-depth="0.03">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#CC2228;animation:pulse-glow 1.5s infinite alternate;"></span>
-          <span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">6+ Years Global Delivery • ISO 27001:2013 Certified</span>
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E31E25;"></span>
+          <span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">Global Technology &amp; Operations • ISO 27001:2013 &amp; HIPAA Compliant</span>
         </div>
-        <h1 class="hero-title hero-title-anim">
-          Empowering Global Enterprises with Next-Gen
-          <span class="typed-wrapper" id="typed-text"></span><span class="cursor"></span>
+        <h1 class="hero-title hero-title-anim" style="font-size:clamp(2.4rem,4.2vw,3.8rem);line-height:1.15;font-weight:800;color:#111827;letter-spacing:-0.02em;margin-bottom:20px;">
+          Technology. Intelligence. <br class="d-none d-sm-inline"><span style="color:#252B83;">Operational Excellence.</span>
         </h1>
-        <p class="hero-description hero-desc-anim">
-          We engineer full-stack IT systems, autonomous AI agent workflows, and 24/7 global BPO operations. Driving measurable ROI across Healthcare RCM, Real Estate, Publishing Prepress, and Custom Software for <strong>150+ global clients</strong> with <strong>200+ delivered projects</strong>.
+        <p class="hero-description hero-desc-anim" style="font-size:18px;line-height:1.75;color:#475569;margin-bottom:28px;max-width:640px;">
+          We help businesses scale through technology, AI-powered solutions, specialized outsourcing and reliable global operations.
         </p>
         <div class="hero-btns hero-btns-anim">
-          <a href="contact.php" class="btn-hero-primary magnetic"><i class="fas fa-paper-plane"></i> Get Free Consultation</a>
-          <a href="about.php" class="btn-hero-secondary magnetic"><i class="fas fa-play-circle"></i> Explore Company Profile</a>
+          <a href="service.php" class="btn-hero-primary magnetic" style="background:#252B83;border-color:#252B83;box-shadow:0 4px 14px rgba(37,43,131,0.25);"><i class="fas fa-th-large"></i> Explore Our Services</a>
+          <a href="contact.php" class="btn-hero-secondary magnetic" style="color:#252B83;border-color:#252B83;"><i class="fas fa-handshake"></i> Partner With Us</a>
         </div>
 
         <!-- 8D Service Motion Ecosystem Quick Bar -->
@@ -1605,6 +1604,9 @@ require_once __DIR__ . '/includes/header.php';
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> All-in-one ATS, HRMS, Payroll &amp; LMS</li>
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Embedded AI Copilot for HR automation</li>
           </ul>
+          <div class="mt-3">
+            <a href="contact.php?product=VortexEXHO" class="btn btn-sm text-white fw-semibold px-3 py-2" style="background:#252B83;border-radius:6px;font-size:12px;"><i class="fas fa-desktop me-1"></i> Request Platform Demo</a>
+          </div>
         </div>
       </div>
 
@@ -1621,6 +1623,9 @@ require_once __DIR__ . '/includes/header.php';
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Autonomous resume parsing &amp; qualification</li>
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> 70% reduction in time-to-hire</li>
           </ul>
+          <div class="mt-3">
+            <a href="contact.php?product=vortexHire" class="btn btn-sm text-white fw-semibold px-3 py-2" style="background:#252B83;border-radius:6px;font-size:12px;"><i class="fas fa-desktop me-1"></i> Request Platform Demo</a>
+          </div>
         </div>
       </div>
 
@@ -1637,6 +1642,9 @@ require_once __DIR__ . '/includes/header.php';
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Real-time sentiment &amp; compliance scoring</li>
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Automated agent performance benchmarks</li>
           </ul>
+          <div class="mt-3">
+            <a href="contact.php?product=vortexKonnect" class="btn btn-sm text-white fw-semibold px-3 py-2" style="background:#252B83;border-radius:6px;font-size:12px;"><i class="fas fa-desktop me-1"></i> Request Platform Demo</a>
+          </div>
         </div>
       </div>
 
@@ -1653,6 +1661,9 @@ require_once __DIR__ . '/includes/header.php';
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Automated lead research &amp; ICP matching</li>
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Multi-channel email &amp; social sequencing</li>
           </ul>
+          <div class="mt-3">
+            <a href="contact.php?product=Vortexreach" class="btn btn-sm text-white fw-semibold px-3 py-2" style="background:#252B83;border-radius:6px;font-size:12px;"><i class="fas fa-desktop me-1"></i> Request Platform Demo</a>
+          </div>
         </div>
       </div>
 
@@ -1669,6 +1680,9 @@ require_once __DIR__ . '/includes/header.php';
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Automated ePUB3, Kindle &amp; XML (JATS/BITS/S1000D) conversion</li>
             <li style="padding:3px 0;"><i class="fas fa-check text-success me-2"></i> Automated PDF &amp; eBook WCAG 2.1 AA accessibility tagging</li>
           </ul>
+          <div class="mt-3">
+            <a href="contact.php?product=vortexsoftpublishing" class="btn btn-sm text-white fw-semibold px-3 py-2" style="background:#252B83;border-radius:6px;font-size:12px;"><i class="fas fa-desktop me-1"></i> Request Platform Demo</a>
+          </div>
         </div>
       </div>
 
