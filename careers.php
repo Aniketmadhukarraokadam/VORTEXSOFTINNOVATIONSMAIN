@@ -1365,7 +1365,7 @@ require_once __DIR__ . '/includes/header.php';
           <a href="#openings" class="btn btn-primary" style="background:#4f46e5;border-color:#4f46e5;font-weight:600;padding:12px 26px;border-radius:10px;">
             <i class="fas fa-arrow-down me-2"></i> View Openings (<?= count($jobs) ?>)
           </a>
-          <button type="button" onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-warning" style="font-weight:700;padding:12px 24px;border-radius:10px;background:#f59e0b;border-color:#f59e0b;color:#0f172a;">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#applyModal" onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-warning" style="font-weight:700;padding:12px 24px;border-radius:10px;background:#f59e0b;border-color:#f59e0b;color:#0f172a;">
             <i class="fas fa-file-upload me-2"></i> General Application
           </button>
           <a href="https://wa.me/918308906690?text=Hi%20Vortexsoft%20HR,%20I%20am%20applying%20for%20an%20open%20position" target="_blank" class="btn btn-outline-light" style="font-weight:600;padding:12px 24px;border-radius:10px;border-color:rgba(255,255,255,.3);">
@@ -1545,6 +1545,8 @@ require_once __DIR__ . '/includes/header.php';
             <button 
               type="button" 
               class="btn-vsi-share" 
+              data-bs-toggle="modal" 
+              data-bs-target="#jobShareModal"
               onclick="openJobShare(<?= htmlspecialchars(json_encode([
                 'id'         => (string)$job['id'],
                 'title'      => $job['title'],
@@ -1560,6 +1562,8 @@ require_once __DIR__ . '/includes/header.php';
             <button 
               type="button" 
               class="btn-vsi-apply" 
+              data-bs-toggle="modal" 
+              data-bs-target="#applyModal"
               onclick="openApplyModal('<?= htmlspecialchars($job['title'], ENT_QUOTES) ?>','<?= htmlspecialchars($job['department'], ENT_QUOTES) ?>','<?= $job['id'] ?>')"
             >
               <i class="fas fa-paper-plane"></i> Apply Now
@@ -1585,7 +1589,7 @@ require_once __DIR__ . '/includes/header.php';
           </p>
         </div>
         <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-          <button type="button" onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-primary btn-lg shadow-sm" style="background:#1C2280;border-color:#1C2280;font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;padding:14px 28px;border-radius:12px;">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#applyModal" onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-primary btn-lg shadow-sm" style="background:#1C2280;border-color:#1C2280;font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;padding:14px 28px;border-radius:12px;">
             <i class="fas fa-paper-plane me-2"></i> Submit General Application
           </button>
         </div>
@@ -1603,7 +1607,7 @@ require_once __DIR__ . '/includes/header.php';
         <button onclick="resetFilters()" class="btn btn-outline-primary" style="font-weight:600;padding:8px 22px;border-radius:8px;">
           <i class="fas fa-undo me-1"></i> Show All Positions
         </button>
-        <button onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-warning" style="font-weight:700;padding:8px 22px;border-radius:8px;background:#f59e0b;border-color:#f59e0b;color:#0f172a;">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#applyModal" onclick="openApplyModal('General Application', 'General Talent Pool', '0')" class="btn btn-warning" style="font-weight:700;padding:8px 22px;border-radius:8px;background:#f59e0b;border-color:#f59e0b;color:#0f172a;">
           <i class="fas fa-file-upload me-1"></i> Submit General Application
         </button>
       </div>
@@ -2333,14 +2337,60 @@ require_once __DIR__ . '/includes/header.php';
   let searchKeyword  = '';
   let currentSharePayload = null;
 
-  // ── Bootstrap Modal Helper ─────────────────────────────────
-  function getBootstrapModalInstance(elementId) {
+  // ── Bulletproof Modal Helpers ──────────────────────────────
+  function showModalSafely(elementId) {
     const el = document.getElementById(elementId);
-    if (!el) return null;
+    if (!el) return;
     if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-      return bootstrap.Modal.getOrCreateInstance(el);
+      try {
+        const modal = bootstrap.Modal.getOrCreateInstance(el);
+        if (modal) {
+          modal.show();
+          return;
+        }
+      } catch (e) {}
     }
-    return null;
+    // Fallback if bootstrap JS is delayed or unavailable
+    el.classList.add('show');
+    el.style.display = 'block';
+    el.removeAttribute('aria-hidden');
+    el.setAttribute('aria-modal', 'true');
+    document.body.classList.add('modal-open');
+    let backdrop = document.getElementById(elementId + '-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = elementId + '-backdrop';
+      backdrop.className = 'modal-backdrop fade show';
+      document.body.appendChild(backdrop);
+    }
+    const dismissModal = function() {
+      hideModalSafely(elementId);
+    };
+    el.querySelectorAll('[data-bs-dismiss="modal"]').forEach(btn => {
+      btn.onclick = dismissModal;
+    });
+    backdrop.onclick = dismissModal;
+  }
+
+  function hideModalSafely(elementId) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+      try {
+        const modal = bootstrap.Modal.getInstance(el);
+        if (modal) {
+          modal.hide();
+          return;
+        }
+      } catch (e) {}
+    }
+    el.classList.remove('show');
+    el.style.display = 'none';
+    el.setAttribute('aria-hidden', 'true');
+    el.removeAttribute('aria-modal');
+    document.body.classList.remove('modal-open');
+    const b = document.getElementById(elementId + '-backdrop');
+    if (b) b.remove();
   }
 
   // ── Filter & Search Logic ──────────────────────────────────
@@ -2624,8 +2674,7 @@ require_once __DIR__ . '/includes/header.php';
     }
 
     // 4. Open Modal safely
-    const modal = getBootstrapModalInstance('applyModal');
-    if (modal) modal.show();
+    showModalSafely('applyModal');
   };
 
   document.getElementById('generalDeptSelect')?.addEventListener('change', function() {
@@ -2682,8 +2731,7 @@ require_once __DIR__ . '/includes/header.php';
     if (tgBtn)   tgBtn.href   = 'https://t.me/share/url?url=' + encUrl + '&text=' + encText;
     if (mailBtn) mailBtn.href = 'mailto:?subject=' + encSubj + '&body=' + encText;
 
-    const modal = getBootstrapModalInstance('jobShareModal');
-    if (modal) modal.show();
+    showModalSafely('jobShareModal');
   };
 
   // ── Copy Share Link Event ──────────────────────────────────
@@ -2778,8 +2826,7 @@ require_once __DIR__ . '/includes/header.php';
           job_title: formData.get('job_title') || 'General Application'
         });
         setTimeout(() => {
-          const modal = getBootstrapModalInstance('applyModal');
-          if (modal) modal.hide();
+          hideModalSafely('applyModal');
         }, 3000);
       } else {
         const err = (data && (data.error || data.message)) || 'Submission error. Please verify required fields and file format.';
