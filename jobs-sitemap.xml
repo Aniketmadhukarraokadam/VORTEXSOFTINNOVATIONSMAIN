@@ -144,8 +144,39 @@
   </url>
   <url>
     <loc>https://www.vortexsoftinnovations.com/careers.php?job=23</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
+  </url>
+  <!-- New Positions & Internships -->
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=24</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=25</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=26</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=27</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vortexsoftinnovations.com/careers.php?job=28</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
   </url>
 </urlset>

@@ -11,7 +11,7 @@ require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
 $page_title    = 'Careers & Job Openings | Vortexsoft Innovations Private Limited';
-$page_desc     = 'Explore corporate career opportunities at Vortexsoft Innovations. Join our engineering, operations, US title, healthcare, and analytics teams in Pune, Bengaluru & Remote.';
+$page_desc     = 'Explore corporate career opportunities and internships at Vortexsoft Innovations. Join our engineering, operations, US mortgage, SAP Basis, digital marketing, healthcare, and analytics teams in Pune, Bengaluru & Remote.';
 $canonical_url = SITE_URL . '/careers.php';
 $prefix        = './';
 
@@ -22,20 +22,8 @@ $cache_ttl  = 1800; // 30 minutes
 
 if (file_exists($cache_file) && (time() - filemtime($cache_file) < $cache_ttl)) {
     $cached = @json_decode(@file_get_contents($cache_file), true);
-    if (is_array($cached) && count($cached) >= 23) {
-        // Verify cache does not contain obsolete internship titles
-        $has_old = false;
-        foreach ($cached as $cj) {
-            if (stripos($cj['title'] ?? '', 'intern') !== false || stripos($cj['type'] ?? '', 'intern') !== false) {
-                $has_old = true;
-                break;
-            }
-        }
-        if (!$has_old) {
-            $jobs = $cached;
-        } else {
-            @unlink($cache_file);
-        }
+    if (is_array($cached) && count($cached) >= 28) {
+        $jobs = $cached;
     } else {
         @unlink($cache_file);
     }
@@ -45,14 +33,9 @@ if (empty($jobs)) {
     try {
         $db = getDB();
         if ($db) {
-            // Automatically purge obsolete internship postings from database
-            try {
-                $db->exec("DELETE FROM jobs WHERE title LIKE '%intern%' OR type LIKE '%intern%' OR description LIKE '%internship%'");
-            } catch (Throwable $t) {}
-
-            // Ensure database is populated with the complete 23 corporate openings
+            // Ensure database is populated with the complete 28 corporate openings and internships
             $existing_count = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active=1")->fetchColumn();
-            if ($existing_count < 23) {
+            if ($existing_count < 28) {
                 $seed_stmt = $db->prepare("REPLACE INTO jobs (id, title, department, type, location, experience_range, skills_json, description, is_urgent, is_active, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?)");
                 $seed_rows = [
                     [1, 'Java Developer', 'IT & Software', 'Full Time', 'Bengaluru / Pune / Remote', '2–5 years', 'Java, Spring Boot, Microservices, Hibernate, REST APIs, SQL, Docker', 'Design, build, and maintain robust enterprise backend microservices and RESTful APIs using modern Java and Spring Boot. Optimize high-volume database queries and collaborate on cloud-native deployments.', 1, 1],
@@ -78,6 +61,11 @@ if (empty($jobs)) {
                     [21, 'Medical Biller', 'Healthcare BPO', 'Full Time', 'Bengaluru / Remote', '1–4 years', 'Charge Entry, Payment Posting, Claim Scrubbing, CMS-1500, UB-04, Kareo', 'Handle claims scrubbing, electronic submission via clearinghouses, charge entry, payment posting, and insurance verification for US hospital networks.', 1, 21],
                     [22, 'AR Caller', 'Healthcare BPO', 'Full Time', 'Bengaluru / Pune', '1–4 years', 'Denial Management, Payer Follow-up, Claim Appeals, Insurance Verification, EOB Review', 'Proactively follow up with commercial and government payers on aged accounts receivable, investigate claim denial reasons, and file appeals to recover revenue.', 1, 22],
                     [23, 'XML Typesetter', 'Publishing & Prepress', 'Full Time', 'Pune / Remote', '1–4 years', 'JATS XML, BITS XML, InDesign Prepress, MathML, ePUB3, WCAG 2.1 AA', 'Format and convert complex STM academic manuscripts into validated JATS/BITS XML, accessible ePUB3 files, and camera-ready InDesign print layouts.', 0, 23],
+                    [24, 'US Mortgage Specialist', 'Real Estate BPO', 'Full Time', 'Pune HQ / Remote', '1–4 years', 'US Mortgage, Loan Processing, Fannie Mae 1003, Encompass, Underwriting, Title Review, Closing Disclosures, Escrow', 'Execute end-to-end US residential and commercial mortgage loan processing and pre-underwriting support. Verify borrower documentation (1003, W-2s, credit reports, bank statements), audit title commitments, track escrow requirements, and prepare TRID-compliant closing disclosure packages for top US lenders.', 1, 24],
+                    [25, 'Software Development Intern', 'IT & Software', 'Internship', 'Pune / Bengaluru / Remote', 'Fresher / 0–1 year', 'Java, Python, JavaScript, React.js, Spring Boot, REST APIs, SQL, Git, Problem Solving', 'Fast-track software engineering internship for aspiring developers and fresh graduates. Work directly alongside senior architects to build scalable enterprise web applications, develop RESTful microservices with Java/Python, and master modern Git workflows and cloud deployments.', 1, 25],
+                    [26, 'HR Intern', 'Human Resources', 'Internship', 'Pune HQ', 'Fresher / 0–1 year', 'Talent Acquisition, IT Sourcing, Interview Scheduling, LinkedIn Recruiter, Candidate Screening, Onboarding, HR Operations', 'Dynamic human resources internship at our Pune Corporate Headquarters. Gain hands-on exposure across end-to-end IT & BPO recruitment, campus hiring drives, resume screening on LinkedIn, interview pipeline coordination, and corporate employee engagement operations.', 0, 26],
+                    [27, 'Digital Marketing Intern', 'Marketing & Growth', 'Internship', 'Pune HQ / Remote', 'Fresher / 0–1 year', 'SEO, AEO, Content Marketing, Google Analytics, Social Media Marketing, Keyword Research, Copywriting, Lead Generation', 'Hands-on digital marketing and search engine optimization internship. Master cutting-edge B2B digital growth strategies including Generative Engine Optimization (GEO), technical SEO audits, high-intent keyword research, LinkedIn B2B campaigns, and organic web traffic analytics.', 0, 27],
+                    [28, 'SAP Basis Consultant', 'IT & Software', 'Full Time', 'Bengaluru / Pune / Remote', '2–6 years', 'SAP Basis, SAP S/4HANA, SAP NetWeaver, SAP HANA DB Administration, System Copies, OS/DB Migrations, TMS, Performance Tuning', 'Lead enterprise SAP Basis administration, system monitoring, and S/4HANA infrastructure maintenance. Execute SAP kernel upgrades, database administration on SAP HANA, Transport Management System (TMS) imports, client copies, disaster recovery drills, and security authorizations for global enterprise environments.', 1, 28]
                 ];
                 foreach ($seed_rows as $sr) {
                     $seed_stmt->execute($sr);
@@ -89,9 +77,9 @@ if (empty($jobs)) {
                 $dept_lower  = strtolower($r['department'] ?? '');
                 $title_lower = strtolower($r['title'] ?? '');
 
-                if (str_contains($dept_lower, 'it') || str_contains($dept_lower, 'software') || str_contains($title_lower, 'developer') || str_contains($title_lower, 'engineer') || str_contains($title_lower, 'qa')) {
+                if (str_contains($dept_lower, 'it') || str_contains($dept_lower, 'software') || str_contains($title_lower, 'developer') || str_contains($title_lower, 'engineer') || str_contains($title_lower, 'qa') || str_contains($title_lower, 'sap') || str_contains($title_lower, 'software development intern')) {
                     $cat = 'IT & Software';
-                } elseif (str_contains($dept_lower, 'real estate') || str_contains($title_lower, 'title') || str_contains($title_lower, 'lease') || str_contains($title_lower, 'tax')) {
+                } elseif (str_contains($dept_lower, 'real estate') || str_contains($title_lower, 'title') || str_contains($title_lower, 'lease') || str_contains($title_lower, 'tax') || str_contains($title_lower, 'mortgage')) {
                     $cat = 'Real Estate BPO';
                 } elseif (str_contains($dept_lower, 'health') || str_contains($title_lower, 'medical') || str_contains($title_lower, 'coder') || str_contains($title_lower, 'biller') || str_contains($title_lower, 'ar caller')) {
                     $cat = 'Healthcare BPO';
@@ -101,6 +89,8 @@ if (empty($jobs)) {
                     $cat = 'Research & KPO';
                 } elseif (str_contains($dept_lower, 'business') || str_contains($dept_lower, 'operation') || str_contains($title_lower, 'process') || str_contains($title_lower, 'coordinator')) {
                     $cat = 'Business Operations';
+                } elseif (str_contains($dept_lower, 'marketing') || str_contains($title_lower, 'marketing')) {
+                    $cat = 'Corporate & HR';
                 } elseif (str_contains($dept_lower, 'human') || str_contains($dept_lower, 'hr') || str_contains($title_lower, 'hr') || str_contains($title_lower, 'recruiter') || str_contains($dept_lower, 'finance') || str_contains($title_lower, 'accounts')) {
                     $cat = 'Corporate & HR';
                 } elseif (str_contains($dept_lower, 'publishing') || str_contains($title_lower, 'xml') || str_contains($title_lower, 'epub')) {
@@ -410,6 +400,66 @@ if (empty($jobs)) {
         'desc'       => 'Format and convert complex STM academic manuscripts into validated JATS/BITS XML, accessible ePUB3 files, and camera-ready InDesign print layouts.',
         'urgent'     => false,
       ],
+      [
+        'id'         => 24,
+        'title'      => 'US Mortgage Specialist',
+        'department' => 'Real Estate BPO',
+        'category'   => 'Real Estate BPO',
+        'type'       => 'Full Time',
+        'location'   => 'Pune HQ / Remote',
+        'exp'        => '1–4 years',
+        'skills'     => ['US Mortgage', 'Loan Processing', 'Fannie Mae 1003', 'Encompass', 'Underwriting', 'Title Review', 'Closing Disclosures', 'Escrow'],
+        'desc'       => 'Execute end-to-end US residential and commercial mortgage loan processing and pre-underwriting support. Verify borrower documentation (1003, W-2s, credit reports, bank statements), audit title commitments, track escrow requirements, and prepare TRID-compliant closing disclosure packages for top US lenders.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 25,
+        'title'      => 'Software Development Intern',
+        'department' => 'IT & Software',
+        'category'   => 'IT & Software',
+        'type'       => 'Internship',
+        'location'   => 'Pune / Bengaluru / Remote',
+        'exp'        => 'Fresher / 0–1 year',
+        'skills'     => ['Java', 'Python', 'JavaScript', 'React.js', 'Spring Boot', 'REST APIs', 'SQL', 'Git', 'Problem Solving'],
+        'desc'       => 'Fast-track software engineering internship for aspiring developers and fresh graduates. Work directly alongside senior architects to build scalable enterprise web applications, develop RESTful microservices with Java/Python, and master modern Git workflows and cloud deployments.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 26,
+        'title'      => 'HR Intern',
+        'department' => 'Human Resources',
+        'category'   => 'Corporate & HR',
+        'type'       => 'Internship',
+        'location'   => 'Pune HQ',
+        'exp'        => 'Fresher / 0–1 year',
+        'skills'     => ['Talent Acquisition', 'IT Sourcing', 'Interview Scheduling', 'LinkedIn Recruiter', 'Candidate Screening', 'Onboarding', 'HR Operations'],
+        'desc'       => 'Dynamic human resources internship at our Pune Corporate Headquarters. Gain hands-on exposure across end-to-end IT & BPO recruitment, campus hiring drives, resume screening on LinkedIn, interview pipeline coordination, and corporate employee engagement operations.',
+        'urgent'     => false,
+      ],
+      [
+        'id'         => 27,
+        'title'      => 'Digital Marketing Intern',
+        'department' => 'Marketing & Growth',
+        'category'   => 'Corporate & HR',
+        'type'       => 'Internship',
+        'location'   => 'Pune HQ / Remote',
+        'exp'        => 'Fresher / 0–1 year',
+        'skills'     => ['SEO', 'AEO', 'Content Marketing', 'Google Analytics', 'Social Media Marketing', 'Keyword Research', 'Copywriting', 'Lead Generation'],
+        'desc'       => 'Hands-on digital marketing and search engine optimization internship. Master cutting-edge B2B digital growth strategies including Generative Engine Optimization (GEO), technical SEO audits, high-intent keyword research, LinkedIn B2B campaigns, and organic web traffic analytics.',
+        'urgent'     => false,
+      ],
+      [
+        'id'         => 28,
+        'title'      => 'SAP Basis Consultant',
+        'department' => 'IT & Software',
+        'category'   => 'IT & Software',
+        'type'       => 'Full Time',
+        'location'   => 'Bengaluru / Pune / Remote',
+        'exp'        => '2–6 years',
+        'skills'     => ['SAP Basis', 'SAP S/4HANA', 'SAP NetWeaver', 'SAP HANA DB Administration', 'System Copies', 'OS/DB Migrations', 'TMS', 'Performance Tuning'],
+        'desc'       => 'Lead enterprise SAP Basis administration, system monitoring, and S/4HANA infrastructure maintenance. Execute SAP kernel upgrades, database administration on SAP HANA, Transport Management System (TMS) imports, client copies, disaster recovery drills, and security authorizations for global enterprise environments.',
+        'urgent'     => true,
+      ],
     ];
 }
 
@@ -461,6 +511,11 @@ foreach ($jobs as $jb) {
             'postalCode' => '411041',
             'addressCountry' => 'IN'
         ];
+        $geo = [
+            '@type' => 'GeoCoordinates',
+            'latitude' => 18.4682,
+            'longitude' => 73.8184
+        ];
     } else {
         $address = [
             '@type' => 'PostalAddress',
@@ -470,19 +525,30 @@ foreach ($jobs as $jb) {
             'postalCode' => '560068',
             'addressCountry' => 'IN'
         ];
+        $geo = [
+            '@type' => 'GeoCoordinates',
+            'latitude' => 12.9165,
+            'longitude' => 77.6322
+        ];
     }
     
     $job_url = 'https://www.vortexsoftinnovations.com/careers.php?job=' . $jb['id'];
 
     // Experience requirements parsed to months
     $exp_months = 24;
-    if (preg_match('/(\d+)\s*[–-]\s*(\d+)/u', $jb['exp'], $exp_match)) {
+    $emp_type = 'FULL_TIME';
+    if (stripos($jb['type'], 'intern') !== false) {
+        $emp_type = 'INTERN';
+        $exp_months = 0;
+    } elseif (stripos($jb['type'], 'part') !== false) {
+        $emp_type = 'PART_TIME';
+    } elseif (stripos($jb['type'], 'contract') !== false) {
+        $emp_type = 'CONTRACTOR';
+    } elseif (preg_match('/(\d+)\s*[–-]\s*(\d+)/u', $jb['exp'], $exp_match)) {
         $exp_months = (int)$exp_match[1] * 12;
     } elseif (preg_match('/(\d+)/', $jb['exp'], $exp_match)) {
         $exp_months = (int)$exp_match[1] * 12;
     }
-
-    $emp_type = 'FULL_TIME';
     
     // Clean, lightweight description for Google for Jobs (saves ~50KB page payload)
     $clean_desc = htmlspecialchars($jb['title']) . ' at Vortexsoft Innovations Private Limited. ' .
@@ -502,10 +568,11 @@ foreach ($jobs as $jb) {
             'name' => 'Vortexsoft Innovations Private Limited',
             'value' => 'VSI-JOB-' . str_pad((string)$jb['id'], 3, '0', STR_PAD_LEFT)
         ],
-        'datePosted' => '2026-10-25T08:00:00+05:30',
+        'datePosted' => '2026-10-30T08:00:00+05:30',
         'validThrough' => '2027-12-31T23:59:59+05:30',
         'employmentType' => $emp_type,
         'industry' => $jb['department'],
+        'skills' => implode(', ', $jb['skills']),
         'hiringOrganization' => [
             '@type' => 'Organization',
             'name' => 'Vortexsoft Innovations Private Limited',
@@ -514,7 +581,8 @@ foreach ($jobs as $jb) {
         ],
         'jobLocation' => [
             '@type' => 'Place',
-            'address' => $address
+            'address' => $address,
+            'geo' => $geo
         ],
         'experienceRequirements' => [
             '@type' => 'OccupationalExperienceRequirements',
@@ -522,7 +590,7 @@ foreach ($jobs as $jb) {
         ],
         'educationRequirements' => [
             '@type' => 'EducationalOccupationalCredential',
-            'credentialCategory' => 'bachelor degree'
+            'credentialCategory' => ($emp_type === 'INTERN') ? 'enrolled in degree or bachelor degree' : 'bachelor degree'
         ],
         'directApply' => true,
         'url' => $job_url
@@ -539,22 +607,46 @@ foreach ($jobs as $jb) {
     $job_postings_schema[] = $posting;
 }
 
-// Candidate & Recruitment FAQPage Schema
+// Candidate & Recruitment FAQPage Schema (Optimized for AEO & Voice Search)
 $careers_faq_schema = [
     '@type' => 'FAQPage',
     '@id' => 'https://www.vortexsoftinnovations.com/careers.php#faq',
     'mainEntity' => [
         [
             '@type' => 'Question',
-            'name' => 'What career openings and technical positions are available at Vortexsoft Innovations?',
+            'name' => 'What career openings, internships, and technical positions are available at Vortexsoft Innovations?',
             'acceptedAnswer' => [
                 '@type' => 'Answer',
-                'text' => 'Vortexsoft Innovations is actively hiring across multiple key domains including Java Developers, Python Developers, Data Engineers, US Title Search Executives, Healthcare Medical Coders, BPO Executives, KPO Analysts, HR Executives, and Associate Process Analysts.'
+                'text' => 'Vortexsoft Innovations is actively hiring across corporate roles and internship tracks including: Java Developers, Python Developers, Data Engineers, US Mortgage Specialists, SAP Basis Consultants, Software Development Interns, HR Interns, Digital Marketing Interns, US Title Search Executives, and Healthcare Medical Coders.'
             ]
         ],
         [
             '@type' => 'Question',
-            'name' => 'How do I apply for job openings at Vortexsoft Innovations?',
+            'name' => 'What US Mortgage and Loan Processing openings are available at Vortexsoft Innovations?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Vortexsoft Innovations is actively hiring US Mortgage Specialists and Title Processing Associates at our Pune Corporate Delivery Center. Responsibilities cover Fannie Mae/Freddie Mac 1003 loan reviews, borrower documentation verification, title commitment reviews, escrow reconciliation, and TRID-compliant closing disclosure preparation for nationwide US mortgage lenders.'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Does Vortexsoft Innovations hire college freshers for Software, HR, and Digital Marketing internships?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Yes! Vortexsoft offers structured internships with real project experience in Pune, Bengaluru, and Remote. Opportunities include: 1) Software Development Internships (Java, Python, React, Spring Boot, REST APIs); 2) Human Resources Internships (technical sourcing, campus recruitment, HR operations); 3) Digital Marketing & SEO Internships (technical SEO, AEO, GEO, content marketing, and Google Analytics).'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What SAP Basis Consultant and Enterprise ERP openings are open at Vortexsoft?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'We are hiring experienced SAP Basis Consultants across Bengaluru and Pune. The role entails SAP S/4HANA migration, SAP NetWeaver administration, SAP HANA database tuning, system copies, kernel upgrades, and Transport Management System (TMS) imports for global enterprise clients.'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How do I apply for job openings and internships at Vortexsoft Innovations?',
             'acceptedAnswer' => [
                 '@type' => 'Answer',
                 'text' => 'You can apply directly online through our Careers portal at https://www.vortexsoftinnovations.com/careers.php by clicking "Apply Now" on any vacancy. Alternatively, email your resume to careers@vortexsoftinnovations.com or connect with our recruitment team on WhatsApp at +91-8308906690.'
@@ -573,15 +665,7 @@ $careers_faq_schema = [
             'name' => 'Does Vortexsoft Innovations offer Work-From-Home (WFH) or hybrid jobs?',
             'acceptedAnswer' => [
                 '@type' => 'Answer',
-                'text' => 'Yes! Most software engineering, data engineering, and analytics roles support hybrid and 100% remote work arrangements across India. Core title abstracting and specialized operations operate from our high-security facilities in Pune and Bengaluru.'
-            ]
-        ],
-        [
-            '@type' => 'Question',
-            'name' => 'What Title Search and Abstracting openings are available at Vortexsoft\'s Pune HQ?',
-            'acceptedAnswer' => [
-                '@type' => 'Answer',
-                'text' => 'Vortexsoft operates India\'s premier Title Abstracting delivery center at our Pune Corporate Headquarters (Vadgaon Budruk). We actively hire US Title Search & Settlement Executives to examine nationwide county property records, deeds, open mortgages, and prepare commitment packages for 40+ US title settlement clients.'
+                'text' => 'Yes! Most software engineering, data engineering, digital marketing, and analytics roles support hybrid and 100% remote work arrangements across India. Core title abstracting, mortgage processing, and specialized operations operate from our high-security facilities in Pune and Bengaluru.'
             ]
         ],
         [
@@ -620,7 +704,7 @@ $extra_head = '<script type="application/ld+json">' . "\n" .
     '</script>' . "\n";
 
 $og_image = 'https://www.vortexsoftinnovations.com/assets/images/vortexsoft-careers-share.png?v=20261027';
-$page_keywords = 'Vortexsoft careers, Java developer jobs Bangalore, Python developer Pune, Data Engineer jobs India, US title search executive Pune, medical coding CPC jobs India, BPO executive jobs, KPO analyst, remote software engineer vacancies';
+$page_keywords = 'Vortexsoft careers, US mortgage specialist jobs Pune, software development intern Pune, HR intern Bangalore, digital marketing intern India, SAP Basis consultant openings, Java developer jobs Bangalore, Python developer Pune, Data Engineer jobs India, US title search executive Pune, medical coding CPC jobs India, BPO executive jobs, KPO analyst, remote IT internships';
 
 require_once __DIR__ . '/includes/header.php';
 ?>
