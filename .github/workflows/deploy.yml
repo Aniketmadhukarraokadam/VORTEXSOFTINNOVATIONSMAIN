@@ -14,16 +14,16 @@ jobs:
       - name: ✅ Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 📤 Upload to Hostinger via FTPS
+      - name: 📤 Upload to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
+          server: ${{ secrets.FTP_SERVER || '82.180.143.14' }}
+          username: ${{ secrets.FTP_USERNAME || 'u696371114.vortexsoftinnovations.com' }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
+          protocol: ftp
           port: 21
           local-dir: ./
-          server-dir: /public_html/
+          server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
@@ -32,5 +32,10 @@ jobs:
             vortexsoft_website_details.txt
             website_info.txt
             package.json
+            package-lock.json
             node_modules/**
             **/*.log
+            config/.env
+            uploads/resumes/**
+            backups/**
+            scratch/**

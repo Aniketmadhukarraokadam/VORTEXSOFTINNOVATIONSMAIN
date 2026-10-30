@@ -72,7 +72,11 @@ Write-Host "====================================================" -ForegroundCol
 
 # -- Test Connection -------------------------------------------
 Write-Host "Connecting to FTP server..." -NoNewline
-$testListing = curl.exe -s --max-time 10 --user "${ftpUser}:${ftpPass}" "ftp://${ftpHost}/"
+$testListing = & curl.exe -s --max-time 15 --user "${ftpUser}:${ftpPass}" "ftp://${ftpHost}/"
+if ($LASTEXITCODE -ne 0) {
+    Start-Sleep -Seconds 1
+    $testListing = & curl.exe -s --max-time 20 --user "${ftpUser}:${ftpPass}" "ftp://${ftpHost}/"
+}
 if ($LASTEXITCODE -ne 0) {
     Write-Host " [FAILED]" -ForegroundColor Red
     Write-Host "Could not authenticate or reach $ftpHost. Please verify your internet or credentials." -ForegroundColor Red
@@ -160,9 +164,24 @@ if ($File) {
         }
     }
 
-    # If git had no unstaged changes, check files changed in the last 24 hours
+    # If git had no unstaged changes, check files in the latest commit (HEAD)
     if ($filesToUpload.Count -eq 0) {
-        Write-Host "No pending Git changes found. Checking files modified in the last 24 hours..." -ForegroundColor Gray
+        $recentCommitFiles = & $gitExe diff-tree --no-commit-id --name-only -r HEAD 2>$null
+        if ($recentCommitFiles) {
+            Write-Host "No pending uncommitted changes. Using files from latest commit (HEAD)..." -ForegroundColor Cyan
+            foreach ($rel in $recentCommitFiles) {
+                $relClean = $rel.Trim().Replace('/', '\')
+                $fullTarget = Join-Path $rootDir $relClean
+                if ((Test-Path $fullTarget -PathType Leaf) -and (-not (Test-IsExcluded $relClean))) {
+                    $filesToUpload += $relClean
+                }
+            }
+        }
+    }
+
+    # If still no files, check files modified in the last 24 hours
+    if ($filesToUpload.Count -eq 0) {
+        Write-Host "Checking files modified in the last 24 hours..." -ForegroundColor Gray
         $cutoff = (Get-Date).AddHours(-24)
         Get-ChildItem -Path $rootDir -Recurse -File | Where-Object { $_.LastWriteTime -gt $cutoff } | ForEach-Object {
             $rel = $_.FullName.Substring($rootDir.Length).TrimStart('\').TrimStart('/')
