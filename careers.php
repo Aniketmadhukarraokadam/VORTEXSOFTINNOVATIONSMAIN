@@ -11,7 +11,7 @@ require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
 $page_title    = 'Careers & Job Openings | Vortexsoft Innovations Private Limited';
-$page_desc     = 'Explore corporate career opportunities and internships at Vortexsoft Innovations. Join our engineering, operations, US mortgage, SAP Basis, digital marketing, healthcare, and analytics teams in Pune, Bengaluru & Remote.';
+$page_desc     = 'Explore corporate career opportunities and internships at Vortexsoft Innovations. Join our QA testing (automation & manual), engineering, US mortgage, SAP Basis, digital marketing, healthcare, and analytics teams in Pune, Hyderabad, Mumbai, Bengaluru & Remote.';
 $canonical_url = SITE_URL . '/careers.php';
 $prefix        = './';
 
@@ -22,7 +22,7 @@ $cache_ttl  = 1800; // 30 minutes
 
 if (file_exists($cache_file) && (time() - filemtime($cache_file) < $cache_ttl)) {
     $cached = @json_decode(@file_get_contents($cache_file), true);
-    if (is_array($cached) && count($cached) >= 28) {
+    if (is_array($cached) && count($cached) >= 30) {
         $jobs = $cached;
     } else {
         @unlink($cache_file);
@@ -33,9 +33,9 @@ if (empty($jobs)) {
     try {
         $db = getDB();
         if ($db) {
-            // Ensure database is populated with the complete 28 corporate openings and internships
+            // Ensure database is populated with the complete 30 corporate openings and internships
             $existing_count = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active=1")->fetchColumn();
-            if ($existing_count < 28) {
+            if ($existing_count < 30) {
                 $seed_stmt = $db->prepare("REPLACE INTO jobs (id, title, department, type, location, experience_range, skills_json, description, is_urgent, is_active, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?)");
                 $seed_rows = [
                     [1, 'Java Developer', 'IT & Software', 'Full Time', 'Bengaluru / Pune / Remote', '2–5 years', 'Java, Spring Boot, Microservices, Hibernate, REST APIs, SQL, Docker', 'Design, build, and maintain robust enterprise backend microservices and RESTful APIs using modern Java and Spring Boot. Optimize high-volume database queries and collaborate on cloud-native deployments.', 1, 1],
@@ -65,7 +65,9 @@ if (empty($jobs)) {
                     [25, 'Software Development Intern', 'IT & Software', 'Internship', 'Pune / Bengaluru / Remote', 'Fresher / 0–1 year', 'Java, Python, JavaScript, React.js, Spring Boot, REST APIs, SQL, Git, Problem Solving', 'Fast-track software engineering internship for aspiring developers and fresh graduates. Work directly alongside senior architects to build scalable enterprise web applications, develop RESTful microservices with Java/Python, and master modern Git workflows and cloud deployments.', 1, 25],
                     [26, 'HR Intern', 'Human Resources', 'Internship', 'Pune HQ', 'Fresher / 0–1 year', 'Talent Acquisition, IT Sourcing, Interview Scheduling, LinkedIn Recruiter, Candidate Screening, Onboarding, HR Operations', 'Dynamic human resources internship at our Pune Corporate Headquarters. Gain hands-on exposure across end-to-end IT & BPO recruitment, campus hiring drives, resume screening on LinkedIn, interview pipeline coordination, and corporate employee engagement operations.', 0, 26],
                     [27, 'Digital Marketing Intern', 'Marketing & Growth', 'Internship', 'Pune HQ / Remote', 'Fresher / 0–1 year', 'SEO, AEO, Content Marketing, Google Analytics, Social Media Marketing, Keyword Research, Copywriting, Lead Generation', 'Hands-on digital marketing and search engine optimization internship. Master cutting-edge B2B digital growth strategies including Generative Engine Optimization (GEO), technical SEO audits, high-intent keyword research, LinkedIn B2B campaigns, and organic web traffic analytics.', 0, 27],
-                    [28, 'SAP Basis Consultant', 'IT & Software', 'Full Time', 'Bengaluru / Pune / Remote', '2–6 years', 'SAP Basis, SAP S/4HANA, SAP NetWeaver, SAP HANA DB Administration, System Copies, OS/DB Migrations, TMS, Performance Tuning', 'Lead enterprise SAP Basis administration, system monitoring, and S/4HANA infrastructure maintenance. Execute SAP kernel upgrades, database administration on SAP HANA, Transport Management System (TMS) imports, client copies, disaster recovery drills, and security authorizations for global enterprise environments.', 1, 28]
+                    [28, 'SAP Basis Consultant', 'IT & Software', 'Full Time', 'Bengaluru / Pune / Remote', '2–6 years', 'SAP Basis, SAP S/4HANA, SAP NetWeaver, SAP HANA DB Administration, System Copies, OS/DB Migrations, TMS, Performance Tuning', 'Lead enterprise SAP Basis administration, system monitoring, and S/4HANA infrastructure maintenance. Execute SAP kernel upgrades, database administration on SAP HANA, Transport Management System (TMS) imports, client copies, disaster recovery drills, and security authorizations for global enterprise environments.', 1, 28],
+                    [29, 'QA Automation Engineer', 'IT & Software', 'Full Time', 'Pune / Hyderabad / Mumbai / Remote', '2–5 years', 'Selenium WebDriver, Cypress, Playwright, Java, Python, API Testing, RestAssured, Postman, TestNG, CI/CD, Jenkins, Docker, Git, Jira', 'Architect and execute scalable test automation frameworks for enterprise SaaS and cloud platforms across our Pune, Hyderabad, and Mumbai engineering centers. Develop automated UI test suites using Selenium WebDriver, Playwright, and Cypress, design RESTful API automation frameworks using RestAssured, integrate automated tests into CI/CD release pipelines (GitHub Actions/Jenkins), and execute performance & security regression validation to ensure flawless zero-defect releases.', 1, 29],
+                    [30, 'QA Manual & Functional Test Specialist', 'IT & Software', 'Full Time', 'Pune / Hyderabad / Mumbai', '1–4 years', 'Manual Testing, Test Case Design, Functional Testing, Regression Testing, Smoke Testing, API Testing, Postman, SQL Queries, JIRA, Bugzilla, STLC, Agile/Scrum, Mobile Testing', 'Execute comprehensive end-to-end manual and functional testing across web and mobile business applications across our Pune, Hyderabad, and Mumbai delivery locations. Author exhaustive test scenarios and test cases, execute test cycles, perform SQL backend data validation, verify REST API responses using Postman, log and track defect lifecycles in Jira, and collaborate closely with cross-functional software engineering teams.', 1, 30]
                 ];
                 foreach ($seed_rows as $sr) {
                     $seed_stmt->execute($sr);
@@ -460,6 +462,30 @@ if (empty($jobs)) {
         'desc'       => 'Lead enterprise SAP Basis administration, system monitoring, and S/4HANA infrastructure maintenance. Execute SAP kernel upgrades, database administration on SAP HANA, Transport Management System (TMS) imports, client copies, disaster recovery drills, and security authorizations for global enterprise environments.',
         'urgent'     => true,
       ],
+      [
+        'id'         => 29,
+        'title'      => 'QA Automation Engineer',
+        'department' => 'IT & Software',
+        'category'   => 'IT & Software',
+        'type'       => 'Full Time',
+        'location'   => 'Pune / Hyderabad / Mumbai / Remote',
+        'exp'        => '2–5 years',
+        'skills'     => ['Selenium WebDriver', 'Cypress', 'Playwright', 'Java', 'Python', 'API Testing', 'RestAssured', 'Postman', 'TestNG', 'CI/CD', 'Jenkins', 'Docker', 'Git', 'Jira'],
+        'desc'       => 'Architect and execute scalable test automation frameworks for enterprise SaaS and cloud platforms across our Pune, Hyderabad, and Mumbai engineering centers. Develop automated UI test suites using Selenium WebDriver, Playwright, and Cypress, design RESTful API automation frameworks using RestAssured, integrate automated tests into CI/CD release pipelines (GitHub Actions/Jenkins), and execute performance & security regression validation to ensure flawless zero-defect releases.',
+        'urgent'     => true,
+      ],
+      [
+        'id'         => 30,
+        'title'      => 'QA Manual & Functional Test Specialist',
+        'department' => 'IT & Software',
+        'category'   => 'IT & Software',
+        'type'       => 'Full Time',
+        'location'   => 'Pune / Hyderabad / Mumbai',
+        'exp'        => '1–4 years',
+        'skills'     => ['Manual Testing', 'Test Case Design', 'Functional Testing', 'Regression Testing', 'Smoke Testing', 'API Testing', 'Postman', 'SQL Queries', 'JIRA', 'Bugzilla', 'STLC', 'Agile/Scrum', 'Mobile Testing'],
+        'desc'       => 'Execute comprehensive end-to-end manual and functional testing across web and mobile business applications across our Pune, Hyderabad, and Mumbai delivery locations. Author exhaustive test scenarios and test cases, execute test cycles, perform SQL backend data validation, verify REST API responses using Postman, log and track defect lifecycles in Jira, and collaborate closely with cross-functional software engineering teams.',
+        'urgent'     => true,
+      ],
     ];
 }
 
@@ -501,34 +527,82 @@ $job_postings_schema = [];
 foreach ($jobs as $jb) {
     $loc_lower = strtolower($jb['location']);
     
-    // Address mapping (Pune Corporate HQ vs Bengaluru Tech Delivery Center)
-    if (str_contains($loc_lower, 'pune') && !str_contains($loc_lower, 'bengaluru')) {
-        $address = [
-            '@type' => 'PostalAddress',
-            'streetAddress' => '502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk',
-            'addressLocality' => 'Pune',
-            'addressRegion' => 'Maharashtra',
-            'postalCode' => '411041',
-            'addressCountry' => 'IN'
+    // Multi-location GEO Place mapping (Pune Corporate HQ, Hyderabad Hub, Mumbai Center, Bengaluru Center)
+    $places = [];
+    if (str_contains($loc_lower, 'pune')) {
+        $places[] = [
+            '@type' => 'Place',
+            'name' => 'Vortexsoft Innovations - Pune Corporate HQ',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => '502, 4th Floor, Dangat Patil Empire, Kudale Baug, Vadgaon Budruk',
+                'addressLocality' => 'Pune',
+                'addressRegion' => 'Maharashtra',
+                'postalCode' => '411041',
+                'addressCountry' => 'IN'
+            ],
+            'geo' => [
+                '@type' => 'GeoCoordinates',
+                'latitude' => 18.4682,
+                'longitude' => 73.8184
+            ]
         ];
-        $geo = [
-            '@type' => 'GeoCoordinates',
-            'latitude' => 18.4682,
-            'longitude' => 73.8184
+    }
+    if (str_contains($loc_lower, 'hyderabad')) {
+        $places[] = [
+            '@type' => 'Place',
+            'name' => 'Vortexsoft Innovations - Hyderabad Technology Hub',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => 'HITEC City, Madhapur',
+                'addressLocality' => 'Hyderabad',
+                'addressRegion' => 'Telangana',
+                'postalCode' => '500081',
+                'addressCountry' => 'IN'
+            ],
+            'geo' => [
+                '@type' => 'GeoCoordinates',
+                'latitude' => 17.4483,
+                'longitude' => 78.3915
+            ]
         ];
-    } else {
-        $address = [
-            '@type' => 'PostalAddress',
-            'streetAddress' => 'No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector',
-            'addressLocality' => 'Bengaluru',
-            'addressRegion' => 'Karnataka',
-            'postalCode' => '560068',
-            'addressCountry' => 'IN'
+    }
+    if (str_contains($loc_lower, 'mumbai')) {
+        $places[] = [
+            '@type' => 'Place',
+            'name' => 'Vortexsoft Innovations - Mumbai Technology Center',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => 'Bandra Kurla Complex (BKC)',
+                'addressLocality' => 'Mumbai',
+                'addressRegion' => 'Maharashtra',
+                'postalCode' => '400051',
+                'addressCountry' => 'IN'
+            ],
+            'geo' => [
+                '@type' => 'GeoCoordinates',
+                'latitude' => 19.0657,
+                'longitude' => 72.8687
+            ]
         ];
-        $geo = [
-            '@type' => 'GeoCoordinates',
-            'latitude' => 12.9165,
-            'longitude' => 77.6322
+    }
+    if (str_contains($loc_lower, 'bengaluru') || empty($places)) {
+        $places[] = [
+            '@type' => 'Place',
+            'name' => 'Vortexsoft Innovations - Bengaluru Tech Delivery Center',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => 'No.125, Ranganath Complex, Madiwala, HSR Layout 5th Sector',
+                'addressLocality' => 'Bengaluru',
+                'addressRegion' => 'Karnataka',
+                'postalCode' => '560068',
+                'addressCountry' => 'IN'
+            ],
+            'geo' => [
+                '@type' => 'GeoCoordinates',
+                'latitude' => 12.9165,
+                'longitude' => 77.6322
+            ]
         ];
     }
     
@@ -579,11 +653,7 @@ foreach ($jobs as $jb) {
             'sameAs' => 'https://www.vortexsoftinnovations.com',
             'logo' => 'https://www.vortexsoftinnovations.com/logo-header.png'
         ],
-        'jobLocation' => [
-            '@type' => 'Place',
-            'address' => $address,
-            'geo' => $geo
-        ],
+        'jobLocation' => (count($places) === 1) ? $places[0] : $places,
         'experienceRequirements' => [
             '@type' => 'OccupationalExperienceRequirements',
             'monthsOfExperience' => $exp_months
@@ -617,7 +687,15 @@ $careers_faq_schema = [
             'name' => 'What career openings, internships, and technical positions are available at Vortexsoft Innovations?',
             'acceptedAnswer' => [
                 '@type' => 'Answer',
-                'text' => 'Vortexsoft Innovations is actively hiring across corporate roles and internship tracks including: Java Developers, Python Developers, Data Engineers, US Mortgage Specialists, SAP Basis Consultants, Software Development Interns, HR Interns, Digital Marketing Interns, US Title Search Executives, and Healthcare Medical Coders.'
+                'text' => 'Vortexsoft Innovations is actively hiring across corporate roles and internship tracks including: QA Automation Engineers, QA Manual & Functional Test Specialists, Java Developers, Python Developers, Data Engineers, US Mortgage Specialists, SAP Basis Consultants, Software Development Interns, HR Interns, Digital Marketing Interns, US Title Search Executives, and Healthcare Medical Coders across Pune, Hyderabad, Mumbai, Bengaluru, and Remote.'
+            ]
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What QA Testing (Automation & Manual) openings are available in Pune, Hyderabad, and Mumbai?',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => 'Vortexsoft Innovations has immediate openings for QA Automation Engineers (Selenium WebDriver, Playwright, Cypress, RestAssured, CI/CD) and QA Manual & Functional Test Specialists across our Pune, Hyderabad, and Mumbai engineering locations. Responsibilities encompass test case design, automated UI & API regression, database verification in SQL, and agile sprint defect management in Jira.'
             ]
         ],
         [
@@ -704,7 +782,7 @@ $extra_head = '<script type="application/ld+json">' . "\n" .
     '</script>' . "\n";
 
 $og_image = 'https://www.vortexsoftinnovations.com/assets/images/vortexsoft-careers-share.png?v=20261027';
-$page_keywords = 'Vortexsoft careers, US mortgage specialist jobs Pune, software development intern Pune, HR intern Bangalore, digital marketing intern India, SAP Basis consultant openings, Java developer jobs Bangalore, Python developer Pune, Data Engineer jobs India, US title search executive Pune, medical coding CPC jobs India, BPO executive jobs, KPO analyst, remote IT internships';
+$page_keywords = 'QA testing jobs Pune, QA automation engineer Hyderabad, manual testing jobs Mumbai, Selenium test engineer, Playwright automation, QA functional tester, Vortexsoft careers, US mortgage specialist jobs Pune, software development intern Pune, HR intern Bangalore, digital marketing intern India, SAP Basis consultant openings, Java developer jobs Bangalore, Python developer Pune, Data Engineer jobs India, US title search executive Pune, medical coding CPC jobs India, BPO executive jobs, KPO analyst, remote IT internships';
 
 require_once __DIR__ . '/includes/header.php';
 ?>
@@ -1489,8 +1567,8 @@ require_once __DIR__ . '/includes/header.php';
         <div class="stat-label">Global Enterprise Clients</div>
       </div>
       <div class="hero-stat-card">
-        <div class="stat-num">Pune &amp; BLR</div>
-        <div class="stat-label">Dual Delivery Hubs + Remote</div>
+        <div class="stat-num">Pune, HYD, MUM, BLR</div>
+        <div class="stat-label">Multi-City Delivery Hubs + Remote</div>
       </div>
       <div class="hero-stat-card">
         <div class="stat-num text-success">48 Hrs</div>
@@ -1507,7 +1585,7 @@ require_once __DIR__ . '/includes/header.php';
       <!-- Search Input -->
       <div class="search-input-wrap">
         <i class="fas fa-search"></i>
-        <input type="text" id="jobSearchInput" placeholder="Search by role, keyword, or skill (e.g., Java, Python, Title Search, Medical Coding)..." autocomplete="off">
+        <input type="text" id="jobSearchInput" placeholder="Search by role, keyword, or skill (e.g., QA, Selenium, Java, Python, Title Search)..." autocomplete="off">
       </div>
       <!-- Quick Location Selector -->
       <div class="d-flex align-items-center gap-2">
@@ -1515,6 +1593,8 @@ require_once __DIR__ . '/includes/header.php';
         <select id="locationSelect" class="form-select form-select-sm" style="border-radius:10px;font-size:13.5px;font-weight:600;color:#334155;border-color:#cbd5e1;min-width:170px;">
           <option value="all">All Locations</option>
           <option value="pune">Pune HQ</option>
+          <option value="hyderabad">Hyderabad Hub</option>
+          <option value="mumbai">Mumbai Hub</option>
           <option value="bengaluru">Bengaluru Hub</option>
           <option value="remote">Remote / WFH</option>
         </select>
@@ -2118,7 +2198,7 @@ require_once __DIR__ . '/includes/header.php';
             </h2>
             <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#careersAccordion">
               <div class="accordion-body accordion-custom-body">
-                Vortexsoft Innovations is actively recruiting across multiple key domains including Java Developers, Python Developers, Data Engineers, US Title Search Executives, Healthcare Medical Coders, BPO Executives, KPO Analysts, HR Executives, and Associate Process Analysts. We offer competitive salaries, dual delivery center facilities in Pune and Bengaluru, and hybrid/remote work flexibility.
+                Vortexsoft Innovations is actively recruiting across multiple key domains including QA Automation Engineers, QA Manual Test Specialists, Java Developers, Python Developers, Data Engineers, US Mortgage Specialists, SAP Basis Consultants, Software Development Interns, HR Interns, Digital Marketing Interns, US Title Search Executives, Healthcare Medical Coders, and BPO Executives. We offer competitive salaries, multi-city delivery centers across Pune, Hyderabad, Mumbai, and Bengaluru, and hybrid/remote work flexibility.
               </div>
             </div>
           </div>
@@ -2146,7 +2226,7 @@ require_once __DIR__ . '/includes/header.php';
             </h2>
             <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#careersAccordion">
               <div class="accordion-body accordion-custom-body">
-                Yes. Most software engineering, data engineering, and analytics roles support hybrid or 100% remote working arrangements across India. Core title abstracting and specialized operations operate on-site from our high-security facilities in Pune and Bengaluru.
+                Yes. Most software engineering, data engineering, QA testing, and analytics roles support hybrid or 100% remote working arrangements across India. Core title abstracting and specialized operations operate on-site from our high-security facilities in Pune and Bengaluru.
               </div>
             </div>
           </div>
@@ -2188,7 +2268,21 @@ require_once __DIR__ . '/includes/header.php';
             </h2>
             <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#careersAccordion">
               <div class="accordion-body accordion-custom-body">
-                Vortexsoft Innovations is headquartered in <strong>Pune</strong> (502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune 411041), maintains an engineering delivery center in <strong>Bengaluru</strong> (No.125, Ranganath Complex, Madiwala, HSR Layout, Bengaluru 560068), and holds an international executive office in <strong>Sheridan, Wyoming, USA</strong>.
+                Vortexsoft Innovations is headquartered in <strong>Pune</strong> (502, 4th Floor, Dangat Patil Empire, Vadgaon Budruk, Pune 411041), operates engineering centers in <strong>Hyderabad</strong> (HITEC City / Madhapur) and <strong>Mumbai</strong> (Bandra Kurla Complex), maintains a delivery facility in <strong>Bengaluru</strong> (No.125, Ranganath Complex, Madiwala, HSR Layout), and holds an international executive office in <strong>Sheridan, Wyoming, USA</strong>.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 7 -->
+          <div class="accordion-item mb-3" style="border:none;">
+            <h2 class="accordion-header" id="faq7">
+              <button class="accordion-button accordion-custom-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7">
+                <i class="fas fa-check-double me-2 text-primary"></i> What QA Testing (Automation + Manual) openings are available across Pune, Hyderabad, and Mumbai?
+              </button>
+            </h2>
+            <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#careersAccordion">
+              <div class="accordion-body accordion-custom-body">
+                We are actively hiring for <strong>QA Automation Engineers</strong> (Selenium WebDriver, Playwright, Cypress, RestAssured, CI/CD pipelines, TestNG) and <strong>QA Manual &amp; Functional Test Specialists</strong> (exhaustive test case execution, SQL verification, API testing via Postman, and Jira sprint defect management) across our <strong>Pune HQ, Hyderabad, and Mumbai</strong> delivery hubs with hybrid and remote flexibility.
               </div>
             </div>
           </div>
