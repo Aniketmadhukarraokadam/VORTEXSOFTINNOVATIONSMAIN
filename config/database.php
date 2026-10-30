@@ -132,6 +132,8 @@ function ensure_core_database_tables(PDO $db): void {
               `status`          ENUM('new','reviewed','shortlisted','interview','offered','rejected','withdrawn')
                                               NOT NULL DEFAULT 'new',
               `admin_notes`     TEXT          DEFAULT NULL,
+              `consent_given`   TINYINT(1)    NOT NULL DEFAULT 1,
+              `consent_timestamp` DATETIME    DEFAULT NULL,
               `created_at`      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
               `updated_at`      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
               PRIMARY KEY (`id`),
@@ -139,6 +141,26 @@ function ensure_core_database_tables(PDO $db): void {
               INDEX `idx_status`     (`status`),
               INDEX `idx_job_title`  (`job_title`),
               INDEX `idx_created_at` (`created_at`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+            
+            "CREATE TABLE IF NOT EXISTS `jobs` (
+              `id`               INT UNSIGNED NOT NULL AUTO_INCREMENT,
+              `title`            VARCHAR(200) NOT NULL,
+              `department`       VARCHAR(100) NOT NULL,
+              `type`             VARCHAR(50)  NOT NULL DEFAULT 'Full Time',
+              `location`         VARCHAR(150) NOT NULL,
+              `experience_range` VARCHAR(50)  DEFAULT NULL,
+              `skills_json`      TEXT         DEFAULT NULL,
+              `description`      TEXT         NOT NULL,
+              `is_urgent`        TINYINT(1)   NOT NULL DEFAULT 0,
+              `is_active`        TINYINT(1)   NOT NULL DEFAULT 1,
+              `sort_order`       INT          NOT NULL DEFAULT 0,
+              `created_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+              `updated_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+              PRIMARY KEY (`id`),
+              INDEX `idx_is_active`  (`is_active`),
+              INDEX `idx_department` (`department`),
+              INDEX `idx_sort_order` (`sort_order`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
             
             "CREATE TABLE IF NOT EXISTS `blog_posts` (
@@ -216,6 +238,18 @@ function ensure_core_database_tables(PDO $db): void {
 
         foreach ($queries as $q) {
             try { $db->exec($q); } catch (Throwable $t) {}
+        }
+
+        // Schema migrations for existing tables
+        $appMigrations = [
+            "ALTER TABLE `job_applications` ADD COLUMN `consent_given` TINYINT(1) NOT NULL DEFAULT 1",
+            "ALTER TABLE `job_applications` ADD COLUMN `consent_timestamp` DATETIME DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `expected_ctc` VARCHAR(60) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `current_company` VARCHAR(120) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `linkedin_url` VARCHAR(300) DEFAULT NULL"
+        ];
+        foreach ($appMigrations as $m) {
+            try { $db->exec($m); } catch (Throwable $t) {}
         }
 
         try {

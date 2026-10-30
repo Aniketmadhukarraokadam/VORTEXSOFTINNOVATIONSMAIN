@@ -221,8 +221,9 @@ function send_contact_notification(array $data): bool {
 
 function send_application_notification(array $data): bool {
     $subject = "New Job Application: {$data['job_title']} — {$data['applicant_name']}";
-    $resume_link = !empty($data['resume_path'])
-        ? "<a href='{$data['resume_path']}' style='color:#1C2280;font-weight:700;'>Download Resume</a>"
+    $app_id = (int)($data['application_id'] ?? 0);
+    $resume_link = !empty($data['resume_filename'])
+        ? "<span style='color:#15803d;font-weight:700;'>Uploaded (" . htmlspecialchars($data['resume_filename']) . ")</span> &mdash; <a href='" . SITE_URL . "/admin/applications.php" . ($app_id > 0 ? "?view={$app_id}" : "") . "' style='color:#1C2280;font-weight:700;'>Review in Secure Admin Portal</a>"
         : '<span style="color:#94a3b8;">Not uploaded</span>';
     $body = "
     <html><body style='font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;'>
@@ -325,9 +326,21 @@ function is_active_page(string $page): string {
 }
 
 // ── JSON Response ──────────────────────────────────────────
-function json_response(bool $success, string $message, array $data = []): void {
-    header('Content-Type: application/json');
-    echo json_encode(array_merge(['success' => $success, 'message' => $message], $data));
+function json_response(bool $success, string $message, array $data = [], int $http_code = 0): void {
+    if ($http_code === 0) {
+        $http_code = $success ? 200 : 400;
+    }
+    http_response_code($http_code);
+    header('Content-Type: application/json; charset=UTF-8');
+    header('X-Content-Type-Options: nosniff');
+    $payload = [
+        'success' => $success,
+        'message' => $message
+    ];
+    if (!$success) {
+        $payload['error'] = $message;
+    }
+    echo json_encode(array_merge($payload, $data), JSON_UNESCAPED_UNICODE);
     exit;
 }
 

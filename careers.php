@@ -872,6 +872,17 @@ require_once __DIR__ . '/includes/header.php';
 .job-modern-card.card-urgent {
   border-top: 4px solid #CC2228;
 }
+.job-modern-card.job-card-highlighted {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.45), 0 20px 40px rgba(79, 70, 229, 0.2) !important;
+  transform: translateY(-6px);
+  animation: pulseHighlight 2s ease-in-out 2;
+}
+@keyframes pulseHighlight {
+  0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+  50% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0.25); }
+  100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+}
 
 /* Card Header Badges */
 .card-top-row {
@@ -1479,6 +1490,9 @@ require_once __DIR__ . '/includes/header.php';
         data-id="<?= $job['id'] ?>"
         data-title="<?= htmlspecialchars(strtolower($job['title'])) ?>"
         data-category="<?= htmlspecialchars($job['category']) ?>"
+        data-dept="<?= htmlspecialchars(strtolower($job['department'])) ?>"
+        data-type="<?= htmlspecialchars(strtolower($job['type'])) ?>"
+        data-exp="<?= htmlspecialchars(strtolower($job['exp'])) ?>"
         data-location="<?= htmlspecialchars($loc_lower) ?>"
         data-skills="<?= htmlspecialchars(strtolower(implode(' ', $job['skills']))) ?>"
         data-desc="<?= htmlspecialchars(strtolower($job['desc'])) ?>"
@@ -1678,14 +1692,16 @@ require_once __DIR__ . '/includes/header.php';
                 <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Full Name <span class="text-danger">*</span></label>
                 <div class="input-group">
                   <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-user"></i></span>
-                  <input type="text" class="form-control border-start-0" name="applicant_name" placeholder="Enter your full name" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                  <input type="text" class="form-control border-start-0" name="applicant_name" id="inline_applicant_name" placeholder="Enter your full name" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                  <div class="invalid-feedback">Please enter your legal full name (at least 2 characters).</div>
                 </div>
               </div>
               <div class="col-md-6">
                 <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Email Address <span class="text-danger">*</span></label>
                 <div class="input-group">
                   <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-envelope"></i></span>
-                  <input type="email" class="form-control border-start-0" name="email" placeholder="you@example.com" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                  <input type="email" class="form-control border-start-0" name="email" id="inline_email" placeholder="you@example.com" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                  <div class="invalid-feedback">Please enter a valid email address.</div>
                 </div>
               </div>
 
@@ -1694,7 +1710,8 @@ require_once __DIR__ . '/includes/header.php';
                 <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Phone / WhatsApp <span class="text-danger">*</span></label>
                 <div class="input-group">
                   <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-phone-alt"></i></span>
-                  <input type="tel" class="form-control border-start-0" name="phone" placeholder="+91 XXXXX XXXXX" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                  <input type="tel" class="form-control border-start-0" name="phone" id="inline_phone" placeholder="+91 XXXXX XXXXX" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                  <div class="invalid-feedback">Please enter a valid phone number (at least 7 digits).</div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -1722,6 +1739,12 @@ require_once __DIR__ . '/includes/header.php';
                 </select>
               </div>
 
+              <!-- Current Company & Expected CTC -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Current Employer / Company</label>
+                <input type="text" class="form-control" name="current_company" placeholder="e.g. Current Employer or Fresher" style="border-radius:10px;font-size:14px;">
+              </div>
+
               <!-- Experience & Notice Period -->
               <div class="col-md-3 col-sm-6">
                 <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Experience</label>
@@ -1741,19 +1764,41 @@ require_once __DIR__ . '/includes/header.php';
                   <option value="60+ Days">60+ Days</option>
                 </select>
               </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Expected CTC</label>
+                <input type="text" class="form-control" name="expected_ctc" placeholder="e.g. ₹6 LPA / Negotiable" style="border-radius:10px;font-size:14px;">
+              </div>
+
+              <!-- LinkedIn Profile URL -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">LinkedIn Profile / Portfolio Link</label>
+                <input type="url" class="form-control" name="linkedin_url" placeholder="https://linkedin.com/in/username" style="border-radius:10px;font-size:14px;">
+              </div>
 
               <!-- Resume Upload (Optional) -->
               <div class="col-12">
                 <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">
-                  Upload Resume / CV (.pdf, .docx, .doc — max 5MB) <span class="text-muted fw-normal">(Optional)</span>
+                  Upload Resume / CV (.pdf, .docx, .doc — max 5MB) <span class="text-muted fw-normal">(Recommended)</span>
                 </label>
-                <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;padding:9px 14px;">
+                <input type="file" class="form-control" name="resume" id="inline_resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;padding:9px 14px;">
+                <div class="invalid-feedback">File must be an authentic PDF, DOC, or DOCX document under 5MB.</div>
               </div>
 
               <!-- Note / Profile Links -->
               <div class="col-12">
-                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Candidate Summary / Portfolio / LinkedIn Profile</label>
-                <textarea class="form-control" name="cover_letter" rows="3" placeholder="Tell us about your background, key technical skills, notable achievements, or paste your LinkedIn / GitHub URL..." style="border-radius:10px;font-size:14px;"></textarea>
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Candidate Summary / Note / Key Skills</label>
+                <textarea class="form-control" name="cover_letter" rows="3" placeholder="Tell us about your background, key technical skills, notable achievements, or projects..." style="border-radius:10px;font-size:14px;"></textarea>
+              </div>
+
+              <!-- Consent Checkbox -->
+              <div class="col-12 mt-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="consent" id="inlineConsent" value="1" required>
+                  <label class="form-check-label" for="inlineConsent" style="font-size:12.5px;color:#334155;line-height:1.5;">
+                    I confirm that the information provided is accurate and consent to Vortexsoft Innovations processing my details and resume for recruitment in accordance with the <a href="privacy-policy.php" target="_blank" style="color:#1C2280;text-decoration:underline;">Privacy Policy</a>. <span class="text-danger">*</span>
+                  </label>
+                  <div class="invalid-feedback">You must consent to data processing for recruitment purposes.</div>
+                </div>
               </div>
 
               <!-- Submit Button & Security Note -->
@@ -2066,7 +2111,7 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <!-- ── APPLICATION MODAL ───────────────────────────────────────── -->
-<div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
+<div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true" data-bs-backdrop="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content" style="border-radius:18px;border:none;box-shadow:0 25px 60px rgba(0,0,0,0.25);">
       <div class="modal-header" style="background:#0f172a;color:#fff;border-bottom:1px solid rgba(255,255,255,.1);padding:20px 28px;">
@@ -2078,12 +2123,13 @@ require_once __DIR__ . '/includes/header.php';
       <div class="modal-body p-4" style="background:#f8fafc;">
         <div id="apply-feedback" class="d-none mb-3" role="alert"></div>
         <form id="applyForm" enctype="multipart/form-data" novalidate>
-          <input type="hidden" name="job_title" id="form-job-title">
-          <input type="hidden" name="department" id="form-department">
-          <input type="hidden" name="job_id" id="form-job-id">
+          <input type="hidden" name="job_title" id="form-job-title" value="General Application">
+          <input type="hidden" name="department" id="form-department" value="General">
+          <input type="hidden" name="job_id" id="form-job-id" value="0">
           <input type="text" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
 
           <div class="row g-3">
+            <!-- Preferred Domain Group (Visible only for General Applications) -->
             <div class="col-12 d-none" id="generalDeptSelectGroup">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">
                 <i class="fas fa-layer-group text-primary me-1"></i> Preferred Domain / Functional Area <span class="text-danger">*</span>
@@ -2101,25 +2147,43 @@ require_once __DIR__ . '/includes/header.php';
               <small class="text-muted" style="font-size:12px;">Select the operational domain closest to your skillset and interest.</small>
             </div>
 
+            <!-- Full Name -->
             <div class="col-md-6">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Full Name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="applicant_name" placeholder="Your full legal name" style="border-radius:10px;font-size:14px;" required>
+              <input type="text" class="form-control" name="applicant_name" id="apply_applicant_name" placeholder="Your full legal name" style="border-radius:10px;font-size:14px;" required>
+              <div class="invalid-feedback">Please enter your legal full name (at least 2 characters).</div>
             </div>
+
+            <!-- Email Address -->
             <div class="col-md-6">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Email Address <span class="text-danger">*</span></label>
-              <input type="email" class="form-control" name="email" placeholder="you@email.com" style="border-radius:10px;font-size:14px;" required>
+              <input type="email" class="form-control" name="email" id="apply_email" placeholder="you@email.com" style="border-radius:10px;font-size:14px;" required>
+              <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
+
+            <!-- Phone / WhatsApp -->
             <div class="col-md-6">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Phone / WhatsApp <span class="text-danger">*</span></label>
-              <input type="tel" class="form-control" name="phone" placeholder="+91 XXXXX XXXXX" style="border-radius:10px;font-size:14px;" required>
+              <input type="tel" class="form-control" name="phone" id="apply_phone" placeholder="+91 XXXXX XXXXX" style="border-radius:10px;font-size:14px;" required>
+              <div class="invalid-feedback">Please enter a valid phone number (at least 7 digits).</div>
             </div>
+
+            <!-- Current Location -->
             <div class="col-md-6">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Current City &amp; State</label>
-              <input type="text" class="form-control" name="current_location" placeholder="e.g. Pune, Maharashtra" style="border-radius:10px;font-size:14px;">
+              <input type="text" class="form-control" name="current_location" id="apply_location" placeholder="e.g. Pune, Maharashtra" style="border-radius:10px;font-size:14px;">
             </div>
+
+            <!-- Current Company -->
+            <div class="col-md-6">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Current Employer / Company</label>
+              <input type="text" class="form-control" name="current_company" id="apply_company" placeholder="e.g. Current Employer or Fresher" style="border-radius:10px;font-size:14px;">
+            </div>
+
+            <!-- Years of Experience -->
             <div class="col-md-6">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Years of Experience</label>
-              <select class="form-select" name="experience_years" style="border-radius:10px;font-size:14px;">
+              <select class="form-select" name="experience_years" id="apply_experience" style="border-radius:10px;font-size:14px;">
                 <option value="0">Fresher / Entry Level (0–1 years)</option>
                 <option value="1">1 Year</option>
                 <option value="2">2 Years</option>
@@ -2128,24 +2192,58 @@ require_once __DIR__ . '/includes/header.php';
                 <option value="5">5+ Years</option>
               </select>
             </div>
+
+            <!-- Notice Period -->
             <div class="col-md-6">
               <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Notice Period / Availability</label>
-              <select class="form-select" name="notice_period" style="border-radius:10px;font-size:14px;">
-                <option value="Immediate">Immediate / Within 1 Week</option>
+              <select class="form-select" name="notice_period" id="apply_notice" style="border-radius:10px;font-size:14px;">
+                <option value="Immediate" selected>Immediate / Within 1 Week</option>
                 <option value="15 Days">15 Days</option>
                 <option value="30 Days">30 Days</option>
                 <option value="60+ Days">60+ Days</option>
               </select>
             </div>
-            <div class="col-12">
-              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Upload Resume (.pdf, .docx, .doc — max 5MB) <span class="text-muted fw-normal">(Optional)</span></label>
-              <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;">
+
+            <!-- Expected CTC -->
+            <div class="col-md-6">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Expected CTC</label>
+              <input type="text" class="form-control" name="expected_ctc" id="apply_ctc" placeholder="e.g. ₹6 LPA / Negotiable" style="border-radius:10px;font-size:14px;">
             </div>
+
+            <!-- LinkedIn Profile URL -->
             <div class="col-12">
-              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Brief Note / GitHub / Portfolio Link</label>
-              <textarea class="form-control" name="cover_letter" rows="3" placeholder="Tell us about your background, key projects, or paste your GitHub/LinkedIn profile link..." style="border-radius:10px;font-size:14px;"></textarea>
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">LinkedIn Profile / Portfolio Link</label>
+              <input type="url" class="form-control" name="linkedin_url" id="apply_linkedin" placeholder="https://linkedin.com/in/username" style="border-radius:10px;font-size:14px;">
+            </div>
+
+            <!-- Resume Upload -->
+            <div class="col-12">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">
+                Upload Resume (.pdf, .docx, .doc — max 5MB) <span class="text-muted fw-normal">(Recommended)</span>
+              </label>
+              <input type="file" class="form-control" name="resume" id="apply_resume" accept=".pdf,.doc,.docx" style="border-radius:10px;font-size:14px;">
+              <div class="invalid-feedback">File must be a valid PDF, DOC, or DOCX document under 5MB.</div>
+              <small class="text-muted" style="font-size:12px;">Accepted formats: PDF, DOC, DOCX. Max file size: 5MB.</small>
+            </div>
+
+            <!-- Cover Letter / Notes -->
+            <div class="col-12">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Brief Note / Key Skills</label>
+              <textarea class="form-control" name="cover_letter" id="apply_cover_letter" rows="3" placeholder="Tell us about your background, key projects, or relevant experience..." style="border-radius:10px;font-size:14px;"></textarea>
+            </div>
+
+            <!-- Consent Checkbox -->
+            <div class="col-12 mt-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="consent" id="applyConsent" value="1" required>
+                <label class="form-check-label" for="applyConsent" style="font-size:12.5px;color:#334155;line-height:1.5;">
+                  I confirm that the information provided is accurate and consent to Vortexsoft Innovations processing my details and resume for recruitment in accordance with the <a href="privacy-policy.php" target="_blank" style="color:#1C2280;text-decoration:underline;">Privacy Policy</a>. <span class="text-danger">*</span>
+                </label>
+                <div class="invalid-feedback">You must consent to data processing for recruitment purposes.</div>
+              </div>
             </div>
           </div>
+
           <div class="mt-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
             <span style="font-size:12px;color:#64748b;">
               <i class="fas fa-lock me-1"></i> Data handled securely under ISO 27001 standards.
@@ -2161,7 +2259,7 @@ require_once __DIR__ . '/includes/header.php';
 </div>
 
 <!-- ── SHARE MODAL ─────────────────────────────────────────────── -->
-<div class="modal fade" id="jobShareModal" tabindex="-1" aria-labelledby="jobShareModalLabel" aria-hidden="true">
+<div class="modal fade" id="jobShareModal" tabindex="-1" aria-labelledby="jobShareModalLabel" aria-hidden="true" data-bs-backdrop="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="border-radius:18px;border:none;box-shadow:0 25px 60px rgba(0,0,0,0.25);">
       <div class="modal-header" style="background:#0f172a;color:#fff;border-bottom:1px solid rgba(255,255,255,.1);padding:18px 24px;">
@@ -2175,23 +2273,40 @@ require_once __DIR__ . '/includes/header.php';
         <p id="shareModalJobMeta" style="font-size:13px;color:#64748b;margin-bottom:20px;"></p>
 
         <label style="font-size:12.5px;font-weight:600;color:#334155;margin-bottom:6px;display:block;">Direct Share Link</label>
-        <div class="input-group mb-4">
+        <div class="input-group mb-2">
           <input type="text" id="shareLinkInput" class="form-control" style="font-size:13px;background:#f8fafc;border-radius:8px 0 0 8px;" readonly>
           <button class="btn btn-outline-primary" type="button" id="copyShareBtn" style="font-weight:600;font-size:13px;border-radius:0 8px 8px 0;">
             <i class="fas fa-copy me-1"></i> Copy Link
           </button>
         </div>
+        <div id="copyFeedback" class="d-none small mb-3"></div>
 
-        <div class="d-flex align-items-center justify-content-center gap-3">
-          <a href="#" id="shareWaBtn" target="_blank" class="btn" style="background:#25D366;color:#fff;border-radius:10px;font-weight:600;font-size:13px;padding:9px 18px;">
+        <label style="font-size:12.5px;font-weight:600;color:#334155;margin-top:14px;margin-bottom:8px;display:block;">Share via Channels</label>
+        <div class="d-flex align-items-center justify-content-center flex-wrap gap-2 mb-3">
+          <a href="#" id="shareWaBtn" target="_blank" rel="noopener noreferrer" class="btn" style="background:#25D366;color:#fff;border-radius:10px;font-weight:600;font-size:12.5px;padding:8px 14px;">
             <i class="fab fa-whatsapp me-1"></i> WhatsApp
           </a>
-          <a href="#" id="shareLiBtn" target="_blank" class="btn" style="background:#0A66C2;color:#fff;border-radius:10px;font-weight:600;font-size:13px;padding:9px 18px;">
+          <a href="#" id="shareLiBtn" target="_blank" rel="noopener noreferrer" class="btn" style="background:#0A66C2;color:#fff;border-radius:10px;font-weight:600;font-size:12.5px;padding:8px 14px;">
             <i class="fab fa-linkedin me-1"></i> LinkedIn
           </a>
-          <a href="#" id="shareMailBtn" class="btn" style="background:#ea4335;color:#fff;border-radius:10px;font-weight:600;font-size:13px;padding:9px 18px;">
+          <a href="#" id="shareTwBtn" target="_blank" rel="noopener noreferrer" class="btn" style="background:#000000;color:#fff;border-radius:10px;font-weight:600;font-size:12.5px;padding:8px 14px;">
+            <i class="fab fa-x-twitter me-1"></i> X
+          </a>
+          <a href="#" id="shareFbBtn" target="_blank" rel="noopener noreferrer" class="btn" style="background:#1877F2;color:#fff;border-radius:10px;font-weight:600;font-size:12.5px;padding:8px 14px;">
+            <i class="fab fa-facebook me-1"></i> Facebook
+          </a>
+          <a href="#" id="shareTgBtn" target="_blank" rel="noopener noreferrer" class="btn" style="background:#229ED9;color:#fff;border-radius:10px;font-weight:600;font-size:12.5px;padding:8px 14px;">
+            <i class="fab fa-telegram-plane me-1"></i> Telegram
+          </a>
+          <a href="#" id="shareMailBtn" class="btn" style="background:#ea4335;color:#fff;border-radius:10px;font-weight:600;font-size:12.5px;padding:8px 14px;">
             <i class="fas fa-envelope me-1"></i> Email
           </a>
+        </div>
+
+        <div class="text-center mt-3 pt-2 border-top" id="nativeShareWrap">
+          <button type="button" id="shareNativeBtn" class="btn btn-sm btn-outline-secondary w-100" style="border-radius:10px;font-weight:600;padding:8px 14px;">
+            <i class="fas fa-share-nodes me-1"></i> Share via Device Apps
+          </button>
         </div>
       </div>
     </div>
@@ -2203,6 +2318,9 @@ require_once __DIR__ . '/includes/header.php';
 <!-- ── INTERACTIVE CLIENT-SIDE LOGIC ───────────────────────────── -->
 <script>
 (function() {
+  'use strict';
+
+  // ── Element References ─────────────────────────────────────
   const searchInput    = document.getElementById('jobSearchInput');
   const locationSelect = document.getElementById('locationSelect');
   const catButtons     = document.querySelectorAll('.cat-pill-btn');
@@ -2213,33 +2331,50 @@ require_once __DIR__ . '/includes/header.php';
   let activeCategory = 'All';
   let activeLocation = 'all';
   let searchKeyword  = '';
+  let currentSharePayload = null;
 
+  // ── Bootstrap Modal Helper ─────────────────────────────────
+  function getBootstrapModalInstance(elementId) {
+    const el = document.getElementById(elementId);
+    if (!el) return null;
+    if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+      return bootstrap.Modal.getOrCreateInstance(el);
+    }
+    return null;
+  }
+
+  // ── Filter & Search Logic ──────────────────────────────────
   function applyFilters() {
     let count = 0;
+    const query = searchKeyword.toLowerCase();
+
     jobCards.forEach(card => {
-      const cardTitle    = card.getAttribute('data-title') || '';
+      const cardTitle    = (card.getAttribute('data-title') || '').toLowerCase();
       const cardCategory = card.getAttribute('data-category') || '';
-      const cardLocation = card.getAttribute('data-location') || '';
-      const cardSkills   = card.getAttribute('data-skills') || '';
-      const cardDesc     = card.getAttribute('data-desc') || '';
+      const cardDept     = (card.getAttribute('data-dept') || '').toLowerCase();
+      const cardType     = (card.getAttribute('data-type') || '').toLowerCase();
+      const cardExp      = (card.getAttribute('data-exp') || '').toLowerCase();
+      const cardLocation = (card.getAttribute('data-location') || '').toLowerCase();
+      const cardSkills   = (card.getAttribute('data-skills') || '').toLowerCase();
+      const cardDesc     = (card.getAttribute('data-desc') || '').toLowerCase();
 
       // 1. Category check
-      const matchCat = (activeCategory === 'All') || (cardCategory === activeCategory);
+      const matchCat = (activeCategory === 'All') || (cardCategory.trim() === activeCategory.trim());
 
       // 2. Location check
       let matchLoc = true;
       if (activeLocation !== 'all') {
-        matchLoc = cardLocation.includes(activeLocation);
+        matchLoc = cardLocation.includes(activeLocation.toLowerCase());
       }
 
-      // 3. Search check
+      // 3. Search check (searches title, department, skills, technology, location, experience, type, description)
       let matchSearch = true;
-      if (searchKeyword.length > 0) {
-        matchSearch = cardTitle.includes(searchKeyword) || 
-                      cardSkills.includes(searchKeyword) || 
-                      cardDesc.includes(searchKeyword) ||
-                      cardLocation.includes(searchKeyword) ||
-                      cardCategory.toLowerCase().includes(searchKeyword);
+      if (query.length > 0) {
+        const searchPool = cardTitle + ' ' + cardCategory.toLowerCase() + ' ' + cardDept + ' ' + 
+                           cardType + ' ' + cardExp + ' ' + cardLocation + ' ' + cardSkills + ' ' + cardDesc;
+        // Support multi-term searches (e.g., "python remote")
+        const terms = query.split(/\s+/).filter(t => t.length > 0);
+        matchSearch = terms.every(term => searchPool.includes(term));
       }
 
       if (matchCat && matchLoc && matchSearch) {
@@ -2260,20 +2395,30 @@ require_once __DIR__ . '/includes/header.php';
     }
   }
 
+  // ── Filter by Category ─────────────────────────────────────
   window.filterByCategory = function(cat, btn) {
-    activeCategory = cat;
-    catButtons.forEach(b => b.classList.remove('active'));
+    activeCategory = cat || 'All';
+    catButtons.forEach(b => {
+      const bCat = b.getAttribute('data-category');
+      if (bCat === activeCategory) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
     if (btn) btn.classList.add('active');
     applyFilters();
   };
 
+  // ── Search Input Event ─────────────────────────────────────
   if (searchInput) {
     searchInput.addEventListener('input', function() {
-      searchKeyword = this.value.trim().toLowerCase();
+      searchKeyword = this.value.trim();
       applyFilters();
     });
   }
 
+  // ── Location Selector Event ────────────────────────────────
   if (locationSelect) {
     locationSelect.addEventListener('change', function() {
       activeLocation = this.value;
@@ -2281,6 +2426,7 @@ require_once __DIR__ . '/includes/header.php';
     });
   }
 
+  // ── Reset Filters ──────────────────────────────────────────
   window.resetFilters = function() {
     activeCategory = 'All';
     activeLocation = 'all';
@@ -2297,170 +2443,438 @@ require_once __DIR__ . '/includes/header.php';
     applyFilters();
   };
 
-  // Deep-linking: scroll to shared job if requested
+  // ── Deep-Linking (Open Shared Vacancy) ──────────────────────
   const urlParams = new URLSearchParams(window.location.search);
   const targetJobId = urlParams.get('job');
   if (targetJobId) {
     const targetEl = document.getElementById('job-' + targetJobId);
     if (targetEl) {
+      // Ensure target vacancy is visible by setting category to All if currently filtered out
+      const targetCat = targetEl.getAttribute('data-category');
+      if (targetCat && activeCategory !== 'All' && activeCategory !== targetCat) {
+        window.filterByCategory('All');
+      }
+      targetEl.classList.remove('d-none');
       setTimeout(() => {
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
         const cardInner = targetEl.querySelector('.job-modern-card');
         if (cardInner) {
-          cardInner.style.boxShadow = '0 0 0 4px #818cf8';
-          setTimeout(() => { cardInner.style.boxShadow = ''; }, 3000);
+          cardInner.classList.add('job-card-highlighted');
+          setTimeout(() => {
+            cardInner.classList.remove('job-card-highlighted');
+          }, 4500);
         }
       }, 400);
     }
   }
-})();
 
-// Application Modal Functions
-function openApplyModal(title, dept, jobId) {
-  const isGeneral = (!title || title === 'General Application');
-  const modalTitle = document.getElementById('modal-job-title');
-  const deptGroup  = document.getElementById('generalDeptSelectGroup');
-  const deptSelect = document.getElementById('generalDeptSelect');
-
-  if (isGeneral) {
-    if (modalTitle) modalTitle.textContent = 'General Application (Open Talent Pool)';
-    document.getElementById('form-job-title').value = 'General Application';
-    document.getElementById('form-department').value = dept || 'Any Department / Open to Opportunities';
-    document.getElementById('form-job-id').value = '0';
-    if (deptGroup) deptGroup.classList.remove('d-none');
-    if (deptSelect && dept && dept !== 'General' && dept !== 'General Talent Pool') {
-      deptSelect.value = dept;
-    }
-  } else {
-    if (modalTitle) modalTitle.textContent = title;
-    document.getElementById('form-job-title').value = title;
-    document.getElementById('form-department').value = dept || 'General';
-    document.getElementById('form-job-id').value = jobId || '';
-    if (deptGroup) deptGroup.classList.add('d-none');
-  }
-
-  const fb = document.getElementById('apply-feedback');
-  if (fb) {
-    fb.className = 'd-none mb-3';
-    fb.innerHTML = '';
-  }
-  const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('applyModal'));
-  modal.show();
-}
-
-document.getElementById('generalDeptSelect')?.addEventListener('change', function() {
-  document.getElementById('form-department').value = this.value;
-});
-
-// Share Modal Functions
-function openJobShare(job) {
-  const shareUrl = window.location.origin + window.location.pathname + '?job=' + job.id;
-  document.getElementById('shareModalJobTitle').textContent = job.title;
-  document.getElementById('shareModalJobMeta').textContent = job.department + ' • ' + job.location + ' • ' + job.type;
-  document.getElementById('shareLinkInput').value = shareUrl;
-
-  const shareText = encodeURIComponent('Explore opening for ' + job.title + ' at Vortexsoft Innovations: ' + shareUrl);
-  document.getElementById('shareWaBtn').href = 'https://api.whatsapp.com/send?text=' + shareText;
-  document.getElementById('shareLiBtn').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
-  document.getElementById('shareMailBtn').href = 'mailto:?subject=' + encodeURIComponent('Job Opening: ' + job.title) + '&body=' + shareText;
-
-  const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('jobShareModal'));
-  modal.show();
-}
-
-document.getElementById('copyShareBtn')?.addEventListener('click', function() {
-  const input = document.getElementById('shareLinkInput');
-  input.select();
-  navigator.clipboard.writeText(input.value).then(() => {
-    this.innerHTML = '<i class="fas fa-check text-success me-1"></i> Copied!';
-    setTimeout(() => {
-      this.innerHTML = '<i class="fas fa-copy me-1"></i> Copy Link';
-    }, 2000);
-  });
-});
-
-// Form Submission via Fetch
-document.getElementById('applyForm')?.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const form = this;
-  const submitBtn = document.getElementById('applySubmitBtn');
-  const fb = document.getElementById('apply-feedback');
-
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Submitting Profile...';
-
-  const formData = new FormData(form);
-
-  fetch('api/apply.php', {
-    method: 'POST',
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      fb.className = 'alert alert-success mb-3';
-      fb.innerHTML = '<i class="fas fa-check-circle me-2"></i> ' + (data.message || 'Application submitted successfully! Our HR team will contact you within 48 business hours.');
-      form.reset();
-      submitBtn.innerHTML = '<i class="fas fa-check me-2"></i> Application Sent!';
-      setTimeout(() => {
-        const modal = bootstrap.Modal.getInstance(document.getElementById('applyModal'));
-        if (modal) modal.hide();
-      }, 3000);
+  // ── Clipboard Copy Helper with Robust Fallback ─────────────
+  function copyTextToClipboard(text, onDone) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text)
+        .then(() => onDone(true))
+        .catch(() => fallbackCopy(text, onDone));
     } else {
-      fb.className = 'alert alert-danger mb-3';
-      fb.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i> ' + (data.error || 'Submission error. Please verify required fields and file format.');
+      fallbackCopy(text, onDone);
+    }
+  }
+
+  function fallbackCopy(text, onDone) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top = '-9999px';
+      ta.setAttribute('readonly', '');
+      document.body.appendChild(ta);
+      ta.select();
+      const successful = document.execCommand('copy');
+      document.body.removeChild(ta);
+      onDone(successful);
+    } catch (e) {
+      onDone(false);
+    }
+  }
+
+  // ── Client-Side Form Validation ────────────────────────────
+  function validateCandidateForm(form) {
+    let isValid = true;
+    let firstInvalidEl = null;
+
+    function markField(fieldEl, valid, customMsg) {
+      if (!fieldEl) return;
+      if (valid) {
+        fieldEl.classList.remove('is-invalid');
+      } else {
+        fieldEl.classList.add('is-invalid');
+        if (customMsg) {
+          const feedback = fieldEl.parentElement.querySelector('.invalid-feedback') || fieldEl.nextElementSibling;
+          if (feedback && feedback.classList.contains('invalid-feedback')) {
+            feedback.textContent = customMsg;
+          }
+        }
+        if (!firstInvalidEl) firstInvalidEl = fieldEl;
+        isValid = false;
+      }
+    }
+
+    // Name check
+    const nameEl = form.querySelector('[name="applicant_name"]');
+    if (nameEl) {
+      const val = nameEl.value.trim();
+      markField(nameEl, val.length >= 2, 'Please enter your legal full name (at least 2 characters).');
+    }
+
+    // Email check
+    const emailEl = form.querySelector('[name="email"]');
+    if (emailEl) {
+      const val = emailEl.value.trim();
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      markField(emailEl, emailRe.test(val), 'Please enter a valid email address.');
+    }
+
+    // Phone check
+    const phoneEl = form.querySelector('[name="phone"]');
+    if (phoneEl) {
+      const val = phoneEl.value.trim();
+      const phoneRe = /^[\+0-9\-\s\(\)]{7,20}$/;
+      markField(phoneEl, phoneRe.test(val), 'Please enter a valid contact phone number (at least 7 digits).');
+    }
+
+    // Consent check
+    const consentEl = form.querySelector('[name="consent"]');
+    if (consentEl) {
+      markField(consentEl, consentEl.checked, 'You must consent to data processing for recruitment purposes.');
+    }
+
+    // Resume check (if a file is selected)
+    const resumeEl = form.querySelector('[name="resume"]');
+    if (resumeEl && resumeEl.files && resumeEl.files.length > 0) {
+      const file = resumeEl.files[0];
+      const ext = file.name.split('.').pop().toLowerCase();
+      const allowedExts = ['pdf', 'doc', 'docx'];
+      if (!allowedExts.includes(ext)) {
+        markField(resumeEl, false, 'Resume file must be a PDF, DOC, or DOCX document.');
+      } else if (file.size > 5 * 1024 * 1024) {
+        markField(resumeEl, false, 'Resume file size exceeds the 5MB limit.');
+      } else {
+        markField(resumeEl, true);
+      }
+    }
+
+    // Real-time error removal on input
+    form.querySelectorAll('input, select, textarea').forEach(el => {
+      el.addEventListener('input', () => el.classList.remove('is-invalid'), { once: true });
+      el.addEventListener('change', () => el.classList.remove('is-invalid'), { once: true });
+    });
+
+    if (!isValid && firstInvalidEl) {
+      firstInvalidEl.focus();
+    }
+
+    return isValid;
+  }
+
+  // ── Application Modal Functions ────────────────────────────
+  window.openApplyModal = function(title, dept, jobId) {
+    const isGeneral    = (!title || title === 'General Application');
+    const form         = document.getElementById('applyForm');
+    const modalTitle   = document.getElementById('modal-job-title');
+    const deptGroup    = document.getElementById('generalDeptSelectGroup');
+    const deptSelect   = document.getElementById('generalDeptSelect');
+    const formJobTitle = document.getElementById('form-job-title');
+    const formDept     = document.getElementById('form-department');
+    const formJobId    = document.getElementById('form-job-id');
+    const fb           = document.getElementById('apply-feedback');
+    const submitBtn    = document.getElementById('applySubmitBtn');
+
+    // 1. Reset applicant fields FIRST so form.reset() never clears populated job details
+    if (form) {
+      form.reset();
+      form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+    }
+
+    // 2. Populate job information safely using textContent
+    if (isGeneral) {
+      if (modalTitle) modalTitle.textContent = 'General Application (Open Talent Pool)';
+      if (formJobTitle) formJobTitle.value = 'General Application';
+      if (formDept) formDept.value = dept || 'Any Department / Open to Opportunities';
+      if (formJobId) formJobId.value = '0';
+      if (deptGroup) deptGroup.classList.remove('d-none');
+      if (deptSelect && dept && dept !== 'General' && dept !== 'General Talent Pool') {
+        deptSelect.value = dept;
+      }
+    } else {
+      if (modalTitle) modalTitle.textContent = title;
+      if (formJobTitle) formJobTitle.value = title;
+      if (formDept) formDept.value = dept || 'General';
+      if (formJobId) formJobId.value = (jobId !== undefined && jobId !== null) ? String(jobId) : '';
+      if (deptGroup) deptGroup.classList.add('d-none');
+    }
+
+    // 3. Clear feedback area & restore submit button
+    if (fb) {
+      fb.className = 'd-none mb-3';
+      fb.innerHTML = '';
+    }
+    if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit Application';
     }
-  })
-  .catch(err => {
-    fb.className = 'alert alert-danger mb-3';
-    fb.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i> Network error. Please try again or email your resume to hr@vortexsoftinnovations.com.';
-    submitBtn.disabled = false;
-// Inline General Application Form Submission via Fetch
-document.getElementById('inlineGeneralApplyForm')?.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const form = this;
-  const submitBtn = document.getElementById('inlineApplySubmitBtn');
-  const fb = document.getElementById('inline-apply-feedback');
 
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Submitting Profile...';
+    // 4. Open Modal safely
+    const modal = getBootstrapModalInstance('applyModal');
+    if (modal) modal.show();
+  };
 
-  const formData = new FormData(form);
-
-  fetch('api/apply.php', {
-    method: 'POST',
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      fb.className = 'alert alert-success mb-4';
-      fb.innerHTML = '<div class="d-flex align-items-center gap-2"><i class="fas fa-check-circle fs-5"></i> <div><strong>General Application Submitted Successfully!</strong><br>' + (data.message || 'Our talent acquisition team has received your profile and resume. We will contact you within 48 business hours.') + '</div></div>';
-      form.reset();
-      submitBtn.innerHTML = '<i class="fas fa-check me-2"></i> Application Sent!';
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'general_job_application_submitted',
-        submission_type: 'inline_general_form'
-      });
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit Another Application';
-      }, 5000);
-    } else {
-      fb.className = 'alert alert-danger mb-4';
-      fb.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i> ' + (data.error || 'Submission error. Please ensure all required fields and resume file are provided.');
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit General Application';
-    }
-  })
-  .catch(err => {
-    fb.className = 'alert alert-danger mb-4';
-    fb.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i> Network error. Please try again or email your resume directly to careers@vortexsoftinnovations.com.';
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit General Application';
+  document.getElementById('generalDeptSelect')?.addEventListener('change', function() {
+    const formDept = document.getElementById('form-department');
+    if (formDept) formDept.value = this.value;
   });
-});
+
+  // ── Share Modal Functions ──────────────────────────────────
+  window.openJobShare = function(job) {
+    const origin = window.location.origin || (window.location.protocol + '//' + window.location.host);
+    const path = window.location.pathname.replace(/\/+$/, '') || '/careers.php';
+    const cleanPath = path.endsWith('.php') ? path : (path + '/careers.php');
+    const shareUrl = origin + cleanPath + '?job=' + encodeURIComponent(job.id);
+
+    currentSharePayload = {
+      id: job.id,
+      title: job.title,
+      department: job.department,
+      location: job.location,
+      type: job.type,
+      exp: job.exp,
+      url: shareUrl
+    };
+
+    const titleEl   = document.getElementById('shareModalJobTitle');
+    const metaEl    = document.getElementById('shareModalJobMeta');
+    const linkInput = document.getElementById('shareLinkInput');
+    const copyFb    = document.getElementById('copyFeedback');
+
+    if (titleEl) titleEl.textContent = job.title;
+    if (metaEl) {
+      const parts = [job.department, job.location, job.type, job.exp].filter(Boolean);
+      metaEl.textContent = parts.join(' • ');
+    }
+    if (linkInput) linkInput.value = shareUrl;
+    if (copyFb) { copyFb.className = 'd-none'; copyFb.textContent = ''; }
+
+    const textMsg = 'Explore opening for ' + job.title + ' (' + (job.location || 'India') + ') at Vortexsoft Innovations: ' + shareUrl;
+    const encText = encodeURIComponent(textMsg);
+    const encUrl  = encodeURIComponent(shareUrl);
+    const encSubj = encodeURIComponent('Career Opening: ' + job.title + ' — Vortexsoft Innovations');
+
+    const waBtn   = document.getElementById('shareWaBtn');
+    const liBtn   = document.getElementById('shareLiBtn');
+    const twBtn   = document.getElementById('shareTwBtn');
+    const fbBtn   = document.getElementById('shareFbBtn');
+    const tgBtn   = document.getElementById('shareTgBtn');
+    const mailBtn = document.getElementById('shareMailBtn');
+
+    if (waBtn)   waBtn.href   = 'https://api.whatsapp.com/send?text=' + encText;
+    if (liBtn)   liBtn.href   = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl;
+    if (twBtn)   twBtn.href   = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent('Explore opening for ' + job.title + ' at Vortexsoft Innovations: ') + '&url=' + encUrl;
+    if (fbBtn)   fbBtn.href   = 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl;
+    if (tgBtn)   tgBtn.href   = 'https://t.me/share/url?url=' + encUrl + '&text=' + encText;
+    if (mailBtn) mailBtn.href = 'mailto:?subject=' + encSubj + '&body=' + encText;
+
+    const modal = getBootstrapModalInstance('jobShareModal');
+    if (modal) modal.show();
+  };
+
+  // ── Copy Share Link Event ──────────────────────────────────
+  document.getElementById('copyShareBtn')?.addEventListener('click', function() {
+    const input = document.getElementById('shareLinkInput');
+    const btn   = this;
+    const fb    = document.getElementById('copyFeedback');
+    if (!input) return;
+
+    copyTextToClipboard(input.value, function(success) {
+      if (success) {
+        btn.innerHTML = '<i class="fas fa-check text-success me-1"></i> Copied!';
+        if (fb) {
+          fb.className = 'text-success fw-bold small mb-2';
+          fb.textContent = 'Link copied to clipboard!';
+        }
+      } else {
+        btn.innerHTML = '<i class="fas fa-times text-danger me-1"></i> Copy Failed';
+        if (fb) {
+          fb.className = 'text-danger fw-bold small mb-2';
+          fb.textContent = 'Could not copy automatically. Please copy the link above manually.';
+        }
+        input.select();
+      }
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy me-1"></i> Copy Link';
+        if (fb) fb.className = 'd-none';
+      }, 2500);
+    });
+  });
+
+  // ── Native Device Share ────────────────────────────────────
+  document.getElementById('shareNativeBtn')?.addEventListener('click', function() {
+    if (navigator.share && currentSharePayload) {
+      navigator.share({
+        title: currentSharePayload.title + ' | Vortexsoft Innovations Careers',
+        text: 'Explore vacancy for ' + currentSharePayload.title + ' at Vortexsoft Innovations: ',
+        url: currentSharePayload.url
+      }).catch(() => {});
+    } else {
+      document.getElementById('copyShareBtn')?.click();
+    }
+  });
+
+  // ── Apply Form Submission via Fetch ────────────────────────
+  document.getElementById('applyForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form      = this;
+    const submitBtn = document.getElementById('applySubmitBtn');
+    const fb        = document.getElementById('apply-feedback');
+
+    // Run field-level validation
+    if (!validateCandidateForm(form)) {
+      if (fb) {
+        fb.className = 'alert alert-danger mb-3';
+        fb.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i> Please review and complete all required fields highlighted in red.';
+      }
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Submitting Application...';
+    }
+
+    const formData = new FormData(form);
+
+    fetch('api/apply.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(async res => {
+      const isJson = (res.headers.get('content-type') || '').includes('application/json');
+      const data = isJson ? await res.json() : null;
+      if (!res.ok) {
+        const errorMsg = (data && (data.error || data.message)) || ('Server returned HTTP ' + res.status);
+        throw new Error(errorMsg);
+      }
+      return data;
+    })
+    .then(data => {
+      if (data && data.success) {
+        fb.className = 'alert alert-success mb-3';
+        fb.innerHTML = '<i class="fas fa-check-circle me-2"></i> ' + (data.message || 'Application submitted successfully! Our HR team will contact you within 48 business hours.');
+        form.reset();
+        if (submitBtn) {
+          submitBtn.innerHTML = '<i class="fas fa-check me-2"></i> Application Sent!';
+        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'job_application_submitted',
+          job_title: formData.get('job_title') || 'General Application'
+        });
+        setTimeout(() => {
+          const modal = getBootstrapModalInstance('applyModal');
+          if (modal) modal.hide();
+        }, 3000);
+      } else {
+        const err = (data && (data.error || data.message)) || 'Submission error. Please verify required fields and file format.';
+        fb.className = 'alert alert-danger mb-3';
+        fb.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i> ' + err;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit Application';
+        }
+      }
+    })
+    .catch(err => {
+      fb.className = 'alert alert-danger mb-3';
+      fb.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i> ' + (err.message || 'Network error occurred. Please try again or email your resume to hr@vortexsoftinnovations.com.');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit Application';
+      }
+    });
+  });
+
+  // ── Inline General Application Form Submission ─────────────
+  document.getElementById('inlineGeneralApplyForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form      = this;
+    const submitBtn = document.getElementById('inlineApplySubmitBtn');
+    const fb        = document.getElementById('inline-apply-feedback');
+
+    // Run field-level validation
+    if (!validateCandidateForm(form)) {
+      if (fb) {
+        fb.className = 'alert alert-danger mb-4';
+        fb.innerHTML = '<div class="d-flex align-items-center gap-2"><i class="fas fa-exclamation-circle fs-5"></i> <div><strong>Validation Error:</strong> Please review and correct all required fields highlighted in red.</div></div>';
+      }
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Submitting Profile...';
+    }
+
+    const formData = new FormData(form);
+
+    fetch('api/apply.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(async res => {
+      const isJson = (res.headers.get('content-type') || '').includes('application/json');
+      const data = isJson ? await res.json() : null;
+      if (!res.ok) {
+        const errorMsg = (data && (data.error || data.message)) || ('Server returned HTTP ' + res.status);
+        throw new Error(errorMsg);
+      }
+      return data;
+    })
+    .then(data => {
+      if (data && data.success) {
+        fb.className = 'alert alert-success mb-4';
+        fb.innerHTML = '<div class="d-flex align-items-center gap-2"><i class="fas fa-check-circle fs-5"></i> <div><strong>General Application Submitted Successfully!</strong><br>' + (data.message || 'Our talent acquisition team has received your profile and resume. We will contact you within 48 business hours.') + '</div></div>';
+        form.reset();
+        if (submitBtn) {
+          submitBtn.innerHTML = '<i class="fas fa-check me-2"></i> Application Sent!';
+        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'general_job_application_submitted',
+          submission_type: 'inline_general_form'
+        });
+        setTimeout(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit Another Application';
+          }
+        }, 5000);
+      } else {
+        const err = (data && (data.error || data.message)) || 'Submission error. Please ensure all required fields and resume file are provided.';
+        fb.className = 'alert alert-danger mb-4';
+        fb.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i> ' + err;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit General Application';
+        }
+      }
+    })
+    .catch(err => {
+      fb.className = 'alert alert-danger mb-4';
+      fb.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i> ' + (err.message || 'Network error occurred. Please try again or email your resume directly to hr@vortexsoftinnovations.com.');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit General Application';
+      }
+    });
+  });
+
+})();
 </script>
