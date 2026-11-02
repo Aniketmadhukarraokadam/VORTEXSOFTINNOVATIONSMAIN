@@ -42,6 +42,9 @@ CREATE TABLE IF NOT EXISTS `job_applications` (
   `email`           VARCHAR(180)  NOT NULL,
   `phone`           VARCHAR(30)   DEFAULT NULL,
   `current_location`VARCHAR(120)  DEFAULT NULL,
+  `preferred_location`VARCHAR(120) DEFAULT NULL,
+  `age`             INT UNSIGNED  DEFAULT NULL,
+  `heard_about`     VARCHAR(150)  DEFAULT NULL,
   `experience_years`DECIMAL(4,1)  DEFAULT NULL,
   `current_company` VARCHAR(120)  DEFAULT NULL,
   `notice_period`   VARCHAR(60)   DEFAULT NULL,
@@ -55,6 +58,8 @@ CREATE TABLE IF NOT EXISTS `job_applications` (
   `status`          ENUM('new','reviewed','shortlisted','interview','offered','rejected','withdrawn')
                                   NOT NULL DEFAULT 'new',
   `admin_notes`     TEXT          DEFAULT NULL,
+  `consent_given`   TINYINT(1)    NOT NULL DEFAULT 1,
+  `consent_timestamp` DATETIME    DEFAULT CURRENT_TIMESTAMP,
   `created_at`      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

@@ -84,13 +84,15 @@ if ($db) {
                 }
             } elseif ($delete_scope === 'filtered') {
                 $f_status = sanitize($_POST['filter_status'] ?? '');
+                $f_job    = sanitize($_POST['filter_job_position'] ?? '');
                 $f_search = sanitize($_POST['filter_search'] ?? '');
                 $f_where  = "WHERE 1=1";
                 $f_params = [];
                 if ($f_status) { $f_where .= " AND status=:st"; $f_params[':st'] = $f_status; }
+                if ($f_job)    { $f_where .= " AND job_title=:jt"; $f_params[':jt'] = $f_job; }
                 if ($f_search) {
-                    $f_where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4)";
-                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = $f_params[':q4'] = '%' . $f_search . '%';
+                    $f_where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4 OR preferred_location LIKE :q5 OR heard_about LIKE :q6)";
+                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = $f_params[':q4'] = $f_params[':q5'] = $f_params[':q6'] = '%' . $f_search . '%';
                 }
 
                 // Remove resume files
@@ -306,13 +308,15 @@ if ($db) {
 
             } elseif ($status_scope === 'filtered') {
                 $f_status = sanitize($_POST['filter_status'] ?? '');
+                $f_job    = sanitize($_POST['filter_job_position'] ?? '');
                 $f_search = sanitize($_POST['filter_search'] ?? '');
                 $f_where  = "WHERE 1=1";
                 $f_params = [];
                 if ($f_status) { $f_where .= " AND status=:st"; $f_params[':st'] = $f_status; }
+                if ($f_job)    { $f_where .= " AND job_title=:jt"; $f_params[':jt'] = $f_job; }
                 if ($f_search) {
-                    $f_where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4)";
-                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = $f_params[':q4'] = '%' . $f_search . '%';
+                    $f_where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4 OR preferred_location LIKE :q5 OR heard_about LIKE :q6)";
+                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = $f_params[':q4'] = $f_params[':q5'] = $f_params[':q6'] = '%' . $f_search . '%';
                 }
 
                 if ($send_emails) {
@@ -503,18 +507,42 @@ if ($db) {
             }
         }
 
-        $filter = sanitize($_GET['filter'] ?? '');
-        $search = sanitize($_GET['q']      ?? '');
-        $page     = max(1, (int)($_GET['page'] ?? 1));
-        $per_page = min(200, max(10, (int)($_GET['per_page'] ?? ITEMS_PER_PAGE)));
+        $filter     = sanitize($_GET['filter'] ?? '');
+        $job_filter = sanitize($_GET['job_position'] ?? $_GET['job'] ?? '');
+        $search     = sanitize($_GET['q'] ?? '');
+        $page       = max(1, (int)($_GET['page'] ?? 1));
+        $per_page   = min(200, max(10, (int)($_GET['per_page'] ?? ITEMS_PER_PAGE)));
 
         $where  = "WHERE 1=1";
         $params = [];
         if ($filter) { $where .= " AND status=:st"; $params[':st'] = $filter; }
+        if ($job_filter !== '') { $where .= " AND job_title=:jt"; $params[':jt'] = $job_filter; }
         if ($search) {
-            $where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4)";
-            $params[':q'] = $params[':q2'] = $params[':q3'] = $params[':q4'] = '%' . $search . '%';
+            $where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4 OR preferred_location LIKE :q5 OR heard_about LIKE :q6)";
+            $params[':q'] = $params[':q2'] = $params[':q3'] = $params[':q4'] = $params[':q5'] = $params[':q6'] = '%' . $search . '%';
         }
+
+        // Fetch distinct job titles & candidate counts for position filter
+        $job_positions = [];
+        $job_counts    = [];
+        try {
+            $jcStmt = $db->query("SELECT job_title, COUNT(*) as cnt FROM job_applications WHERE job_title IS NOT NULL AND job_title != '' GROUP BY job_title ORDER BY job_title ASC");
+            if ($jcStmt) {
+                while ($row = $jcStmt->fetch(PDO::FETCH_ASSOC)) {
+                    $job_counts[$row['job_title']] = (int)$row['cnt'];
+                    $job_positions[] = $row['job_title'];
+                }
+            }
+            $jtStmt = $db->query("SELECT DISTINCT title FROM jobs WHERE title IS NOT NULL AND title != '' ORDER BY title ASC");
+            if ($jtStmt) {
+                while ($jTitle = $jtStmt->fetchColumn()) {
+                    if (!in_array($jTitle, $job_positions, true)) {
+                        $job_positions[] = $jTitle;
+                    }
+                }
+            }
+            sort($job_positions, SORT_NATURAL | SORT_FLAG_CASE);
+        } catch (Throwable $e) {}
 
         // Count total records with bound parameters
         $cntStmt = $db->prepare("SELECT COUNT(*) FROM job_applications $where");
@@ -531,7 +559,8 @@ if ($db) {
             $exp_params = ($export_scope === 'all') ? [] : $params;
 
             $exp_sql = "SELECT id, job_title, department, applicant_name, email, phone, 
-                               current_location, experience_years, current_company, notice_period, 
+                               current_location, preferred_location, age, heard_about,
+                               experience_years, current_company, notice_period, 
                                expected_ctc, resume_filename, resume_path, cover_letter, 
                                linkedin_url, portfolio_url, status, admin_notes, created_at 
                         FROM job_applications 
@@ -583,6 +612,9 @@ if ($db) {
                     'Job Title',
                     'Department',
                     'Current Location',
+                    'Preferred Location',
+                    'Age',
+                    'Where Heard About Us',
                     'Experience',
                     'Current Company',
                     'Notice Period',
@@ -611,6 +643,9 @@ if ($db) {
                         $safe_val($r['job_title']),
                         $safe_val($r['department'] ?? 'General'),
                         $safe_val($r['current_location'] ?? 'N/A'),
+                        $safe_val($r['preferred_location'] ?? 'N/A'),
+                        $safe_val(!empty($r['age']) ? $r['age'] . ' yrs' : 'N/A'),
+                        $safe_val($r['heard_about'] ?? 'N/A'),
                         $safe_val($exp_text),
                         $safe_val($r['current_company'] ?? 'N/A'),
                         $safe_val($r['notice_period'] ?? 'N/A'),
@@ -661,8 +696,11 @@ if ($db) {
                 echo "<body>\n";
                 echo "<table>\n";
 
-                $filter_info = ($export_scope === 'all') ? 'All Records in Database' : ($filter ? 'Status: ' . ucfirst($filter) : 'All Applications (Filtered View)');
-                if ($search) $filter_info .= ' | Search: "' . htmlspecialchars($search) . '"';
+                $filter_parts = [];
+                if ($job_filter) $filter_parts[] = 'Position: ' . $job_filter;
+                if ($filter)     $filter_parts[] = 'Status: ' . ucfirst($filter);
+                if ($search)     $filter_parts[] = 'Search: "' . $search . '"';
+                $filter_info = ($export_scope === 'all') ? 'All Records in Database' : (!empty($filter_parts) ? implode(' | ', $filter_parts) : 'All Applications (Filtered View)');
 
                 echo "<tr><td colspan=\"19\" style=\"font-size:16pt;font-weight:bold;color:#1C2280;border:none;padding:12px 0 4px 0;\">VORTEXSOFT INNOVATIONS — JOB APPLICATIONS EXPORT</td></tr>\n";
                 echo "<tr><td colspan=\"19\" style=\"font-size:10pt;color:#64748B;border:none;padding-bottom:12px;\">Generated: " . date('d M Y, h:i A') . " IST &nbsp;|&nbsp; Scope: " . htmlspecialchars($filter_info) . " &nbsp;|&nbsp; Total Records: " . count($export_rows) . "</td></tr>\n";
@@ -676,6 +714,9 @@ if ($db) {
                 echo "<th>Position / Job Title</th>\n";
                 echo "<th>Department</th>\n";
                 echo "<th>Current Location</th>\n";
+                echo "<th>Preferred Location</th>\n";
+                echo "<th>Age</th>\n";
+                echo "<th>Where Heard</th>\n";
                 echo "<th>Experience</th>\n";
                 echo "<th>Current Company</th>\n";
                 echo "<th>Notice Period</th>\n";
@@ -709,6 +750,9 @@ if ($db) {
                     echo "<td>" . htmlspecialchars($safe_val($r['job_title'])) . "</td>\n";
                     echo "<td>" . htmlspecialchars($safe_val($r['department'] ?? 'General')) . "</td>\n";
                     echo "<td>" . htmlspecialchars($safe_val($r['current_location'] ?? 'N/A')) . "</td>\n";
+                    echo "<td>" . htmlspecialchars($safe_val($r['preferred_location'] ?? 'N/A')) . "</td>\n";
+                    echo "<td style=\"text-align:center;\">" . htmlspecialchars($safe_val(!empty($r['age']) ? $r['age'] . ' yrs' : 'N/A')) . "</td>\n";
+                    echo "<td>" . htmlspecialchars($safe_val($r['heard_about'] ?? 'N/A')) . "</td>\n";
                     echo "<td style=\"text-align:center;\">" . htmlspecialchars($safe_val($exp_text)) . "</td>\n";
                     echo "<td>" . htmlspecialchars($safe_val($r['current_company'] ?? 'N/A')) . "</td>\n";
                     echo "<td>" . htmlspecialchars($safe_val($r['notice_period'] ?? 'N/A')) . "</td>\n";
@@ -750,7 +794,7 @@ if ($db) {
         }
 
         $pg   = paginate($total_count, $per_page, $page);
-        $stmt = $db->prepare("SELECT id, applicant_name, email, phone, job_title, experience_years, status, created_at, resume_filename, resume_path FROM job_applications $where ORDER BY created_at DESC LIMIT :l OFFSET :o");
+        $stmt = $db->prepare("SELECT id, applicant_name, email, phone, job_title, department, current_location, preferred_location, age, heard_about, experience_years, status, created_at, resume_filename, resume_path FROM job_applications $where ORDER BY created_at DESC LIMIT :l OFFSET :o");
         foreach ($params as $k => &$v) $stmt->bindValue($k, $v);
         $stmt->bindValue(':l', $pg['per_page'], PDO::PARAM_INT);
         $stmt->bindValue(':o', $pg['offset'], PDO::PARAM_INT);
@@ -1080,7 +1124,22 @@ tr.selected-row td{background-color:#eef2ff !important}
       <div class="col-md-6"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Applicant Name</div><div style="font-size:16px;font-weight:700;color:#1e293b;"><?= htmlspecialchars($view['applicant_name']) ?></div></div>
       <div class="col-md-6"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Email</div><div><a href="mailto:<?= htmlspecialchars($view['email']) ?>" style="font-size:15px;color:#1C2280;font-weight:600;"><?= htmlspecialchars($view['email']) ?></a></div></div>
       <div class="col-md-6"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Phone</div><div style="font-size:14px;font-weight:600;"><?= htmlspecialchars($view['phone']) ?></div></div>
-      <div class="col-md-6"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Location</div><div style="font-size:14px;"><?= htmlspecialchars($view['current_location'] ?? 'Not provided') ?></div></div>
+      <div class="col-md-6">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Candidate Location &amp; Age</div>
+        <div style="font-size:14px;font-weight:600;color:#1e293b;">
+          <i class="fas fa-map-marker-alt text-danger me-1"></i> <?= htmlspecialchars($view['current_location'] ?? 'Not provided') ?>
+          <?php if(!empty($view['age'])): ?>
+          <span class="badge ms-2" style="background:#e0e7ff;color:#3730a3;font-size:12px;"><i class="fas fa-birthday-cake me-1"></i> <?= (int)$view['age'] ?> yrs old</span>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Preferred Location &amp; Source</div>
+        <div style="font-size:14px;color:#334155;">
+          <strong>Pref. Location:</strong> <?= htmlspecialchars($view['preferred_location'] ?? 'Flexible / Any Location') ?><br>
+          <strong style="color:#1C2280;"><i class="fas fa-bullhorn me-1"></i> Heard About Us:</strong> <?= htmlspecialchars($view['heard_about'] ?? 'Not specified') ?>
+        </div>
+      </div>
       <div class="col-md-6"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Experience / Current Co.</div><div style="font-size:14px;"><?= htmlspecialchars($view['experience_years'] ? $view['experience_years'].' Yrs' : 'N/A') ?> — <?= htmlspecialchars($view['current_company'] ?? 'N/A') ?></div></div>
       <div class="col-md-6"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Notice Period &amp; Expected CTC</div><div style="font-size:14px;"><?= htmlspecialchars($view['notice_period'] ?? 'N/A') ?> | <?= htmlspecialchars($view['expected_ctc'] ?? 'N/A') ?></div></div>
       <div class="col-md-6"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Resume File</div>
@@ -1229,11 +1288,24 @@ tr.selected-row td{background-color:#eef2ff !important}
         </div>
       </div>
       <form action="applications.php" method="GET" class="d-flex gap-2 flex-wrap align-items-center">
-        <div class="input-group input-group-sm" style="width:auto;min-width:210px;">
+        <!-- Search Keyword -->
+        <div class="input-group input-group-sm" style="width:auto;min-width:220px;">
           <span class="input-group-text bg-white border-end-0" style="border-radius:8px 0 0 8px;color:#94a3b8;"><i class="fas fa-search"></i></span>
-          <input type="text" name="q" class="form-control form-control-sm border-start-0" placeholder="Search applicant, job, email..." value="<?= htmlspecialchars($search) ?>" style="border-radius:0 8px 8px 0;">
+          <input type="text" name="q" class="form-control form-control-sm border-start-0" placeholder="Search applicant, job, city, source..." value="<?= htmlspecialchars($search) ?>" style="border-radius:0 8px 8px 0;">
         </div>
-        <select name="filter" class="form-select form-select-sm" style="border-radius:8px;width:auto;">
+
+        <!-- Filter with Job Positions -->
+        <select name="job_position" class="form-select form-select-sm" style="border-radius:8px;width:auto;min-width:200px;font-weight:600;border-color:#cbd5e1;color:#1C2280;" onchange="this.form.submit()" title="Filter by Job Position">
+          <option value="">All Job Positions (<?= $all_count ?>)</option>
+          <?php foreach ($job_positions as $pos): ?>
+          <option value="<?= htmlspecialchars($pos) ?>" <?= $job_filter === $pos ? 'selected' : '' ?>>
+            <?= htmlspecialchars($pos) ?><?= isset($job_counts[$pos]) ? ' (' . $job_counts[$pos] . ')' : '' ?>
+          </option>
+          <?php endforeach; ?>
+        </select>
+
+        <!-- Filter by Application Status -->
+        <select name="filter" class="form-select form-select-sm" style="border-radius:8px;width:auto;" onchange="this.form.submit()" title="Filter by Status">
           <option value="">All Statuses</option>
           <option value="new" <?= $filter==='new'?'selected':'' ?>>New</option>
           <option value="reviewed" <?= $filter==='reviewed'?'selected':'' ?>>Reviewed</option>
@@ -1243,18 +1315,50 @@ tr.selected-row td{background-color:#eef2ff !important}
           <option value="rejected" <?= $filter==='rejected'?'selected':'' ?>>Rejected</option>
           <option value="withdrawn" <?= $filter==='withdrawn'?'selected':'' ?>>Withdrawn</option>
         </select>
+
+        <!-- Items Per Page -->
         <select name="per_page" class="form-select form-select-sm" onchange="this.form.submit()" style="border-radius:8px;width:auto;" title="Candidates per page">
           <option value="15" <?= ($per_page ?? 15)==15?'selected':'' ?>>15 / page</option>
           <option value="25" <?= ($per_page ?? 15)==25?'selected':'' ?>>25 / page</option>
           <option value="50" <?= ($per_page ?? 15)==50?'selected':'' ?>>50 / page</option>
           <option value="100" <?= ($per_page ?? 15)==100?'selected':'' ?>>100 / page</option>
         </select>
-        <button type="submit" class="btn btn-sm btn-primary" style="border-radius:8px;background:#1C2280;border-color:#1C2280;font-weight:600;"><i class="fas fa-filter me-1"></i> Filter</button>
-        <?php if ($filter || $search || ($per_page ?? 15) != 15): ?>
-        <a href="applications.php" class="btn btn-sm btn-outline-secondary" style="border-radius:8px;" title="Clear Filters"><i class="fas fa-times"></i></a>
+
+        <!-- Submit & Clear Filter Buttons -->
+        <button type="submit" class="btn btn-sm btn-primary" style="border-radius:8px;background:#1C2280;border-color:#1C2280;font-weight:600;"><i class="fas fa-filter me-1"></i> Apply Filter</button>
+        <?php if ($filter || $job_filter || $search || ($per_page ?? 15) != 15): ?>
+        <a href="applications.php" class="btn btn-sm btn-outline-danger" style="border-radius:8px;font-weight:600;" title="Reset all filters"><i class="fas fa-times me-1"></i> Reset</a>
         <?php endif; ?>
       </form>
     </div>
+    <?php if ($job_filter || $filter || $search): ?>
+    <!-- Active Filters Summary Bar -->
+    <div style="background:#f8fafc;padding:10px 24px;border-bottom:1px solid #f0f4ff;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;"><i class="fas fa-filter text-primary me-1"></i> Active Filters:</span>
+      <?php if ($job_filter): ?>
+      <span class="badge" style="background:#e0e7ff;color:#3730a3;font-size:12px;padding:6px 12px;border-radius:50px;">
+        Role: <?= htmlspecialchars($job_filter) ?>
+        <a href="?<?= http_build_query(array_merge($_GET, ['job_position'=>'', 'page'=>1])) ?>" style="color:#3730a3;margin-left:6px;text-decoration:none;" title="Remove this position filter"><i class="fas fa-times"></i></a>
+      </span>
+      <?php endif; ?>
+      <?php if ($filter): ?>
+      <span class="badge" style="background:#fef3c7;color:#92400e;font-size:12px;padding:6px 12px;border-radius:50px;">
+        Status: <?= ucfirst(htmlspecialchars($filter)) ?>
+        <a href="?<?= http_build_query(array_merge($_GET, ['filter'=>'', 'page'=>1])) ?>" style="color:#92400e;margin-left:6px;text-decoration:none;" title="Remove this status filter"><i class="fas fa-times"></i></a>
+      </span>
+      <?php endif; ?>
+      <?php if ($search): ?>
+      <span class="badge" style="background:#e2e8f0;color:#1e293b;font-size:12px;padding:6px 12px;border-radius:50px;">
+        Search: &ldquo;<?= htmlspecialchars($search) ?>&rdquo;
+        <a href="?<?= http_build_query(array_merge($_GET, ['q'=>'', 'page'=>1])) ?>" style="color:#1e293b;margin-left:6px;text-decoration:none;" title="Remove search filter"><i class="fas fa-times"></i></a>
+      </span>
+      <?php endif; ?>
+      <span style="font-size:12.5px;color:#64748b;margin-left:auto;">
+        Found <strong><?= $total_count ?></strong> matching application<?= $total_count !== 1 ? 's' : '' ?>
+        &bull; <a href="applications.php" style="color:#CC2228;font-weight:600;text-decoration:none;">Clear All</a>
+      </span>
+    </div>
+    <?php endif; ?>
     <div style="overflow-x:auto;">
       <table>
         <thead>
@@ -1265,7 +1369,9 @@ tr.selected-row td{background-color:#eef2ff !important}
             <th>#</th>
             <th>Applicant</th>
             <th>Position</th>
+            <th>Location &amp; Age</th>
             <th>Experience</th>
+            <th>Source</th>
             <th>Resume</th>
             <th>Applied</th>
             <th>Status</th>
@@ -1274,7 +1380,7 @@ tr.selected-row td{background-color:#eef2ff !important}
         </thead>
         <tbody>
           <?php if(empty($apps)): ?>
-          <tr><td colspan="9" style="text-align:center;padding:40px;color:#94a3b8;"><i class="fas fa-briefcase" style="font-size:32px;display:block;margin-bottom:12px;opacity:.3;"></i> No applications found.</td></tr>
+          <tr><td colspan="11" style="text-align:center;padding:40px;color:#94a3b8;"><i class="fas fa-briefcase" style="font-size:32px;display:block;margin-bottom:12px;opacity:.3;"></i> No applications found.</td></tr>
           <?php else: ?>
           <?php foreach($apps as $a): ?>
           <tr data-id="<?= (int)$a['id'] ?>" class="app-row">
@@ -1283,8 +1389,25 @@ tr.selected-row td{background-color:#eef2ff !important}
             </td>
             <td style="color:#94a3b8;font-size:12px;">#<?= $a['id'] ?></td>
             <td style="font-weight:600;"><?= htmlspecialchars($a['applicant_name']) ?><br><span style="font-size:12px;color:#94a3b8;"><?= htmlspecialchars($a['email']) ?></span></td>
-            <td style="font-weight:600;color:#1C2280;"><?= htmlspecialchars($a['job_title']) ?></td>
+            <td style="font-weight:600;color:#1C2280;">
+              <?= htmlspecialchars($a['job_title']) ?>
+              <?php if(!empty($a['department'])): ?><br><span style="font-size:11px;color:#64748b;font-weight:500;"><i class="fas fa-sitemap me-1" style="font-size:10px;"></i><?= htmlspecialchars($a['department']) ?></span><?php endif; ?>
+            </td>
+            <td style="font-size:12.5px;">
+              <i class="fas fa-map-marker-alt text-danger me-1"></i><?= htmlspecialchars($a['current_location'] ?: '—') ?>
+              <?php if(!empty($a['age'])): ?>
+              <span class="badge ms-1" style="background:#e0e7ff;color:#3730a3;font-size:11px;"><?= (int)$a['age'] ?> yrs</span>
+              <?php endif; ?>
+              <?php if(!empty($a['preferred_location'])): ?>
+              <br><span style="font-size:11px;color:#64748b;"><i class="fas fa-crosshairs me-1"></i>Pref: <?= htmlspecialchars($a['preferred_location']) ?></span>
+              <?php endif; ?>
+            </td>
             <td style="font-size:13px;"><?= htmlspecialchars($a['experience_years'] ? $a['experience_years'].' Yrs' : 'Fresh') ?></td>
+            <td>
+              <?php if(!empty($a['heard_about'])): ?>
+              <span class="badge" style="background:#f1f5f9;color:#334155;border:1px solid #cbd5e1;font-size:11px;font-weight:600;"><?= htmlspecialchars($a['heard_about']) ?></span>
+              <?php else: ?><span style="color:#94a3b8;font-size:12px;">—</span><?php endif; ?>
+            </td>
             <td>
               <?php if(!empty($a['resume_filename'])): ?>
               <a href="download.php?id=<?= $a['id'] ?>" style="font-size:12px;color:#CC2228;font-weight:700;"><i class="fas fa-file-pdf me-1"></i> Resume</a>
@@ -1329,6 +1452,7 @@ tr.selected-row td{background-color:#eef2ff !important}
           <input type="hidden" name="action" value="bulk_delete">
           <input type="hidden" name="delete_scope" id="modalDeleteScope" value="selected">
           <input type="hidden" name="filter_status" value="<?= htmlspecialchars($filter ?? '') ?>">
+          <input type="hidden" name="filter_job_position" value="<?= htmlspecialchars($job_filter ?? '') ?>">
           <input type="hidden" name="filter_search" value="<?= htmlspecialchars($search ?? '') ?>">
           <div id="modalSelectedIdsContainer"></div>
 
@@ -1379,6 +1503,7 @@ tr.selected-row td{background-color:#eef2ff !important}
           <input type="hidden" name="action" value="bulk_status_update">
           <input type="hidden" name="status_scope" id="modalStatusScope" value="selected">
           <input type="hidden" name="filter_status" value="<?= htmlspecialchars($filter ?? '') ?>">
+          <input type="hidden" name="filter_job_position" value="<?= htmlspecialchars($job_filter ?? '') ?>">
           <input type="hidden" name="filter_search" value="<?= htmlspecialchars($search ?? '') ?>">
           <div id="modalStatusSelectedIdsContainer"></div>
 

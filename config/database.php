@@ -119,6 +119,9 @@ function ensure_core_database_tables(PDO $db): void {
               `email`           VARCHAR(180)  NOT NULL,
               `phone`           VARCHAR(30)   DEFAULT NULL,
               `current_location`VARCHAR(120)  DEFAULT NULL,
+              `preferred_location`VARCHAR(120) DEFAULT NULL,
+              `age`             INT UNSIGNED  DEFAULT NULL,
+              `heard_about`     VARCHAR(150)  DEFAULT NULL,
               `experience_years`DECIMAL(4,1)  DEFAULT NULL,
               `current_company` VARCHAR(120)  DEFAULT NULL,
               `notice_period`   VARCHAR(60)   DEFAULT NULL,
@@ -242,6 +245,9 @@ function ensure_core_database_tables(PDO $db): void {
 
         // Schema migrations for existing tables
         $appMigrations = [
+            "ALTER TABLE `job_applications` ADD COLUMN `preferred_location` VARCHAR(120) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `age` INT UNSIGNED DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `heard_about` VARCHAR(150) DEFAULT NULL",
             "ALTER TABLE `job_applications` ADD COLUMN `consent_given` TINYINT(1) NOT NULL DEFAULT 1",
             "ALTER TABLE `job_applications` ADD COLUMN `consent_timestamp` DATETIME DEFAULT NULL",
             "ALTER TABLE `job_applications` ADD COLUMN `expected_ctc` VARCHAR(60) DEFAULT NULL",

@@ -45,7 +45,11 @@ $department       = sanitize($_POST['department']       ?? '');
 $applicant_name   = sanitize($_POST['applicant_name']   ?? $_POST['name'] ?? '');
 $email            = sanitize_email($_POST['email']      ?? '');
 $phone            = sanitize($_POST['phone']            ?? '');
-$current_location = sanitize($_POST['current_location'] ?? '');
+$current_location = sanitize($_POST['current_location'] ?? $_POST['location'] ?? '');
+$preferred_location = sanitize($_POST['preferred_location'] ?? '');
+$age_raw          = trim($_POST['age'] ?? '');
+$age              = (is_numeric($age_raw) && (int)$age_raw > 0) ? (int)$age_raw : null;
+$heard_about      = sanitize($_POST['heard_about']      ?? $_POST['where_did_you_hear'] ?? $_POST['hear_about_us'] ?? '');
 $experience       = sanitize($_POST['experience_years'] ?? '');
 $current_company  = sanitize($_POST['current_company']  ?? '');
 $notice_period    = sanitize($_POST['notice_period']    ?? '');
@@ -72,6 +76,15 @@ if (!is_valid_email($email)) {
 }
 if (empty($phone) || !is_valid_phone($phone)) {
     json_response(false, 'Please enter a valid contact phone number (at least 7 digits).', [], 422);
+}
+if (empty($current_location) || mb_strlen($current_location) < 2) {
+    json_response(false, 'Please enter your current location / city (at least 2 characters).', [], 422);
+}
+if ($age === null || $age < 18 || $age > 85) {
+    json_response(false, 'Please enter a valid age (must be between 18 and 85).', [], 422);
+}
+if (empty($heard_about)) {
+    json_response(false, 'Please select or provide where you heard about us.', [], 422);
 }
 if (!$consent_given) {
     json_response(false, 'You must consent to data processing for recruitment purposes to submit your application.', [], 422);
@@ -177,70 +190,115 @@ if (!$db) {
 $inserted_id = 0;
 try {
     $stmt = $db->prepare("INSERT INTO job_applications
-        (job_title, department, applicant_name, email, phone, current_location,
-         experience_years, current_company, notice_period, expected_ctc,
+        (job_title, department, applicant_name, email, phone, current_location, preferred_location,
+         age, heard_about, experience_years, current_company, notice_period, expected_ctc,
          resume_filename, resume_path, cover_letter, linkedin_url, portfolio_url,
          ip_address, status, consent_given, consent_timestamp, created_at)
         VALUES
-        (:job_title, :dept, :name, :email, :phone, :location,
-         :exp, :curr_co, :notice, :ctc,
+        (:job_title, :dept, :name, :email, :phone, :location, :pref_location,
+         :age, :heard, :exp, :curr_co, :notice, :ctc,
          :rf, :rp, :cover, :linkedin, :portfolio,
          :ip, 'new', 1, NOW(), NOW())");
     $stmt->execute([
-        ':job_title' => $job_title,
-        ':dept'      => $department,
-        ':name'      => $applicant_name,
-        ':email'     => $email,
-        ':phone'     => $phone,
-        ':location'  => $current_location,
-        ':exp'       => $exp_val,
-        ':curr_co'   => $current_company,
-        ':notice'    => $notice_period,
-        ':ctc'       => $expected_ctc,
-        ':rf'        => $resume_filename,
-        ':rp'        => $resume_path,
-        ':cover'     => $cover_letter,
-        ':linkedin'  => $linkedin_url,
-        ':portfolio' => $portfolio_url,
-        ':ip'        => $ip,
+        ':job_title'     => $job_title,
+        ':dept'          => $department,
+        ':name'          => $applicant_name,
+        ':email'         => $email,
+        ':phone'         => $phone,
+        ':location'      => $current_location,
+        ':pref_location' => $preferred_location,
+        ':age'           => $age,
+        ':heard'         => $heard_about,
+        ':exp'           => $exp_val,
+        ':curr_co'       => $current_company,
+        ':notice'        => $notice_period,
+        ':ctc'           => $expected_ctc,
+        ':rf'            => $resume_filename,
+        ':rp'            => $resume_path,
+        ':cover'         => $cover_letter,
+        ':linkedin'      => $linkedin_url,
+        ':portfolio'     => $portfolio_url,
+        ':ip'            => $ip,
     ]);
     $inserted_id = (int)$db->lastInsertId();
 } catch (PDOException $e) {
     error_log('Apply form primary DB error: ' . $e->getMessage());
-    // Fallback in case consent columns are pending on legacy production schema
+    // Auto-migrate on the fly if columns are missing
     try {
-        $stmtFallback = $db->prepare("INSERT INTO job_applications
-            (job_title, department, applicant_name, email, phone, current_location,
-             experience_years, current_company, notice_period, expected_ctc,
+        @$db->exec("ALTER TABLE `job_applications` ADD COLUMN `preferred_location` VARCHAR(120) DEFAULT NULL");
+        @$db->exec("ALTER TABLE `job_applications` ADD COLUMN `age` INT UNSIGNED DEFAULT NULL");
+        @$db->exec("ALTER TABLE `job_applications` ADD COLUMN `heard_about` VARCHAR(150) DEFAULT NULL");
+        @$db->exec("ALTER TABLE `job_applications` ADD COLUMN `consent_given` TINYINT(1) NOT NULL DEFAULT 1");
+        @$db->exec("ALTER TABLE `job_applications` ADD COLUMN `consent_timestamp` DATETIME DEFAULT CURRENT_TIMESTAMP");
+
+        $stmtRetry = $db->prepare("INSERT INTO job_applications
+            (job_title, department, applicant_name, email, phone, current_location, preferred_location,
+             age, heard_about, experience_years, current_company, notice_period, expected_ctc,
              resume_filename, resume_path, cover_letter, linkedin_url, portfolio_url,
-             ip_address, status, created_at)
+             ip_address, status, consent_given, consent_timestamp, created_at)
             VALUES
-            (:job_title, :dept, :name, :email, :phone, :location,
-             :exp, :curr_co, :notice, :ctc,
+            (:job_title, :dept, :name, :email, :phone, :location, :pref_location,
+             :age, :heard, :exp, :curr_co, :notice, :ctc,
              :rf, :rp, :cover, :linkedin, :portfolio,
-             :ip, 'new', NOW())");
-        $stmtFallback->execute([
-            ':job_title' => $job_title,
-            ':dept'      => $department,
-            ':name'      => $applicant_name,
-            ':email'     => $email,
-            ':phone'     => $phone,
-            ':location'  => $current_location,
-            ':exp'       => $exp_val,
-            ':curr_co'   => $current_company,
-            ':notice'    => $notice_period,
-            ':ctc'       => $expected_ctc,
-            ':rf'        => $resume_filename,
-            ':rp'        => $resume_path,
-            ':cover'     => $cover_letter,
-            ':linkedin'  => $linkedin_url,
-            ':portfolio' => $portfolio_url,
-            ':ip'        => $ip,
+             :ip, 'new', 1, NOW(), NOW())");
+        $stmtRetry->execute([
+            ':job_title'     => $job_title,
+            ':dept'          => $department,
+            ':name'          => $applicant_name,
+            ':email'         => $email,
+            ':phone'         => $phone,
+            ':location'      => $current_location,
+            ':pref_location' => $preferred_location,
+            ':age'           => $age,
+            ':heard'         => $heard_about,
+            ':exp'           => $exp_val,
+            ':curr_co'       => $current_company,
+            ':notice'        => $notice_period,
+            ':ctc'           => $expected_ctc,
+            ':rf'            => $resume_filename,
+            ':rp'            => $resume_path,
+            ':cover'         => $cover_letter,
+            ':linkedin'      => $linkedin_url,
+            ':portfolio'     => $portfolio_url,
+            ':ip'            => $ip,
         ]);
         $inserted_id = (int)$db->lastInsertId();
-    } catch (PDOException $e2) {
-        error_log('Apply form fallback DB error: ' . $e2->getMessage());
-        json_response(false, 'Unable to store your application at this time. Please try submitting again or email hr@vortexsoftinnovations.com.', [], 500);
+    } catch (PDOException $eRetry) {
+        // Fallback to legacy insert without new columns
+        try {
+            $stmtFallback = $db->prepare("INSERT INTO job_applications
+                (job_title, department, applicant_name, email, phone, current_location,
+                 experience_years, current_company, notice_period, expected_ctc,
+                 resume_filename, resume_path, cover_letter, linkedin_url, portfolio_url,
+                 ip_address, status, created_at)
+                VALUES
+                (:job_title, :dept, :name, :email, :phone, :location,
+                 :exp, :curr_co, :notice, :ctc,
+                 :rf, :rp, :cover, :linkedin, :portfolio,
+                 :ip, 'new', NOW())");
+            $stmtFallback->execute([
+                ':job_title' => $job_title,
+                ':dept'      => $department,
+                ':name'      => $applicant_name,
+                ':email'     => $email,
+                ':phone'     => $phone,
+                ':location'  => $current_location,
+                ':exp'       => $exp_val,
+                ':curr_co'   => $current_company,
+                ':notice'    => $notice_period,
+                ':ctc'       => $expected_ctc,
+                ':rf'        => $resume_filename,
+                ':rp'        => $resume_path,
+                ':cover'     => $cover_letter,
+                ':linkedin'  => $linkedin_url,
+                ':portfolio' => $portfolio_url,
+                ':ip'        => $ip,
+            ]);
+            $inserted_id = (int)$db->lastInsertId();
+        } catch (PDOException $e2) {
+            error_log('Apply form fallback DB error: ' . $e2->getMessage());
+            json_response(false, 'Unable to store your application at this time. Please try submitting again or email hr@vortexsoftinnovations.com.', [], 500);
+        }
     }
 }
 
@@ -253,12 +311,16 @@ if ($inserted_id === 0) {
 try {
     // Send HR notification
     $email_data = [
-        'job_title'        => $job_title,
-        'department'       => $department,
-        'applicant_name'   => $applicant_name,
-        'email'            => $email,
-        'phone'            => $phone,
-        'experience_years' => $experience,
+        'job_title'          => $job_title,
+        'department'         => $department,
+        'applicant_name'     => $applicant_name,
+        'email'              => $email,
+        'phone'              => $phone,
+        'current_location'   => $current_location,
+        'preferred_location' => $preferred_location,
+        'age'                => $age,
+        'heard_about'        => $heard_about,
+        'experience_years'   => $experience,
         'current_company'  => $current_company,
         'notice_period'    => $notice_period,
         'expected_ctc'     => $expected_ctc,

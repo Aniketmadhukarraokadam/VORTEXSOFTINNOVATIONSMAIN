@@ -1873,7 +1873,7 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
               </div>
 
-              <!-- Phone & Location -->
+              <!-- Phone & Current Location -->
               <div class="col-md-6">
                 <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Phone / WhatsApp <span class="text-danger">*</span></label>
                 <div class="input-group">
@@ -1883,10 +1883,55 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Current City &amp; State</label>
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Current City &amp; State (Location) <span class="text-danger">*</span></label>
                 <div class="input-group">
                   <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-map-marker-alt"></i></span>
-                  <input type="text" class="form-control border-start-0" name="current_location" placeholder="e.g. Pune, Maharashtra" style="border-radius:0 10px 10px 0;font-size:14px;">
+                  <input type="text" class="form-control border-start-0" name="current_location" id="inline_location" placeholder="e.g. Pune, Maharashtra / Bengaluru" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                  <div class="invalid-feedback">Please enter your current city / location.</div>
+                </div>
+              </div>
+
+              <!-- Preferred Work Location & Age / Referral Source -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Preferred Work Location</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-building"></i></span>
+                  <select class="form-select border-start-0" name="preferred_location" id="inline_pref_location" style="border-radius:0 10px 10px 0;font-size:14px;">
+                    <option value="Pune HQ" selected>Pune HQ (On-site)</option>
+                    <option value="Bengaluru">Bengaluru (On-site)</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Remote">Remote / Work from Home</option>
+                    <option value="Flexible / Any Location">Flexible / Open to Any Location</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row g-2">
+                  <div class="col-6">
+                    <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Age (Years) <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0" style="border-radius:10px 0 0 10px;color:#64748b;"><i class="fas fa-birthday-cake"></i></span>
+                      <input type="number" class="form-control border-start-0" name="age" id="inline_age" placeholder="e.g. 24" min="18" max="85" style="border-radius:0 10px 10px 0;font-size:14px;" required>
+                      <div class="invalid-feedback">Enter age (18–85).</div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Where heard? <span class="text-danger">*</span></label>
+                    <select class="form-select" name="heard_about" id="inline_heard_about" style="border-radius:10px;font-size:14px;" required>
+                      <option value="" disabled selected>Select Source</option>
+                      <option value="LinkedIn">LinkedIn</option>
+                      <option value="Naukri.com">Naukri.com</option>
+                      <option value="Indeed">Indeed</option>
+                      <option value="Employee Referral">Employee Referral</option>
+                      <option value="Company Website">Company Website</option>
+                      <option value="Google Search">Google Search</option>
+                      <option value="Social Media">Social Media (Insta/FB)</option>
+                      <option value="Campus Placement">Campus Placement</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div class="invalid-feedback">Select referral source.</div>
+                  </div>
                 </div>
               </div>
 
@@ -2350,10 +2395,47 @@ require_once __DIR__ . '/includes/header.php';
               <div class="invalid-feedback">Please enter a valid phone number (at least 7 digits).</div>
             </div>
 
-            <!-- Current Location -->
+            <!-- Current Location & Preferred Work Location -->
             <div class="col-md-6">
-              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Current City &amp; State</label>
-              <input type="text" class="form-control" name="current_location" id="apply_location" placeholder="e.g. Pune, Maharashtra" style="border-radius:10px;font-size:14px;">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Current City &amp; State (Location) <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="current_location" id="apply_location" placeholder="e.g. Pune, Maharashtra / Bengaluru" style="border-radius:10px;font-size:14px;" required>
+              <div class="invalid-feedback">Please enter your current location / city.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Preferred Work Location</label>
+              <select class="form-select" name="preferred_location" id="apply_pref_location" style="border-radius:10px;font-size:14px;">
+                <option value="Pune HQ" selected>Pune HQ (On-site)</option>
+                <option value="Bengaluru">Bengaluru (On-site)</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Remote">Remote / Work from Home</option>
+                <option value="Flexible / Any Location">Flexible / Open to Any Location</option>
+              </select>
+            </div>
+
+            <!-- Candidate Age & Referral Source -->
+            <div class="col-md-6">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Age (Years) <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" name="age" id="apply_age" placeholder="e.g. 24" min="18" max="85" style="border-radius:10px;font-size:14px;" required>
+              <div class="invalid-feedback">Please enter a valid age (18 to 85).</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold" style="font-size:13px;color:#334155;">Where did you hear about us? <span class="text-danger">*</span></label>
+              <select class="form-select" name="heard_about" id="apply_heard_about" style="border-radius:10px;font-size:14px;" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Naukri.com">Naukri.com</option>
+                <option value="Indeed">Indeed / Job Portals</option>
+                <option value="Employee Referral">Employee Referral / Colleague</option>
+                <option value="Google / Web Search">Google / Web Search</option>
+                <option value="Company Website">Vortexsoft Website</option>
+                <option value="Social Media">Social Media (Instagram/Facebook/X)</option>
+                <option value="Campus Placement">Campus Placement / University</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="invalid-feedback">Please select where you heard about us.</div>
             </div>
 
             <!-- Current Company -->
@@ -2768,6 +2850,27 @@ require_once __DIR__ . '/includes/header.php';
       const val = phoneEl.value.trim();
       const phoneRe = /^[\+0-9\-\s\(\)]{7,20}$/;
       markField(phoneEl, phoneRe.test(val), 'Please enter a valid contact phone number (at least 7 digits).');
+    }
+
+    // Location check
+    const locEl = form.querySelector('[name="current_location"]');
+    if (locEl) {
+      const val = locEl.value.trim();
+      markField(locEl, val.length >= 2, 'Please enter your current city / location (at least 2 characters).');
+    }
+
+    // Age check
+    const ageEl = form.querySelector('[name="age"]');
+    if (ageEl) {
+      const val = parseInt(ageEl.value, 10);
+      markField(ageEl, !isNaN(val) && val >= 18 && val <= 85, 'Please enter a valid age between 18 and 85.');
+    }
+
+    // Where heard about us check
+    const heardEl = form.querySelector('[name="heard_about"]');
+    if (heardEl) {
+      const val = (heardEl.value || '').trim();
+      markField(heardEl, val.length > 0, 'Please select where you heard about us.');
     }
 
     // Consent check

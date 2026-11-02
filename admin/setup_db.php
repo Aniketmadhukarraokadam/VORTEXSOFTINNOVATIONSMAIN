@@ -213,6 +213,9 @@ $queries = [
       `email`           VARCHAR(180)  NOT NULL,
       `phone`           VARCHAR(30)   DEFAULT NULL,
       `current_location`VARCHAR(120)  DEFAULT NULL,
+      `preferred_location`VARCHAR(120) DEFAULT NULL,
+      `age`             INT UNSIGNED  DEFAULT NULL,
+      `heard_about`     VARCHAR(150)  DEFAULT NULL,
       `experience_years`DECIMAL(4,1)  DEFAULT NULL,
       `current_company` VARCHAR(120)  DEFAULT NULL,
       `notice_period`   VARCHAR(60)   DEFAULT NULL,
@@ -440,7 +443,16 @@ try {
     }
 } catch (Throwable $t) {}
 
-// Alter job_applications if consent_given column doesn't exist
+// Alter job_applications schema migrations
+try {
+    $db->exec("ALTER TABLE `job_applications` ADD COLUMN `preferred_location` VARCHAR(120) DEFAULT NULL");
+} catch (Throwable $t) {}
+try {
+    $db->exec("ALTER TABLE `job_applications` ADD COLUMN `age` INT UNSIGNED DEFAULT NULL");
+} catch (Throwable $t) {}
+try {
+    $db->exec("ALTER TABLE `job_applications` ADD COLUMN `heard_about` VARCHAR(150) DEFAULT NULL");
+} catch (Throwable $t) {}
 try {
     $db->exec("ALTER TABLE `job_applications` ADD COLUMN `consent_given` TINYINT(1) NOT NULL DEFAULT 1");
 } catch (Throwable $t) {}
