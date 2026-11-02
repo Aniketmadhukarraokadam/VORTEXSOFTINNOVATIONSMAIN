@@ -71,17 +71,48 @@ function getDB(): ?PDO {
         }
     }
 
-    // In production, tables are already installed. Avoid redundant DB queries on every request.
-    if ($pdo && !$tables_checked && (defined('AUTO_INSTALL_TABLES') && AUTO_INSTALL_TABLES)) {
+    if ($pdo && !$tables_checked) {
         $tables_checked = true;
-        try {
-            $check = $pdo->query("SELECT 1 FROM contact_inquiries LIMIT 1");
-        } catch (Throwable $t) {
-            ensure_core_database_tables($pdo);
+        ensure_schema_migrations($pdo);
+        if (defined('AUTO_INSTALL_TABLES') && AUTO_INSTALL_TABLES) {
+            try {
+                $check = $pdo->query("SELECT 1 FROM contact_inquiries LIMIT 1");
+            } catch (Throwable $t) {
+                ensure_core_database_tables($pdo);
+            }
         }
     }
 
     return $pdo;
+}
+
+function ensure_schema_migrations(PDO $db): void {
+    static $migrated = false;
+    if ($migrated) return;
+    $migrated = true;
+
+    try {
+        // Fast 0-row verification: if columns exist, returns instantly without transferring data
+        $db->query("SELECT current_location, preferred_location, age, heard_about FROM job_applications LIMIT 0");
+    } catch (Throwable $t) {
+        // One or more columns are missing; execute self-healing schema migrations
+        $migrations = [
+            "ALTER TABLE `job_applications` ADD COLUMN `current_location` VARCHAR(120) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `preferred_location` VARCHAR(120) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `age` INT UNSIGNED DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `heard_about` VARCHAR(150) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `consent_given` TINYINT(1) NOT NULL DEFAULT 1",
+            "ALTER TABLE `job_applications` ADD COLUMN `consent_timestamp` DATETIME DEFAULT CURRENT_TIMESTAMP",
+            "ALTER TABLE `job_applications` ADD COLUMN `expected_ctc` VARCHAR(60) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `current_company` VARCHAR(120) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `notice_period` VARCHAR(60) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `linkedin_url` VARCHAR(300) DEFAULT NULL",
+            "ALTER TABLE `job_applications` ADD COLUMN `portfolio_url` VARCHAR(300) DEFAULT NULL"
+        ];
+        foreach ($migrations as $sql) {
+            try { $db->exec($sql); } catch (Throwable $ignore) {}
+        }
+    }
 }
 
 function ensure_core_database_tables(PDO $db): void {

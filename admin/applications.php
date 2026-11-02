@@ -18,6 +18,139 @@ $all_count = 0;
 
 if ($db) {
     try {
+        if (function_exists('ensure_schema_migrations')) {
+            ensure_schema_migrations($db);
+        }
+
+        // Active column detection for job_applications to ensure queries never fail
+        $appCols = [];
+        try {
+            $colQ = $db->query("SHOW COLUMNS FROM job_applications");
+            if ($colQ) {
+                $appCols = $colQ->fetchAll(PDO::FETCH_COLUMN);
+            }
+        } catch (Throwable $t) {}
+
+        // Immediate column self-healing check
+        $neededCols = [
+            'current_location'   => "VARCHAR(120) DEFAULT NULL",
+            'preferred_location' => "VARCHAR(120) DEFAULT NULL",
+            'age'                => "INT UNSIGNED DEFAULT NULL",
+            'heard_about'        => "VARCHAR(150) DEFAULT NULL",
+            'consent_given'      => "TINYINT(1) NOT NULL DEFAULT 1",
+            'consent_timestamp'  => "DATETIME DEFAULT CURRENT_TIMESTAMP",
+            'expected_ctc'       => "VARCHAR(60) DEFAULT NULL",
+            'current_company'    => "VARCHAR(120) DEFAULT NULL",
+            'notice_period'      => "VARCHAR(60) DEFAULT NULL",
+            'linkedin_url'       => "VARCHAR(300) DEFAULT NULL",
+            'portfolio_url'      => "VARCHAR(300) DEFAULT NULL"
+        ];
+        foreach ($neededCols as $cName => $cDef) {
+            if (!in_array($cName, $appCols, true)) {
+                try {
+                    $db->exec("ALTER TABLE `job_applications` ADD COLUMN `{$cName}` {$cDef}");
+                    $appCols[] = $cName;
+                } catch (Throwable $t) {}
+            }
+        }
+
+        $has_curr_loc = in_array('current_location', $appCols, true);
+        $has_pref_loc = in_array('preferred_location', $appCols, true);
+        $has_age      = in_array('age', $appCols, true);
+        $has_heard    = in_array('heard_about', $appCols, true);
+
+        // Manual Add Job Application by Admin/HR
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_application') {
+            if (!verify_csrf()) {
+                header('Location: applications.php?err=csrf');
+                exit;
+            }
+
+            $applicant_name     = sanitize($_POST['applicant_name'] ?? '');
+            $email              = sanitize_email($_POST['email'] ?? '');
+            $phone              = sanitize($_POST['phone'] ?? '');
+            $job_title          = sanitize($_POST['job_title'] ?? '');
+            $department         = sanitize($_POST['department'] ?? 'General');
+            $current_location   = sanitize($_POST['current_location'] ?? '');
+            $preferred_location = sanitize($_POST['preferred_location'] ?? '');
+            $age_raw            = trim($_POST['age'] ?? '');
+            $age                = (is_numeric($age_raw) && (int)$age_raw > 0) ? (int)$age_raw : null;
+            $heard_about        = sanitize($_POST['heard_about'] ?? '');
+            $experience_years   = sanitize($_POST['experience_years'] ?? '');
+            $exp_val            = ($experience_years !== '' && is_numeric($experience_years)) ? (float)$experience_years : null;
+            $current_company    = sanitize($_POST['current_company'] ?? '');
+            $notice_period      = sanitize($_POST['notice_period'] ?? '');
+            $expected_ctc       = sanitize($_POST['expected_ctc'] ?? '');
+            $status             = sanitize($_POST['status'] ?? 'new');
+            $admin_notes        = trim($_POST['admin_notes'] ?? '');
+            $cover_letter       = trim($_POST['cover_letter'] ?? '');
+
+            if (empty($applicant_name) || empty($email) || empty($job_title)) {
+                header('Location: applications.php?err=missing_fields');
+                exit;
+            }
+
+            // Resume File Upload (Optional)
+            $resume_filename = null;
+            $resume_path     = null;
+            if (!empty($_FILES['resume']) && is_array($_FILES['resume']) && ($_FILES['resume']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+                $file = $_FILES['resume'];
+                if ($file['error'] === UPLOAD_ERR_OK && ($file['size'] ?? 0) <= 5 * 1024 * 1024) {
+                    $ext = strtolower(pathinfo($file['name'] ?? '', PATHINFO_EXTENSION));
+                    if (in_array($ext, ['pdf', 'doc', 'docx'], true)) {
+                        $upload_dir = UPLOADS_PATH . '/resumes/';
+                        if (!is_dir($upload_dir)) @mkdir($upload_dir, 0755, true);
+                        $safe_name       = preg_replace('/[^a-zA-Z0-9_\-]/', '_', pathinfo($file['name'], PATHINFO_FILENAME));
+                        $resume_filename = 'resume_' . date('Ymd_His') . '_' . bin2hex(random_bytes(6)) . '_' . substr($safe_name, 0, 25) . '.' . $ext;
+                        if (@move_uploaded_file($file['tmp_name'], $upload_dir . $resume_filename)) {
+                            $resume_path = 'uploads/resumes/' . $resume_filename;
+                        } else {
+                            $resume_filename = null;
+                        }
+                    }
+                }
+            }
+
+            // Build dynamic insert based on available columns
+            $insCols = ['job_title', 'department', 'applicant_name', 'email', 'phone', 'status', 'created_at'];
+            $insVals = [':jt', ':dept', ':name', ':em', ':ph', ':st', 'NOW()'];
+            $insParams = [
+                ':jt'   => $job_title,
+                ':dept' => $department ?: 'General',
+                ':name' => $applicant_name,
+                ':em'   => $email,
+                ':ph'   => $phone,
+                ':st'   => $status ?: 'new',
+            ];
+
+            if ($has_curr_loc) { $insCols[] = 'current_location'; $insVals[] = ':cloc'; $insParams[':cloc'] = $current_location; }
+            if ($has_pref_loc) { $insCols[] = 'preferred_location'; $insVals[] = ':ploc'; $insParams[':ploc'] = $preferred_location; }
+            if ($has_age)      { $insCols[] = 'age'; $insVals[] = ':age'; $insParams[':age'] = $age; }
+            if ($has_heard)    { $insCols[] = 'heard_about'; $insVals[] = ':hrd'; $insParams[':hrd'] = $heard_about; }
+            if (in_array('experience_years', $appCols, true)) { $insCols[] = 'experience_years'; $insVals[] = ':exp'; $insParams[':exp'] = $exp_val; }
+            if (in_array('current_company', $appCols, true))  { $insCols[] = 'current_company'; $insVals[] = ':cco'; $insParams[':cco'] = $current_company; }
+            if (in_array('notice_period', $appCols, true))    { $insCols[] = 'notice_period'; $insVals[] = ':np'; $insParams[':np'] = $notice_period; }
+            if (in_array('expected_ctc', $appCols, true))     { $insCols[] = 'expected_ctc'; $insVals[] = ':ctc'; $insParams[':ctc'] = $expected_ctc; }
+            if (in_array('resume_filename', $appCols, true))  { $insCols[] = 'resume_filename'; $insVals[] = ':rf'; $insParams[':rf'] = $resume_filename; }
+            if (in_array('resume_path', $appCols, true))      { $insCols[] = 'resume_path'; $insVals[] = ':rp'; $insParams[':rp'] = $resume_path; }
+            if (in_array('cover_letter', $appCols, true))     { $insCols[] = 'cover_letter'; $insVals[] = ':cov'; $insParams[':cov'] = $cover_letter; }
+            if (in_array('admin_notes', $appCols, true))      { $insCols[] = 'admin_notes'; $insVals[] = ':notes'; $insParams[':notes'] = $admin_notes; }
+            if (in_array('consent_given', $appCols, true))    { $insCols[] = 'consent_given'; $insVals[] = '1'; }
+            if (in_array('consent_timestamp', $appCols, true)){ $insCols[] = 'consent_timestamp'; $insVals[] = 'NOW()'; }
+
+            $sqlIns = "INSERT INTO job_applications (" . implode(',', $insCols) . ") VALUES (" . implode(',', $insVals) . ")";
+            $stmtIns = $db->prepare($sqlIns);
+            $stmtIns->execute($insParams);
+            $new_app_id = (int)$db->lastInsertId();
+
+            if (function_exists('log_admin_activity')) {
+                log_admin_activity('MANUAL_ADD_APPLICATION', "Admin manually added application #{$new_app_id} for {$applicant_name} ({$job_title})");
+            }
+
+            header("Location: applications.php?msg=app_added&new_id={$new_app_id}");
+            exit;
+        }
+
         // Delete Single Application (CSRF Protected)
         if (isset($_GET['delete'])) {
             $token = $_GET['csrf'] ?? $_POST['csrf_token'] ?? '';
@@ -91,8 +224,12 @@ if ($db) {
                 if ($f_status) { $f_where .= " AND status=:st"; $f_params[':st'] = $f_status; }
                 if ($f_job)    { $f_where .= " AND job_title=:jt"; $f_params[':jt'] = $f_job; }
                 if ($f_search) {
-                    $f_where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4 OR preferred_location LIKE :q5 OR heard_about LIKE :q6)";
-                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = $f_params[':q4'] = $f_params[':q5'] = $f_params[':q6'] = '%' . $f_search . '%';
+                    $f_parts = ['applicant_name LIKE :q', 'email LIKE :q2', 'job_title LIKE :q3'];
+                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = '%' . $f_search . '%';
+                    if (!empty($has_curr_loc)) { $f_parts[] = 'current_location LIKE :q4'; $f_params[':q4'] = '%' . $f_search . '%'; }
+                    if (!empty($has_pref_loc)) { $f_parts[] = 'preferred_location LIKE :q5'; $f_params[':q5'] = '%' . $f_search . '%'; }
+                    if (!empty($has_heard))    { $f_parts[] = 'heard_about LIKE :q6'; $f_params[':q6'] = '%' . $f_search . '%'; }
+                    $f_where .= ' AND (' . implode(' OR ', $f_parts) . ')';
                 }
 
                 // Remove resume files
@@ -315,8 +452,12 @@ if ($db) {
                 if ($f_status) { $f_where .= " AND status=:st"; $f_params[':st'] = $f_status; }
                 if ($f_job)    { $f_where .= " AND job_title=:jt"; $f_params[':jt'] = $f_job; }
                 if ($f_search) {
-                    $f_where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4 OR preferred_location LIKE :q5 OR heard_about LIKE :q6)";
-                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = $f_params[':q4'] = $f_params[':q5'] = $f_params[':q6'] = '%' . $f_search . '%';
+                    $f_parts = ['applicant_name LIKE :q', 'email LIKE :q2', 'job_title LIKE :q3'];
+                    $f_params[':q'] = $f_params[':q2'] = $f_params[':q3'] = '%' . $f_search . '%';
+                    if (!empty($has_curr_loc)) { $f_parts[] = 'current_location LIKE :q4'; $f_params[':q4'] = '%' . $f_search . '%'; }
+                    if (!empty($has_pref_loc)) { $f_parts[] = 'preferred_location LIKE :q5'; $f_params[':q5'] = '%' . $f_search . '%'; }
+                    if (!empty($has_heard))    { $f_parts[] = 'heard_about LIKE :q6'; $f_params[':q6'] = '%' . $f_search . '%'; }
+                    $f_where .= ' AND (' . implode(' OR ', $f_parts) . ')';
                 }
 
                 if ($send_emails) {
@@ -518,8 +659,12 @@ if ($db) {
         if ($filter) { $where .= " AND status=:st"; $params[':st'] = $filter; }
         if ($job_filter !== '') { $where .= " AND job_title=:jt"; $params[':jt'] = $job_filter; }
         if ($search) {
-            $where .= " AND (applicant_name LIKE :q OR email LIKE :q2 OR job_title LIKE :q3 OR current_location LIKE :q4 OR preferred_location LIKE :q5 OR heard_about LIKE :q6)";
-            $params[':q'] = $params[':q2'] = $params[':q3'] = $params[':q4'] = $params[':q5'] = $params[':q6'] = '%' . $search . '%';
+            $s_parts = ['applicant_name LIKE :q', 'email LIKE :q2', 'job_title LIKE :q3'];
+            $params[':q'] = $params[':q2'] = $params[':q3'] = '%' . $search . '%';
+            if (!empty($has_curr_loc)) { $s_parts[] = 'current_location LIKE :q4'; $params[':q4'] = '%' . $search . '%'; }
+            if (!empty($has_pref_loc)) { $s_parts[] = 'preferred_location LIKE :q5'; $params[':q5'] = '%' . $search . '%'; }
+            if (!empty($has_heard))    { $s_parts[] = 'heard_about LIKE :q6'; $params[':q6'] = '%' . $search . '%'; }
+            $where .= ' AND (' . implode(' OR ', $s_parts) . ')';
         }
 
         // Fetch distinct job titles & candidate counts for position filter
@@ -558,14 +703,23 @@ if ($db) {
             $exp_where  = ($export_scope === 'all') ? "WHERE 1=1" : $where;
             $exp_params = ($export_scope === 'all') ? [] : $params;
 
-            $exp_sql = "SELECT id, job_title, department, applicant_name, email, phone, 
-                               current_location, preferred_location, age, heard_about,
-                               experience_years, current_company, notice_period, 
-                               expected_ctc, resume_filename, resume_path, cover_letter, 
-                               linkedin_url, portfolio_url, status, admin_notes, created_at 
-                        FROM job_applications 
-                        $exp_where 
-                        ORDER BY created_at DESC";
+            $exp_fields = [
+                'id', 'job_title', 'department', 'applicant_name', 'email', 'phone',
+                !empty($has_curr_loc) ? 'current_location' : "NULL AS current_location",
+                !empty($has_pref_loc) ? 'preferred_location' : "NULL AS preferred_location",
+                !empty($has_age) ? 'age' : "NULL AS age",
+                !empty($has_heard) ? 'heard_about' : "NULL AS heard_about",
+                'experience_years',
+                in_array('current_company', $appCols ?? [], true) ? 'current_company' : "NULL AS current_company",
+                in_array('notice_period', $appCols ?? [], true) ? 'notice_period' : "NULL AS notice_period",
+                in_array('expected_ctc', $appCols ?? [], true) ? 'expected_ctc' : "NULL AS expected_ctc",
+                'resume_filename', 'resume_path',
+                in_array('cover_letter', $appCols ?? [], true) ? 'cover_letter' : "NULL AS cover_letter",
+                in_array('linkedin_url', $appCols ?? [], true) ? 'linkedin_url' : "NULL AS linkedin_url",
+                in_array('portfolio_url', $appCols ?? [], true) ? 'portfolio_url' : "NULL AS portfolio_url",
+                'status', 'admin_notes', 'created_at'
+            ];
+            $exp_sql = "SELECT " . implode(', ', $exp_fields) . " FROM job_applications $exp_where ORDER BY created_at DESC";
 
             $expStmt = $db->prepare($exp_sql);
             $expStmt->execute($exp_params);
@@ -794,14 +948,23 @@ if ($db) {
         }
 
         $pg   = paginate($total_count, $per_page, $page);
-        $stmt = $db->prepare("SELECT id, applicant_name, email, phone, job_title, department, current_location, preferred_location, age, heard_about, experience_years, status, created_at, resume_filename, resume_path FROM job_applications $where ORDER BY created_at DESC LIMIT :l OFFSET :o");
+        $sel_fields = [
+            'id', 'applicant_name', 'email', 'phone', 'job_title', 'department',
+            !empty($has_curr_loc) ? 'current_location' : "NULL AS current_location",
+            !empty($has_pref_loc) ? 'preferred_location' : "NULL AS preferred_location",
+            !empty($has_age) ? 'age' : "NULL AS age",
+            !empty($has_heard) ? 'heard_about' : "NULL AS heard_about",
+            'experience_years', 'status', 'created_at', 'resume_filename', 'resume_path'
+        ];
+        $stmt = $db->prepare("SELECT " . implode(', ', $sel_fields) . " FROM job_applications $where ORDER BY created_at DESC LIMIT :l OFFSET :o");
         foreach ($params as $k => &$v) $stmt->bindValue($k, $v);
         $stmt->bindValue(':l', $pg['per_page'], PDO::PARAM_INT);
         $stmt->bindValue(':o', $pg['offset'], PDO::PARAM_INT);
         $stmt->execute();
         $apps = $stmt->fetchAll();
     } catch (PDOException $e) {
-        error_log($e->getMessage());
+        error_log('Admin applications PDOException: ' . $e->getMessage());
+        $query_error = $e->getMessage();
     }
 }
 ?>
@@ -921,6 +1084,11 @@ tr.selected-row td{background-color:#eef2ff !important}
     </div>
     <?php if (!$view): ?>
     <div class="d-flex gap-2 align-items-center flex-wrap">
+      <!-- Add Application Button -->
+      <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addAppModal" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;border-radius:10px;font-weight:700;font-size:13px;padding:10px 18px;border:none;box-shadow:0 2px 8px rgba(28,34,128,.25);">
+        <i class="fas fa-plus-circle me-1"></i> Add Application
+      </button>
+
       <!-- Batch Status Update Options -->
       <div class="dropdown">
         <button class="btn dropdown-toggle" type="button" id="headerStatusDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background:#1C2280;color:#fff;border-radius:10px;font-weight:700;font-size:13px;padding:10px 18px;border:none;box-shadow:0 2px 8px rgba(28,34,128,.25);">
@@ -1072,6 +1240,18 @@ tr.selected-row td{background-color:#eef2ff !important}
     <?php else: ?>
     <div class="alert alert-success mb-4" style="border-radius:12px;"><i class="fas fa-check-circle me-2"></i> Application updated successfully.</div>
     <?php endif; ?>
+  <?php endif; ?>
+
+  <?php if (!empty($_GET['msg']) && $_GET['msg'] === 'app_added'): ?>
+  <div class="alert alert-success mb-4 shadow-sm" style="border-radius:12px;border:1px solid #bbf7d0;background:#f0fdf4;color:#166534;">
+    <i class="fas fa-check-circle me-2 text-success"></i> <strong>Candidate Application Added!</strong> Application #<?= (int)($_GET['new_id'] ?? 0) ?> has been created successfully.
+  </div>
+  <?php endif; ?>
+
+  <?php if (!empty($query_error)): ?>
+  <div class="alert alert-danger mb-4 shadow-sm" style="border-radius:12px;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;">
+    <i class="fas fa-database me-2 text-danger"></i> <strong>Database Notice:</strong> <?= htmlspecialchars($query_error) ?>. Schema self-healing has been triggered; please refresh this page.
+  </div>
   <?php endif; ?>
 
   <?php if (!empty($_GET['msg']) && $_GET['msg'] === 'deleted'): ?>
@@ -1436,6 +1616,135 @@ tr.selected-row td{background-color:#eef2ff !important}
     <?php endif; ?>
   </div>
   <?php endif; ?>
+
+  <!-- Manual Add Job Application Modal -->
+  <div class="modal fade" id="addAppModal" tabindex="-1" aria-labelledby="addAppModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content" style="border-radius:16px;border:none;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.2);">
+        <div class="modal-header" style="background:linear-gradient(135deg,#1C2280,#2d35c4);color:#fff;padding:18px 24px;">
+          <h5 class="modal-title fw-bold text-white d-flex align-items-center gap-2" id="addAppModalLabel">
+            <i class="fas fa-user-plus"></i> Add Candidate Job Application
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="applications.php" enctype="multipart/form-data">
+          <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+          <input type="hidden" name="action" value="add_application">
+          <div class="modal-body p-4">
+            <div class="row g-3">
+              <!-- Full Name -->
+              <div class="col-md-6">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Candidate Full Name <span class="text-danger">*</span></label>
+                <input type="text" name="applicant_name" class="form-control" required placeholder="e.g. Rahul Sharma" style="border-radius:8px;">
+              </div>
+              <!-- Email -->
+              <div class="col-md-6">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Email Address <span class="text-danger">*</span></label>
+                <input type="email" name="email" class="form-control" required placeholder="e.g. rahul@example.com" style="border-radius:8px;">
+              </div>
+              <!-- Phone -->
+              <div class="col-md-6">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Phone Number <span class="text-danger">*</span></label>
+                <input type="tel" name="phone" class="form-control" required placeholder="e.g. +91 9876543210" style="border-radius:8px;">
+              </div>
+              <!-- Job Position -->
+              <div class="col-md-6">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Job Position Applied For <span class="text-danger">*</span></label>
+                <input type="text" name="job_title" list="jobPositionsList" class="form-control" required placeholder="Select or type position title" style="border-radius:8px;">
+                <datalist id="jobPositionsList">
+                  <?php foreach ($job_positions as $pos): ?>
+                  <option value="<?= htmlspecialchars($pos) ?>">
+                  <?php endforeach; ?>
+                </datalist>
+              </div>
+              <!-- Department -->
+              <div class="col-md-6">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Department</label>
+                <input type="text" name="department" class="form-control" placeholder="e.g. Engineering, Sales, HR" style="border-radius:8px;">
+              </div>
+              <!-- Initial Status -->
+              <div class="col-md-6">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Application Status</label>
+                <select name="status" class="form-select" style="border-radius:8px;">
+                  <option value="new" selected>New (Pending Review)</option>
+                  <option value="reviewed">Reviewed</option>
+                  <option value="shortlisted">Shortlisted</option>
+                  <option value="interview">Interview Scheduled</option>
+                  <option value="offered">Offer Extended</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+              <!-- Current Location -->
+              <div class="col-md-6">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Current Location (City, State) <span class="text-danger">*</span></label>
+                <input type="text" name="current_location" class="form-control" required placeholder="e.g. Bangalore, Karnataka" style="border-radius:8px;">
+              </div>
+              <!-- Preferred Location -->
+              <div class="col-md-6">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Preferred Work Location</label>
+                <input type="text" name="preferred_location" class="form-control" placeholder="e.g. Bangalore / Remote / Hybrid" style="border-radius:8px;">
+              </div>
+              <!-- Candidate Age -->
+              <div class="col-md-4">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Age (Years)</label>
+                <input type="number" name="age" min="18" max="85" class="form-control" placeholder="e.g. 26" style="border-radius:8px;">
+              </div>
+              <!-- Where Heard About Us -->
+              <div class="col-md-4">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Referral / Sourcing Channel</label>
+                <select name="heard_about" class="form-select" style="border-radius:8px;">
+                  <option value="">Select channel...</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Naukri / Indeed">Naukri / Indeed</option>
+                  <option value="Company Website">Company Website</option>
+                  <option value="Employee Referral">Employee Referral</option>
+                  <option value="Campus Placement">Campus Placement</option>
+                  <option value="Direct / Walk-in">Direct / Walk-in</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <!-- Experience Years -->
+              <div class="col-md-4">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Experience (Years)</label>
+                <input type="number" step="0.5" min="0" max="50" name="experience_years" class="form-control" placeholder="e.g. 3.5 (0 for Fresher)" style="border-radius:8px;">
+              </div>
+              <!-- Current Company -->
+              <div class="col-md-4">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Current Company / Employer</label>
+                <input type="text" name="current_company" class="form-control" placeholder="e.g. TCS / Infosys / Fresher" style="border-radius:8px;">
+              </div>
+              <!-- Notice Period -->
+              <div class="col-md-4">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Notice Period</label>
+                <input type="text" name="notice_period" class="form-control" placeholder="e.g. Immediate / 30 Days" style="border-radius:8px;">
+              </div>
+              <!-- Expected CTC -->
+              <div class="col-md-4">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Expected CTC</label>
+                <input type="text" name="expected_ctc" class="form-control" placeholder="e.g. 8.5 LPA" style="border-radius:8px;">
+              </div>
+              <!-- Resume Document Upload -->
+              <div class="col-md-12">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">Resume / CV Document (PDF, DOC, DOCX — Max 5MB)</label>
+                <input type="file" name="resume" class="form-control" accept=".pdf,.doc,.docx" style="border-radius:8px;">
+              </div>
+              <!-- Internal HR Notes -->
+              <div class="col-md-12">
+                <label class="form-label fw-bold" style="font-size:12px;text-transform:uppercase;color:#475569;">HR / Interviewer Internal Notes</label>
+                <textarea name="admin_notes" rows="2" class="form-control" placeholder="Optional notes for internal tracking..." style="border-radius:8px;"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="background:#f8fafc;border-top:1px solid #f1f5f9;padding:14px 24px;">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius:8px;font-weight:600;font-size:13px;">Cancel</button>
+            <button type="submit" class="btn" style="border-radius:8px;font-weight:700;font-size:13px;background:#1C2280;color:#fff;padding:8px 22px;">
+              <i class="fas fa-plus me-1"></i> Add Application
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- Permanent Direct Delete Confirmation Modal -->
   <div class="modal fade" id="bulkDeleteModal" tabindex="-1" aria-labelledby="bulkDeleteModalLabel" aria-hidden="true">
