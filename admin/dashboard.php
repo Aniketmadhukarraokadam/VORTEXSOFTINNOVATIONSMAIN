@@ -28,9 +28,17 @@ if ($db) {
         try { $stats['jobs_active'] = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active=1")->fetchColumn(); } catch(Throwable $e) {}
 
         // Recent contacts
-        $recent_contacts = $db->query("SELECT id,name,email,service,created_at,is_read FROM contact_inquiries ORDER BY created_at DESC LIMIT 8")->fetchAll();
+        $recent_contacts = $db->query("SELECT id,name,email,phone,service,created_at,is_read FROM contact_inquiries ORDER BY created_at DESC LIMIT 8")->fetchAll();
         // Recent applications
-        $recent_apps     = $db->query("SELECT id,applicant_name,email,job_title,status,created_at FROM job_applications ORDER BY created_at DESC LIMIT 8")->fetchAll();
+        $recent_apps     = $db->query("SELECT id,applicant_name,email,phone,job_title,status,created_at FROM job_applications ORDER BY created_at DESC LIMIT 8")->fetchAll();
+// Pipeline Breakdown for Quick Bar
+        $app_pipeline = ['new' => 0, 'shortlisted' => 0, 'interview' => 0, 'offered' => 0];
+        try {
+            $pRows = $db->query("SELECT status, COUNT(*) as c FROM job_applications GROUP BY status")->fetchAll(PDO::FETCH_KEY_PAIR);
+            foreach ($pRows as $st => $c) {
+                $app_pipeline[$st] = (int)$c;
+            }
+        } catch (Throwable $e) {}
     } catch (PDOException $e) {
         error_log($e->getMessage());
     }
@@ -106,6 +114,12 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 .action-btn{font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px;border:none;cursor:pointer;transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
 .action-btn-view{background:rgba(28,34,128,.08);color:#1C2280}
 .action-btn-view:hover{background:#1C2280;color:#fff}
+.action-btn-wa{background:rgba(37,211,102,.12);color:#128c7e;}
+.action-btn-wa:hover{background:#25D366;color:#fff;}
+.action-btn-call{background:rgba(14,165,233,.12);color:#0284c7;}
+.action-btn-call:hover{background:#0284c7;color:#fff;}
+.pipeline-pill{background:#fff;border-radius:12px;padding:12px 18px;border:1px solid #e8ecff;display:flex;align-items:center;justify-content:space-between;text-decoration:none;transition:.2s;color:inherit;}
+.pipeline-pill:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(28,34,128,.06);color:inherit;}
 @media(max-width:1024px){
   body{flex-direction:column}
   .admin-sidebar{transform:translateX(-100%)}
@@ -117,53 +131,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 </head>
 <body>
 
-<div class="mobile-header">
-  <img src="/logo-header.png" alt="Vortexsoft" style="height:32px;">
-  <button class="btn text-white p-0" id="sidebarToggleBtn" style="font-size:20px;"><i class="fas fa-bars"></i></button>
-</div>
-
-<!-- Sidebar -->
-<aside class="admin-sidebar" id="adminSidebar">
-  <div class="sidebar-logo">
-    <div>
-      <img src="/logo-header.png?v=20260912" alt="Vortexsoft Innovations Private Limited">
-      <div class="sub">Admin Panel</div>
-    </div>
-    <button class="btn text-white p-0 d-lg-none" id="sidebarCloseBtn"><i class="fas fa-times"></i></button>
-  </div>
-
-  <nav class="sidebar-nav">
-    <div class="nav-section">Main</div>
-    <a href="dashboard.php" class="sidebar-link active"><span class="icon"><i class="fas fa-tachometer-alt"></i></span> Dashboard</a>
-    <a href="contacts.php" class="sidebar-link"><span class="icon"><i class="fas fa-envelope"></i></span> Inquiries <?php if($stats['new_contacts']): ?><span class="badge"><?= $stats['new_contacts'] ?></span><?php endif; ?></a>
-    <a href="applications.php" class="sidebar-link"><span class="icon"><i class="fas fa-briefcase"></i></span> Applications <?php if($stats['new_apps']): ?><span class="badge"><?= $stats['new_apps'] ?></span><?php endif; ?></a>
-    <a href="jobs.php" class="sidebar-link"><span class="icon"><i class="fas fa-clipboard-list"></i></span> Jobs <span style="margin-left:auto;background:rgba(28,34,128,.12);color:#1C2280;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;"><?= $stats['jobs_active'] ?> active</span></a>
-
-    <div class="nav-section">Email & Security</div>
-    <a href="emails.php" class="sidebar-link"><span class="icon"><i class="fas fa-inbox"></i></span> Email Activity</a>
-    <a href="email-accounts.php" class="sidebar-link"><span class="icon"><i class="fas fa-mail-bulk"></i></span> Mail Accounts</a>
-    <a href="email-templates.php" class="sidebar-link"><span class="icon"><i class="fas fa-file-code"></i></span> Templates</a>
-    <a href="activity-log.php" class="sidebar-link"><span class="icon"><i class="fas fa-history"></i></span> Activity Log</a>
-    <a href="users.php" class="sidebar-link"><span class="icon"><i class="fas fa-users-cog"></i></span> Admin Users</a>
-
-    <div class="nav-section">Content & System</div>
-    <a href="blog-posts.php" class="sidebar-link"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
-    <a href="blog/generate.php" class="sidebar-link"><span class="icon"><i class="fas fa-robot"></i></span> AI Blog Generator</a>
-    <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
-    <a href="audit_services.php" class="sidebar-link"><span class="icon"><i class="fas fa-check-circle"></i></span> 65-Service Audit</a>
-    <a href="backup_db.php" class="sidebar-link"><span class="icon"><i class="fas fa-database"></i></span> DB Backup</a>
-    <a href="settings.php" class="sidebar-link"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a>
-    <a href="/index.php" target="_blank" class="sidebar-link"><span class="icon"><i class="fas fa-external-link-alt"></i></span> View Website</a>
-  </nav>
-
-  <div class="sidebar-footer">
-    <div class="admin-user-info">
-      <div class="admin-avatar"><?= strtoupper(substr($admin_name, 0, 1)) ?></div>
-      <div><div class="admin-name"><?= htmlspecialchars($admin_name) ?></div><div class="admin-role"><?= str_replace('_', ' ', $admin_role) ?></div></div>
-    </div>
-    <a href="logout.php" class="btn-logout"><i class="fas fa-sign-out-alt me-2"></i> Sign Out</a>
-  </div>
-</aside>
+<?php require __DIR__ . '/_sidebar.php'; ?>
 
 <!-- Main Content -->
 <main class="admin-main">
@@ -200,6 +168,46 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
     <?php endforeach; ?>
   </div>
 
+  <!-- Quick Recruitment Pipeline Bar -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <a href="applications.php?filter=new" class="pipeline-pill">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#CC2228;text-transform:uppercase;">Unreviewed Apps</div>
+          <div style="font-size:18px;font-weight:800;color:#CC2228;"><?= number_format($app_pipeline['new'] ?? 0) ?></div>
+        </div>
+        <i class="fas fa-bell text-danger" style="font-size:20px;opacity:.8;"></i>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="applications.php?filter=shortlisted" class="pipeline-pill">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#d97706;text-transform:uppercase;">Shortlisted</div>
+          <div style="font-size:18px;font-weight:800;color:#d97706;"><?= number_format($app_pipeline['shortlisted'] ?? 0) ?></div>
+        </div>
+        <i class="fas fa-star" style="color:#f59e0b;font-size:20px;opacity:.8;"></i>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="applications.php?filter=interview" class="pipeline-pill">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#0284c7;text-transform:uppercase;">Interviewing</div>
+          <div style="font-size:18px;font-weight:800;color:#0284c7;"><?= number_format($app_pipeline['interview'] ?? 0) ?></div>
+        </div>
+        <i class="fas fa-comments text-info" style="font-size:20px;opacity:.8;"></i>
+      </a>
+    </div>
+    <div class="col-6 col-md-3">
+      <a href="applications.php?filter=offered" class="pipeline-pill">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;">Hired / Offered</div>
+          <div style="font-size:18px;font-weight:800;color:#15803d;"><?= number_format($app_pipeline['offered'] ?? 0) ?></div>
+        </div>
+        <i class="fas fa-award text-success" style="font-size:20px;opacity:.8;"></i>
+      </a>
+    </div>
+  </div>
+
   <!-- Recent Inquiries Table -->
   <div class="table-card mb-4">
     <div class="table-card-header">
@@ -225,7 +233,18 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
             <td><?= htmlspecialchars($c['service'] ?? 'General') ?></td>
             <td style="color:#94a3b8;white-space:nowrap;"><?= time_ago($c['created_at']) ?></td>
             <td><span class="status-badge <?= $c['is_read'] ? 'status-read' : 'status-new' ?>"><?= $c['is_read'] ? 'Read' : 'New' ?></span></td>
-            <td><a href="contacts.php?view=<?= $c['id'] ?>" class="action-btn action-btn-view"><i class="fas fa-eye"></i> View</a></td>
+            <td style="white-space:nowrap;text-align:right;">
+              <div class="d-inline-flex gap-1 align-items-center">
+                <?php if (!empty($c['phone'])): 
+                  $inq_wa = format_whatsapp_url($c['phone'], "Hello {$c['name']}, thank you for contacting Vortexsoft Innovations regarding " . ($c['service'] ?? 'our services') . ". How can we assist you?");
+                ?>
+                  <a href="<?= $inq_wa ?>" target="_blank" class="action-btn action-btn-wa" title="WhatsApp Client"><i class="fab fa-whatsapp"></i></a>
+                  <a href="tel:<?= preg_replace('/[^0-9+]/', '', $c['phone']) ?>" class="action-btn action-btn-call" title="Call Client"><i class="fas fa-phone-alt"></i></a>
+                <?php endif; ?>
+                <a href="mailto:<?= htmlspecialchars($c['email']) ?>?subject=Regarding your inquiry at Vortexsoft Innovations" class="action-btn" title="Email Client"><i class="fas fa-envelope"></i></a>
+                <a href="contacts.php?view=<?= $c['id'] ?>" class="action-btn action-btn-view" title="View Inquiry"><i class="fas fa-eye"></i></a>
+              </div>
+            </td>
           </tr>
           <?php endforeach; ?>
           <?php endif; ?>
@@ -257,7 +276,18 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
             <td><?= htmlspecialchars($a['job_title']) ?></td>
             <td style="color:#94a3b8;white-space:nowrap;"><?= time_ago($a['created_at']) ?></td>
             <td><span class="status-badge status-<?= $a['status'] ?>"><?= ucfirst($a['status']) ?></span></td>
-            <td><a href="applications.php?view=<?= $a['id'] ?>" class="action-btn action-btn-view"><i class="fas fa-eye"></i> View</a></td>
+            <td style="white-space:nowrap;text-align:right;">
+              <div class="d-inline-flex gap-1 align-items-center">
+                <?php if (!empty($a['phone'])): 
+                  $app_wa = format_whatsapp_url($a['phone'], "Hello {$a['applicant_name']}, this is from Vortexsoft Innovations HR regarding your application for {$a['job_title']}. Are you available for a brief discussion?");
+                ?>
+                  <a href="<?= $app_wa ?>" target="_blank" class="action-btn action-btn-wa" title="WhatsApp Candidate"><i class="fab fa-whatsapp"></i></a>
+                  <a href="tel:<?= preg_replace('/[^0-9+]/', '', $a['phone']) ?>" class="action-btn action-btn-call" title="Call Candidate"><i class="fas fa-phone-alt"></i></a>
+                <?php endif; ?>
+                <a href="mailto:<?= htmlspecialchars($a['email']) ?>?subject=Regarding your application for <?= rawurlencode($a['job_title']) ?> at Vortexsoft Innovations" class="action-btn" title="Email Candidate"><i class="fas fa-envelope"></i></a>
+                <a href="applications.php?view=<?= $a['id'] ?>" class="action-btn action-btn-view" title="View Application"><i class="fas fa-eye"></i></a>
+              </div>
+            </td>
           </tr>
           <?php endforeach; ?>
           <?php endif; ?>

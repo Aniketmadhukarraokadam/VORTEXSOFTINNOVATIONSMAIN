@@ -442,3 +442,18 @@ function time_ago(string $datetime): string {
     if ($diff < 604800)   return floor($diff / 86400) . 'd ago';
     return date('d M Y', strtotime($datetime));
 }
+// ── Format WhatsApp URL ──────────────────────────────────
+function format_whatsapp_url(string $phone, string $message = ''): string {
+    $cleaned = preg_replace('/[^0-9]/', '', $phone);
+    if (empty($cleaned)) return '';
+    if (strlen($cleaned) === 10) {
+        $cleaned = '91' . $cleaned;
+    } elseif (strlen($cleaned) === 11 && str_starts_with($cleaned, '0')) {
+        $cleaned = '91' . substr($cleaned, 1);
+    }
+    $url = 'https://wa.me/' . $cleaned;
+    if ($message !== '') {
+        $url .= '?text=' . rawurlencode($message);
+    }
+    return $url;
+}

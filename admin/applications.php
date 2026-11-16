@@ -401,6 +401,7 @@ if ($db) {
       <p style='margin:0;'><a href='" . SITE_URL . "'>" . htmlspecialchars(SITE_DOMAIN) . "</a> &nbsp;|&nbsp; <a href='mailto:" . EMAIL_HR . "'>" . EMAIL_HR . "</a></p>
     </div>
   </div>
+
 </body>
 </html>";
 
@@ -512,6 +513,28 @@ if ($db) {
 
             $mail_info = $send_emails ? "&emails_sent={$emails_sent_count}" : "";
             header("Location: applications.php?msg=bulk_status_updated&count={$updated_count}&status={$target_status}&new_status={$target_status}&scope={$status_scope}{$mail_info}");
+            exit;
+        }
+
+        // Instant AJAX Quick Status Update from Table Row
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'quick_status_update') {
+            header('Content-Type: application/json; charset=utf-8');
+            if (!verify_csrf()) {
+                echo json_encode(['success' => false, 'error' => 'Security token mismatch. Please refresh and try again.']);
+                exit;
+            }
+            $target_id = (int)($_POST['id'] ?? 0);
+            $new_st    = sanitize($_POST['status'] ?? '');
+            $valid_statuses = ['new', 'reviewed', 'shortlisted', 'interview', 'offered', 'rejected', 'withdrawn'];
+            if ($target_id > 0 && in_array($new_st, $valid_statuses, true)) {
+                $db->prepare("UPDATE job_applications SET status = :st WHERE id = :id")->execute([':st' => $new_st, ':id' => $target_id]);
+                if (function_exists('log_admin_activity')) {
+                    log_admin_activity('QUICK_STATUS_UPDATE', "Updated application #{$target_id} status to {$new_st}");
+                }
+                echo json_encode(['success' => true, 'id' => $target_id, 'status' => $new_st, 'label' => ucfirst($new_st)]);
+                exit;
+            }
+            echo json_encode(['success' => false, 'error' => 'Invalid parameters.']);
             exit;
         }
 
@@ -694,6 +717,28 @@ if ($db) {
         $cntStmt->execute($params);
         $total_count = (int)$cntStmt->fetchColumn();
         $all_count   = (int)$db->query("SELECT COUNT(*) FROM job_applications")->fetchColumn();
+// Recruitment Pipeline Counts by Status
+        $pipeline_counts = [
+            'all'         => $all_count,
+            'new'         => 0,
+            'reviewed'    => 0,
+            'shortlisted' => 0,
+            'interview'   => 0,
+            'offered'     => 0,
+            'rejected'    => 0,
+            'withdrawn'   => 0
+        ];
+        try {
+            $pStmt = $db->query("SELECT status, COUNT(*) as cnt FROM job_applications GROUP BY status");
+            if ($pStmt) {
+                while ($pRow = $pStmt->fetch(PDO::FETCH_ASSOC)) {
+                    $st_key = strtolower($pRow['status']);
+                    if (isset($pipeline_counts[$st_key])) {
+                        $pipeline_counts[$st_key] = (int)$pRow['cnt'];
+                    }
+                }
+            }
+        } catch (Throwable $t) {}
 
         // ── EXPORT CONTROLLER (EXCEL / CSV) ─────────────────────────
         if (isset($_GET['export']) && in_array($_GET['export'], ['excel', 'xls', 'csv'], true)) {
@@ -1020,6 +1065,14 @@ tr:hover td{background:#fafbff}
 .action-btn:hover{background:#1C2280;color:#fff}
 .action-btn-delete{background:rgba(204,34,40,.08);color:#CC2228}
 .action-btn-delete:hover{background:#CC2228;color:#fff}
+.action-btn-wa{background:rgba(37,211,102,.12);color:#128c7e;}
+.action-btn-wa:hover{background:#25D366;color:#fff;}
+.action-btn-call{background:rgba(14,165,233,.12);color:#0284c7;}
+.action-btn-call:hover{background:#0284c7;color:#fff;}
+.pulse-badge{display:inline-flex;align-items:center;gap:6px;background:#fee2e2;color:#b91c1c;font-size:10px;font-weight:800;padding:2px 8px;border-radius:100px;text-transform:uppercase;}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:#ef4444;box-shadow:0 0 0 0 rgba(239,68,68,.7);animation:pulseRed 1.6s infinite;}
+@keyframes pulseRed{0%{box-shadow:0 0 0 0 rgba(239,68,68,.7)}70%{box-shadow:0 0 0 8px rgba(239,68,68,0)}100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}}
+.app-quick-status-dropdown{border-radius:100px;font-size:11.5px;font-weight:700;padding:3px 8px;width:auto;display:inline-block;cursor:pointer;}
 .form-check-input{cursor:pointer;border-color:#cbd5e1}
 .form-check-input:checked{background-color:#CC2228;border-color:#CC2228}
 tr.selected-row{background-color:#eef2ff !important}
@@ -1045,36 +1098,7 @@ tr.selected-row td{background-color:#eef2ff !important}
 </head>
 <body>
 
-<div class="mobile-header">
-  <img src="/logo-header.png" alt="Vortexsoft" style="height:32px;">
-  <button class="btn text-white p-0" id="sidebarToggleBtn" style="font-size:20px;"><i class="fas fa-bars"></i></button>
-</div>
-
-<aside class="admin-sidebar" id="adminSidebar">
-  <div class="sidebar-logo">
-    <div>
-      <img src="/logo-header.png?v=20260912" alt="Vortexsoft Innovations">
-      <div class="sub">Admin Panel</div>
-    </div>
-    <button class="btn text-white p-0 d-lg-none" id="sidebarCloseBtn"><i class="fas fa-times"></i></button>
-  </div>
-  <nav class="sidebar-nav">
-    <div class="nav-section">Main</div>
-    <a href="dashboard.php" class="sidebar-link"><span class="icon"><i class="fas fa-tachometer-alt"></i></span> Dashboard</a>
-    <a href="contacts.php" class="sidebar-link"><span class="icon"><i class="fas fa-envelope"></i></span> Inquiries</a>
-    <a href="applications.php" class="sidebar-link active"><span class="icon"><i class="fas fa-briefcase"></i></span> Applications</a>
-    <div class="nav-section">Content</div>
-    <a href="blog-posts.php" class="sidebar-link"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
-    <a href="blog/generate.php" class="sidebar-link"><span class="icon"><i class="fas fa-robot"></i></span> AI Blog Generator</a>
-    <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
-    <div class="nav-section">System</div>
-    <a href="settings.php" class="sidebar-link"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a>
-    <a href="/index.php" target="_blank" class="sidebar-link"><span class="icon"><i class="fas fa-external-link-alt"></i></span> View Website</a>
-  </nav>
-  <div class="sidebar-footer">
-    <a href="logout.php" class="btn-logout"><i class="fas fa-sign-out-alt me-2"></i> Sign Out</a>
-  </div>
-</aside>
+<?php require __DIR__ . '/_sidebar.php'; ?>
 
 <main class="admin-main">
   <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
@@ -1297,7 +1321,28 @@ tr.selected-row td{background-color:#eef2ff !important}
 
   <?php if ($view): ?>
   <!-- Detail View -->
-  <div class="mb-3"><a href="applications.php" style="color:#1C2280;font-size:14px;font-weight:600;text-decoration:none;"><i class="fas fa-arrow-left me-1"></i> Back to Applications</a></div>
+  <!-- Detail View -->
+  <div class="mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <a href="applications.php" style="color:#1C2280;font-size:14px;font-weight:600;text-decoration:none;"><i class="fas fa-arrow-left me-1"></i> Back to Applications</a>
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+      <?php if (!empty($view['phone'])): 
+        $detail_wa = format_whatsapp_url($view['phone'], "Hello {$view['applicant_name']}, this is from the HR team at Vortexsoft Innovations regarding your application for {$view['job_title']}. Are you available for a brief discussion?");
+      ?>
+        <a href="<?= $detail_wa ?>" target="_blank" class="btn btn-sm btn-success fw-bold" style="border-radius:8px;background:#25D366;border-color:#25D366;">
+          <i class="fab fa-whatsapp me-1"></i> WhatsApp Candidate
+        </a>
+        <a href="tel:<?= preg_replace('/[^0-9+]/', '', $view['phone']) ?>" class="btn btn-sm btn-outline-primary fw-bold" style="border-radius:8px;">
+          <i class="fas fa-phone-alt me-1"></i> Call Candidate
+        </a>
+      <?php endif; ?>
+      <a href="mailto:<?= htmlspecialchars($view['email']) ?>?subject=Regarding your application for <?= rawurlencode($view['job_title']) ?> at Vortexsoft Innovations" class="btn btn-sm btn-outline-secondary fw-bold" style="border-radius:8px;">
+        <i class="fas fa-envelope me-1"></i> Email
+      </a>
+      <button type="button" class="btn btn-sm btn-light border fw-bold" onclick="copyCandidateDossier()" style="border-radius:8px;">
+        <i class="fas fa-copy me-1"></i> Copy Dossier
+      </button>
+    </div>
+  </div>
   <div class="detail-card">
     <div class="row gy-3">
       <div class="col-md-6"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Position Applied For</div><div style="font-size:18px;font-weight:800;color:#1C2280;"><?= htmlspecialchars($view['job_title']) ?></div></div>
@@ -1449,6 +1494,91 @@ tr.selected-row td{background-color:#eef2ff !important}
     </div>
   </div>
 
+  <!-- Top Recruitment Pipeline Metric Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-4 col-xl-2">
+      <a href="applications.php" class="stat-card" style="border-radius:14px;padding:16px;background:#fff;border:1px solid #e8ecff;text-decoration:none;display:block;transition:.2s;">
+        <div class="d-flex align-items-center justify-content-between">
+          <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Total</span>
+          <i class="fas fa-users text-muted" style="font-size:13px;"></i>
+        </div>
+        <div style="font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:800;color:#1C2280;line-height:1;margin:8px 0 2px;">
+          <?= number_format($pipeline_counts['all']) ?>
+        </div>
+        <div style="font-size:12px;color:#64748b;font-weight:500;">All Applicants</div>
+      </a>
+    </div>
+
+    <div class="col-6 col-md-4 col-xl-2">
+      <a href="applications.php?filter=new" class="stat-card" style="border-radius:14px;padding:16px;background:#fff;border:1px solid <?= $pipeline_counts['new'] > 0 ? '#fca5a5' : '#e8ecff' ?>;text-decoration:none;display:block;transition:.2s;">
+        <div class="d-flex align-items-center justify-content-between">
+          <span style="font-size:11px;font-weight:700;color:#CC2228;text-transform:uppercase;">New</span>
+          <?php if ($pipeline_counts['new'] > 0): ?>
+            <span class="pulse-badge"><span class="pulse-dot"></span> Needs Review</span>
+          <?php else: ?>
+            <i class="fas fa-check-circle text-muted" style="font-size:13px;"></i>
+          <?php endif; ?>
+        </div>
+        <div style="font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:800;color:#CC2228;line-height:1;margin:8px 0 2px;">
+          <?= number_format($pipeline_counts['new']) ?>
+        </div>
+        <div style="font-size:12px;color:#64748b;font-weight:500;">Unreviewed</div>
+      </a>
+    </div>
+
+    <div class="col-6 col-md-4 col-xl-2">
+      <a href="applications.php?filter=shortlisted" class="stat-card" style="border-radius:14px;padding:16px;background:#fff;border:1px solid #e8ecff;text-decoration:none;display:block;transition:.2s;">
+        <div class="d-flex align-items-center justify-content-between">
+          <span style="font-size:11px;font-weight:700;color:#d97706;text-transform:uppercase;">Shortlisted</span>
+          <i class="fas fa-star" style="color:#f59e0b;font-size:13px;"></i>
+        </div>
+        <div style="font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:800;color:#d97706;line-height:1;margin:8px 0 2px;">
+          <?= number_format($pipeline_counts['shortlisted']) ?>
+        </div>
+        <div style="font-size:12px;color:#64748b;font-weight:500;">In Pipeline</div>
+      </a>
+    </div>
+
+    <div class="col-6 col-md-4 col-xl-2">
+      <a href="applications.php?filter=interview" class="stat-card" style="border-radius:14px;padding:16px;background:#fff;border:1px solid #e8ecff;text-decoration:none;display:block;transition:.2s;">
+        <div class="d-flex align-items-center justify-content-between">
+          <span style="font-size:11px;font-weight:700;color:#0284c7;text-transform:uppercase;">Interview</span>
+          <i class="fas fa-comments" style="color:#0ea5e9;font-size:13px;"></i>
+        </div>
+        <div style="font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:800;color:#0284c7;line-height:1;margin:8px 0 2px;">
+          <?= number_format($pipeline_counts['interview']) ?>
+        </div>
+        <div style="font-size:12px;color:#64748b;font-weight:500;">Evaluating</div>
+      </a>
+    </div>
+
+    <div class="col-6 col-md-4 col-xl-2">
+      <a href="applications.php?filter=offered" class="stat-card" style="border-radius:14px;padding:16px;background:#fff;border:1px solid #e8ecff;text-decoration:none;display:block;transition:.2s;">
+        <div class="d-flex align-items-center justify-content-between">
+          <span style="font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;">Offered</span>
+          <i class="fas fa-award" style="color:#10b981;font-size:13px;"></i>
+        </div>
+        <div style="font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:800;color:#15803d;line-height:1;margin:8px 0 2px;">
+          <?= number_format($pipeline_counts['offered']) ?>
+        </div>
+        <div style="font-size:12px;color:#64748b;font-weight:500;">Selected / Hired</div>
+      </a>
+    </div>
+
+    <div class="col-6 col-md-4 col-xl-2">
+      <a href="applications.php?filter=rejected" class="stat-card" style="border-radius:14px;padding:16px;background:#fff;border:1px solid #e8ecff;text-decoration:none;display:block;transition:.2s;">
+        <div class="d-flex align-items-center justify-content-between">
+          <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Rejected</span>
+          <i class="fas fa-user-times" style="color:#94a3b8;font-size:13px;"></i>
+        </div>
+        <div style="font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:800;color:#64748b;line-height:1;margin:8px 0 2px;">
+          <?= number_format($pipeline_counts['rejected']) ?>
+        </div>
+        <div style="font-size:12px;color:#64748b;font-weight:500;">Archived</div>
+      </a>
+    </div>
+  </div>
+
   <!-- List View -->
   <div class="table-card">
     <div class="table-card-header">
@@ -1594,10 +1724,27 @@ tr.selected-row td{background-color:#eef2ff !important}
               <?php else: ?><span style="color:#94a3b8;font-size:12px;">None</span><?php endif; ?>
             </td>
             <td style="font-size:12px;color:#94a3b8;white-space:nowrap;"><?= time_ago($a['created_at']) ?></td>
-            <td><span class="status-badge status-<?= $a['status'] ?>"><?= ucfirst($a['status']) ?></span></td>
             <td>
-              <a href="applications.php?view=<?= $a['id'] ?>" class="action-btn"><i class="fas fa-eye"></i> View</a>
-              <a href="applications.php?delete=<?= $a['id'] ?>" class="action-btn action-btn-delete" onclick="return confirm('Directly delete this application permanently? Resume file will be removed.');"><i class="fas fa-trash"></i></a>
+              <select class="form-select form-select-sm app-quick-status-dropdown" data-id="<?= (int)$a['id'] ?>" data-prev="<?= htmlspecialchars($a['status']) ?>" style="font-size:11.5px;font-weight:700;padding:3px 8px;width:auto;">
+                <?php 
+                $st_list = ['new'=>'New', 'reviewed'=>'Reviewed', 'shortlisted'=>'Shortlisted', 'interview'=>'Interview', 'offered'=>'Offered', 'rejected'=>'Rejected', 'withdrawn'=>'Withdrawn'];
+                foreach($st_list as $stk => $stlbl): ?>
+                  <option value="<?= $stk ?>" <?= $a['status']===$stk?'selected':'' ?>><?= $stlbl ?></option>
+                <?php endforeach; ?>
+              </select>
+            </td>
+            <td style="white-space:nowrap;text-align:right;">
+              <div class="d-inline-flex gap-1 align-items-center">
+                <?php if (!empty($a['phone'])): 
+                  $app_wa = format_whatsapp_url($a['phone'], "Hello {$a['applicant_name']}, this is from the HR team at Vortexsoft Innovations regarding your application for {$a['job_title']}. Are you available for a brief discussion?");
+                ?>
+                  <a href="<?= $app_wa ?>" target="_blank" class="action-btn action-btn-wa" title="1-Click WhatsApp Candidate"><i class="fab fa-whatsapp"></i></a>
+                  <a href="tel:<?= preg_replace('/[^0-9+]/', '', $a['phone']) ?>" class="action-btn action-btn-call" title="Call Candidate (<?= htmlspecialchars($a['phone']) ?>)"><i class="fas fa-phone-alt"></i></a>
+                <?php endif; ?>
+                <a href="mailto:<?= htmlspecialchars($a['email']) ?>?subject=Regarding your application for <?= rawurlencode($a['job_title']) ?> at Vortexsoft Innovations" class="action-btn" title="Email Candidate"><i class="fas fa-envelope"></i></a>
+                <a href="applications.php?view=<?= $a['id'] ?>" class="action-btn" title="View Full Candidate Profile"><i class="fas fa-eye"></i></a>
+                <a href="applications.php?delete=<?= $a['id'] ?>" class="action-btn action-btn-delete" title="Delete Profile" onclick="return confirm('Directly delete this application permanently? Resume file will be removed.');"><i class="fas fa-trash"></i></a>
+              </div>
             </td>
           </tr>
           <?php endforeach; ?>
@@ -2339,5 +2486,87 @@ document.getElementById('sidebarCloseBtn')?.addEventListener('click', function()
   }
 })();
 </script>
+
+<!-- Toast Notification for Quick Status -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+  <div id="quickStatusToast" class="toast align-items-center text-white bg-dark border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" style="border-radius:12px;">
+    <div class="d-flex">
+      <div class="toast-body d-flex align-items-center gap-2">
+        <i class="fas fa-check-circle text-success fs-5"></i>
+        <span id="quickStatusToastMsg">Status updated successfully</span>
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toastEl = document.getElementById('quickStatusToast');
+  const toastMsg = document.getElementById('quickStatusToastMsg');
+  const toast = toastEl ? new bootstrap.Toast(toastEl, { delay: 3500 }) : null;
+
+  document.querySelectorAll('.app-quick-status-dropdown').forEach(function(sel) {
+    sel.addEventListener('change', function() {
+      const appId = this.getAttribute('data-id');
+      const newStatus = this.value;
+      const prevStatus = this.getAttribute('data-prev') || this.value;
+
+      this.disabled = true;
+      fetch('applications.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          action: 'quick_status_update',
+          id: appId,
+          status: newStatus,
+          csrf_token: <?= json_encode(csrf_token()) ?>
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.disabled = false;
+        if (data.success) {
+          this.setAttribute('data-prev', newStatus);
+          if (toast && toastMsg) {
+            toastMsg.innerHTML = `Candidate <strong>#${appId}</strong> status changed to <strong>${data.label}</strong>`;
+            toast.show();
+          }
+        } else {
+          alert(data.error || 'Failed to update status');
+          this.value = prevStatus;
+        }
+      })
+      .catch(err => {
+        this.disabled = false;
+        alert('Network connection error while saving status');
+        this.value = prevStatus;
+      });
+    });
+  });
+});
+
+function copyCandidateDossier() {
+  <?php if (!empty($view)): ?>
+  const d = "=== VORTEXSOFT CANDIDATE DOSSIER ===\n" +
+    "Applicant: <?= addslashes($view['applicant_name'] ?? '') ?>\n" +
+    "Position: <?= addslashes($view['job_title'] ?? '') ?> (<?= addslashes($view['department'] ?? 'General') ?>)\n" +
+    "Email: <?= addslashes($view['email'] ?? '') ?>\n" +
+    "Phone: <?= addslashes($view['phone'] ?? '') ?>\n" +
+    "Current City: <?= addslashes($view['current_location'] ?? 'N/A') ?>\n" +
+    "Age: <?= addslashes(!empty($view['age']) ? $view['age'] . ' yrs' : 'N/A') ?>\n" +
+    "Pref Location: <?= addslashes($view['preferred_location'] ?? 'Flexible') ?>\n" +
+    "Experience: <?= addslashes($view['experience_years'] ? $view['experience_years'] . ' Yrs' : 'Fresh') ?>\n" +
+    "Current Co: <?= addslashes($view['current_company'] ?? 'N/A') ?>\n" +
+    "Notice: <?= addslashes($view['notice_period'] ?? 'N/A') ?> | Exp CTC: <?= addslashes($view['expected_ctc'] ?? 'N/A') ?>\n" +
+    "Status: <?= ucfirst($view['status'] ?? 'new') ?>\n" +
+    "Source: <?= addslashes($view['heard_about'] ?? 'N/A') ?>\n";
+  navigator.clipboard.writeText(d).then(() => {
+    alert("Candidate dossier copied to clipboard!");
+  });
+  <?php endif; ?>
+}
+</script>
+
 </body>
 </html>
