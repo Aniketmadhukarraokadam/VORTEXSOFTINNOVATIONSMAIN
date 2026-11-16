@@ -157,7 +157,7 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Ping Search Engines for Sitemaps Re-crawl
+    // Ping Search Engines for Sitemaps Re-crawl & IndexNow
     if ($action === 'ping_sitemaps') {
         $sitemaps = [
             'https://www.vortexsoftinnovations.com/sitemap.xml',
@@ -169,7 +169,22 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
             @file_get_contents('https://www.bing.com/ping?sitemap=' . urlencode($sm));
             $pinged++;
         }
-        $success = "Successfully submitted {$pinged} sitemaps to Google and Bing for immediate indexing.";
+
+        // Call IndexNow for rapid discovery
+        $main_urls = [
+            'https://www.vortexsoftinnovations.com/',
+            'https://www.vortexsoftinnovations.com/careers.php',
+            'https://www.vortexsoftinnovations.com/service.php',
+            'https://www.vortexsoftinnovations.com/about.php',
+            'https://www.vortexsoftinnovations.com/contact.php',
+            'https://www.vortexsoftinnovations.com/blog.php',
+            'https://www.vortexsoftinnovations.com/faq.php'
+        ];
+        if (function_exists('indexnow_ping')) {
+            indexnow_ping($main_urls);
+        }
+
+        $success = "Successfully submitted {$pinged} sitemaps and pushed " . count($main_urls) . " core URLs to Google, Bing, and IndexNow for immediate indexing.";
     }
 
 // Fetch current user details
@@ -354,6 +369,28 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 
       <form method="POST" action="settings.php">
         <input type="hidden" name="action" value="update_seo_settings">
+<!-- Live Google SERP Snippet Previewer -->
+      <div class="p-3 rounded-3 mb-4" style="background:#f8f9fa;border:1px solid #e9ecef;">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;"><i class="fab fa-google text-primary me-1"></i> Live Google Search Result Preview</span>
+          <span class="badge bg-light text-dark border" style="font-size:10px;">SERP Snippet</span>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:16px;border:1px solid #dee2e6;max-width:650px;">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <img src="/favicon-32x32.png" alt="Icon" style="width:18px;height:18px;border-radius:50%;">
+            <div style="font-size:12px;color:#202124;line-height:1;">
+              <div>vortexsoftinnovations.com</div>
+              <div style="font-size:11px;color:#5f6368;">https://www.vortexsoftinnovations.com</div>
+            </div>
+          </div>
+          <div style="font-family:Arial,sans-serif;font-size:18px;color:#1a0dab;cursor:pointer;line-height:1.3;margin-bottom:4px;text-decoration:none;">
+            Top Global IT &amp; BPO Outsourcing Company in India | AI Services | Vortexsoft Innovations
+          </div>
+          <div style="font-family:Arial,sans-serif;font-size:13px;color:#4d5156;line-height:1.5;">
+            ISO 27001 certified global IT &amp; BPO outsourcing company in Pune &amp; Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation &amp; 75+ services...
+          </div>
+        </div>
+      </div>
         
         <div class="row g-3 mb-3">
           <!-- GA4 Measurement ID -->

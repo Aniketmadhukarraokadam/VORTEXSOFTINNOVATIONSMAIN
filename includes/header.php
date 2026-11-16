@@ -6,12 +6,35 @@
  * Pass $page_title, $page_desc, $canonical_url, $prefix (default './')
  */
 
-if (!ob_get_level() && !headers_sent()) {
-    if (extension_loaded('zlib') && !ini_get('zlib.output_compression')) {
-        @ob_start('ob_gzhandler');
-    } else {
-        @ob_start();
+if (!function_exists('vortex_minify_html')) {
+    function vortex_minify_html(string $html): string {
+        $placeholders = [];
+        $patterns = [
+            '/<pre\b[^>]*>.*?<\/pre>/is',
+            '/<textarea\b[^>]*>.*?<\/textarea>/is',
+            '/<code\b[^>]*>.*?<\/code>/is',
+            '/<script\b[^>]*>.*?<\/script>/is',
+            '/<style\b[^>]*>.*?<\/style>/is',
+        ];
+        foreach ($patterns as $pattern) {
+            $html = preg_replace_callback($pattern, function($matches) use (&$placeholders) {
+                $key = '###VORTEX_PRESERVE_' . count($placeholders) . '###';
+                $placeholders[$key] = $matches[0];
+                return $key;
+            }, $html);
+        }
+        $html = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
+        $html = preg_replace('/>\s+</', '> <', $html);
+        $html = preg_replace('/\s{2,}/', ' ', $html);
+        if (!empty($placeholders)) {
+            $html = strtr($html, $placeholders);
+        }
+        return trim($html);
     }
+}
+
+if (!ob_get_level() && !headers_sent()) {
+    @ob_start('vortex_minify_html');
 }
 
 if (!defined('SITE_NAME')) {
@@ -42,6 +65,36 @@ function nav_active(string $page, string $path): string {
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
+<!-- Critical Preloads for Fastest Core Web Vitals (0ms Font Shift & High LCP) -->
+    <link rel="preload" href="<?= $prefix ?>logo-header.png?v=20260912" as="image" type="image/png" fetchpriority="high">
+    <link rel="preload" href="<?= $prefix ?>assets/fonts/inter/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?= $prefix ?>assets/fonts/inter/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- DNS-Prefetch & Preconnect for High-Speed Connection -->
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//connect.facebook.net">
+    <link rel="dns-prefetch" href="//api.indexnow.org">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+
+    <!-- IndexNow Instant Search Engine Indexing (Bing, Yandex, Naver, Seznam) -->
+    <meta name="indexnow" content="e636a2d7f4ea4f0da00b23d5abc4235" />
+
+    <!-- Brand Styling & Webmaster Directives -->
+    <meta name="theme-color" content="#080B1A" />
+    <meta name="msapplication-TileColor" content="#1C2280" />
+    <meta name="msapplication-navbutton-color" content="#080B1A" />
+    <meta name="application-name" content="Vortexsoft Innovations" />
+    <meta name="apple-mobile-web-app-title" content="Vortexsoft" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Extended AI & Social Bot Crawlers -->
+    <meta name="Amazonbot" content="index, follow" />
+    <meta name="Timpibot" content="index, follow" />
+    <meta name="facebookexternalhit" content="index, follow" />
+    <meta name="linkedinbot" content="index, follow" />
+    <meta name="twitterbot" content="index, follow" />
     <style id="critical-css">
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}

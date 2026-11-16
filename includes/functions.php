@@ -474,3 +474,33 @@ function get_system_setting(string $key, string $default = ''): string {
     }
     return $settings_cache[$key] ?? $default;
 }
+// ── IndexNow Instant Search Engine Indexing ───────────────
+function indexnow_ping(array $urls): bool {
+    if (empty($urls)) return false;
+    $host = 'www.vortexsoftinnovations.com';
+    $key  = 'e636a2d7f4ea4f0da00b23d5abc4235';
+    $payload = json_encode([
+        'host'        => $host,
+        'key'         => $key,
+        'keyLocation' => "https://{$host}/{$key}.txt",
+        'urlList'     => array_values(array_unique($urls))
+    ], JSON_UNESCAPED_SLASHES);
+
+    $ch = curl_init('https://api.indexnow.org/indexnow');
+    if (!$ch) return false;
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $payload,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/json; charset=utf-8',
+            'Content-Length: ' . strlen($payload)
+        ],
+        CURLOPT_TIMEOUT        => 6,
+        CURLOPT_SSL_VERIFYPEER => true
+    ]);
+    $resp = curl_exec($ch);
+    $code = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    return ($code === 200 || $code === 202);
+}
