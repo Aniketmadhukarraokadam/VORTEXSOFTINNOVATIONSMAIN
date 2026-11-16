@@ -483,6 +483,18 @@ function submitNewsletter(e) {
   });
 }
 </script>
+<?php
+$sys_gtm_id      = function_exists('get_system_setting') ? get_system_setting('gtm_container_id') : '';
+$sys_custom_body = function_exists('get_system_setting') ? get_system_setting('custom_body_scripts') : '';
+?>
+<?php if (!empty($sys_gtm_id)): ?>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= htmlspecialchars($sys_gtm_id) ?>"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<?php endif; ?>
+<?php if (!empty($sys_custom_body)): ?>
+<?= $sys_custom_body ?>
+<?php endif; ?>
 <?php if (!empty($extra_scripts)) echo $extra_scripts; ?>
 </body>
 </html>

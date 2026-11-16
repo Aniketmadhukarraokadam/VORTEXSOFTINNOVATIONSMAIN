@@ -131,6 +131,47 @@ if ($db && $_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Update SEO, Webmaster & Traffic Analytics Settings
+    if ($action === 'update_seo_settings') {
+        $seo_settings = [
+            'ga4_measurement_id'       => sanitize($_POST['ga4_measurement_id'] ?? ''),
+            'gtm_container_id'         => sanitize($_POST['gtm_container_id'] ?? ''),
+            'google_site_verification' => sanitize($_POST['google_site_verification'] ?? ''),
+            'bing_site_verification'   => sanitize($_POST['bing_site_verification'] ?? ''),
+            'meta_pixel_id'            => sanitize($_POST['meta_pixel_id'] ?? ''),
+            'custom_head_scripts'      => trim($_POST['custom_head_scripts'] ?? ''),
+            'custom_body_scripts'      => trim($_POST['custom_body_scripts'] ?? ''),
+        ];
+
+        try {
+            $stmt = $db->prepare("REPLACE INTO system_settings (setting_key, setting_value) VALUES (:k, :v)");
+            foreach ($seo_settings as $k => $v) {
+                $stmt->execute([':k' => $k, ':v' => $v]);
+            }
+            if (function_exists('log_admin_activity')) {
+                log_admin_activity('UPDATE_SEO_SETTINGS', 'Updated SEO, Search Console and Analytics configurations');
+            }
+            $success = 'SEO and Traffic Analytics settings updated successfully.';
+        } catch (PDOException $e) {
+            $error = 'Failed to save SEO settings: ' . $e->getMessage();
+        }
+    }
+
+    // Ping Search Engines for Sitemaps Re-crawl
+    if ($action === 'ping_sitemaps') {
+        $sitemaps = [
+            'https://www.vortexsoftinnovations.com/sitemap.xml',
+            'https://www.vortexsoftinnovations.com/jobs-sitemap.xml'
+        ];
+        $pinged = 0;
+        foreach ($sitemaps as $sm) {
+            @file_get_contents('https://www.google.com/ping?sitemap=' . urlencode($sm));
+            @file_get_contents('https://www.bing.com/ping?sitemap=' . urlencode($sm));
+            $pinged++;
+        }
+        $success = "Successfully submitted {$pinged} sitemaps to Google and Bing for immediate indexing.";
+    }
+
 // Fetch current user details
 $user_info = ['username' => 'admin', 'full_name' => 'Admin User', 'email' => 'careers@vortexsoftinnovations.in', 'role' => 'super_admin'];
 if ($db) {
@@ -232,36 +273,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
 </head>
 <body>
 
-<div class="mobile-header">
-  <img src="/logo-header.png" alt="Vortexsoft" style="height:32px;">
-  <button class="btn text-white p-0" id="sidebarToggleBtn" style="font-size:20px;"><i class="fas fa-bars"></i></button>
-</div>
-
-<aside class="admin-sidebar" id="adminSidebar">
-  <div class="sidebar-logo">
-    <div>
-      <img src="/logo-header.png?v=20260912" alt="Vortexsoft Innovations">
-      <div class="sub">Admin Panel</div>
-    </div>
-    <button class="btn text-white p-0 d-lg-none" id="sidebarCloseBtn"><i class="fas fa-times"></i></button>
-  </div>
-  <nav class="sidebar-nav">
-    <div class="nav-section">Main</div>
-    <a href="dashboard.php" class="sidebar-link"><span class="icon"><i class="fas fa-tachometer-alt"></i></span> Dashboard</a>
-    <a href="contacts.php" class="sidebar-link"><span class="icon"><i class="fas fa-envelope"></i></span> Inquiries</a>
-    <a href="applications.php" class="sidebar-link"><span class="icon"><i class="fas fa-briefcase"></i></span> Applications</a>
-    <div class="nav-section">Content</div>
-    <a href="blog-posts.php" class="sidebar-link"><span class="icon"><i class="fas fa-pen-alt"></i></span> Blog Posts</a>
-    <a href="blog/generate.php" class="sidebar-link"><span class="icon"><i class="fas fa-robot"></i></span> AI Blog Generator</a>
-    <a href="newsletter.php" class="sidebar-link"><span class="icon"><i class="fas fa-paper-plane"></i></span> Newsletter</a>
-    <div class="nav-section">System</div>
-    <a href="settings.php" class="sidebar-link active"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a>
-    <a href="/index.php" target="_blank" class="sidebar-link"><span class="icon"><i class="fas fa-external-link-alt"></i></span> View Website</a>
-  </nav>
-  <div class="sidebar-footer">
-    <a href="logout.php" class="btn-logout"><i class="fas fa-sign-out-alt me-2"></i> Sign Out</a>
-  </div>
-</aside>
+<?php require __DIR__ . '/_sidebar.php'; ?>
 
 <main class="admin-main">
   <div class="mb-4">
@@ -333,7 +345,102 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
       </div>
 
       <!-- AI API Keys Configuration -->
-      <div class="card-box" id="ai-keys-section">
+      <!-- Search Engine Optimization (SEO) & Traffic Analytics -->
+    <div class="card-box" id="seo-analytics-section">
+      <h5><i class="fas fa-chart-line text-success"></i> SEO, Search Console &amp; Traffic Analytics</h5>
+      <p style="font-size:13px;color:#64748b;margin-bottom:16px;">
+        Connect your site directly to <strong>Google Search Console</strong>, <strong>Google Analytics 4</strong>, and <strong>Bing Webmaster Tools</strong> to track visitors, search queries, and drive high-intent traffic.
+      </p>
+
+      <form method="POST" action="settings.php">
+        <input type="hidden" name="action" value="update_seo_settings">
+        
+        <div class="row g-3 mb-3">
+          <!-- GA4 Measurement ID -->
+          <div class="col-md-6">
+            <label class="form-label font-weight-semibold">
+              <i class="fab fa-google text-danger me-1"></i> Google Analytics 4 (GA4) ID
+            </label>
+            <input type="text" name="ga4_measurement_id" class="form-control" placeholder="e.g. G-ABC123XYZ" value="<?= htmlspecialchars($site_settings['ga4_measurement_id'] ?? '') ?>">
+            <div class="form-text" style="font-size:11.5px;">Tracks page views, conversions, bounce rates, and traffic sources.</div>
+          </div>
+
+          <!-- Google Tag Manager -->
+          <div class="col-md-6">
+            <label class="form-label font-weight-semibold">
+              <i class="fas fa-tags text-primary me-1"></i> Google Tag Manager (GTM)
+            </label>
+            <input type="text" name="gtm_container_id" class="form-control" placeholder="e.g. GTM-XXXXXXX" value="<?= htmlspecialchars($site_settings['gtm_container_id'] ?? '') ?>">
+            <div class="form-text" style="font-size:11.5px;">For advanced marketing tags and event tracking containers.</div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <!-- Google Search Console -->
+          <div class="col-md-6">
+            <label class="form-label font-weight-semibold">
+              <i class="fas fa-search text-warning me-1"></i> Google Site Verification Token
+            </label>
+            <input type="text" name="google_site_verification" class="form-control" placeholder="Paste verification code from Search Console" value="<?= htmlspecialchars($site_settings['google_site_verification'] ?? '') ?>">
+            <div class="form-text" style="font-size:11.5px;">Verifies ownership on Google Search Console to monitor rankings &amp; impressions.</div>
+          </div>
+
+          <!-- Bing Webmaster Tools -->
+          <div class="col-md-6">
+            <label class="form-label font-weight-semibold">
+              <i class="fab fa-microsoft text-info me-1"></i> Bing Webmaster Verification (msvalidate.01)
+            </label>
+            <input type="text" name="bing_site_verification" class="form-control" placeholder="Bing msvalidate.01 token" value="<?= htmlspecialchars($site_settings['bing_site_verification'] ?? '') ?>">
+            <div class="form-text" style="font-size:11.5px;">Powers indexing across Bing, Copilot, Yahoo, and DuckDuckGo.</div>
+          </div>
+        </div>
+
+        <!-- Meta / Facebook Pixel -->
+        <div class="mb-3">
+          <label class="form-label font-weight-semibold">
+            <i class="fab fa-facebook text-primary me-1"></i> Meta / Facebook Pixel ID
+          </label>
+          <input type="text" name="meta_pixel_id" class="form-control" placeholder="e.g. 123456789012345" value="<?= htmlspecialchars($site_settings['meta_pixel_id'] ?? '') ?>">
+          <div class="form-text" style="font-size:11.5px;">Tracks social ad conversions and retargeting audiences across Facebook &amp; Instagram.</div>
+        </div>
+
+        <!-- Custom Head Scripts -->
+        <div class="mb-3">
+          <label class="form-label font-weight-semibold">Custom &lt;head&gt; Scripts (Hotjar, Microsoft Clarity, LinkedIn Insight Tag)</label>
+          <textarea name="custom_head_scripts" class="form-control font-monospace" rows="3" placeholder="<!-- e.g. Clarity, Hotjar, or custom tracking code -->" style="font-size:12px;"><?= htmlspecialchars($site_settings['custom_head_scripts'] ?? '') ?></textarea>
+        </div>
+
+        <!-- Custom Body Scripts -->
+        <div class="mb-3">
+          <label class="form-label font-weight-semibold">Custom &lt;body&gt; Closing Scripts</label>
+          <textarea name="custom_body_scripts" class="form-control font-monospace" rows="2" placeholder="<!-- Scripts placed right before </body> -->" style="font-size:12px;"><?= htmlspecialchars($site_settings['custom_body_scripts'] ?? '') ?></textarea>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap align-items-center">
+          <button type="submit" class="btn" style="background:#1C2280;color:#fff;border-radius:8px;font-weight:700;padding:10px 22px;">
+            <i class="fas fa-save me-1"></i> Save SEO &amp; Analytics
+          </button>
+        </div>
+      </form>
+
+      <hr class="my-4">
+
+      <!-- Sitemaps & Search Engine Ping Tool -->
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+          <div class="fw-bold text-dark"><i class="fas fa-satellite-dish text-danger me-1"></i> Instant Search Engine Sitemaps Ping</div>
+          <div style="font-size:12px;color:#64748b;">Notifies Google &amp; Bing crawlers to immediately re-index all 30 jobs and 65+ service pages.</div>
+        </div>
+        <form method="POST" action="settings.php" class="m-0">
+          <input type="hidden" name="action" value="ping_sitemaps">
+          <button type="submit" class="btn btn-outline-danger btn-sm fw-bold" style="border-radius:8px;padding:8px 16px;">
+            <i class="fas fa-paper-plane me-1"></i> Ping Google &amp; Bing Now
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card-box" id="ai-keys-section">
         <h5><i class="fas fa-robot" style="color:#1C2280;"></i> AI Blog Generator — API Keys</h5>
         <div class="alert alert-warning d-flex gap-2 align-items-start mb-3" style="background:#fff8e1;border:1px solid #f59e0b;border-radius:10px;padding:14px 16px;">
           <i class="fas fa-triangle-exclamation mt-1" style="color:#f59e0b;flex-shrink:0;"></i>

@@ -457,3 +457,20 @@ function format_whatsapp_url(string $phone, string $message = ''): string {
     }
     return $url;
 }
+// ── Get System Setting ────────────────────────────────────
+function get_system_setting(string $key, string $default = ''): string {
+    static $settings_cache = null;
+    if ($settings_cache === null) {
+        $settings_cache = [];
+        $db = getDB();
+        if ($db) {
+            try {
+                $rows = $db->query("SELECT setting_key, setting_value FROM system_settings")->fetchAll(PDO::FETCH_KEY_PAIR);
+                if (is_array($rows)) {
+                    $settings_cache = $rows;
+                }
+            } catch (Throwable $e) {}
+        }
+    }
+    return $settings_cache[$key] ?? $default;
+}

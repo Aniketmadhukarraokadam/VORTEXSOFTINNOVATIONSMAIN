@@ -538,6 +538,57 @@ function nav_active(string $page, string $path): string {
     <style>@media (prefers-reduced-motion: reduce) { .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right { opacity: 1 !important; transform: none !important; transition: none !important; } }</style>
 
     <?php if (!empty($extra_head)) echo $extra_head; ?>
+<!-- ── Dynamic SEO, Verification & Analytics Injection ── -->
+    <?php
+    $sys_ga4_id      = function_exists('get_system_setting') ? get_system_setting('ga4_measurement_id') : '';
+    $sys_gtm_id      = function_exists('get_system_setting') ? get_system_setting('gtm_container_id') : '';
+    $sys_g_verify    = function_exists('get_system_setting') ? get_system_setting('google_site_verification') : '';
+    $sys_bing_verify = function_exists('get_system_setting') ? get_system_setting('bing_site_verification') : '';
+    $sys_meta_pixel  = function_exists('get_system_setting') ? get_system_setting('meta_pixel_id') : '';
+    $sys_custom_head = function_exists('get_system_setting') ? get_system_setting('custom_head_scripts') : '';
+    ?>
+    <?php if (!empty($sys_g_verify)): ?>
+    <meta name="google-site-verification" content="<?= htmlspecialchars($sys_g_verify) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($sys_bing_verify)): ?>
+    <meta name="msvalidate.01" content="<?= htmlspecialchars($sys_bing_verify) ?>" />
+    <?php endif; ?>
+    <?php if (!empty($sys_ga4_id)): ?>
+    <!-- Google Analytics 4 (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= htmlspecialchars($sys_ga4_id) ?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '<?= htmlspecialchars($sys_ga4_id) ?>', { 'send_page_view': true });
+    </script>
+    <?php endif; ?>
+    <?php if (!empty($sys_gtm_id)): ?>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','<?= htmlspecialchars($sys_gtm_id) ?>');</script>
+    <?php endif; ?>
+    <?php if (!empty($sys_meta_pixel)): ?>
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '<?= htmlspecialchars($sys_meta_pixel) ?>');
+      fbq('track', 'PageView');
+    </script>
+    <?php endif; ?>
+    <?php if (!empty($sys_custom_head)): ?>
+    <?= $sys_custom_head ?>
+    <?php endif; ?>
 </head>
 <body>
 
