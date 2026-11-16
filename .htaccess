@@ -116,10 +116,21 @@ ServerSignature Off
     RewriteRule ^website_info\.txt$  - [F,L]
 </IfModule>
 
+# ── Automatic WebP Image Delivery (Content Negotiation) ───────────
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_ACCEPT} image/webp
+    RewriteCond %{REQUEST_FILENAME} (.+)\.(jpe?g|png)$
+    RewriteCond %1.webp -f
+    RewriteRule (.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1,L]
+</IfModule>
+<IfModule mod_headers.c>
+    Header append Vary Accept env=REDIRECT_accept
+</IfModule>
+
 # ── Performance: Full GZIP Compression & Fast Caching ──────────────
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript text/x-js
-    AddOutputFilterByType DEFLATE application/json application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json application/ld+json application/javascript application/x-javascript
     AddOutputFilterByType DEFLATE application/xml application/xhtml+xml application/rss+xml
     AddOutputFilterByType DEFLATE image/svg+xml image/x-icon
     AddOutputFilterByType DEFLATE font/ttf font/otf font/opentype application/vnd.ms-fontobject
