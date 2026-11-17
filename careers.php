@@ -1,6 +1,6 @@
 <?php
 /**
- * Vortexsoft Innovations — Careers & Corporate Job Openings (careers.php)
+ * Vortexsoft Innovations — Careers & Job Openings (careers.php)
  * Clean, Professional, Multi-Column Careers Portal
  * Active Openings: Java Developer, Python Developer, Data Engineer, HR Executive, 
  * Associate Process Analyst, Title Search Executive, BPO Executive, KPO Analyst, Medical Coder
@@ -11,7 +11,7 @@ require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
 $page_title    = 'Careers & Job Openings | Vortexsoft Innovations Private Limited';
-$page_desc     = 'Explore corporate career opportunities and internships at Vortexsoft Innovations. Join our QA testing (automation & manual), engineering, US mortgage, SAP Basis, digital marketing, healthcare, and analytics teams in Pune, Hyderabad, Mumbai, Bengaluru & Remote.';
+$page_desc     = 'Explore career opportunities and internships at Vortexsoft Innovations. Join our QA testing (automation & manual), engineering, US mortgage, SAP Basis, digital marketing, healthcare, and analytics teams in Pune, Hyderabad, Mumbai, Bengaluru & Remote.';
 $canonical_url = SITE_URL . '/careers.php';
 $prefix        = './';
 
@@ -33,7 +33,7 @@ if (empty($jobs)) {
     try {
         $db = getDB();
         if ($db) {
-            // Ensure database is populated with the complete 30 corporate openings and internships
+            // Ensure database is populated with the complete 30 job openings and internships
             $existing_count = (int)$db->query("SELECT COUNT(*) FROM jobs WHERE is_active=1")->fetchColumn();
             if ($existing_count < 30) {
                 $seed_stmt = $db->prepare("REPLACE INTO jobs (id, title, department, type, location, experience_range, skills_json, description, is_urgent, is_active, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?)");
@@ -522,8 +522,8 @@ if ($shared_job) {
     $canonical_url = SITE_URL . '/careers.php?job=' . $shared_job['id'];
     $og_image      = SITE_URL . '/assets/images/vortexsoft-careers-share.png';
 } else {
-    $page_title    = 'Careers & Corporate Job Openings | Vortexsoft Innovations Private Limited';
-    $page_desc     = 'Explore 30+ active corporate careers and paid internships at Vortexsoft Innovations: QA Automation & Manual Testing, Java, Python, React, Data Engineering, SAP Basis, US Mortgage, Healthcare Medical Coding, and HR across Pune, Bengaluru, Hyderabad, Mumbai & Remote.';
+    $page_title    = 'Careers & Job Openings | Vortexsoft Innovations Private Limited';
+    $page_desc     = 'Explore 30+ active career opportunities and paid internships at Vortexsoft Innovations: QA Automation & Manual Testing, Java, Python, React, Data Engineering, SAP Basis, US Mortgage, Healthcare Medical Coding, and HR across Pune, Bengaluru, Hyderabad, Mumbai & Remote.';
     $canonical_url = SITE_URL . '/careers.php';
     $og_image      = SITE_URL . '/assets/images/vortexsoft-careers-share.png';
 }
