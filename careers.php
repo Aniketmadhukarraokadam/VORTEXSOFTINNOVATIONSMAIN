@@ -6,6 +6,10 @@
  * Associate Process Analyst, Title Search Executive, BPO Executive, KPO Analyst, Medical Coder
  */
 
+if (isset($_GET['purge']) && !headers_sent()) {
+    @header('X-LiteSpeed-Purge: *');
+}
+
 require_once __DIR__ . '/config/constants.php';
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
