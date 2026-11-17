@@ -369,7 +369,7 @@ function nav_active(string $page, string $path): string {
               "@type": "SiteNavigationElement",
               "position": 9,
               "name": "Frequently Asked Questions (FAQ)",
-              "description": "Answers on Outsourcing Models, SLAs, Data Security & Pricing",
+              "description": "Answers on Outsourcing Models, SLAs, Data Security & Governance",
               "url": "<?= PRIMARY_COM_URL ?>/faq.php"
             },
             {
@@ -507,7 +507,7 @@ function nav_active(string $page, string $path): string {
           "email": "support@vortexsoftinnovations.com",
           "image": "<?= SITE_URL ?>/logo-header.png",
           "hasMap": "https://share.google/XKt2SVYsKfiNqrVGx",
-          "priceRange": "$$",
+          "currenciesAccepted": "USD, EUR, GBP, INR",
           "openingHours": "Mo-Sa 09:00-18:00",
           "address": {
             "@type": "PostalAddress",
@@ -531,7 +531,7 @@ function nav_active(string $page, string $path): string {
           "url": "<?= SITE_URL ?>",
           "telephone": "+91-8308906690",
           "email": "support@vortexsoftinnovations.com",
-          "priceRange": "$$",
+          "currenciesAccepted": "USD, EUR, GBP, INR",
           "openingHours": "Mo-Sa 09:00-18:00",
           "address": {
             "@type": "PostalAddress",
@@ -555,7 +555,7 @@ function nav_active(string $page, string $path): string {
           "url": "<?= SITE_URL ?>",
           "telephone": "+1-307-205-0681",
           "email": "support@vortexsoftinnovations.com",
-          "priceRange": "$$",
+          "currenciesAccepted": "USD, EUR, GBP, INR",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "30 N Gould St Ste 100",

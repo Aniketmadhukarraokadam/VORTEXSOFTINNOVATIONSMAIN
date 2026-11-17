@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Vortexsoft Innovations — Local FTP Deployment Sync Tool
     Uploads website files directly to Hostinger FTP server.

@@ -14,7 +14,7 @@ $page_keywords = 'Vortexsoft, Vortexsoft Innovations, Vortexsoft Innovations Pri
 
 $extra_head = '
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is healthcare RCM outsourcing and how does it work?","acceptedAnswer":{"@type":"Answer","text":"Revenue cycle management (RCM) outsourcing means an external partner handles medical coding, billing, claims submission, denial management, and accounts receivable recovery on behalf of a healthcare provider. Vortexsoft Innovations manages this end-to-end under HIPAA-compliant processes, reducing claim rejections and accelerating provider cash flow without the provider hiring an in-house billing team."}},{"@type":"Question","name":"How much does medical coding outsourcing cost in India?","acceptedAnswer":{"@type":"Answer","text":"Medical coding outsourcing costs vary by claim volume, specialty complexity, and service scope (coding-only vs. full RCM). Vortexsoft Innovations prices per-claim for smaller practices and offers monthly retainer models for ongoing volume — request a custom quote based on your claim mix for an accurate figure."}},{"@type":"Question","name":"How does denial management reduce claim rejections?","acceptedAnswer":{"@type":"Answer","text":"Denial management identifies why claims were rejected, corrects the root cause (coding errors, missing documentation, eligibility issues), and resubmits within payer deadlines. Vortexsoft Innovations denial management service tracks rejection patterns across a providers claims to prevent repeat denials, directly improving first-pass claim acceptance rates."}},{"@type":"Question","name":"What does a data annotation company do?","acceptedAnswer":{"@type":"Answer","text":"A data annotation company labels raw data — images, video, audio, or text — so machine learning models can learn from it. Vortexsoft Innovations provides image, video, audio, and text annotation services for AI/ML training pipelines, with human annotators trained on client-specific labeling guidelines and quality benchmarks."}},{"@type":"Question","name":"What is the difference between image annotation and video annotation?","acceptedAnswer":{"@type":"Answer","text":"Image annotation labels objects, boundaries, or attributes within single still frames (bounding boxes, segmentation, classification). Video annotation extends this across sequential frames, tracking objects and actions over time. Vortexsoft Innovations offers both, supporting use cases from computer vision model training to autonomous systems development."}},{"@type":"Question","name":"How do I choose an offshore software development partner?","acceptedAnswer":{"@type":"Answer","text":"Evaluate an offshore partner on data security certifications (ISO 27001), portfolio relevance to your industry, communication process, and time-zone overlap. Vortexsoft Innovations is ISO 27001:2013 certified, headquartered in Pune with a Bengaluru office and U.S. entity in Wyoming, offering both dedicated development pods and fixed-scope project delivery."}},{"@type":"Question","name":"What is S1000D XML conversion used for?","acceptedAnswer":{"@type":"Answer","text":"S1000D is an international specification for technical publications, commonly used in aerospace, defense, and complex equipment manufacturing. S1000D XML conversion restructures technical documentation into this standardized, modular XML format for consistent, reusable publishing. Vortexsoft Innovations provides S1000D conversion as part of its technical publication services."}},{"@type":"Question","name":"What is lease abstraction in commercial real estate?","acceptedAnswer":{"@type":"Answer","text":"Lease abstraction is the process of extracting key terms — rent, dates, renewal options, obligations — from a full lease document into a concise, structured summary. Vortexsoft Innovations provides lease abstraction services for commercial real estate portfolios, helping asset managers and title companies quickly reference critical lease data without re-reading full contracts."}},{"@type":"Question","name":"Is Vortexsoft Innovations ISO 27001 certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Vortexsoft Innovations Pvt. Ltd. is ISO 27001:2013 certified for information security management, and its healthcare operations additionally follow HIPAA-compliant data handling practices — relevant for clients evaluating data security before outsourcing sensitive processes like medical billing or financial data handling."}},{"@type":"Question","name":"What industries does Vortexsoft Innovations serve?","acceptedAnswer":{"@type":"Answer","text":"Vortexsoft Innovations serves healthcare, finance, real estate, publishing, education, and technology clients, delivering services across Healthcare BPO/RCM, custom software development, AI data annotation, publishing, real estate title & settlement, accounting & payroll, digital marketing, and staffing — from offices in Pune, Bengaluru, and a U.S. entity in Wyoming."}},{"@type":"Question","name":"What is VortexEXHO?","acceptedAnswer":{"@type":"Answer","text":"VortexEXHO is Vortexsofts Enterprise Workforce Operating System — a unified platform combining ATS, HRMS, payroll, LMS, and an AI copilot into one system, built to replace fragmented point solutions for mid-size and enterprise HR and workforce operations."}},{"@type":"Question","name":"What is vortexHire and how does it screen candidates?","acceptedAnswer":{"@type":"Answer","text":"vortexHire is Vortexsofts AI hiring platform, designed to automate candidate sourcing, resume screening, and initial qualification against role requirements — reducing manual screening time for recruiters and staffing teams while surfacing better-matched candidates faster."}},{"@type":"Question","name":"What is vortexKonnect used for in call centers?","acceptedAnswer":{"@type":"Answer","text":"vortexKonnect is Vortexsofts call analytics platform, analyzing call center conversations for quality monitoring, agent performance, and customer sentiment — giving call center managers visibility into call outcomes without manual call review."}},{"@type":"Question","name":"How does Vortexreach automate B2B outreach?","acceptedAnswer":{"@type":"Answer","text":"Vortexreach is Vortexsofts AI outreach automation platform, handling lead research, personalized message drafting, and multi-channel outreach sequencing for B2B sales and business development teams, reducing manual prospecting time while keeping outreach personalized."}},{"@type":"Question","name":"What is vortexsoftpublishing and how does it automate publishing?","acceptedAnswer":{"@type":"Answer","text":"vortexsoftpublishing is Vortexsofts proprietary automated publishing platform designed for academic publishers, STM journal editors, and authors. It automates ePUB3/Kindle conversion, XML restructuring (JATS, BITS, S1000D), WCAG 2.1 AA / Section 508 / PDF/UA accessibility tagging, and preflight typesetting — delivering 5x faster publishing turnarounds with 99.9% accuracy."}},{"@type":"Question","name":"What is vortexsofthrms?","acceptedAnswer":{"@type":"Answer","text":"vortexsofthrms is Vortexsofts enterprise Human Resource Management System with AI automations — streamlining autonomous payroll calculation, biometric attendance sync, automated employee onboarding, performance KPI appraisal, AI leave workflows, and predictive workforce analytics."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is healthcare RCM outsourcing and how does it work?","acceptedAnswer":{"@type":"Answer","text":"Revenue cycle management (RCM) outsourcing means an external partner handles medical coding, billing, claims submission, denial management, and accounts receivable recovery on behalf of a healthcare provider. Vortexsoft Innovations manages this end-to-end under HIPAA-compliant processes, reducing claim rejections and accelerating provider cash flow without the provider hiring an in-house billing team."}},{"@type":"Question","name":"What engagement models are available for medical coding outsourcing?","acceptedAnswer":{"@type":"Answer","text":"Engagement models are structured around clinical specialty complexity, chart volume, and workflow integration (coding-only vs. full end-to-end RCM). Vortexsoft Innovations provides dedicated AAPC/AHIMA-certified coder pods with guaranteed SLA turnaround times and multi-tier quality audit benchmarks — contact us to discuss a tailored scope."}},{"@type":"Question","name":"How does denial management reduce claim rejections?","acceptedAnswer":{"@type":"Answer","text":"Denial management identifies why claims were rejected, corrects the root cause (coding errors, missing documentation, eligibility issues), and resubmits within payer deadlines. Vortexsoft Innovations denial management service tracks rejection patterns across a providers claims to prevent repeat denials, directly improving first-pass claim acceptance rates."}},{"@type":"Question","name":"What does a data annotation company do?","acceptedAnswer":{"@type":"Answer","text":"A data annotation company labels raw data — images, video, audio, or text — so machine learning models can learn from it. Vortexsoft Innovations provides image, video, audio, and text annotation services for AI/ML training pipelines, with human annotators trained on client-specific labeling guidelines and quality benchmarks."}},{"@type":"Question","name":"What is the difference between image annotation and video annotation?","acceptedAnswer":{"@type":"Answer","text":"Image annotation labels objects, boundaries, or attributes within single still frames (bounding boxes, segmentation, classification). Video annotation extends this across sequential frames, tracking objects and actions over time. Vortexsoft Innovations offers both, supporting use cases from computer vision model training to autonomous systems development."}},{"@type":"Question","name":"How do I choose an offshore software development partner?","acceptedAnswer":{"@type":"Answer","text":"Evaluate an offshore partner on data security certifications (ISO 27001), portfolio relevance to your industry, communication process, and time-zone overlap. Vortexsoft Innovations is ISO 27001:2013 certified, headquartered in Pune with a Bengaluru office and U.S. entity in Wyoming, offering both dedicated development pods and fixed-scope project delivery."}},{"@type":"Question","name":"What is S1000D XML conversion used for?","acceptedAnswer":{"@type":"Answer","text":"S1000D is an international specification for technical publications, commonly used in aerospace, defense, and complex equipment manufacturing. S1000D XML conversion restructures technical documentation into this standardized, modular XML format for consistent, reusable publishing. Vortexsoft Innovations provides S1000D conversion as part of its technical publication services."}},{"@type":"Question","name":"What is lease abstraction in commercial real estate?","acceptedAnswer":{"@type":"Answer","text":"Lease abstraction is the process of extracting key terms — rent, dates, renewal options, obligations — from a full lease document into a concise, structured summary. Vortexsoft Innovations provides lease abstraction services for commercial real estate portfolios, helping asset managers and title companies quickly reference critical lease data without re-reading full contracts."}},{"@type":"Question","name":"Is Vortexsoft Innovations ISO 27001 certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Vortexsoft Innovations Pvt. Ltd. is ISO 27001:2013 certified for information security management, and its healthcare operations additionally follow HIPAA-compliant data handling practices — relevant for clients evaluating data security before outsourcing sensitive processes like medical billing or financial data handling."}},{"@type":"Question","name":"What industries does Vortexsoft Innovations serve?","acceptedAnswer":{"@type":"Answer","text":"Vortexsoft Innovations serves healthcare, finance, real estate, publishing, education, and technology clients, delivering services across Healthcare BPO/RCM, custom software development, AI data annotation, publishing, real estate title & settlement, accounting & payroll, digital marketing, and staffing — from offices in Pune, Bengaluru, and a U.S. entity in Wyoming."}},{"@type":"Question","name":"What is VortexEXHO?","acceptedAnswer":{"@type":"Answer","text":"VortexEXHO is Vortexsofts Enterprise Workforce Operating System — a unified platform combining ATS, HRMS, payroll, LMS, and an AI copilot into one system, built to replace fragmented point solutions for mid-size and enterprise HR and workforce operations."}},{"@type":"Question","name":"What is vortexHire and how does it screen candidates?","acceptedAnswer":{"@type":"Answer","text":"vortexHire is Vortexsofts AI hiring platform, designed to automate candidate sourcing, resume screening, and initial qualification against role requirements — reducing manual screening time for recruiters and staffing teams while surfacing better-matched candidates faster."}},{"@type":"Question","name":"What is vortexKonnect used for in call centers?","acceptedAnswer":{"@type":"Answer","text":"vortexKonnect is Vortexsofts call analytics platform, analyzing call center conversations for quality monitoring, agent performance, and customer sentiment — giving call center managers visibility into call outcomes without manual call review."}},{"@type":"Question","name":"How does Vortexreach automate B2B outreach?","acceptedAnswer":{"@type":"Answer","text":"Vortexreach is Vortexsofts AI outreach automation platform, handling lead research, personalized message drafting, and multi-channel outreach sequencing for B2B sales and business development teams, reducing manual prospecting time while keeping outreach personalized."}},{"@type":"Question","name":"What is vortexsoftpublishing and how does it automate publishing?","acceptedAnswer":{"@type":"Answer","text":"vortexsoftpublishing is Vortexsofts proprietary automated publishing platform designed for academic publishers, STM journal editors, and authors. It automates ePUB3/Kindle conversion, XML restructuring (JATS, BITS, S1000D), WCAG 2.1 AA / Section 508 / PDF/UA accessibility tagging, and preflight typesetting — delivering 5x faster publishing turnarounds with 99.9% accuracy."}},{"@type":"Question","name":"What is vortexsofthrms?","acceptedAnswer":{"@type":"Answer","text":"vortexsofthrms is Vortexsofts enterprise Human Resource Management System with AI automations — streamlining autonomous payroll calculation, biometric attendance sync, automated employee onboarding, performance KPI appraisal, AI leave workflows, and predictive workforce analytics."}}]}
 </script>
 
 <style>
@@ -234,7 +234,7 @@ require_once __DIR__ . '/includes/header.php';
         </p>
         <div class="hero-btns hero-btns-anim">
           <a href="contact.php" class="btn-hero-primary magnetic" style="background:#252B83;border-color:#252B83;box-shadow:0 4px 14px rgba(37,43,131,0.25);"><i class="fas fa-calendar-check me-2"></i> Schedule Executive Consultation</a>
-          <a href="#solution-finder" class="btn-hero-secondary magnetic" style="color:#252B83;border-color:#252B83;"><i class="fas fa-calculator me-2"></i> Solution Finder &amp; ROI Estimator</a>
+          <a href="#solution-finder" class="btn-hero-secondary magnetic" style="color:#252B83;border-color:#252B83;"><i class="fas fa-cubes me-2"></i> Solution Finder &amp; Architecture</a>
         </div>
 
         <!-- 8D Service Motion Ecosystem Quick Bar -->
@@ -645,8 +645,8 @@ require_once __DIR__ . '/includes/header.php';
       </div>
       <div class="col-6 col-md-3">
         <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #CC2228;">
-          <div style="font-size:26px;font-weight:900;color:#CC2228;font-family:'Poppins',sans-serif;">65% – 72%</div>
-          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Operational Cost Savings</div>
+          <div style="font-size:26px;font-weight:900;color:#CC2228;font-family:'Poppins',sans-serif;">12 – 24 Hrs</div>
+          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Turnaround SLA Commitment</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
@@ -847,7 +847,7 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
-<!-- ═══════ INTERACTIVE SOLUTION FINDER & ROI ESTIMATOR ═══════ -->
+<!-- ═══════ INTERACTIVE SOLUTION FINDER & TEAM ENGAGEMENT ARCHITECT ═══════ -->
 <section class="section-pad" id="solution-finder" style="background:linear-gradient(135deg,#080B1A 0%,#0f172a 50%,#1C2280 100%);color:#fff;position:relative;overflow:hidden;">
   <div style="position:absolute;top:-80px;right:-50px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(204,34,40,0.15) 0%,transparent 70%);pointer-events:none;"></div>
   <div style="position:absolute;bottom:-100px;left:-50px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(91,168,212,0.12) 0%,transparent 70%);pointer-events:none;"></div>
@@ -855,13 +855,13 @@ require_once __DIR__ . '/includes/header.php';
   <div class="container position-relative" style="z-index:2;">
     <div class="text-center mb-5 scroll-reveal">
       <div class="badge px-3 py-2 rounded-pill mb-2" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#93c5fd;font-size:12px;letter-spacing:1px;text-transform:uppercase;">
-        <i class="fas fa-calculator me-1 text-warning"></i> Smart Decision Engine
+        <i class="fas fa-cubes me-1 text-warning"></i> Enterprise Solution Architecture
       </div>
       <h2 style="font-size:clamp(2rem,3.2vw,2.8rem);font-weight:800;color:#fff;margin-bottom:12px;">
-        Interactive Solution Finder &amp; <span style="color:#60a5fa;">ROI Estimator</span>
+        Interactive Solution Finder &amp; <span style="color:#60a5fa;">Engagement Architect</span>
       </h2>
       <p style="max-width:720px;margin:0 auto;color:#94a3b8;font-size:16px;">
-        Select your core industry requirement and target team scale to calculate your estimated monthly savings and recommended offshore engagement model.
+        Select your core industry vertical and target resource scale to explore recommended offshore pod structures, multi-shift coverage, and SLA commitments.
       </p>
     </div>
 
@@ -918,19 +918,19 @@ require_once __DIR__ . '/includes/header.php';
             </label>
             <div class="row g-2" id="roi-scale-selector">
               <div class="col-4">
-                <button type="button" class="btn w-100 p-3 text-center roi-s-btn active" data-scale="small" data-name="Agile Pod (1–5 Specialists)" data-savings="$14,500" data-annual="$174,000" data-reduction="65%" data-turnaround="24–48 Hours" data-model="Dedicated Agile Pod with Dedicated Team Lead" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid #3b82f6;border-radius:10px;">
+                <button type="button" class="btn w-100 p-3 text-center roi-s-btn active" data-scale="small" data-name="Agile Pod (1–5 Specialists)" data-turnaround="24–48 Hours Multi-Shift" data-model="Dedicated Agile Pod with Senior Lead &amp; QA" data-sla="Guaranteed 24–48h SLA" data-badge="Agile Delivery Pod" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid #3b82f6;border-radius:10px;">
                   <div class="fw-bold" style="font-size:14px;">1 – 5</div>
                   <small style="font-size:11px;color:#94a3b8;">Specialists</small>
                 </button>
               </div>
               <div class="col-4">
-                <button type="button" class="btn w-100 p-3 text-center roi-s-btn" data-scale="scale" data-name="Scale Division (6–20 Specialists)" data-savings="$54,000" data-annual="$648,000" data-reduction="68%" data-turnaround="12–24 Hours Multi-Shift" data-model="Cross-Functional Division with QA Lead &amp; SLA Manager" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
+                <button type="button" class="btn w-100 p-3 text-center roi-s-btn" data-scale="scale" data-name="Scale Division (6–20 Specialists)" data-turnaround="12–24 Hours Multi-Shift" data-model="Cross-Functional Division with Domain Leads &amp; SLA Manager" data-sla="Accelerated 12–24h Turnaround" data-badge="Scale Division Pod" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
                   <div class="fw-bold" style="font-size:14px;">6 – 20</div>
                   <small style="font-size:11px;color:#94a3b8;">Division</small>
                 </button>
               </div>
               <div class="col-4">
-                <button type="button" class="btn w-100 p-3 text-center roi-s-btn" data-scale="enterprise" data-name="Enterprise Powerhouse (20+ Specialists)" data-savings="$140,000+" data-annual="$1,680,000+" data-reduction="72%" data-turnaround="Real-Time 24/7 Follow-the-Sun" data-model="Full ODC Center with Program Manager, Lead Architect &amp; Audit Team" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
+                <button type="button" class="btn w-100 p-3 text-center roi-s-btn" data-scale="enterprise" data-name="Enterprise Powerhouse (20+ Specialists)" data-turnaround="Real-Time 24/7 Follow-the-Sun" data-model="Full Dedicated ODC Center with Delivery Director &amp; Audit Team" data-sla="Continuous 24/7 Multi-Shift Coverage" data-badge="Enterprise ODC Hub" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
                   <div class="fw-bold" style="font-size:14px;">20+</div>
                   <small style="font-size:11px;color:#94a3b8;">Enterprise ODC</small>
                 </button>
@@ -949,53 +949,53 @@ require_once __DIR__ . '/includes/header.php';
         </div>
       </div>
 
-      <!-- ROI Output Summary Card (Right) -->
+      <!-- Engagement Output Summary Card (Right) -->
       <div class="col-lg-5 col-xl-5">
         <div class="p-4 p-md-5 rounded-4 shadow-lg h-100 d-flex flex-column justify-content-between" style="background:linear-gradient(145deg,rgba(28,34,128,0.7) 0%,rgba(15,23,42,0.9) 100%);border:1px solid rgba(91,168,212,0.3);box-shadow:0 14px 45px rgba(28,34,128,0.3);">
           
           <div>
             <div class="d-flex justify-content-between align-items-center mb-3">
               <span class="badge bg-success-subtle text-success border border-success px-2 py-1" style="font-size:11px;letter-spacing:0.5px;">
-                <i class="fas fa-check-circle me-1"></i> ESTIMATED ROI CALCULATION
+                <i class="fas fa-check-circle me-1"></i> RECOMMENDED ARCHITECTURE
               </span>
-              <span id="roi-reduction-badge" class="badge bg-warning text-dark fw-bold" style="font-size:12px;">
-                65% Cost Reduction
+              <span id="roi-pod-badge" class="badge bg-warning text-dark fw-bold" style="font-size:12px;">
+                Agile Delivery Pod
               </span>
             </div>
 
             <div class="mb-3">
-              <div style="font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Estimated Monthly Savings</div>
-              <div id="roi-monthly-savings" style="font-size:clamp(2.4rem,3.6vw,3.2rem);font-weight:900;color:#60a5fa;font-family:'Poppins',sans-serif;line-height:1.1;">
-                $14,500<span style="font-size:16px;color:#cbd5e1;font-weight:600;"> / mo</span>
+              <div style="font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Turnaround &amp; Multi-Shift SLA</div>
+              <div id="roi-main-metric" style="font-size:clamp(1.8rem,3vw,2.4rem);font-weight:900;color:#60a5fa;font-family:'Poppins',sans-serif;line-height:1.1;">
+                24 – 48 Hours
               </div>
-              <div id="roi-annual-savings" style="font-size:13px;color:#a5b4fc;margin-top:2px;">
-                Approx. <strong>$174,000 / year</strong> operational savings
+              <div id="roi-metric-sub" style="font-size:13px;color:#a5b4fc;margin-top:4px;">
+                Guaranteed multi-shift SLA execution with real-time tracking
               </div>
             </div>
 
             <div class="p-3 rounded-3 mb-3" style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);">
               <div class="mb-2" style="font-size:12px;">
                 <span class="text-white-50">Engagement Model:</span>
-                <div id="roi-model-desc" class="text-white fw-semibold mt-1" style="font-size:13px;">Dedicated Agile Pod with Dedicated Team Lead</div>
+                <div id="roi-model-desc" class="text-white fw-semibold mt-1" style="font-size:13px;">Dedicated Agile Pod with Senior Lead &amp; QA</div>
               </div>
               <div style="font-size:12px;">
-                <span class="text-white-50">SLA Turnaround:</span>
-                <div id="roi-turnaround-desc" class="text-info fw-semibold mt-1" style="font-size:13px;">24–48 Hours SLA Execution</div>
+                <span class="text-white-50">Quality &amp; Compliance Guarantee:</span>
+                <div id="roi-accuracy-desc" class="text-info fw-semibold mt-1" style="font-size:13px;">99.8% Process Accuracy • ISO 27001 Certified</div>
               </div>
             </div>
           </div>
 
           <div class="mt-3">
             <div class="d-grid gap-2">
-              <a id="roi-whatsapp-trigger" href="https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%20Team%2C%20I%20used%20the%20ROI%20Estimator%20for%20AI%20Solutions%20%26%20Software%20with%20Agile%20Pod%20(1%E2%80%935%20Specialists).%20Please%20share%20a%20detailed%20proposal%20and%20quote." target="_blank" class="btn btn-success fw-bold py-2" style="border-radius:10px;font-size:14px;box-shadow:0 4px 15px rgba(16,185,129,0.3);">
-                <i class="fab fa-whatsapp me-2"></i> Lock In Custom Quote via WhatsApp
+              <a id="roi-whatsapp-trigger" href="https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%20Team%2C%20I%20would%20like%20to%20discuss%20an%20enterprise%20engagement%20model%20for%20AI%20Solutions%20%26%20Software%20with%20Agile%20Pod%20(1%E2%80%935%20Specialists)." target="_blank" class="btn btn-success fw-bold py-2" style="border-radius:10px;font-size:14px;box-shadow:0 4px 15px rgba(16,185,129,0.3);">
+                <i class="fab fa-whatsapp me-2"></i> Discuss Custom Engagement via WhatsApp
               </a>
               <a id="roi-consultation-trigger" href="contact.php?vertical=ai&amp;scale=small" class="btn btn-outline-light fw-bold py-2" style="border-radius:10px;font-size:14px;">
                 <i class="fas fa-calendar-alt me-2"></i> Schedule Executive Consultation
               </a>
             </div>
             <div class="text-center mt-2" style="font-size:11px;color:#94a3b8;">
-              Zero Obligation • Non-Disclosure Agreement (NDA) Protected • 100% Confidential
+              Enterprise Grade • Non-Disclosure Agreement (NDA) Protected • 100% Confidential
             </div>
           </div>
 
@@ -1018,7 +1018,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var wa = document.getElementById('roi-whatsapp-trigger');
     var consult = document.getElementById('roi-consultation-trigger');
     if (wa) {
-      var msg = 'Hello Vortexsoft Innovations Team, I used the ROI Estimator for ' + curV + ' with ' + curS + '. Please share a tailored proposal and consultation.';
+      var msg = 'Hello Vortexsoft Innovations Team, I would like to discuss an enterprise engagement model for ' + curV + ' with ' + curS + '. Please share tailored scope details.';
       wa.href = 'https://wa.me/918308906690?text=' + encodeURIComponent(msg);
     }
     if (consult) {
@@ -1064,26 +1064,22 @@ document.addEventListener('DOMContentLoaded', function() {
       var scaleEl = document.getElementById('selected-scale-name');
       if (scaleEl) scaleEl.textContent = curS;
 
-      var savings = btn.getAttribute('data-savings');
-      var annual = btn.getAttribute('data-annual');
-      var reduction = btn.getAttribute('data-reduction');
       var turnaround = btn.getAttribute('data-turnaround');
       var model = btn.getAttribute('data-model');
+      var sla = btn.getAttribute('data-sla');
+      var badge = btn.getAttribute('data-badge');
 
-      var savEl = document.getElementById('roi-monthly-savings');
-      if (savEl) savEl.innerHTML = savings + '<span style="font-size:16px;color:#cbd5e1;font-weight:600;"> / mo</span>';
+      var metricEl = document.getElementById('roi-main-metric');
+      if (metricEl) metricEl.textContent = turnaround;
 
-      var annEl = document.getElementById('roi-annual-savings');
-      if (annEl) annEl.innerHTML = 'Approx. <strong>' + annual + ' / year</strong> operational savings';
+      var subEl = document.getElementById('roi-metric-sub');
+      if (subEl) subEl.textContent = sla + ' with real-time tracking';
 
-      var redEl = document.getElementById('roi-reduction-badge');
-      if (redEl) redEl.textContent = reduction + ' Cost Reduction';
+      var badgeEl = document.getElementById('roi-pod-badge');
+      if (badgeEl) badgeEl.textContent = badge;
 
       var modEl = document.getElementById('roi-model-desc');
       if (modEl) modEl.innerHTML = model;
-
-      var turnEl = document.getElementById('roi-turnaround-desc');
-      if (turnEl) turnEl.textContent = turnaround;
 
       updateRoiLinks();
     });
@@ -1609,7 +1605,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <?php $reasons = [
         ['icon'=>'fa-shield-alt','num'=>'ISO','suf'=>'27001','label'=>'Information Security Certified'],
         ['icon'=>'fa-clock','num'=>'24/7','suf'=>'','label'=>'Round-the-Clock Support Coverage'],
-        ['icon'=>'fa-dollar-sign','num'=>'60','suf'=>'%','label'=>'Cost Savings vs. In-house Teams'],
+        ['icon'=>'fa-tachometer-alt','num'=>'3','suf'=>'x','label'=>'Faster Time-to-Market'],
         ['icon'=>'fa-globe','num'=>'15','suf'=>'+','label'=>'Industries Served Globally'],
         ['icon'=>'fa-star','num'=>'98','suf'=>'%','label'=>'Client Satisfaction Rate'],
         ['icon'=>'fa-bolt','num'=>'48','suf'=>'Hr','label'=>'Rapid Project Turnaround Time'],
@@ -1631,7 +1627,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <section class="section-pad" style="background:var(--bg-light);" id="comparison">
   <div class="container">
     <div class="text-center mb-5 scroll-reveal">
-      <div class="section-tag"><i class="fas fa-balance-scale me-1"></i> Cost &amp; Execution Matrix</div>
+      <div class="section-tag"><i class="fas fa-balance-scale me-1"></i> Delivery &amp; Execution Matrix</div>
       <h2 class="section-title">In-House Overhead vs. <span class="highlight">Vortexsoft Delivery</span></h2>
       <div class="section-divider"></div>
       <p class="section-subtitle">Why global organizations replace internal recruiting cycles with our ready-to-deploy dedicated operational pods.</p>
@@ -1648,9 +1644,9 @@ document.addEventListener('DOMContentLoaded', function() {
         </thead>
         <tbody style="font-size:14px;">
           <tr>
-            <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-wallet text-primary me-2"></i> Cost Structure &amp; CapEx</td>
-            <td class="py-3 px-4 text-muted">High overhead: recruiter commissions, payroll taxes, health benefits, hardware CapEx, paid software seats.</td>
-            <td class="py-3 px-4 fw-bold" style="color:var(--primary);background:rgba(28,34,128,0.02);"><span class="badge bg-success-subtle text-success me-2">Up to 60% Savings</span> Transparent per-seat or deliverable-based OPEX pricing with zero hardware or seat overhead.</td>
+            <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-cubes text-primary me-2"></i> Operational Agility &amp; Scalability</td>
+            <td class="py-3 px-4 text-muted">Rigid overhead: internal recruitment, payroll administration, hardware provisioning, and dedicated management overhead.</td>
+            <td class="py-3 px-4 fw-bold" style="color:var(--primary);background:rgba(28,34,128,0.02);"><span class="badge bg-success-subtle text-success me-2">Maximized Agility</span> Flexible deliverable or dedicated pod engagement models with zero infrastructure setup delays.</td>
           </tr>
           <tr>
             <td class="py-3 px-4 fw-bold text-dark"><i class="fas fa-stopwatch text-warning me-2"></i> Ramp &amp; Deployment Time</td>
@@ -1746,9 +1742,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="row g-3 justify-content-center mb-5 scroll-reveal" id="case-kpi-bar">
       <div class="col-6 col-md-3">
         <div class="p-3 rounded-4 text-center border h-100 shadow-sm" style="background:#f8fafc;border-color:#e2e8f0!important;">
-          <div id="kpi-metric-1" style="font-size:26px;font-weight:900;color:#10b981;font-family:'Poppins',sans-serif;">65% – 72%</div>
-          <div id="kpi-label-1" style="font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;">Cost Reduction Achieved</div>
-          <small id="kpi-sub-1" style="font-size:11px;color:#94a3b8;">vs onshore full-time overhead</small>
+          <div id="kpi-metric-1" style="font-size:26px;font-weight:900;color:#10b981;font-family:'Poppins',sans-serif;">3x – 5x</div>
+          <div id="kpi-label-1" style="font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;">Operational Scalability</div>
+          <small id="kpi-sub-1" style="font-size:11px;color:#94a3b8;">dedicated global delivery pods</small>
         </div>
       </div>
       <div class="col-6 col-md-3">
@@ -1885,7 +1881,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <span class="badge bg-success-subtle text-success fw-bold px-3 py-1 mb-2" style="border-radius:6px;font-size:12px;">North American Real Estate Trust (REIT)</span>
               <h4 style="font-size:20px;font-weight:800;color:var(--text-dark);margin:0;">Portfolio Lease Abstraction &amp; CAM Audit</h4>
             </div>
-            <div style="font-size:32px;color:#10b981;font-weight:900;font-family:'Poppins',sans-serif;">$1.2M</div>
+            <div style="font-size:28px;color:#10b981;font-weight:900;font-family:'Poppins',sans-serif;">450+ Leases</div>
           </div>
           <p style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">
             Rapid audit and structured extraction of 450+ multi-tenant commercial lease agreements, identifying unbilled Common Area Maintenance (CAM) charges, CPI escalations, and critical expiry dates.
@@ -1894,7 +1890,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-6">
               <div style="background:#fff;padding:12px 16px;border-radius:10px;border:1px solid var(--border-light);">
                 <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Identified Recoveries</div>
-                <div style="font-size:18px;font-weight:800;color:#10b981;">$1.2M Unbilled CAM</div>
+                <div style="font-size:18px;font-weight:800;color:#10b981;">100% Leases Audited</div>
               </div>
             </div>
             <div class="col-6">
@@ -1945,9 +1941,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       var mode = btn.getAttribute('data-mode');
       if (mode === 'before') {
-        if (m1) { m1.textContent = '$75K+/yr'; m1.style.color = '#CC2228'; }
-        if (l1) l1.textContent = 'High Overhead Per FTE';
-        if (s1) s1.textContent = 'plus benefits, taxes & office space';
+        if (m1) { m1.textContent = 'High'; m1.style.color = '#CC2228'; }
+        if (l1) l1.textContent = 'Onshore Overhead Per FTE';
+        if (s1) s1.textContent = 'inflexible capacity & office expense';
 
         if (m2) { m2.textContent = '48 – 96 Hrs'; m2.style.color = '#d97706'; }
         if (l2) l2.textContent = 'Slow Queue Backlog';
@@ -1961,9 +1957,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (l4) l4.textContent = 'Single Shift Bottleneck';
         if (s4) s4.textContent = 'zero overnight operational coverage';
       } else {
-        if (m1) { m1.textContent = '65% – 72%'; m1.style.color = '#10b981'; }
-        if (l1) l1.textContent = 'Cost Reduction Achieved';
-        if (s1) s1.textContent = 'vs onshore full-time overhead';
+        if (m1) { m1.textContent = '3x – 5x'; m1.style.color = '#10b981'; }
+        if (l1) l1.textContent = 'Operational Scalability';
+        if (s1) s1.textContent = 'dedicated global delivery pods';
 
         if (m2) { m2.textContent = '12 – 24 Hrs'; m2.style.color = '#1C2280'; }
         if (l2) l2.textContent = 'Multi-Shift Turnaround';
@@ -1999,7 +1995,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ['stars'=>5,'comment'=>'The data annotation quality from Vortexsoft is remarkably precise. Our AI models perform significantly better since switching to their annotation services. Truly reliable partner.','name'=>'Priya Mehta','title'=>'ML Lead, TechVision AI, Bengaluru','init'=>'P'],
         ['stars'=>5,'comment'=>'Vortexsoft handles our entire property accounting and CAM audit process. Their real estate team is knowledgeable, responsive, and consistently delivers error-free reports.','name'=>'Robert Davidson','title'=>'CFO, Horizon Property Group, Florida, USA','init'=>'R'],
         ['stars'=>5,'comment'=>'We outsourced our digital marketing to Vortexsoft and saw 3x growth in organic traffic within 6 months. Their SEO and PPC strategy is data-driven and results-focused.','name'=>'Ananya Sharma','title'=>'Founder, GrowthEdge Startup, Pune','init'=>'A'],
-        ['stars'=>5,'comment'=>'Exceptional accounting and payroll services. Vortexsoft handles our entire financial operations seamlessly. Cost savings of over 55% compared to in-house team. Highly recommend.','name'=>'Michael Chen','title'=>'Operations Director, GlobalLink Corp, Singapore','init'=>'M'],
+        ['stars'=>5,'comment'=>'Exceptional accounting and payroll services. Vortexsoft handles our entire financial operations seamlessly. Operational efficiency improved substantially with zero processing backlogs. Highly recommend.','name'=>'Michael Chen','title'=>'Operations Director, GlobalLink Corp, Singapore','init'=>'M'],
       ];
       foreach($testimonials as $i=>$t): ?>
       <div class="col-lg-4 col-md-6 scroll-reveal" style="transition-delay:<?= ($i%3)*0.1 ?>s">
@@ -2287,7 +2283,7 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
               <h5 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:16px;margin-bottom:6px;color:#fff;">Have a project or custom question?</h5>
               <p style="font-size:12.5px;color:rgba(255,255,255,0.76);line-height:1.55;margin-bottom:14px;">
-                Our technical solutions architects provide custom feasibility assessments, pricing &amp; scoping within 24 hours.
+                Our technical solutions architects provide custom feasibility assessments, custom feasibility assessments and solution scoping within 24 hours.
               </p>
               
               <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;font-size:12.5px;">
@@ -2328,7 +2324,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <?php $faqs = [
           // Healthcare
           ['cat'=>'healthcare', 'q'=>'What is healthcare RCM outsourcing and how does it work?','a'=>'Revenue cycle management (RCM) outsourcing means an external partner handles medical coding, billing, claims submission, denial management, and accounts receivable recovery on behalf of a healthcare provider. Vortexsoft Innovations manages this end-to-end under HIPAA-compliant processes, reducing claim rejections and accelerating provider cash flow without the provider hiring an in-house billing team.'],
-          ['cat'=>'healthcare', 'q'=>'How much does medical coding outsourcing cost in India?','a'=>'Medical coding outsourcing costs vary by claim volume, specialty complexity, and service scope (coding-only vs. full RCM). Vortexsoft Innovations prices per-claim for smaller practices and offers monthly retainer models for ongoing volume — request a custom quote based on your claim mix for an accurate figure.'],
+          ['cat'=>'healthcare', 'q'=>'What engagement models are available for medical coding outsourcing?','a'=>'Engagement models are structured around clinical specialty complexity, chart volume, and workflow integration (coding-only vs. full end-to-end RCM). Vortexsoft Innovations provides dedicated AAPC/AHIMA-certified coder pods with guaranteed SLA turnaround times and multi-tier quality audit benchmarks — contact us to discuss a tailored scope.'],
           ['cat'=>'healthcare', 'q'=>'How does denial management reduce claim rejections?','a'=>'Denial management identifies why claims were rejected, corrects the root cause (coding errors, missing documentation, eligibility issues), and resubmits within payer deadlines. Vortexsoft Innovations\' denial management service tracks rejection patterns across a provider\'s claims to prevent repeat denials, directly improving first-pass claim acceptance rates.'],
           // Data Annotation
           ['cat'=>'ai', 'q'=>'What does a data annotation company do?','a'=>'A data annotation company labels raw data — images, video, audio, or text — so machine learning models can learn from it. Vortexsoft Innovations provides image, video, audio, and text annotation services for AI/ML training pipelines, with human annotators trained on client-specific labeling guidelines and quality benchmarks.'],

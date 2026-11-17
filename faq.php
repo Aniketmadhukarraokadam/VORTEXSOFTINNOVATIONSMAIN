@@ -327,15 +327,15 @@ $faqs = [
     'cat' => 'compliance',
     'cat_label' => 'Compliance & SLAs',
     'badge_color' => 'success',
-    'q'   => 'What pricing and contract engagement models do you support?',
-    'a'   => 'We offer three flexible contract models: <strong>Transactional / Per-Unit Pricing</strong> (ideal for title searches, medical claims, or per-image annotation), <strong>Dedicated Full-Time Equivalent (FTE) Monthly Retainers</strong> (cost-effective for ongoing pods with guaranteed capacity), and <strong>Fixed-Scope Milestone Contracts</strong> (best for defined software development sprints).'
+    'q'   => 'What enterprise engagement and delivery models do you support?',
+    'a'   => 'We offer three flexible engagement models tailored to your operational structure: <strong>Volume-Based SLA Workflows</strong> (ideal for scalable title searches, medical billing charts, or data annotation batches), <strong>Dedicated Full-Time Equivalent (FTE) Pods</strong> (providing dedicated domain-certified specialists with guaranteed capacity and multi-shift overlap), and <strong>Milestone / SOW-Driven Contracts</strong> (structured for custom software engineering and platform development sprints).'
   ],
   [
     'cat' => 'compliance',
     'cat_label' => 'Compliance & SLAs',
     'badge_color' => 'success',
-    'q'   => 'How much cost savings can an enterprise achieve by outsourcing to Vortexsoft?',
-    'a'   => 'Global clients typically realize between <strong>40% and 60% operational OPEX savings</strong> compared to in-house hiring in the United States, United Kingdom, and Europe, while eliminating recruitment commissions, employee benefits overhead, and expensive software seat license fees.'
+    'q'   => 'What operational advantages does an enterprise achieve by partnering with Vortexsoft?',
+    'a'   => 'Global clients gain <strong>multi-shift 24/7 delivery speed, 99.8% process accuracy, and immediate capacity expansion</strong> compared to rigid onshore operations, while benefiting from ISO 27001 data security, CMMI Level 3 process maturity, and fully managed domain expertise.'
   ],
   [
     'cat' => 'compliance',
@@ -589,7 +589,7 @@ $faqs = [
             <div style="font-size:24px;color:#5BA8D4;margin-bottom:10px;"><i class="fas fa-headset"></i></div>
             <h4 style="font-size:16px;font-weight:800;color:#fff;margin-bottom:6px;">Have a Custom Requirement?</h4>
             <p style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:16px;">
-              Speak with our senior solution architects for a free scope consultation and custom quote.
+              Speak with our senior solution architects for a free scope consultation and proposal.
             </p>
             <a href="contact.php" class="btn btn-sm btn-light fw-bold w-100" style="color:#1C2280;border-radius:8px;padding:9px 16px;">
               Contact Specialists <i class="fas fa-arrow-right ms-1"></i>

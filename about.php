@@ -70,7 +70,7 @@ require_once __DIR__ . '/includes/header.php';
           Founded in <strong>2020</strong>, over <strong>6+ years</strong> of continuous innovation we have grown into a multi-disciplinary technology powerhouse. We manage <strong>65+ specialized service domains</strong>, supporting healthcare providers, commercial real estate firms, global STM publishers, financial institutions, technology startups, and fortune enterprises across North America, Europe, Australia, and Asia-Pacific.
         </p>
         <p style="color:var(--text-muted);font-size:15px;line-height:1.8;">
-          Our core differentiator lies in our hybrid <strong>"AI + Operations + Human Expertise"</strong> delivery model — combining state-of-the-art machine learning automation with domain-certified expert teams to guarantee <strong>99.9% accuracy</strong> and up to <strong>40–60% cost reduction</strong>.
+          Our core differentiator lies in our hybrid <strong>"AI + Operations + Human Expertise"</strong> delivery model — combining state-of-the-art machine learning automation with domain-certified expert teams to guarantee <strong>99.9% accuracy</strong> and <strong>24/7 SLA delivery speed</strong>.
         </p>
 
         <!-- Stats Grid -->
