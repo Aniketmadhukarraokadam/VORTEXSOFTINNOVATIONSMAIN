@@ -861,7 +861,17 @@ function nav_active(string $page, string $path): string {
         <span class="topbar-sep d-none d-lg-inline-block"></span>
         <a href="tel:<?= str_replace(['-',' '], '', PHONE_INDIA) ?>" class="d-none d-lg-inline-flex"><i class="fas fa-phone"></i> <?= PHONE_INDIA ?></a>
         <span class="topbar-sep d-none d-xl-inline-block"></span>
-        <span class="d-none d-xl-inline-flex align-items-center gap-2"><i class="fas fa-map-marker-alt"></i> Pune HQ &amp; Bengaluru, India | USA</span>
+        <!-- Live Global Shift Clocks for Enterprise Clients -->
+        <span class="d-none d-xl-inline-flex align-items-center gap-2" style="font-size:11.5px;color:#cbd5e1;">
+          <span class="badge" style="background:#10b981;color:#fff;font-size:9.5px;padding:3px 8px;letter-spacing:0.5px;text-transform:uppercase;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#fff;margin-right:4px;animation:pulse-glow 1.5s infinite alternate;"></span>24/7 Global Shift
+          </span>
+          <span><strong style="color:#fff;">Pune (IST):</strong> <span id="clock-ist" class="text-info fw-semibold">--:--</span></span>
+          <span class="topbar-sep" style="height:10px;"></span>
+          <span><strong style="color:#fff;">US (EST):</strong> <span id="clock-est" class="text-warning fw-semibold">--:--</span></span>
+          <span class="topbar-sep" style="height:10px;"></span>
+          <span><strong style="color:#fff;">UK (GMT):</strong> <span id="clock-gmt" class="text-light fw-semibold">--:--</span></span>
+        </span>
       </div>
       <div class="topbar-social d-flex align-items-center gap-1">
         <a href="<?= SOCIAL_FACEBOOK ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>

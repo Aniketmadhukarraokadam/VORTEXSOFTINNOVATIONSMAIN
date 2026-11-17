@@ -373,6 +373,298 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </section>
 
+<!-- ═══════ INTERACTIVE B2B ENTERPRISE RATE CARD & SLA CALCULATOR ═══════ -->
+<section class="section-pad" id="rate-calculator" style="background:linear-gradient(135deg,#080B1A 0%,#0f172a 60%,#1C2280 100%);color:#fff;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-80px;right:-50px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(204,34,40,0.14) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-100px;left:-50px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(91,168,212,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div class="container position-relative" style="z-index:2;">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="badge px-3 py-2 rounded-pill mb-2" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#93c5fd;font-size:12px;letter-spacing:1px;text-transform:uppercase;">
+        <i class="fas fa-file-invoice-dollar me-1 text-warning"></i> Transparent Enterprise Pricing
+      </div>
+      <h2 style="font-size:clamp(2rem,3.2vw,2.8rem);font-weight:800;color:#fff;margin-bottom:12px;">
+        Instant Service Rate Card &amp; <span style="color:#60a5fa;">SLA Cost Calculator</span>
+      </h2>
+      <p style="max-width:740px;margin:0 auto;color:#94a3b8;font-size:16px;">
+        Configure your operational volume to get transparent offshore pricing benchmarks, guaranteed turnaround times, and immediate bottom-line cost reduction.
+      </p>
+    </div>
+
+    <div class="row g-4 align-items-center justify-content-center">
+      <!-- Selector Card (Left) -->
+      <div class="col-lg-7 col-xl-7">
+        <div class="p-4 p-md-5 rounded-4 shadow-lg" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.12);">
+          
+          <!-- Step 1: Industry Service Vertical -->
+          <div class="mb-4">
+            <label class="form-label text-white fw-bold d-flex justify-content-between" style="font-size:14px;letter-spacing:0.5px;">
+              <span><span class="badge bg-primary me-2">1</span> SELECT OUTSOURCING DIVISION</span>
+              <span id="rate-v-name" class="text-info fw-semibold">U.S. Title Search &amp; Mortgage BPM</span>
+            </label>
+            <div class="row g-2" id="rate-vertical-selector">
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start rate-v-btn active" data-v="title" data-name="U.S. Title Search &amp; Mortgage BPM" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid #3b82f6;border-radius:10px;font-size:12px;">
+                  <i class="fas fa-landmark text-warning me-1"></i> Title &amp; Mortgage
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start rate-v-btn" data-v="rcm" data-name="Healthcare RCM &amp; Medical Coding" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-heartbeat text-danger me-1"></i> Healthcare RCM
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start rate-v-btn" data-v="dev" data-name="Dedicated AI &amp; Software Dev Pod" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-code text-info me-1"></i> AI &amp; Software Pod
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start rate-v-btn" data-v="staffing" data-name="Global Staffing &amp; Offshore ODC" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-users text-primary me-1"></i> Staffing &amp; ODC
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start rate-v-btn" data-v="sales" data-name="Commercial Energy &amp; B2B Sales BPO" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-bolt text-warning me-1"></i> Energy Sales BPO
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start rate-v-btn" data-v="annotation" data-name="AI Data Annotation &amp; Computer Vision" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-tags text-success me-1"></i> AI Annotation
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Target Volume / Team Scale -->
+          <div class="mb-4">
+            <label class="form-label text-white fw-bold d-flex justify-content-between" style="font-size:14px;letter-spacing:0.5px;">
+              <span><span class="badge bg-primary me-2">2</span> MONTHLY VOLUME / RESOURCE SCALE</span>
+              <span id="rate-s-name" class="text-info fw-semibold">Growth Tier (50 Files / Day)</span>
+            </label>
+            <div class="row g-2" id="rate-scale-selector">
+              <div class="col-4">
+                <button type="button" class="btn w-100 p-3 text-center rate-s-btn" data-tier="starter" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
+                  <div class="fw-bold" id="tier-lbl-starter" style="font-size:14px;">15 / Day</div>
+                  <small id="tier-sub-starter" style="font-size:11px;color:#94a3b8;">Agile Batch</small>
+                </button>
+              </div>
+              <div class="col-4">
+                <button type="button" class="btn w-100 p-3 text-center rate-s-btn active" data-tier="growth" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid #3b82f6;border-radius:10px;">
+                  <div class="fw-bold" id="tier-lbl-growth" style="font-size:14px;">50 / Day</div>
+                  <small id="tier-sub-growth" style="font-size:11px;color:#94a3b8;">Scale Pod</small>
+                </button>
+              </div>
+              <div class="col-4">
+                <button type="button" class="btn w-100 p-3 text-center rate-s-btn" data-tier="enterprise" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
+                  <div class="fw-bold" id="tier-lbl-enterprise" style="font-size:14px;">100+ / Day</div>
+                  <small id="tier-sub-enterprise" style="font-size:11px;color:#94a3b8;">Enterprise Division</small>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust Badges Strip -->
+          <div class="pt-2 border-top border-secondary d-flex flex-wrap gap-2 text-white-50" style="font-size:12px;">
+            <span><i class="fas fa-check-circle text-success me-1"></i> ISO 27001 Certified</span>
+            <span>•</span>
+            <span><i class="fas fa-shield-alt text-info me-1"></i> HIPAA Compliant</span>
+            <span>•</span>
+            <span><i class="fas fa-lock text-warning me-1"></i> Strict NDA</span>
+            <span>•</span>
+            <span><i class="fas fa-globe text-primary me-1"></i> Qualia / SoftPro / AWS Ready</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rate Output Summary Card (Right) -->
+      <div class="col-lg-5 col-xl-5">
+        <div class="p-4 p-md-5 rounded-4 shadow-lg h-100 d-flex flex-column justify-content-between" style="background:linear-gradient(145deg,rgba(28,34,128,0.7) 0%,rgba(15,23,42,0.9) 100%);border:1px solid rgba(91,168,212,0.3);box-shadow:0 14px 45px rgba(28,34,128,0.3);">
+          <div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="badge bg-success-subtle text-success border border-success px-2 py-1" style="font-size:11px;letter-spacing:0.5px;">
+                <i class="fas fa-check-circle me-1"></i> ESTIMATED RATE BENCHMARK
+              </span>
+              <span id="rate-savings-badge" class="badge bg-warning text-dark fw-bold" style="font-size:12px;">
+                68% Cost Savings
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <div style="font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Transparent Offshore Pricing</div>
+              <div id="rate-unit-display" style="font-size:clamp(2.2rem,3.4vw,2.8rem);font-weight:900;color:#60a5fa;font-family:'Poppins',sans-serif;line-height:1.1;">
+                $14 – $18<span style="font-size:16px;color:#cbd5e1;font-weight:600;"> / file</span>
+              </div>
+              <div id="rate-benchmark-desc" style="font-size:12.5px;color:#94a3b8;margin-top:4px;">
+                vs US in-house benchmark of <strong>$55 – $75 / file</strong>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-3 mb-3" style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);">
+              <div class="d-flex justify-content-between align-items-center mb-2" style="font-size:12.5px;">
+                <span class="text-white-50">Estimated Monthly Savings:</span>
+                <span id="rate-monthly-saved" class="text-success fw-bold" style="font-size:14px;">~$42,000 / mo</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-2" style="font-size:12.5px;">
+                <span class="text-white-50">SLA Turnaround:</span>
+                <span id="rate-sla-time" class="text-info fw-semibold">12–24 Hours</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center" style="font-size:12.5px;">
+                <span class="text-white-50">Quality Guarantee:</span>
+                <span class="text-warning fw-semibold">99.8% Exam Accuracy</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <div class="d-grid gap-2">
+              <a id="rate-wa-btn" href="https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%20Team%2C%20I%20would%20like%20to%20lock%20in%20pricing%20for%20US%20Title%20Search%20%2850%20files%2Fday%29" target="_blank" class="btn btn-success fw-bold py-2" style="border-radius:10px;font-size:14px;box-shadow:0 4px 15px rgba(16,185,129,0.3);">
+                <i class="fab fa-whatsapp me-2"></i> Lock In Custom Rate via WhatsApp
+              </a>
+              <a id="rate-sow-btn" href="contact.php?service=title&amp;tier=growth" class="btn btn-outline-light fw-bold py-2" style="border-radius:10px;font-size:14px;">
+                <i class="fas fa-file-contract me-2"></i> Request Formal Statement of Work (SOW)
+              </a>
+            </div>
+            <div class="text-center mt-2" style="font-size:11px;color:#94a3b8;">
+              Strict Confidentiality • Non-Disclosure Agreement (NDA) Protected • No Setup Fees
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var rateConfig = {
+    title: {
+      name: "U.S. Title Search & Mortgage BPM",
+      starter: { lbl: "15 / Day", sub: "Agile Batch", unit: "$16 – $20", suffix: " / file", bench: "vs US in-house benchmark of $55 – $75 / file", saved: "~$14,500 / mo", sla: "24–48 Hours", reduction: "68%" },
+      growth: { lbl: "50 / Day", sub: "Scale Pod", unit: "$14 – $18", suffix: " / file", bench: "vs US in-house benchmark of $55 – $75 / file", saved: "~$42,000 / mo", sla: "12–24 Hours", reduction: "70%" },
+      enterprise: { lbl: "100+ / Day", sub: "Enterprise Division", unit: "$12 – $15", suffix: " / file", bench: "vs US in-house benchmark of $55 – $75 / file", saved: "~$85,000+ / mo", sla: "Real-Time 12 Hours", reduction: "74%" }
+    },
+    rcm: {
+      name: "Healthcare RCM & Medical Coding",
+      starter: { lbl: "300 Charts", sub: "Per Month", unit: "$18 – $22", suffix: " / chart", bench: "vs US in-house coding of $45 – $65 / chart", saved: "~$11,500 / mo", sla: "24 Hours Turnaround", reduction: "65%" },
+      growth: { lbl: "800 Charts", sub: "Per Month", unit: "$16 – $19", suffix: " / chart", bench: "vs US in-house coding of $45 – $65 / chart", saved: "~$28,000 / mo", sla: "12–24 Hours Turnaround", reduction: "68%" },
+      enterprise: { lbl: "2,000+ Charts", sub: "Hospital System", unit: "$13 – $16", suffix: " / chart", bench: "vs US in-house coding of $45 – $65 / chart", saved: "~$68,000+ / mo", sla: "Continuous Multi-Shift", reduction: "72%" }
+    },
+    dev: {
+      name: "Dedicated AI & Software Dev Pod",
+      starter: { lbl: "1 Senior Dev", sub: "160 Hrs / Mo", unit: "$22 – $28", suffix: " / hour", bench: "vs US/UK in-house senior engineer of $85 – $120 / hr", saved: "~$9,800 / mo", sla: "Immediate Onboarding", reduction: "65%" },
+      growth: { lbl: "3-Engineer Pod", sub: "Lead + 2 Devs", unit: "$20 – $25", suffix: " / hour", bench: "vs US/UK in-house engineer pod of $85 – $120 / hr", saved: "~$28,500 / mo", sla: "1-Week Sprint Alignment", reduction: "68%" },
+      enterprise: { lbl: "6+ Full Pod", sub: "Architect, Devs, QA", unit: "$18 – $22", suffix: " / hour", bench: "vs US/UK in-house full pod of $85 – $120 / hr", saved: "~$62,000+ / mo", sla: "Dedicated ODC Facility", reduction: "72%" }
+    },
+    staffing: {
+      name: "Global Staffing & Offshore ODC",
+      starter: { lbl: "3 Resources", sub: "Dedicated Pod", unit: "$2,200", suffix: " / FTE / mo", bench: "vs US domestic overhead of $6,500 – $8,500 / mo", saved: "~$13,500 / mo", sla: "7-Day Deployment", reduction: "68%" },
+      growth: { lbl: "8 Resources", sub: "Cross-Functional", unit: "$2,000", suffix: " / FTE / mo", bench: "vs US domestic overhead of $6,500 – $8,500 / mo", saved: "~$38,000 / mo", sla: "10-Day Deployment", reduction: "70%" },
+      enterprise: { lbl: "20+ Division", sub: "Enterprise ODC", unit: "$1,800", suffix: " / FTE / mo", bench: "vs US domestic overhead of $6,500 – $8,500 / mo", saved: "~$95,000+ / mo", sla: "Dedicated Floor & Security", reduction: "74%" }
+    },
+    sales: {
+      name: "Commercial Energy & B2B Sales BPO",
+      starter: { lbl: "2 SDRs", sub: "Pilot Pod", unit: "$2,200", suffix: " / SDR / mo", bench: "vs US domestic SDR cost of $5,500 / mo + commissions", saved: "~$6,600 / mo", sla: "40+ Qualified Appts / mo", reduction: "60%" },
+      growth: { lbl: "5 SDRs", sub: "Campaign Team", unit: "$2,000", suffix: " / SDR / mo", bench: "vs US domestic SDR cost of $5,500 / mo + commissions", saved: "~$17,500 / mo", sla: "100+ Qualified Appts / mo", reduction: "64%" },
+      enterprise: { lbl: "10+ SDR Pod", sub: "Market Domination", unit: "$1,850", suffix: " / SDR / mo", bench: "vs US domestic SDR cost of $5,500 / mo + commissions", saved: "~$36,500+ / mo", sla: "Dedicated Dialers & CRM", reduction: "68%" }
+    },
+    annotation: {
+      name: "AI Data Annotation & Computer Vision",
+      starter: { lbl: "25K Objects", sub: "Pilot Dataset", unit: "$0.04 – $0.08", suffix: " / label", bench: "vs US onshore labeling of $0.20 – $0.35 / label", saved: "~$5,500 / mo", sla: "99.8% QA Benchmark", reduction: "70%" },
+      growth: { lbl: "150K Objects", sub: "Production Pipeline", unit: "$0.03 – $0.06", suffix: " / label", bench: "vs US onshore labeling of $0.20 – $0.35 / label", saved: "~$24,000 / mo", sla: "Continuous Weekly Batches", reduction: "74%" },
+      enterprise: { lbl: "500K+ Objects", sub: "Enterprise AI Model", unit: "$0.02 – $0.04", suffix: " / label", bench: "vs US onshore labeling of $0.20 – $0.35 / label", saved: "~$65,000+ / mo", sla: "LiDAR / 3D Sensor Fusion", reduction: "78%" }
+    }
+  };
+
+  var curV = 'title';
+  var curTier = 'growth';
+
+  function renderCalculator() {
+    var vData = rateConfig[curV];
+    var tData = vData[curTier];
+
+    var nameEl = document.getElementById('rate-v-name');
+    if (nameEl) nameEl.textContent = vData.name;
+
+    // Update tier buttons labels
+    ['starter', 'growth', 'enterprise'].forEach(function(tier) {
+      var l = document.getElementById('tier-lbl-' + tier);
+      var s = document.getElementById('tier-sub-' + tier);
+      if (l) l.textContent = vData[tier].lbl;
+      if (s) s.textContent = vData[tier].sub;
+    });
+
+    var sNameEl = document.getElementById('rate-s-name');
+    if (sNameEl) sNameEl.textContent = tData.lbl + ' (' + tData.sub + ')';
+
+    var unitEl = document.getElementById('rate-unit-display');
+    if (unitEl) unitEl.innerHTML = tData.unit + '<span style="font-size:16px;color:#cbd5e1;font-weight:600;">' + tData.suffix + '</span>';
+
+    var benchEl = document.getElementById('rate-benchmark-desc');
+    if (benchEl) benchEl.innerHTML = tData.bench;
+
+    var savedEl = document.getElementById('rate-monthly-saved');
+    if (savedEl) savedEl.textContent = tData.saved;
+
+    var slaEl = document.getElementById('rate-sla-time');
+    if (slaEl) slaEl.textContent = tData.sla;
+
+    var badgeEl = document.getElementById('rate-savings-badge');
+    if (badgeEl) badgeEl.textContent = tData.reduction + ' Cost Savings';
+
+    // Update actions
+    var waBtn = document.getElementById('rate-wa-btn');
+    if (waBtn) {
+      var msg = "Hello Vortexsoft Innovations Team, I would like to lock in pricing for " + vData.name + " (" + tData.lbl + "). Estimated savings: " + tData.saved + ". Please send a formal quote.";
+      waBtn.href = "https://wa.me/918308906690?text=" + encodeURIComponent(msg);
+    }
+
+    var sowBtn = document.getElementById('rate-sow-btn');
+    if (sowBtn) {
+      sowBtn.href = "contact.php?service=" + encodeURIComponent(curV) + "&tier=" + encodeURIComponent(curTier);
+    }
+  }
+
+  // Vertical button click
+  document.querySelectorAll('.rate-v-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.rate-v-btn').forEach(function(b) {
+        b.classList.remove('active');
+        b.style.borderColor = 'rgba(255,255,255,0.1)';
+        b.style.background = 'rgba(255,255,255,0.05)';
+        b.style.color = '#cbd5e1';
+      });
+      btn.classList.add('active');
+      btn.style.borderColor = '#3b82f6';
+      btn.style.background = 'rgba(255,255,255,0.08)';
+      btn.style.color = '#fff';
+      curV = btn.getAttribute('data-v');
+      renderCalculator();
+    });
+  });
+
+  // Scale tier button click
+  document.querySelectorAll('.rate-s-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.rate-s-btn').forEach(function(b) {
+        b.classList.remove('active');
+        b.style.borderColor = 'rgba(255,255,255,0.1)';
+        b.style.background = 'rgba(255,255,255,0.05)';
+        b.style.color = '#cbd5e1';
+      });
+      btn.classList.add('active');
+      btn.style.borderColor = '#3b82f6';
+      btn.style.background = 'rgba(255,255,255,0.08)';
+      btn.style.color = '#fff';
+      curTier = btn.getAttribute('data-tier');
+      renderCalculator();
+    });
+  });
+
+  renderCalculator();
+});
+</script>
 
 <!-- CTA -->
 <section class="py-5" style="background:#fff;">

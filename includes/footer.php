@@ -484,6 +484,25 @@ window.addEventListener('load', function(){
   }
 });
 
+// ── Live Global Shift & Timezone Clocks (IST, EST, GMT) ─────
+(function() {
+  function updateGlobalClocks() {
+    var now = new Date();
+    var istEl = document.getElementById('clock-ist');
+    var estEl = document.getElementById('clock-est');
+    var gmtEl = document.getElementById('clock-gmt');
+    if (!istEl && !estEl && !gmtEl) return;
+    try {
+      var opt = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      if (istEl) istEl.textContent = new Intl.DateTimeFormat('en-US', Object.assign({}, opt, { timeZone: 'Asia/Kolkata' })).format(now);
+      if (estEl) estEl.textContent = new Intl.DateTimeFormat('en-US', Object.assign({}, opt, { timeZone: 'America/New_York' })).format(now);
+      if (gmtEl) gmtEl.textContent = new Intl.DateTimeFormat('en-US', Object.assign({}, opt, { timeZone: 'Europe/London' })).format(now);
+    } catch(e) {}
+  }
+  updateGlobalClocks();
+  setInterval(updateGlobalClocks, 1000);
+})();
+
 // ── Newsletter Submission ───────────────────────────────────
 function submitNewsletter(e) {
   e.preventDefault();

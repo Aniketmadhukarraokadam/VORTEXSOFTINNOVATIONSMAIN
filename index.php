@@ -1723,11 +1723,55 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- ═══════ CASE STUDIES / MEASURED ENTERPRISE ROI ═══════ -->
 <section class="section-pad" style="background:#fff;" id="case-studies">
   <div class="container">
-    <div class="text-center mb-5 scroll-reveal">
-      <div class="section-tag"><i class="fas fa-chart-line me-1"></i> Proven Impact</div>
+    <div class="text-center mb-4 scroll-reveal">
+      <div class="section-tag"><i class="fas fa-chart-line me-1"></i> Proven Impact &amp; Client ROI</div>
       <h2 class="section-title">Measurable Results: <span class="highlight">Enterprise Case Studies</span></h2>
       <div class="section-divider"></div>
-      <p class="section-subtitle">Real-world ROI delivered across North American, European, and APAC enterprise engagements.</p>
+      <p class="section-subtitle">Real-world operational transformations delivered across North American, European, and APAC enterprise clients.</p>
+    </div>
+
+    <!-- Interactive Before vs After Comparison Switcher -->
+    <div class="d-flex justify-content-center mb-4 scroll-reveal">
+      <div class="p-1 rounded-pill bg-light border shadow-sm d-inline-flex align-items-center" style="border-color:#cbd5e1!important;">
+        <button type="button" class="btn btn-sm rounded-pill px-4 py-2 fw-bold case-toggle-btn active" data-mode="after" style="background:#1C2280;color:#fff;">
+          <i class="fas fa-rocket me-1 text-warning"></i> With Vortexsoft Outsourcing
+        </button>
+        <button type="button" class="btn btn-sm rounded-pill px-4 py-2 fw-bold case-toggle-btn text-muted" data-mode="before" style="background:transparent;">
+          <i class="fas fa-history me-1"></i> In-House / Legacy Baseline
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Dynamic Benchmark KPI Bar -->
+    <div class="row g-3 justify-content-center mb-5 scroll-reveal" id="case-kpi-bar">
+      <div class="col-6 col-md-3">
+        <div class="p-3 rounded-4 text-center border h-100 shadow-sm" style="background:#f8fafc;border-color:#e2e8f0!important;">
+          <div id="kpi-metric-1" style="font-size:26px;font-weight:900;color:#10b981;font-family:'Poppins',sans-serif;">65% – 72%</div>
+          <div id="kpi-label-1" style="font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;">Cost Reduction Achieved</div>
+          <small id="kpi-sub-1" style="font-size:11px;color:#94a3b8;">vs onshore full-time overhead</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="p-3 rounded-4 text-center border h-100 shadow-sm" style="background:#f8fafc;border-color:#e2e8f0!important;">
+          <div id="kpi-metric-2" style="font-size:26px;font-weight:900;color:#1C2280;font-family:'Poppins',sans-serif;">12 – 24 Hrs</div>
+          <div id="kpi-label-2" style="font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;">Multi-Shift Turnaround</div>
+          <small id="kpi-sub-2" style="font-size:11px;color:#94a3b8;">from 72-hour backlog</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="p-3 rounded-4 text-center border h-100 shadow-sm" style="background:#f8fafc;border-color:#e2e8f0!important;">
+          <div id="kpi-metric-3" style="font-size:26px;font-weight:900;color:#CC2228;font-family:'Poppins',sans-serif;">99.8%</div>
+          <div id="kpi-label-3" style="font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;">SLA Quality Accuracy</div>
+          <small id="kpi-sub-3" style="font-size:11px;color:#94a3b8;">dual-tier audit validation</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="p-3 rounded-4 text-center border h-100 shadow-sm" style="background:#f8fafc;border-color:#e2e8f0!important;">
+          <div id="kpi-metric-4" style="font-size:26px;font-weight:900;color:#0284c7;font-family:'Poppins',sans-serif;">50 States</div>
+          <div id="kpi-label-4" style="font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;">US Multi-State Coverage</div>
+          <small id="kpi-sub-4" style="font-size:11px;color:#94a3b8;">Qualia / Resware / SoftPro</small>
+        </div>
+      </div>
     </div>
 
     <div class="row g-4">
@@ -1868,6 +1912,76 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var toggleBtns = document.querySelectorAll('.case-toggle-btn');
+  var m1 = document.getElementById('kpi-metric-1');
+  var l1 = document.getElementById('kpi-label-1');
+  var s1 = document.getElementById('kpi-sub-1');
+
+  var m2 = document.getElementById('kpi-metric-2');
+  var l2 = document.getElementById('kpi-label-2');
+  var s2 = document.getElementById('kpi-sub-2');
+
+  var m3 = document.getElementById('kpi-metric-3');
+  var l3 = document.getElementById('kpi-label-3');
+  var s3 = document.getElementById('kpi-sub-3');
+
+  var m4 = document.getElementById('kpi-metric-4');
+  var l4 = document.getElementById('kpi-label-4');
+  var s4 = document.getElementById('kpi-sub-4');
+
+  toggleBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      toggleBtns.forEach(function(b) {
+        b.classList.remove('active', 'text-white');
+        b.classList.add('text-muted');
+        b.style.background = 'transparent';
+      });
+      btn.classList.add('active', 'text-white');
+      btn.classList.remove('text-muted');
+      btn.style.background = '#1C2280';
+
+      var mode = btn.getAttribute('data-mode');
+      if (mode === 'before') {
+        if (m1) { m1.textContent = '$75K+/yr'; m1.style.color = '#CC2228'; }
+        if (l1) l1.textContent = 'High Overhead Per FTE';
+        if (s1) s1.textContent = 'plus benefits, taxes & office space';
+
+        if (m2) { m2.textContent = '48 – 96 Hrs'; m2.style.color = '#d97706'; }
+        if (l2) l2.textContent = 'Slow Queue Backlog';
+        if (s2) s2.textContent = 'delayed closing & billing cycles';
+
+        if (m3) { m3.textContent = '84% – 91%'; m3.style.color = '#ef4444'; }
+        if (l3) l3.textContent = 'Inconsistent Quality';
+        if (s3) s3.textContent = 'frequent rejections & rework';
+
+        if (m4) { m4.textContent = 'Fragmented'; m4.style.color = '#64748b'; }
+        if (l4) l4.textContent = 'Single Shift Bottleneck';
+        if (s4) s4.textContent = 'zero overnight operational coverage';
+      } else {
+        if (m1) { m1.textContent = '65% – 72%'; m1.style.color = '#10b981'; }
+        if (l1) l1.textContent = 'Cost Reduction Achieved';
+        if (s1) s1.textContent = 'vs onshore full-time overhead';
+
+        if (m2) { m2.textContent = '12 – 24 Hrs'; m2.style.color = '#1C2280'; }
+        if (l2) l2.textContent = 'Multi-Shift Turnaround';
+        if (s2) s2.textContent = 'from 72-hour backlog';
+
+        if (m3) { m3.textContent = '99.8%'; m3.style.color = '#CC2228'; }
+        if (l3) l3.textContent = 'SLA Quality Accuracy';
+        if (s3) s3.textContent = 'dual-tier audit validation';
+
+        if (m4) { m4.textContent = '50 States'; m4.style.color = '#0284c7'; }
+        if (l4) l4.textContent = 'US Multi-State Coverage';
+        if (s4) s4.textContent = 'Qualia / Resware / SoftPro';
+      }
+    });
+  });
+});
+</script>
+
 </section>
 
 <!-- ═══════ TESTIMONIALS ═══════ -->
