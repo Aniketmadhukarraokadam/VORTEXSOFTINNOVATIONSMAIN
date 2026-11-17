@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Vortexsoft Innovations — Local FTP Deployment Sync Tool
     Uploads website files directly to Hostinger FTP server.
@@ -127,8 +127,8 @@ if ($File) {
         Write-Host "Error: Specified file does not exist: $fullPath" -ForegroundColor Red
         exit 1
     }
-    $rel = Resolve-Path -Path $fullPath -Relative
-    $rel = $rel.TrimStart('.').TrimStart('\').TrimStart('/')
+    $rel = (Resolve-Path -Path $fullPath -Relative) -replace '^\.[\\/]', ''
+
     $filesToUpload += $rel
 } elseif ($Mode -eq 'All') {
     Write-Host "Scanning all files in workspace..." -ForegroundColor Cyan

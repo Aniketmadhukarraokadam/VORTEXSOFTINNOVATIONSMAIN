@@ -179,32 +179,10 @@ ServerSignature Off
 </IfModule>
 
 # ── LiteSpeed Web Server Performance & Cache ──────────────────────
-<IfModule LiteSpeed>
-    CacheEnable public
-    RewriteEngine On
-    RewriteCond %{REQUEST_METHOD} ^HEAD|GET$
-    RewriteCond %{REQUEST_URI} !^/(admin|api)/
-    RewriteRule .* - [E=Cache-Control:max-age=1800]
-</IfModule>
+# Note: Native LSCache handles caching via response headers in PHP/HTML
 
 # Disable redundant ETags
 FileETag None
 
-# PHP Output Compression & Memory Cap
-<IfModule mod_php.c>
-    php_flag zlib.output_compression On
-    php_value zlib.output_compression_level 5
-    php_value memory_limit 128M
-</IfModule>
-<IfModule mod_php7.c>
-    php_flag zlib.output_compression On
-    php_value zlib.output_compression_level 5
-    php_value memory_limit 128M
-</IfModule>
-<IfModule mod_php8.c>
-    php_flag zlib.output_compression On
-    php_value zlib.output_compression_level 5
-    php_value memory_limit 128M
-</IfModule>
 
 
