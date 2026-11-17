@@ -304,6 +304,84 @@ function nav_active(string $page, string $path): string {
           ]
         },
         {
+          "@type": "ItemList",
+          "@id": "<?= PRIMARY_COM_URL ?>/#sitelinks-navigation",
+          "name": "Vortexsoft Innovations Core Navigation & Sitelinks",
+          "description": "Primary corporate links and service divisions for Google Sitelinks and search navigation",
+          "itemListElement": [
+            {
+              "@type": "SiteNavigationElement",
+              "position": 1,
+              "name": "Careers & Job Openings",
+              "description": "Explore 30+ IT, AI, Mortgage Title & Healthcare Openings in Pune, Bengaluru & Remote",
+              "url": "<?= PRIMARY_COM_URL ?>/careers.php"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 2,
+              "name": "Enterprise Services & Solutions",
+              "description": "65+ Specialized IT, BPM, AI & Healthcare Outsourcing Services",
+              "url": "<?= PRIMARY_COM_URL ?>/service.php"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 3,
+              "name": "About Vortexsoft",
+              "description": "CMMI Level 3 Appraised & ISO 27001 Certified Corporate Overview",
+              "url": "<?= PRIMARY_COM_URL ?>/about.php"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 4,
+              "name": "Contact & Global Offices",
+              "description": "Connect with Pune Corporate HQ & Bengaluru Technology Delivery Center",
+              "url": "<?= PRIMARY_COM_URL ?>/contact.php"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 5,
+              "name": "US Title Search & Mortgage BPM",
+              "description": "Offshore 40-Year Title Searches, Examination & Commitments across 50 US States",
+              "url": "<?= PRIMARY_COM_URL ?>/title-settlement/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 6,
+              "name": "Healthcare BPO & HIPAA RCM",
+              "description": "HIPAA-Compliant Medical Billing, Coding & Denial Management",
+              "url": "<?= PRIMARY_COM_URL ?>/health-care-services/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 7,
+              "name": "AI & Custom Software Solutions",
+              "description": "Enterprise AI Agents, Cloud Microservices & Custom Engineering",
+              "url": "<?= PRIMARY_COM_URL ?>/software-solutions/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 8,
+              "name": "AI Data Annotation Services",
+              "description": "LiDAR, Computer Vision & LLM Training Datasets Annotation",
+              "url": "<?= PRIMARY_COM_URL ?>/data-annotation-services/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 9,
+              "name": "Frequently Asked Questions (FAQ)",
+              "description": "Answers on Outsourcing Models, SLAs, Data Security & Pricing",
+              "url": "<?= PRIMARY_COM_URL ?>/faq.php"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 10,
+              "name": "Insights & Industry Articles",
+              "description": "Thought Leadership, Industry Research & Technical Publications",
+              "url": "<?= PRIMARY_COM_URL ?>/blog.php"
+            }
+          ]
+        },
+        {
           "@type": "Corporation",
           "@id": "<?= SITE_URL ?>/#corporation",
           "name": "Vortexsoft Innovations Private Limited",
@@ -336,7 +414,10 @@ function nav_active(string $page, string $path): string {
           "sameAs": [
             "https://www.linkedin.com/company/vortexsoft-innovations-private-limited/",
             "https://www.facebook.com/profile.php?id=61575505273718",
-            "https://www.instagram.com/vortexsoft_innovations"
+            "https://www.instagram.com/vortexsoft_innovations",
+            "https://github.com/Aniketmadhukarraokadam/VORTEXSOFTINNOVATIONSMAIN",
+            "https://www.zaubacorp.com/company/VORTEXSOFT-INNOVATIONS-PRIVATE-LIMITED/U72900PN2020PTC195000",
+            "https://www.tofler.in/vortexsoft-innovations-private-limited/company/U72900PN2020PTC195000"
           ],
           "knowsAbout": [
             "Healthcare Revenue Cycle Management (RCM)",

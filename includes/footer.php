@@ -208,6 +208,31 @@ $prefix = $prefix ?? './';
     </div><!-- /.row -->
   </div><!-- /.container -->
 
+  <!-- ═══════ SEO GOOGLE SITELINKS & DEEP CRAWL HUB (20 TABS) ═══════ -->
+  <div class="footer-sitelinks-bar py-3" style="border-top:1px solid rgba(255,255,255,0.08);background:rgba(0,0,0,0.25);">
+    <div class="container">
+      <nav aria-label="Quick Sitelinks Navigation" class="d-flex flex-wrap align-items-center justify-content-center gap-2 text-center" style="font-size:12px;">
+        <span class="text-white-50 me-2 fw-bold text-uppercase" style="letter-spacing:1px;font-size:11px;"><i class="fas fa-sitemap text-warning me-1"></i> Core Sitelinks:</span>
+        <a href="<?= $prefix ?>index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Home</a>
+        <a href="<?= $prefix ?>careers.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2"><i class="fas fa-briefcase text-success me-1"></i> Careers (30+ Openings)</a>
+        <a href="<?= $prefix ?>service.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Services &amp; BPM</a>
+        <a href="<?= $prefix ?>title-settlement/index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2"><i class="fas fa-crown text-warning me-1"></i> US Title Search (50 States)</a>
+        <a href="<?= $prefix ?>health-care-services/index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Healthcare RCM</a>
+        <a href="<?= $prefix ?>software-solutions/index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">AI &amp; Software Dev</a>
+        <a href="<?= $prefix ?>data-annotation-services/index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">AI Data Annotation</a>
+        <a href="<?= $prefix ?>publishing-services/index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Publishing &amp; XML</a>
+        <a href="<?= $prefix ?>real-estate-services/index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Real Estate BPM</a>
+        <a href="<?= $prefix ?>accounting-services/index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Accounting &amp; Tax</a>
+        <a href="<?= $prefix ?>manpower-payroll-services/index.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Staffing &amp; Payroll</a>
+        <a href="<?= $prefix ?>about.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">About Vortexsoft</a>
+        <a href="<?= $prefix ?>about.php#certifications" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2"><i class="fas fa-shield-alt text-info me-1"></i> ISO 27001 &amp; CMMI L3</a>
+        <a href="<?= $prefix ?>contact.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Pune HQ &amp; Bengaluru Hub</a>
+        <a href="<?= $prefix ?>faq.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">FAQs</a>
+        <a href="<?= $prefix ?>blog.php" class="badge bg-dark text-light border border-secondary text-decoration-none py-2 px-2">Industry Blog</a>
+      </nav>
+    </div>
+  </div>
+
   <div class="footer-bottom">
     <div class="container">
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
