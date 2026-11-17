@@ -39,6 +39,44 @@ if ($db) {
             header('Location: blog-posts.php?msg=deleted'); exit;
         }
 
+        // AJAX: Quick AI Blog Generation
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'ai_quick_generate') {
+            header('Content-Type: application/json; charset=utf-8');
+            if (!verify_csrf()) {
+                echo json_encode(['success' => false, 'error' => 'Security token invalid. Refresh page.']);
+                exit;
+            }
+            require_once __DIR__ . '/../includes/ai-providers.php';
+            $topic = sanitize($_POST['topic'] ?? '');
+            $category = sanitize($_POST['category'] ?? 'General');
+            if (empty($topic)) {
+                echo json_encode(['success' => false, 'error' => 'Please provide a topic or working title.']);
+                exit;
+            }
+            $targetKeyword = sanitize($_POST['keyword'] ?? $topic);
+            try {
+                $prompt = buildBlogPrompt($topic, $targetKeyword);
+                $gen = generateWithGemini($prompt);
+                $slug = slugify($gen['title'] ?: $topic);
+                // Also attempt cover image generation
+                $imgUrl = generateBlogAiImage($gen['image_prompt'] ?? $topic, $slug);
+                echo json_encode([
+                    'success'     => true,
+                    'title'       => $gen['title'],
+                    'slug'        => $slug,
+                    'excerpt'     => $gen['excerpt'],
+                    'meta_title'  => $gen['title'],
+                    'meta_desc'   => $gen['excerpt'],
+                    'content'     => $gen['body'],
+                    'cover_image' => $imgUrl ?: '/uploads/blog/default_banner.jpg',
+                    'model'       => $gen['model'] ?? 'Gemini'
+                ]);
+            } catch (Throwable $e) {
+                echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+            }
+            exit;
+        }
+
         // Create or Edit Post
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!verify_csrf()) {
@@ -233,17 +271,35 @@ tr:hover td{background:#fafbff}
   <!-- Create/Edit Form Card -->
   <div style="background:#fff;border-radius:16px;border:1px solid #e8ecff;padding:32px;margin-top:24px;<?= $edit_post?'':'display:none;' ?>" id="postEditorModal">
     <h4 style="font-family:'Poppins',sans-serif;font-weight:700;color:#1C2280;margin-bottom:20px;"><?= $edit_post ? 'Edit Blog Post #'.$edit_post['id'] : 'Create New Blog Post' ?></h4>
-    <form method="POST" action="blog-posts.php">
-      <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+    <form method="POST" action="blog-posts.php" id="blogPostForm">
+      <input type="hidden" name="csrf_token" id="blog_csrf" value="<?= csrf_token() ?>">
       <input type="hidden" name="edit_id" value="<?= $edit_post['id'] ?? 0 ?>">
       <div class="row g-3">
+        <!-- AI Blog Writer Assistant -->
+        <div class="col-12">
+          <div class="p-3 rounded d-flex align-items-center justify-content-between flex-wrap gap-2" style="background:rgba(28,34,128,0.05);border:1px dashed #1C2280;">
+            <div style="font-size:12.5px;color:#1C2280;">
+              <i class="fas fa-robot me-1 text-primary"></i> <strong>AI Blog Writer:</strong> Enter a title or topic, then click <strong>Auto-Write Article</strong> to generate the full 1,000+ word SEO article, excerpt, and meta tags!
+            </div>
+            <div class="d-flex gap-2">
+              <a href="blog/generate.php" class="btn btn-sm btn-outline-primary" style="font-size:11.5px;font-weight:600;border-radius:6px;padding:5px 12px;">
+                <i class="fas fa-layer-group me-1"></i> Multi-Engine Generator
+              </a>
+              <button type="button" class="btn btn-sm text-white" id="btnAiWriteBlog" onclick="autoWriteBlog()" style="background:linear-gradient(135deg,#1C2280,#2d35c4);font-size:12px;font-weight:700;border-radius:6px;padding:5px 16px;border:none;">
+                <i class="fas fa-magic me-1"></i> Auto-Write Article with AI
+              </button>
+            </div>
+          </div>
+          <div id="aiBlogStatus" class="alert d-none mt-2 mb-0" style="font-size:12px;padding:8px 14px;border-radius:8px;"></div>
+        </div>
+
         <div class="col-md-8">
           <label class="form-label fw-semibold">Post Title <span class="text-danger">*</span></label>
-          <input type="text" name="title" class="form-control" placeholder="Enter post title" required value="<?= htmlspecialchars($edit_post['title'] ?? '') ?>">
+          <input type="text" name="title" id="blog_title" class="form-control" placeholder="Enter post title or target topic..." required value="<?= htmlspecialchars($edit_post['title'] ?? '') ?>">
         </div>
         <div class="col-md-4">
           <label class="form-label fw-semibold">Category</label>
-          <select name="category" class="form-select">
+          <select name="category" id="blog_category" class="form-select">
             <?php foreach(['General','Healthcare BPO','Publishing','AI & Data','Real Estate BPO','Industry Insights','Technology','Finance'] as $cat): ?>
             <option value="<?= $cat ?>" <?= ($edit_post['category']??'')===$cat?'selected':'' ?>><?= $cat ?></option>
             <?php endforeach; ?>
@@ -251,31 +307,31 @@ tr:hover td{background:#fafbff}
         </div>
         <div class="col-md-6">
           <label class="form-label fw-semibold">Slug (URL string)</label>
-          <input type="text" name="slug" class="form-control" placeholder="auto-generated-from-title" value="<?= htmlspecialchars($edit_post['slug'] ?? '') ?>">
+          <input type="text" name="slug" id="blog_slug" class="form-control" placeholder="auto-generated-from-title" value="<?= htmlspecialchars($edit_post['slug'] ?? '') ?>">
         </div>
         <div class="col-md-6">
           <label class="form-label fw-semibold">Author</label>
-          <input type="text" name="author" class="form-control" value="<?= htmlspecialchars($edit_post['author'] ?? 'Vortexsoft Team') ?>">
+          <input type="text" name="author" id="blog_author" class="form-control" value="<?= htmlspecialchars($edit_post['author'] ?? 'Vortexsoft Team') ?>">
         </div>
         <div class="col-12">
           <label class="form-label fw-semibold">Featured Cover Image URL</label>
-          <input type="text" name="cover_image" class="form-control" placeholder="/uploads/blog/cover-banner.jpg or https://..." value="<?= htmlspecialchars($edit_post['cover_image'] ?? '') ?>">
+          <input type="text" name="cover_image" id="blog_cover" class="form-control" placeholder="/uploads/blog/cover-banner.jpg or https://..." value="<?= htmlspecialchars($edit_post['cover_image'] ?? '') ?>">
         </div>
         <div class="col-12">
           <label class="form-label fw-semibold">Short Excerpt (Meta Description)</label>
-          <textarea name="excerpt" class="form-control" rows="2" placeholder="Brief 2-sentence summary..."><?= htmlspecialchars($edit_post['excerpt'] ?? '') ?></textarea>
+          <textarea name="excerpt" id="blog_excerpt" class="form-control" rows="2" placeholder="Brief 2-sentence summary..."><?= htmlspecialchars($edit_post['excerpt'] ?? '') ?></textarea>
         </div>
         <div class="col-md-6">
           <label class="form-label fw-semibold">SEO Meta Title (Optional)</label>
-          <input type="text" name="meta_title" class="form-control" placeholder="Leave blank to use post title" value="<?= htmlspecialchars($edit_post['meta_title'] ?? '') ?>">
+          <input type="text" name="meta_title" id="blog_meta_title" class="form-control" placeholder="Leave blank to use post title" value="<?= htmlspecialchars($edit_post['meta_title'] ?? '') ?>">
         </div>
         <div class="col-md-6">
           <label class="form-label fw-semibold">SEO Meta Description (Optional)</label>
-          <input type="text" name="meta_desc" class="form-control" placeholder="Leave blank to use excerpt" value="<?= htmlspecialchars($edit_post['meta_desc'] ?? '') ?>">
+          <input type="text" name="meta_desc" id="blog_meta_desc" class="form-control" placeholder="Leave blank to use excerpt" value="<?= htmlspecialchars($edit_post['meta_desc'] ?? '') ?>">
         </div>
         <div class="col-12">
           <label class="form-label fw-semibold">Post Content (HTML allowed)</label>
-          <textarea name="content" class="form-control" rows="10" placeholder="<p>Write your article content here...</p>"><?= htmlspecialchars($edit_post['content'] ?? '') ?></textarea>
+          <textarea name="content" id="blog_content" class="form-control" rows="12" placeholder="<p>Write your article content here...</p>"><?= htmlspecialchars($edit_post['content'] ?? '') ?></textarea>
         </div>
         <div class="col-12 d-flex gap-4 align-items-center mt-3">
           <label style="font-size:14px;font-weight:600;color:#1e293b;display:flex;align-items:center;gap:8px;">
@@ -321,6 +377,79 @@ document.getElementById('postSearchInput')?.addEventListener('input', function()
   var counter = document.getElementById('postCount');
   if (counter) counter.textContent = visibleCount;
 });
+
+function autoWriteBlog() {
+  var title = document.getElementById('blog_title').value.trim();
+  var cat = document.getElementById('blog_category').value;
+  var statusDiv = document.getElementById('aiBlogStatus');
+  var btn = document.getElementById('btnAiWriteBlog');
+  var csrf = document.getElementById('blog_csrf').value;
+
+  if (!title) {
+    alert('Please enter a post title or topic first so the AI can craft the article.');
+    document.getElementById('blog_title').focus();
+    return;
+  }
+
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Writing Article with AI...';
+  }
+  if (statusDiv) {
+    statusDiv.className = 'alert alert-info mt-2';
+    statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Writing in-depth, SEO/AEO/GEO-optimized article for "<strong>' + title + '</strong>" (Category: ' + cat + ')...';
+    statusDiv.classList.remove('d-none');
+  }
+
+  var formData = new FormData();
+  formData.append('csrf_token', csrf);
+  formData.append('action', 'ai_quick_generate');
+  formData.append('topic', title);
+  formData.append('category', cat);
+  formData.append('keyword', title);
+
+  fetch('blog-posts.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(function(res){ return res.json(); })
+  .then(function(data){
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-magic me-1"></i> Auto-Write Article with AI';
+    }
+    if (data && data.success) {
+      if (data.title) document.getElementById('blog_title').value = data.title;
+      if (data.slug) document.getElementById('blog_slug').value = data.slug;
+      if (data.excerpt) document.getElementById('blog_excerpt').value = data.excerpt;
+      if (data.meta_title) document.getElementById('blog_meta_title').value = data.meta_title;
+      if (data.meta_desc) document.getElementById('blog_meta_desc').value = data.meta_desc;
+      if (data.content) document.getElementById('blog_content').value = data.content;
+      if (data.cover_image && !document.getElementById('blog_cover').value) {
+        document.getElementById('blog_cover').value = data.cover_image;
+      }
+      if (statusDiv) {
+        statusDiv.className = 'alert alert-success mt-2';
+        statusDiv.innerHTML = '<i class="fas fa-check-circle me-1"></i> <strong>Article Generated Successfully!</strong> Full 1000+ word post, excerpt, slug, and meta tags populated. Review and click "Save Post" below.';
+      }
+    } else {
+      if (statusDiv) {
+        statusDiv.className = 'alert alert-danger mt-2';
+        statusDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i> ' + (data && data.error ? data.error : 'Generation failed.');
+      }
+    }
+  })
+  .catch(function(err){
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-magic me-1"></i> Auto-Write Article with AI';
+    }
+    if (statusDiv) {
+      statusDiv.className = 'alert alert-danger mt-2';
+      statusDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i> Network error: ' + err.message;
+    }
+  });
+}
 </script>
 </body>
 </html>

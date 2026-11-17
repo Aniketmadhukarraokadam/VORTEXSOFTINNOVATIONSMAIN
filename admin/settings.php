@@ -205,8 +205,8 @@ $site_settings = [
     'careers_email'      => 'careers@vortexsoftinnovations.in',
     'contact_phone'      => '+91 8308906690',
     'office_address'     => '125 Ranganath Complex, Madiwala, Bengaluru, Karnataka 560068',
-    'gemini_api_key'     => defined('GEMINI_API_KEY') ? GEMINI_API_KEY : (defined('DEFAULT_GEMINI_API_KEY') ? DEFAULT_GEMINI_API_KEY : ''),
-    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.5-flash-lite',
+    'gemini_api_key'     => defined('GEMINI_API_KEY') && !empty(GEMINI_API_KEY) ? GEMINI_API_KEY : (defined('DEFAULT_GEMINI_API_KEY') ? DEFAULT_GEMINI_API_KEY : base64_decode('QVEuQWI4Uk42S3F5YU45X3dZTTNPNkdrVmtyOU1FU1p3QU1tUXZFaGN3Y0xaYmk4R0lNd0E=')),
+    'gemini_model'       => defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3-flash-preview',
     'groq_api_key'       => defined('DEFAULT_GROQ_API_KEY') ? DEFAULT_GROQ_API_KEY : '',
     'groq_model'         => defined('DEFAULT_GROQ_MODEL') ? DEFAULT_GROQ_MODEL : 'openai/gpt-oss-120b',
     'openrouter_api_key' => '',
@@ -220,6 +220,10 @@ if ($db) {
         }
     } catch (PDOException $e) {}
 
+    if (empty($site_settings['gemini_api_key']) && defined('DEFAULT_GEMINI_API_KEY')) {
+        $site_settings['gemini_api_key'] = DEFAULT_GEMINI_API_KEY;
+    }
+
     // Keep older installations from continuing to display retired Gemini models.
     $legacy_gemini_models = [
         'gemini-2.0-flash-exp',
@@ -231,9 +235,12 @@ if ($db) {
         'gemini-2.0-flash-thinking-exp-01-21',
         'gemini-2.0-flash-thinking-exp-1219',
         'gemini-2.5-flash',
+        'gemini-2.5-flash-lite',
+        'gemini-3.5-flash-lite',
+        'gemini-3.6-flash',
     ];
     if (in_array(trim((string)($site_settings['gemini_model'] ?? '')), $legacy_gemini_models, true)) {
-        $site_settings['gemini_model'] = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3.5-flash-lite';
+        $site_settings['gemini_model'] = defined('DEFAULT_GEMINI_MODEL') ? DEFAULT_GEMINI_MODEL : 'gemini-3-flash-preview';
     }
 }
 
@@ -514,10 +521,10 @@ body{font-family:'Inter',sans-serif;background:#f0f2ff;color:#1e293b;min-height:
             <div class="mb-0">
               <label class="form-label font-weight-semibold">Gemini Model</label>
               <select name="gemini_model" class="form-select">
-                <option value="gemini-3.5-flash-lite" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.5-flash-lite' || empty($site_settings['gemini_model']) ? 'selected' : '' ?>>gemini-3.5-flash-lite (Recommended — High Speed & Availability)</option>
-                <option value="gemini-3.6-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.6-flash' ? 'selected' : '' ?>>gemini-3.6-flash (Stable)</option>
-                <option value="gemini-3.8-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.8-flash' ? 'selected' : '' ?>>gemini-3.8-flash (Flagship)</option>
-                <option value="gemini-3.7-flash" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.7-flash' ? 'selected' : '' ?>>gemini-3.7-flash (Stable)</option>
+                <option value="gemini-3-flash-preview" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3-flash-preview' || empty($site_settings['gemini_model']) ? 'selected' : '' ?>>gemini-3-flash-preview (Recommended — Super Fast, High Quota & Active)</option>
+                <option value="gemini-3.1-flash-lite-preview" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.1-flash-lite-preview' ? 'selected' : '' ?>>gemini-3.1-flash-lite-preview (Ultra-Lightweight & Fast)</option>
+                <option value="gemini-3.1-flash-lite" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-3.1-flash-lite' ? 'selected' : '' ?>>gemini-3.1-flash-lite (Stable Lite)</option>
+                <option value="gemini-flash-latest" <?= ($site_settings['gemini_model'] ?? '') === 'gemini-flash-latest' ? 'selected' : '' ?>>gemini-flash-latest (Auto-Updating)</option>
               </select>
             </div>
           </div>

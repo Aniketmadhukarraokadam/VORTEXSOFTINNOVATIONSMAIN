@@ -1751,7 +1751,7 @@ require_once __DIR__ . '/includes/header.php';
 
           <!-- Description -->
           <p class="card-desc-text">
-            <?= htmlspecialchars($job['desc']) ?>
+            <?= nl2br(htmlspecialchars($job['desc'])) ?>
           </p>
 
           <!-- Skills Row -->

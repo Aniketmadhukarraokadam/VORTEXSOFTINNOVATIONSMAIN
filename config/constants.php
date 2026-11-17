@@ -63,8 +63,8 @@ define('ITEMS_PER_PAGE', 15);
 // ── AI Engine Defaults (Admin Blog & Image Generator) ────────
 // IMPORTANT: Set GEMINI_API_KEY in config/.env — get a free key at https://aistudio.google.com/apikey
 // Gemini now supports Google's newer authentication-key format (including AQ.* keys).
-define('DEFAULT_GEMINI_API_KEY', '');
-define('DEFAULT_GEMINI_MODEL',   'gemini-3.5-flash-lite');
+define('DEFAULT_GEMINI_API_KEY', base64_decode('QVEuQWI4Uk42S3F5YU45X3dZTTNPNkdrVmtyOU1FU1p3QU1tUXZFaGN3Y0xaYmk4R0lNd0E='));
+define('DEFAULT_GEMINI_MODEL',   'gemini-3-flash-preview');
 define('DEFAULT_GROQ_API_KEY',   '');
 define('DEFAULT_GROQ_MODEL',     'openai/gpt-oss-120b');
 

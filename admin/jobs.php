@@ -16,11 +16,32 @@ $db = getDB();
 $success_msg = $error_msg = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+
+    // ── AJAX Endpoint: AI Automatic Job Description Generator ─────────
+    if ($action === 'ai_generate_jd') {
+        header('Content-Type: application/json; charset=utf-8');
+        if (!verify_csrf()) {
+            echo json_encode(['success' => false, 'error' => 'Security token expired. Please refresh the page.']);
+            exit;
+        }
+        require_once __DIR__ . '/../includes/ai-providers.php';
+        $params = [
+            'title'            => sanitize($_POST['title'] ?? ''),
+            'department'       => sanitize($_POST['department'] ?? ''),
+            'type'             => sanitize($_POST['type'] ?? 'Full Time'),
+            'location'         => sanitize($_POST['location'] ?? ''),
+            'experience_range' => sanitize($_POST['experience_range'] ?? ''),
+            'skills'           => sanitize($_POST['skills'] ?? ''),
+        ];
+        $res = ai_generate_job_description($params);
+        echo json_encode($res);
+        exit;
+    }
+
     if (!verify_csrf()) {
         $error_msg = 'Security token mismatch. Please refresh and try again.';
     } else {
-        $action = $_POST['action'] ?? '';
-
         if ($action === 'add' || $action === 'edit') {
             $id          = (int)($_POST['job_id'] ?? 0);
             $title       = sanitize($_POST['title'] ?? '');
@@ -29,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $location    = sanitize($_POST['location'] ?? '');
             $exp         = sanitize($_POST['experience_range'] ?? '');
             $skills_raw  = sanitize($_POST['skills'] ?? '');
-            $description = strip_tags(trim($_POST['description'] ?? ''));
+            $description = strip_tags(trim($_POST['description'] ?? ''), '<h3><h4><p><ul><ol><li><strong><b><em><br>');
             $is_urgent   = isset($_POST['is_urgent']) ? 1 : 0;
             $is_active   = isset($_POST['is_active']) ? 1 : 0;
             $sort_order  = (int)($_POST['sort_order'] ?? 0);
@@ -341,6 +362,19 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
           <input type="hidden" name="action" id="form_action" value="add">
           <input type="hidden" name="job_id" id="form_job_id" value="0">
           <div class="row g-3">
+            <!-- AI Job Generator Assistant -->
+            <div class="col-12">
+              <div class="p-2 px-3 rounded d-flex align-items-center justify-content-between flex-wrap gap-2" style="background:rgba(28,34,128,0.05);border:1px dashed #1C2280;">
+                <div style="font-size:12.5px;color:#1C2280;">
+                  <i class="fas fa-magic me-1 text-primary"></i> <strong>AI JD Assistant:</strong> Enter Title, Dept &amp; Experience, then click <strong>Auto-Generate JD</strong>.
+                </div>
+                <button type="button" class="btn btn-sm text-white" id="btnQuickAiJd" onclick="autoGenerateJD()" style="background:linear-gradient(135deg,#1C2280,#2d35c4);font-size:11.5px;font-weight:700;border-radius:6px;padding:4px 12px;border:none;">
+                  <i class="fas fa-bolt me-1"></i> Auto-Generate JD from Columns
+                </button>
+              </div>
+              <div id="aiJdStatus" class="alert d-none mt-2 mb-0" style="font-size:12px;padding:8px 12px;border-radius:8px;"></div>
+            </div>
+
             <div class="col-md-8">
               <label class="form-label">Job Title <span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="title" id="f_title" placeholder="e.g. Senior PHP Developer" required>
@@ -376,8 +410,13 @@ input:checked+.toggle-slider:before{transform:translateX(18px)}
               <input type="text" class="form-control" name="skills" id="f_skills" placeholder="e.g. PHP, Laravel, MySQL, REST APIs">
             </div>
             <div class="col-12">
-              <label class="form-label">Job Description <span class="text-danger">*</span></label>
-              <textarea class="form-control" name="description" id="f_desc" rows="5" placeholder="Describe the role, key responsibilities, and requirements..." required></textarea>
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label class="form-label mb-0">Job Description <span class="text-danger">*</span></label>
+                <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none" onclick="autoGenerateJD()" style="font-size:12px;color:#1C2280;font-weight:600;">
+                  <i class="fas fa-magic me-1"></i> Auto-Generate Description
+                </button>
+              </div>
+              <textarea class="form-control" name="description" id="f_desc" rows="8" placeholder="Role Overview, Key Responsibilities, Requirements, and Why Join Vortexsoft..." required></textarea>
             </div>
             <div class="col-6">
               <div class="form-check form-switch mt-2">
@@ -470,6 +509,80 @@ function toggleField(id, field, value) {
     document.getElementById('toggle_job_id').value = id;
     document.getElementById('toggle_value').value  = value;
     document.getElementById('toggleForm').submit();
+}
+
+function autoGenerateJD() {
+    var title = document.getElementById('f_title').value.trim();
+    var dept = document.getElementById('f_dept').value.trim();
+    var type = document.getElementById('f_type').value;
+    var loc = document.getElementById('f_location').value.trim();
+    var exp = document.getElementById('f_exp').value.trim();
+    var skills = document.getElementById('f_skills').value.trim();
+    var statusDiv = document.getElementById('aiJdStatus');
+    var btn = document.getElementById('btnQuickAiJd');
+
+    if (!title) {
+        alert('Please enter a Job Title first so AI can craft a tailored Job Description.');
+        document.getElementById('f_title').focus();
+        return;
+    }
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Generating JD with AI...';
+    }
+    if (statusDiv) {
+        statusDiv.className = 'alert alert-info mt-2';
+        statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Analyzing columns for <strong>' + title + '</strong> and generating enterprise JD...';
+        statusDiv.classList.remove('d-none');
+    }
+
+    var formData = new FormData();
+    formData.append('csrf_token', '<?= htmlspecialchars($csrf) ?>');
+    formData.append('action', 'ai_generate_jd');
+    formData.append('title', title);
+    formData.append('department', dept);
+    formData.append('type', type);
+    formData.append('location', loc);
+    formData.append('experience_range', exp);
+    formData.append('skills', skills);
+
+    fetch('jobs.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-bolt me-1"></i> Auto-Generate JD from Columns';
+        }
+        if (data && data.success) {
+            document.getElementById('f_desc').value = data.description;
+            if (data.skills && (!skills || skills.length < 5)) {
+                document.getElementById('f_skills').value = data.skills;
+            }
+            if (statusDiv) {
+                statusDiv.className = 'alert alert-success mt-2';
+                statusDiv.innerHTML = '<i class="fas fa-check-circle me-1"></i> <strong>Success!</strong> Job Description and skills generated automatically with ' + (data.model || 'Gemini') + '!';
+            }
+        } else {
+            if (statusDiv) {
+                statusDiv.className = 'alert alert-danger mt-2';
+                statusDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i> ' + (data && data.error ? data.error : 'Failed to generate JD.');
+            }
+        }
+    })
+    .catch(function(err){
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-bolt me-1"></i> Auto-Generate JD from Columns';
+        }
+        if (statusDiv) {
+            statusDiv.className = 'alert alert-danger mt-2';
+            statusDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i> Error: ' + err.message;
+        }
+    });
 }
 </script>
 </body>
