@@ -46,15 +46,18 @@ $prefix       = $prefix ?? './';
 $page_title   = $page_title ?? 'Top Global IT & BPO Outsourcing Company in India | AI Services | Vortexsoft Innovations Private Limited';
 $page_desc    = $page_desc ?? 'Vortexsoft Innovations Private Limited — ISO 27001 certified global IT & BPO outsourcing company in Pune & Bengaluru, India. Expert in AI Solutions, Healthcare BPO, Publishing, Real Estate, Data Annotation & 75+ services for 150+ clients worldwide.';
 $page_keywords = $page_keywords ?? 'Vortexsoft, Vortexsoft Innovations, Vortexsoft Innovations Private Limited, Vortexsoft Innovations Pvt Ltd, Vortex Soft, Vortex Innovations, Vortex, Vertex, Vortex Group, IT outsourcing company India, BPO company Pune, BPO company Bengaluru, AI solutions company India, Healthcare BPO India, Medical Coding outsourcing, ICD-10 CPT medical billing services, Revenue Cycle Management RCM outsourcing, denial management AR recovery, AI Data Annotation India, machine learning training datasets, computer vision bounding box annotation, LiDAR 3D point cloud labeling, RLHF training data outsourcing, Enterprise Workforce OS, VortexEXHO, vortexHire, vortexKonnect, Vortexreach, vortexsoftpublishing, vortexsofthrms, S1000D XML conversion, prepress typesetting outsourcing, commercial lease abstraction services, CAM audit property accounting, mortgage title search settlement typing, offshore development center India, ISO 27001 BPO company, HIPAA compliant healthcare outsourcing, AI HRMS payroll automation, hire dedicated developers Pune Bengaluru';
-$canonical_url = $canonical_url ?? SITE_URL . '/';
-$og_image     = $og_image ?? (SITE_URL . '/assets/images/vortexsoft-share-banner.png');
-
-// Detect active page & path
+// Detect active page & path and enforce single global canonical domain: https://www.vortexsoftinnovations.com
 $current_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
-$canonical_url = $canonical_url ?? (SITE_URL . $current_path);
-$com_url       = PRIMARY_COM_URL . $current_path;
-$in_url        = PRIMARY_IN_URL . $current_path;
-$og_image     = $og_image ?? (SITE_URL . '/assets/images/vortexsoft-share-banner.png');
+if ($current_path === '/index.php') {
+    $current_path = '/';
+}
+$com_url = PRIMARY_COM_URL . $current_path;
+if (empty($canonical_url) || str_contains($canonical_url, 'vortexsoftinnovations.in')) {
+    $canonical_url = $com_url;
+} else {
+    $canonical_url = preg_replace('/^https?:\/\/(www\.)?vortexsoftinnovations\.(in|com)/i', PRIMARY_COM_URL, $canonical_url);
+}
+$og_image = $og_image ?? (PRIMARY_COM_URL . '/assets/images/vortexsoft-share-banner.png');
 
 function nav_active(string $page, string $path): string {
     if ($page === 'home' && ($path === '/' || $path === '/index.php' || $path === '')) return 'active';
@@ -170,9 +173,9 @@ function nav_active(string $page, string $path): string {
     <meta name="keywords" content="<?= htmlspecialchars($page_keywords) ?>">
     <meta name="news_keywords" content="Vortexsoft Innovations, Vortexsoft, AI outsourcing India, Healthcare RCM, Medical Coding, Data Annotation, IT Services Pune Bengaluru, VortexEXHO, vortexsofthrms, Lease Abstraction, S1000D XML, US Title Search">
 
-    <!-- Canonical & Alternate Multi-Region URLs -->
+    <!-- Canonical & Alternate Multi-Region URLs (Consolidated to Global .com) -->
     <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
-    <link rel="alternate" hreflang="en-IN" href="<?= htmlspecialchars($in_url) ?>">
+    <link rel="alternate" hreflang="en-IN" href="<?= htmlspecialchars($com_url) ?>">
     <link rel="alternate" hreflang="en-US" href="<?= htmlspecialchars($com_url) ?>">
     <link rel="alternate" hreflang="en-GB" href="<?= htmlspecialchars($com_url) ?>">
     <link rel="alternate" hreflang="en-AU" href="<?= htmlspecialchars($com_url) ?>">
@@ -314,7 +317,7 @@ function nav_active(string $page, string $path): string {
             "@type": "QuantitativeValue",
             "value": "200+"
           },
-          "slogan": "Your Global AI, IT & BPO Partner",
+          "slogan": "Engineering Intelligent Enterprises. Scaling Global Operations.",
           "description": "Vortexsoft Innovations Private Limited is a CMMI Level 3 appraised, ISO 27001:2013 certified, and HIPAA-compliant global IT and BPO outsourcing company founded in 2020. Headquartered in Pune with a technology delivery center in Bengaluru and a corporate entity in Wyoming, USA, Vortexsoft delivers 75+ enterprise services across AI Solutions, Healthcare BPO/RCM, AI Data Annotation, Custom Software Development, and STM Publishing for 150+ international clients.",
           "award": [
             "CMMI Level 3 Appraised",

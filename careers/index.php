@@ -1,8 +1,9 @@
 <?php
 /**
- * Vortexsoft Innovations — careers/ redirect
- * Redirects permanently to canonical /careers.php with query string preserved
+ * Vortexsoft Innovations Private Limited — 301 Permanent Redirect
+ * Eliminates intermediate redirect screens and consolidates SEO equity to canonical /careers.php
  */
 $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
-header("Location: /careers.php" . $qs, true, 301);
+header("HTTP/1.1 301 Moved Permanently");
+header("Location: https://www.vortexsoftinnovations.com/careers.php" . $qs, true, 301);
 exit;

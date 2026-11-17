@@ -9,7 +9,6 @@ Disallow: /assets/partials/
 Disallow: /admin/
 Disallow: /uploads/resumes/
 Disallow: /backups/
-Disallow: /career/
 Crawl-delay: 1
 
 # ─── GOOGLE ────────────────────────────────────────────────────────────────────

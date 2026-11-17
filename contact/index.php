@@ -1,19 +1,9 @@
 <?php
 /**
- * Vortexsoft Innovations — contact
- * Shared Header & Footer Integration
+ * Vortexsoft Innovations Private Limited — 301 Permanent Redirect
+ * Eliminates intermediate redirect screens and consolidates SEO equity to canonical /contact.php
  */
-
-$page_title    = 'Redirecting... | Vortexsoft Innovations';
-$page_desc     = '';
-$canonical_url = 'https://www.vortexsoftinnovations.com/contact.html';
-$prefix        = '../';
-
-require_once __DIR__ . '/../config/constants.php';
-require_once __DIR__ . '/../includes/header.php';
-?>
-
-<div class="spinner"></div>
-  <p>Redirecting to <a href="https://www.vortexsoftinnovations.com/contact.html">Contact</a>...</p>
-
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+$qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
+header("HTTP/1.1 301 Moved Permanently");
+header("Location: https://www.vortexsoftinnovations.com/contact.php" . $qs, true, 301);
+exit;

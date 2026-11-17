@@ -224,42 +224,42 @@ require_once __DIR__ . '/includes/header.php';
       <div class="col-lg-7 col-xl-7 hero-content text-start">
         <div class="glass-pill-3d mb-3 hero-badge-anim" data-depth="0.03">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E31E25;"></span>
-          <span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">Global Technology &amp; Operations • ISO 27001:2013 &amp; HIPAA Compliant</span>
+          <span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">Global Enterprise Hub • ISO 27001:2013 &amp; CMMI Level 3 Certified</span>
         </div>
         <h1 class="hero-title hero-title-anim" style="font-size:clamp(2.4rem,4.2vw,3.8rem);line-height:1.15;font-weight:800;color:#111827;letter-spacing:-0.02em;margin-bottom:20px;">
-          Technology. Intelligence. <br class="d-none d-sm-inline"><span style="color:#252B83;">Operational Excellence.</span>
+          Engineering Intelligent Enterprises. <br class="d-none d-sm-inline"><span style="color:#252B83;">Scaling Global Operations.</span>
         </h1>
         <p class="hero-description hero-desc-anim" style="font-size:18px;line-height:1.75;color:#475569;margin-bottom:28px;max-width:640px;">
-          We help businesses scale through technology, AI-powered solutions, specialized outsourcing and reliable global operations.
+          Next-gen AI agents, enterprise software engineering, US mortgage &amp; title BPM, and HIPAA-compliant healthcare back-office operations delivered with multi-shift precision from Pune and Bengaluru.
         </p>
         <div class="hero-btns hero-btns-anim">
-          <a href="service.php" class="btn-hero-primary magnetic" style="background:#252B83;border-color:#252B83;box-shadow:0 4px 14px rgba(37,43,131,0.25);"><i class="fas fa-th-large"></i> Explore Our Services</a>
-          <a href="contact.php" class="btn-hero-secondary magnetic" style="color:#252B83;border-color:#252B83;"><i class="fas fa-handshake"></i> Partner With Us</a>
+          <a href="contact.php" class="btn-hero-primary magnetic" style="background:#252B83;border-color:#252B83;box-shadow:0 4px 14px rgba(37,43,131,0.25);"><i class="fas fa-calendar-check me-2"></i> Schedule Executive Consultation</a>
+          <a href="#solution-finder" class="btn-hero-secondary magnetic" style="color:#252B83;border-color:#252B83;"><i class="fas fa-calculator me-2"></i> Solution Finder &amp; ROI Estimator</a>
         </div>
 
         <!-- 8D Service Motion Ecosystem Quick Bar -->
         <div class="hero-8d-services-strip hero-strip-anim">
           <div class="strip-header">
-            <span><span class="pulse-dot"></span>Interactive Service Constellation</span>
-            <span class="badge bg-primary text-white" style="font-size:9.5px;letter-spacing:0.5px;">Hover to Track</span>
+            <span><span class="pulse-dot"></span>Interactive Core Divisions</span>
+            <span class="badge bg-primary text-white" style="font-size:9.5px;letter-spacing:0.5px;">Explore Verticals</span>
           </div>
           <div class="strip-chips">
-            <span class="motion-service-chip" data-target-service="ai"><i class="fas fa-brain text-danger"></i> AI &amp; Automation</span>
-            <span class="motion-service-chip" data-target-service="hrms" style="border-color:rgba(225,29,72,0.35);background:rgba(225,29,72,0.06);"><i class="fas fa-users-cog" style="color:#E11D48;"></i> HR &amp; Payroll Software</span>
-            <span class="motion-service-chip" data-target-service="rcm"><i class="fas fa-heartbeat text-info"></i> Healthcare RCM</span>
-            <span class="motion-service-chip" data-target-service="web"><i class="fas fa-code" style="color:#6366F1;"></i> Custom Web &amp; Cloud</span>
-            <span class="motion-service-chip" data-target-service="publishing"><i class="fas fa-book-open" style="color:#8B5CF6;"></i> Publishing AI</span>
-            <span class="motion-service-chip" data-target-service="bpo"><i class="fas fa-headset text-success"></i> 24/7 Global BPO</span>
+            <a href="#core-verticals" class="motion-service-chip" data-target-service="ai"><i class="fas fa-brain text-danger"></i> AI &amp; Software</a>
+            <a href="#core-verticals" class="motion-service-chip" data-target-service="title"><i class="fas fa-landmark" style="color:#E11D48;"></i> US Title &amp; Mortgage BPM</a>
+            <a href="#core-verticals" class="motion-service-chip" data-target-service="rcm"><i class="fas fa-heartbeat text-info"></i> Healthcare RCM</a>
+            <a href="#core-verticals" class="motion-service-chip" data-target-service="staffing"><i class="fas fa-users" style="color:#6366F1;"></i> Global Staffing</a>
+            <a href="#core-verticals" class="motion-service-chip" data-target-service="energy"><i class="fas fa-bolt" style="color:#F59E0B;"></i> Energy &amp; B2B Sales</a>
+            <a href="#core-verticals" class="motion-service-chip" data-target-service="edtech"><i class="fas fa-graduation-cap" style="color:#10B981;"></i> EdTech &amp; Bootcamps</a>
           </div>
         </div>
         
         <!-- Interactive 3D Stat Chips -->
         <div class="hero-stats-grid hero-stats-anim">
-          <div class="hero-stat-chip tilt-card-3d" data-depth="0.02"><div class="number" data-counter data-target="6">6<span>+</span></div><div class="label">Years Exp.</div></div>
-          <div class="hero-stat-chip tilt-card-3d" data-depth="0.04"><div class="number" data-counter data-target="200">200<span>+</span></div><div class="label">Projects</div></div>
-          <div class="hero-stat-chip tilt-card-3d" data-depth="0.03"><div class="number" data-counter data-target="150">150<span>+</span></div><div class="label">Clients</div></div>
-          <div class="hero-stat-chip tilt-card-3d" data-depth="0.05"><div class="number" data-counter data-target="65">65<span>+</span></div><div class="label">Services</div></div>
-          <div class="hero-stat-chip tilt-card-3d" data-depth="0.02"><div class="number" data-counter data-target="200">200<span>+</span></div><div class="label">Talent</div></div>
+          <div class="hero-stat-chip tilt-card-3d" data-depth="0.02"><div class="number" style="font-size:1.35rem;">ISO<span>27001</span></div><div class="label">InfoSec Certified</div></div>
+          <div class="hero-stat-chip tilt-card-3d" data-depth="0.04"><div class="number" style="font-size:1.35rem;">CMMI<span>L3</span></div><div class="label">Process Maturity</div></div>
+          <div class="hero-stat-chip tilt-card-3d" data-depth="0.03"><div class="number" style="font-size:1.35rem;">HIPAA<span>✓</span></div><div class="label">Compliant Ops</div></div>
+          <div class="hero-stat-chip tilt-card-3d" data-depth="0.05"><div class="number" style="font-size:1.35rem;">24<span>/7</span></div><div class="label">Global Delivery</div></div>
+          <div class="hero-stat-chip tilt-card-3d" data-depth="0.02"><div class="number" style="font-size:1.35rem;">65<span>+</span></div><div class="label">Enterprise Sol.</div></div>
         </div>
       </div>
 
@@ -615,8 +615,8 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <!-- ═══════ 3 FLAGSHIP POWERHOUSE CAPABILITIES (MOVED TO TOP OF FOLD) ═══════ -->
-<!-- â•â•â•â•â•â•â• AI, BPO AUTOMATION & TITLE ABSTRACTING HIGHLIGHT â•â•â•â•â•â•â• -->
-<section class="section-pad" id="enterprise-capabilities" style="background:linear-gradient(180deg,#f8faff 0%,#eef2ff 100%);position:relative;overflow:hidden;">
+<!-- ═══════ 6 CORE ENTERPRISE BUSINESS VERTICALS ═══════ -->
+<section class="section-pad" id="core-verticals" style="background:linear-gradient(180deg,#f8faff 0%,#eef2ff 100%);position:relative;overflow:hidden;">
   <div style="position:absolute;top:-100px;right:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(28,34,128,0.08) 0%,transparent 70%);pointer-events:none;"></div>
   <div style="position:absolute;bottom:-120px;left:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(204,34,40,0.06) 0%,transparent 70%);pointer-events:none;"></div>
 
@@ -624,29 +624,29 @@ require_once __DIR__ . '/includes/header.php';
     <!-- Section Header -->
     <div class="text-center mb-5 scroll-reveal">
       <div class="section-tag" style="background:rgba(28,34,128,0.08);color:var(--primary);border:1px solid rgba(28,34,128,0.18);">
-        <i class="fas fa-brain me-1 text-danger"></i> Enterprise Scalability &amp; Precision
+        <i class="fas fa-cubes me-1 text-danger"></i> Strategic Enterprise Divisions
       </div>
       <h2 class="section-title">
-        Full-Spectrum <span class="highlight">IT &amp; Non-IT Services</span> Built with Cutting-Edge AI Automations
+        Core Business Verticals <span class="highlight">Built for Global Scale</span>
       </h2>
       <div class="section-divider"></div>
-      <p class="section-subtitle" style="max-width:760px;margin:0 auto;color:#475569;">
-        From small-scale agile businesses to Fortune 500 enterprises, we architect custom AI automations, scalable BPO workflows, and lead the industry as <strong>India's #1 Title Abstracting &amp; Real Estate Search Partner</strong>.
+      <p class="section-subtitle" style="max-width:820px;margin:0 auto;color:#475569;">
+        Vortexsoft Innovations delivers mission-critical technology, BPM, and workforce infrastructure across six specialized industry divisions—backed by ISO 27001 data security, CMMI Level 3 process maturity, and multi-shift 24/7 execution.
       </p>
     </div>
 
-    <!-- Quick Stat Badges -->
+    <!-- Quick Stat Trust Strip -->
     <div class="row g-3 justify-content-center mb-5 scroll-reveal">
       <div class="col-6 col-md-3">
         <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #1C2280;">
           <div style="font-size:26px;font-weight:900;color:#1C2280;font-family:'Poppins',sans-serif;">40+</div>
-          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Happy Title Abstracting Clients</div>
+          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">US Title BPM Clients</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #CC2228;">
-          <div style="font-size:26px;font-weight:900;color:#CC2228;font-family:'Poppins',sans-serif;">Large &amp; Small</div>
-          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Enterprise Scale AI Automations</div>
+          <div style="font-size:26px;font-weight:900;color:#CC2228;font-family:'Poppins',sans-serif;">65% – 72%</div>
+          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Operational Cost Savings</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
@@ -658,121 +658,438 @@ require_once __DIR__ . '/includes/header.php';
       <div class="col-6 col-md-3">
         <div style="background:#fff;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 4px 16px rgba(28,34,128,0.06);border:1px solid #e2e8f0;border-bottom:3px solid #5BA8D4;">
           <div style="font-size:26px;font-weight:900;color:#0284c7;font-family:'Poppins',sans-serif;">50 US States</div>
-          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Title &amp; Settlement Coverage</div>
+          <div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Mortgage &amp; Title Coverage</div>
         </div>
       </div>
     </div>
 
-    <!-- 3 Core Strategic Pillars -->
+    <!-- 6 Core Business Verticals Grid -->
     <div class="row g-4 align-items-stretch">
 
-      <!-- Card 1: IT & Non-IT + Custom AI Automations -->
+      <!-- Vertical 1: AI Solutions & Custom Software Engineering -->
       <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
-        <div style="background:#fff;border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.07);border:1px solid #e0e7ff;height:100%;display:flex;flex-direction:column;transition:all 0.3s ease;" class="hover-lift">
-          <div style="width:60px;height:60px;border-radius:16px;background:rgba(28,34,128,0.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
-            <i class="fas fa-microchip"></i>
+        <div class="h-100 p-4 rounded-4 bg-white shadow-sm border d-flex flex-column hover-lift" style="border-color:#e0e7ff!important;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(28,34,128,0.08);color:#1C2280;display:flex;align-items:center;justify-content:center;font-size:22px;">
+              <i class="fas fa-brain"></i>
+            </div>
+            <span class="badge" style="background:#eef2ff;color:#1C2280;font-size:11px;font-weight:700;">AI &amp; SOFTWARE</span>
           </div>
-          <div style="display:inline-block;padding:4px 10px;background:#eef2ff;color:#1C2280;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
-            IT &amp; Non-IT Services
-          </div>
-          <h3 style="font-size:20px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:14px;">
-            AI Automations for Large &amp; Small Scale Enterprises
+          <h3 style="font-size:19px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:12px;">
+            AI Solutions &amp; Custom Software Engineering
           </h3>
-          <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:18px;flex-grow:1;">
-            We engineer autonomous AI agents, enterprise LLM pipelines, RPA bot workflows, and custom SaaS platforms. Whether you need an agile automation for a 5-person team or complex high-throughput automation for 5,000+ users, we deliver turnkey reliability.
+          <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:16px;flex-grow:1;">
+            Production-grade autonomous AI agents, workflow automation, full-stack web and cloud platforms, and bespoke software engineering. We modernize legacy tech stacks with resilient microservices and continuous DevOps.
           </p>
-          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:#334155;line-height:1.8;">
-            <li><i class="fas fa-check-circle text-primary me-2"></i> Custom Generative AI &amp; Agentic Workflows</li>
-            <li><i class="fas fa-check-circle text-primary me-2"></i> Full-Stack Software, APIs &amp; DevOps Pipelines</li>
-            <li><i class="fas fa-check-circle text-primary me-2"></i> Non-IT Staffing, Payroll &amp; Operations Support</li>
-          </ul>
-          <a href="service.php" class="btn btn-sm btn-outline-primary fw-bold" style="border-radius:10px;padding:8px 16px;">
-            Explore AI Solutions <i class="fas fa-arrow-right ms-1"></i>
+          <div class="mb-3">
+            <div class="d-flex flex-wrap gap-1 mb-2">
+              <span class="badge bg-light text-dark border" style="font-size:11px;">AI Agents</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">LLM Workflows</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">React / Python</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Cloud DevOps</span>
+            </div>
+          </div>
+          <a href="software-solutions/index.php" class="btn btn-sm btn-outline-primary fw-bold" style="border-radius:8px;">
+            Explore AI Engineering <i class="fas fa-arrow-right ms-1"></i>
           </a>
         </div>
       </div>
 
-      <!-- Card 2: BPO Automations & Intelligent Operations -->
+      <!-- Vertical 2: U.S. Title Search & Mortgage BPM Services -->
       <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
-        <div style="background:#fff;border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.07);border:1px solid #fee2e2;height:100%;display:flex;flex-direction:column;transition:all 0.3s ease;" class="hover-lift">
-          <div style="width:60px;height:60px;border-radius:16px;background:rgba(204,34,40,0.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
-            <i class="fas fa-robot"></i>
+        <div class="h-100 p-4 rounded-4 shadow-sm border d-flex flex-column hover-lift" style="background:linear-gradient(135deg,#0d1035 0%,#1C2280 100%);border-color:rgba(255,255,255,0.15)!important;color:#fff;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,0.15);color:#fbbf24;display:flex;align-items:center;justify-content:center;font-size:22px;">
+              <i class="fas fa-landmark"></i>
+            </div>
+            <span class="badge bg-warning text-dark fw-bold" style="font-size:11px;">#1 TITLE PARTNER IN INDIA</span>
           </div>
-          <div style="display:inline-block;padding:4px 10px;background:#fee2e2;color:#CC2228;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
-            BPO Automations
-          </div>
-          <h3 style="font-size:20px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:14px;">
-            Intelligent BPO &amp; Robotic Process Automation
+          <h3 style="font-size:19px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:12px;">
+            U.S. Title Search &amp; Mortgage BPM Services
           </h3>
-          <p style="font-size:14px;color:#475569;line-height:1.75;margin-bottom:18px;flex-grow:1;">
-            Modernize back-office operations with AI-powered speech analytics, automated claims processing, smart OCR invoice extraction, and zero-defect data pipelines that operate 24/7 with human-in-the-loop quality controls.
+          <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.7;margin-bottom:16px;flex-grow:1;">
+            End-to-end offshore title search, examination, curative, and mortgage production support. Battle-tested across 50 US States with native production mastery across leading title software platforms.
           </p>
-          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:#334155;line-height:1.8;">
-            <li><i class="fas fa-check-circle text-danger me-2"></i> Real-Time Call Sentiment &amp; Quality Analytics</li>
-            <li><i class="fas fa-check-circle text-danger me-2"></i> Automated Healthcare RCM, Coding &amp; Billing</li>
-            <li><i class="fas fa-check-circle text-danger me-2"></i> High-Speed Data Annotation &amp; Computer Vision</li>
-          </ul>
-          <a href="service.php#healthcare" class="btn btn-sm btn-outline-danger fw-bold" style="border-radius:10px;padding:8px 16px;">
-            Explore BPO Services <i class="fas fa-arrow-right ms-1"></i>
+          <div class="mb-3">
+            <div class="d-flex flex-wrap gap-1 mb-2">
+              <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:10.5px;">Qualia</span>
+              <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:10.5px;">Resware</span>
+              <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:10.5px;">SoftPro</span>
+              <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:10.5px;">RamQuest</span>
+              <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:10.5px;">TitlePoint</span>
+              <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:10.5px;">AccuTitle</span>
+            </div>
+          </div>
+          <a href="title-settlement/index.php" class="btn btn-sm btn-warning fw-bold text-dark" style="border-radius:8px;">
+            Explore Title BPM <i class="fas fa-arrow-right ms-1"></i>
           </a>
         </div>
       </div>
 
-      <!-- Card 3: India's Best Title Abstracting Company (40+ Happy Clients) -->
-      <div class="col-lg-4 col-md-12 scroll-reveal delay-3">
-        <div style="background:linear-gradient(135deg,#0d1035 0%,#1C2280 100%);border-radius:20px;padding:34px 28px;box-shadow:0 12px 36px rgba(28,34,128,0.18);border:1px solid rgba(255,255,255,0.15);height:100%;display:flex;flex-direction:column;color:#fff;position:relative;overflow:hidden;" class="hover-lift">
-          <div style="position:absolute;top:12px;right:16px;">
-            <span class="badge bg-warning text-dark fw-bold px-2 py-1" style="font-size:11px;letter-spacing:0.5px;">
-              <i class="fas fa-crown me-1 text-dark"></i> #1 IN INDIA
-            </span>
+      <!-- Vertical 3: Healthcare BPO & HIPAA-Compliant Operations -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-3">
+        <div class="h-100 p-4 rounded-4 bg-white shadow-sm border d-flex flex-column hover-lift" style="border-color:#fee2e2!important;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(204,34,40,0.08);color:#CC2228;display:flex;align-items:center;justify-content:center;font-size:22px;">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <span class="badge" style="background:#fee2e2;color:#CC2228;font-size:11px;font-weight:700;">HIPAA COMPLIANT</span>
           </div>
-          <div style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.12);color:#fbbf24;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px;">
-            <i class="fas fa-landmark"></i>
-          </div>
-          <div style="display:inline-block;padding:4px 10px;background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:700;border-radius:6px;width:max-content;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">
-            Title Search &amp; Settlement
-          </div>
-          <h3 style="font-size:20px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:14px;">
-            India's Best Title Abstracting Company
+          <h3 style="font-size:19px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:12px;">
+            Healthcare BPO &amp; HIPAA Operations
           </h3>
-          <p style="font-size:14px;color:rgba(255,255,255,0.9);line-height:1.75;margin-bottom:18px;flex-grow:1;">
-            Trusted by <strong>more than 40+ happy clients</strong> across US title companies, attorneys, lenders, and settlement agencies. We provide lightning-fast 24-to-48 hour abstracting turnaround with 99.8% title examination accuracy across all 50 US States.
+          <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:16px;flex-grow:1;">
+            Revenue cycle management (RCM), certified medical billing and coding (ICD-10-CM / CPT / HCPCS), denial mitigation, and aged AR recovery to elevate provider collections and accelerate cash cycles.
           </p>
-          <ul style="list-style:none;padding:0;margin:0 0 20px 0;font-size:13px;color:rgba(255,255,255,0.92);line-height:1.8;">
-            <li><i class="fas fa-check-circle text-warning me-2"></i> 40-Year Searches, 2-Owner Searches &amp; Updates</li>
-            <li><i class="fas fa-check-circle text-warning me-2"></i> Municipal Lien, Judgment &amp; Tax Delinquency Research</li>
-            <li><i class="fas fa-check-circle text-warning me-2"></i> Title Commitment Prep, Deed Reports &amp; Easement Plotting</li>
-          </ul>
-          <a href="title-settlement/index.php" class="btn btn-sm btn-warning fw-bold text-dark" style="border-radius:10px;padding:8px 16px;">
-            View Title Abstracting Services <i class="fas fa-arrow-right ms-1"></i>
+          <div class="mb-3">
+            <div class="d-flex flex-wrap gap-1 mb-2">
+              <span class="badge bg-light text-dark border" style="font-size:11px;">End-to-End RCM</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">CPC/COC Coding</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Denial Management</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">AR Recovery</span>
+            </div>
+          </div>
+          <a href="health-care-services/index.php" class="btn btn-sm btn-outline-danger fw-bold" style="border-radius:8px;">
+            Explore Healthcare RCM <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Vertical 4: Global Staffing & Managed Workforce Solutions -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
+        <div class="h-100 p-4 rounded-4 bg-white shadow-sm border d-flex flex-column hover-lift" style="border-color:#e2e8f0!important;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(99,102,241,0.08);color:#6366F1;display:flex;align-items:center;justify-content:center;font-size:22px;">
+              <i class="fas fa-users-cog"></i>
+            </div>
+            <span class="badge" style="background:#e0e7ff;color:#4338CA;font-size:11px;font-weight:700;">TALENT OUTSOURCING</span>
+          </div>
+          <h3 style="font-size:19px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:12px;">
+            Global Staffing &amp; Managed Workforce
+          </h3>
+          <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:16px;flex-grow:1;">
+            Dedicated offshore pods, IT/non-IT technical resource outsourcing, and rapid talent deployment. Build high-performing extension teams in Pune &amp; Bengaluru with full timezone alignment and 60%+ cost optimization.
+          </p>
+          <div class="mb-3">
+            <div class="d-flex flex-wrap gap-1 mb-2">
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Dedicated ODC</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">7-Day Deployment</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Lead Pod Leads</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">SLA Governance</span>
+            </div>
+          </div>
+          <a href="contact.php?subject=Staffing" class="btn btn-sm btn-outline-primary fw-bold" style="border-radius:8px;">
+            Deploy Dedicated Pods <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Vertical 5: Commercial Energy & International Sales Operations -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
+        <div class="h-100 p-4 rounded-4 bg-white shadow-sm border d-flex flex-column hover-lift" style="border-color:#fef3c7!important;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(245,158,11,0.08);color:#D97706;display:flex;align-items:center;justify-content:center;font-size:22px;">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <span class="badge" style="background:#fef3c7;color:#B45309;font-size:11px;font-weight:700;">INTERNATIONAL SALES</span>
+          </div>
+          <h3 style="font-size:19px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:12px;">
+            Commercial Energy &amp; International Sales
+          </h3>
+          <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:16px;flex-grow:1;">
+            Outbound B2B lead generation, pre-qualified executive appointment setting, and international market expansion across the US, UK, and European energy, broker, and commercial utility ecosystems.
+          </p>
+          <div class="mb-3">
+            <div class="d-flex flex-wrap gap-1 mb-2">
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Commercial Energy</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Qualified Appointments</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">US/UK/EU Markets</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">CRM Enrichment</span>
+            </div>
+          </div>
+          <a href="contact.php?subject=SalesBPO" class="btn btn-sm btn-outline-warning text-dark fw-bold" style="border-radius:8px;">
+            Scale Sales Operations <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Vertical 6: Vortexsoft EdTech & Corporate Readiness -->
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-3">
+        <div class="h-100 p-4 rounded-4 bg-white shadow-sm border d-flex flex-column hover-lift" style="border-color:#d1fae5!important;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(16,185,129,0.08);color:#059669;display:flex;align-items:center;justify-content:center;font-size:22px;">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <span class="badge" style="background:#d1fae5;color:#047857;font-size:11px;font-weight:700;">EDTECH &amp; TALENT LAB</span>
+          </div>
+          <h3 style="font-size:19px;font-weight:800;color:#0F172A;line-height:1.3;margin-bottom:12px;">
+            Vortexsoft EdTech &amp; Corporate Readiness
+          </h3>
+          <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:16px;flex-grow:1;">
+            Corporate fresher finishing schools, AI engineering bootcamps, and client-tailored technical upskilling programs bridging the industry gap with live production project simulations.
+          </p>
+          <div class="mb-3">
+            <div class="d-flex flex-wrap gap-1 mb-2">
+              <span class="badge bg-light text-dark border" style="font-size:11px;">AI Bootcamps</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Enterprise Stacks</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Paid Internships</span>
+              <span class="badge bg-light text-dark border" style="font-size:11px;">Fresher Readiness</span>
+            </div>
+          </div>
+          <a href="careers.php" class="btn btn-sm btn-outline-success fw-bold" style="border-radius:8px;">
+            View EdTech &amp; Careers <i class="fas fa-arrow-right ms-1"></i>
           </a>
         </div>
       </div>
 
     </div><!-- /.row -->
 
-    <!-- Interactive Trust Bar -->
-    <div class="mt-5 p-4 rounded-4 scroll-reveal" style="background:#fff;border:1px solid #e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,0.03);">
-      <div class="row align-items-center gy-3 text-center text-md-start">
-        <div class="col-md-8">
-          <h4 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:4px;">
-            <i class="fas fa-check-double text-success me-2"></i> Need Custom AI Automation or Title Abstracting Pods?
-          </h4>
-          <p style="font-size:13.5px;color:#64748b;margin:0;">
-            Get dedicated offshore delivery teams with ISO 27001 security, 24/7 SLA execution, and direct escalation channels.
-          </p>
-        </div>
-        <div class="col-md-4 text-md-end">
-          <a href="contact.php" class="btn btn-primary-custom" style="padding:10px 22px;font-size:14px;">
-            <i class="fas fa-headset me-1"></i> Speak to Our Specialists
-          </a>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
+<!-- ═══════ INTERACTIVE SOLUTION FINDER & ROI ESTIMATOR ═══════ -->
+<section class="section-pad" id="solution-finder" style="background:linear-gradient(135deg,#080B1A 0%,#0f172a 50%,#1C2280 100%);color:#fff;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-80px;right:-50px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(204,34,40,0.15) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-100px;left:-50px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(91,168,212,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div class="container position-relative" style="z-index:2;">
+    <div class="text-center mb-5 scroll-reveal">
+      <div class="badge px-3 py-2 rounded-pill mb-2" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#93c5fd;font-size:12px;letter-spacing:1px;text-transform:uppercase;">
+        <i class="fas fa-calculator me-1 text-warning"></i> Smart Decision Engine
+      </div>
+      <h2 style="font-size:clamp(2rem,3.2vw,2.8rem);font-weight:800;color:#fff;margin-bottom:12px;">
+        Interactive Solution Finder &amp; <span style="color:#60a5fa;">ROI Estimator</span>
+      </h2>
+      <p style="max-width:720px;margin:0 auto;color:#94a3b8;font-size:16px;">
+        Select your core industry requirement and target team scale to calculate your estimated monthly savings and recommended offshore engagement model.
+      </p>
+    </div>
+
+    <div class="row g-4 align-items-center justify-content-center">
+      <!-- Selector Card (Left) -->
+      <div class="col-lg-7 col-xl-7">
+        <div class="p-4 p-md-5 rounded-4 shadow-lg" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.12);">
+          
+          <!-- Step 1: Industry Vertical -->
+          <div class="mb-4">
+            <label class="form-label text-white fw-bold d-flex justify-content-between" style="font-size:14px;letter-spacing:0.5px;">
+              <span><span class="badge bg-primary me-2">1</span> SELECT BUSINESS VERTICAL</span>
+              <span id="selected-vertical-name" class="text-info fw-semibold">AI Solutions &amp; Software</span>
+            </label>
+            <div class="row g-2" id="roi-vertical-selector">
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start roi-v-btn active" data-vertical="ai" data-name="AI Solutions &amp; Software" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid #3b82f6;border-radius:10px;font-size:12px;">
+                  <i class="fas fa-brain text-info me-1"></i> AI &amp; Software
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start roi-v-btn" data-vertical="title" data-name="US Title Search &amp; Mortgage BPM" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-landmark text-warning me-1"></i> Title &amp; Mortgage
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start roi-v-btn" data-vertical="rcm" data-name="Healthcare RCM &amp; Medical Coding" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-heartbeat text-danger me-1"></i> Healthcare RCM
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start roi-v-btn" data-vertical="staffing" data-name="Dedicated Staffing &amp; ODC Pods" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-users text-primary me-1"></i> Global Staffing
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start roi-v-btn" data-vertical="energy" data-name="Energy &amp; B2B Sales Operations" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-bolt text-warning me-1"></i> Energy Sales BPO
+                </button>
+              </div>
+              <div class="col-6 col-md-4">
+                <button type="button" class="btn w-100 p-2 text-start roi-v-btn" data-vertical="edtech" data-name="Corporate EdTech &amp; Upskilling" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:12px;">
+                  <i class="fas fa-graduation-cap text-success me-1"></i> Corporate EdTech
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Team Scale / Pod Size -->
+          <div class="mb-4">
+            <label class="form-label text-white fw-bold d-flex justify-content-between" style="font-size:14px;letter-spacing:0.5px;">
+              <span><span class="badge bg-primary me-2">2</span> TARGET RESOURCE SCALE</span>
+              <span id="selected-scale-name" class="text-info fw-semibold">Agile Pod (1–5 Specialists)</span>
+            </label>
+            <div class="row g-2" id="roi-scale-selector">
+              <div class="col-4">
+                <button type="button" class="btn w-100 p-3 text-center roi-s-btn active" data-scale="small" data-name="Agile Pod (1–5 Specialists)" data-savings="$14,500" data-annual="$174,000" data-reduction="65%" data-turnaround="24–48 Hours" data-model="Dedicated Agile Pod with Dedicated Team Lead" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid #3b82f6;border-radius:10px;">
+                  <div class="fw-bold" style="font-size:14px;">1 – 5</div>
+                  <small style="font-size:11px;color:#94a3b8;">Specialists</small>
+                </button>
+              </div>
+              <div class="col-4">
+                <button type="button" class="btn w-100 p-3 text-center roi-s-btn" data-scale="scale" data-name="Scale Division (6–20 Specialists)" data-savings="$54,000" data-annual="$648,000" data-reduction="68%" data-turnaround="12–24 Hours Multi-Shift" data-model="Cross-Functional Division with QA Lead &amp; SLA Manager" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
+                  <div class="fw-bold" style="font-size:14px;">6 – 20</div>
+                  <small style="font-size:11px;color:#94a3b8;">Division</small>
+                </button>
+              </div>
+              <div class="col-4">
+                <button type="button" class="btn w-100 p-3 text-center roi-s-btn" data-scale="enterprise" data-name="Enterprise Powerhouse (20+ Specialists)" data-savings="$140,000+" data-annual="$1,680,000+" data-reduction="72%" data-turnaround="Real-Time 24/7 Follow-the-Sun" data-model="Full ODC Center with Program Manager, Lead Architect &amp; Audit Team" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);border-radius:10px;">
+                  <div class="fw-bold" style="font-size:14px;">20+</div>
+                  <small style="font-size:11px;color:#94a3b8;">Enterprise ODC</small>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Differentiators Pills -->
+          <div class="pt-2 border-top border-secondary d-flex flex-wrap gap-2 text-white-50" style="font-size:12px;">
+            <span><i class="fas fa-shield-alt text-success me-1"></i> ISO 27001 Data Security</span>
+            <span>•</span>
+            <span><i class="fas fa-award text-warning me-1"></i> CMMI Level 3</span>
+            <span>•</span>
+            <span><i class="fas fa-clock text-info me-1"></i> 24/7 Multi-Shift Execution</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROI Output Summary Card (Right) -->
+      <div class="col-lg-5 col-xl-5">
+        <div class="p-4 p-md-5 rounded-4 shadow-lg h-100 d-flex flex-column justify-content-between" style="background:linear-gradient(145deg,rgba(28,34,128,0.7) 0%,rgba(15,23,42,0.9) 100%);border:1px solid rgba(91,168,212,0.3);box-shadow:0 14px 45px rgba(28,34,128,0.3);">
+          
+          <div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="badge bg-success-subtle text-success border border-success px-2 py-1" style="font-size:11px;letter-spacing:0.5px;">
+                <i class="fas fa-check-circle me-1"></i> ESTIMATED ROI CALCULATION
+              </span>
+              <span id="roi-reduction-badge" class="badge bg-warning text-dark fw-bold" style="font-size:12px;">
+                65% Cost Reduction
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <div style="font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Estimated Monthly Savings</div>
+              <div id="roi-monthly-savings" style="font-size:clamp(2.4rem,3.6vw,3.2rem);font-weight:900;color:#60a5fa;font-family:'Poppins',sans-serif;line-height:1.1;">
+                $14,500<span style="font-size:16px;color:#cbd5e1;font-weight:600;"> / mo</span>
+              </div>
+              <div id="roi-annual-savings" style="font-size:13px;color:#a5b4fc;margin-top:2px;">
+                Approx. <strong>$174,000 / year</strong> operational savings
+              </div>
+            </div>
+
+            <div class="p-3 rounded-3 mb-3" style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);">
+              <div class="mb-2" style="font-size:12px;">
+                <span class="text-white-50">Engagement Model:</span>
+                <div id="roi-model-desc" class="text-white fw-semibold mt-1" style="font-size:13px;">Dedicated Agile Pod with Dedicated Team Lead</div>
+              </div>
+              <div style="font-size:12px;">
+                <span class="text-white-50">SLA Turnaround:</span>
+                <div id="roi-turnaround-desc" class="text-info fw-semibold mt-1" style="font-size:13px;">24–48 Hours SLA Execution</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <div class="d-grid gap-2">
+              <a id="roi-whatsapp-trigger" href="https://wa.me/918308906690?text=Hello%20Vortexsoft%20Innovations%20Team%2C%20I%20used%20the%20ROI%20Estimator%20for%20AI%20Solutions%20%26%20Software%20with%20Agile%20Pod%20(1%E2%80%935%20Specialists).%20Please%20share%20a%20detailed%20proposal%20and%20quote." target="_blank" class="btn btn-success fw-bold py-2" style="border-radius:10px;font-size:14px;box-shadow:0 4px 15px rgba(16,185,129,0.3);">
+                <i class="fab fa-whatsapp me-2"></i> Lock In Custom Quote via WhatsApp
+              </a>
+              <a id="roi-consultation-trigger" href="contact.php?vertical=ai&amp;scale=small" class="btn btn-outline-light fw-bold py-2" style="border-radius:10px;font-size:14px;">
+                <i class="fas fa-calendar-alt me-2"></i> Schedule Executive Consultation
+              </a>
+            </div>
+            <div class="text-center mt-2" style="font-size:11px;color:#94a3b8;">
+              Zero Obligation • Non-Disclosure Agreement (NDA) Protected • 100% Confidential
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var vBtns = document.querySelectorAll('.roi-v-btn');
+  var sBtns = document.querySelectorAll('.roi-s-btn');
+  var curV = 'AI Solutions & Software';
+  var curVKey = 'ai';
+  var curS = 'Agile Pod (1–5 Specialists)';
+  var curSKey = 'small';
+
+  function updateRoiLinks() {
+    var wa = document.getElementById('roi-whatsapp-trigger');
+    var consult = document.getElementById('roi-consultation-trigger');
+    if (wa) {
+      var msg = 'Hello Vortexsoft Innovations Team, I used the ROI Estimator for ' + curV + ' with ' + curS + '. Please share a tailored proposal and consultation.';
+      wa.href = 'https://wa.me/918308906690?text=' + encodeURIComponent(msg);
+    }
+    if (consult) {
+      consult.href = 'contact.php?vertical=' + encodeURIComponent(curVKey) + '&scale=' + encodeURIComponent(curSKey);
+    }
+  }
+
+  vBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      vBtns.forEach(function(b) {
+        b.classList.remove('active');
+        b.style.borderColor = 'rgba(255,255,255,0.1)';
+        b.style.background = 'rgba(255,255,255,0.05)';
+        b.style.color = '#cbd5e1';
+      });
+      btn.classList.add('active');
+      btn.style.borderColor = '#3b82f6';
+      btn.style.background = 'rgba(255,255,255,0.08)';
+      btn.style.color = '#fff';
+      curV = btn.getAttribute('data-name');
+      curVKey = btn.getAttribute('data-vertical');
+      var nameEl = document.getElementById('selected-vertical-name');
+      if (nameEl) nameEl.textContent = curV;
+      updateRoiLinks();
+    });
+  });
+
+  sBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      sBtns.forEach(function(b) {
+        b.classList.remove('active');
+        b.style.borderColor = 'rgba(255,255,255,0.1)';
+        b.style.background = 'rgba(255,255,255,0.05)';
+        b.style.color = '#cbd5e1';
+      });
+      btn.classList.add('active');
+      btn.style.borderColor = '#3b82f6';
+      btn.style.background = 'rgba(255,255,255,0.08)';
+      btn.style.color = '#fff';
+
+      curS = btn.getAttribute('data-name');
+      curSKey = btn.getAttribute('data-scale');
+      var scaleEl = document.getElementById('selected-scale-name');
+      if (scaleEl) scaleEl.textContent = curS;
+
+      var savings = btn.getAttribute('data-savings');
+      var annual = btn.getAttribute('data-annual');
+      var reduction = btn.getAttribute('data-reduction');
+      var turnaround = btn.getAttribute('data-turnaround');
+      var model = btn.getAttribute('data-model');
+
+      var savEl = document.getElementById('roi-monthly-savings');
+      if (savEl) savEl.innerHTML = savings + '<span style="font-size:16px;color:#cbd5e1;font-weight:600;"> / mo</span>';
+
+      var annEl = document.getElementById('roi-annual-savings');
+      if (annEl) annEl.innerHTML = 'Approx. <strong>' + annual + ' / year</strong> operational savings';
+
+      var redEl = document.getElementById('roi-reduction-badge');
+      if (redEl) redEl.textContent = reduction + ' Cost Reduction';
+
+      var modEl = document.getElementById('roi-model-desc');
+      if (modEl) modEl.innerHTML = model;
+
+      var turnEl = document.getElementById('roi-turnaround-desc');
+      if (turnEl) turnEl.textContent = turnaround;
+
+      updateRoiLinks();
+    });
+  });
+});
+</script>
 
 <!-- ═══════ SERVICES SECTION ═══════ -->
 <section class="services-section section-pad" id="services">

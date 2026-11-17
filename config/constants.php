@@ -9,12 +9,12 @@ $raw_host = isset($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : '
 $clean_domain = preg_replace('/^www\./', '', $raw_host);
 
 define('SITE_NAME',    'Vortexsoft Innovations Private Limited');
-define('SITE_DOMAIN',  $clean_domain);
-define('SITE_HOST',    $raw_host);
-define('SITE_URL',     $protocol . $raw_host);
-define('SITE_TAGLINE', 'Your Global AI, IT & BPO Partner');
 define('PRIMARY_COM_URL', 'https://www.vortexsoftinnovations.com');
 define('PRIMARY_IN_URL',  'https://www.vortexsoftinnovations.in');
+define('SITE_DOMAIN',  'vortexsoftinnovations.com');
+define('SITE_HOST',    'www.vortexsoftinnovations.com');
+define('SITE_URL',     PRIMARY_COM_URL);
+define('SITE_TAGLINE', 'Engineering Intelligent Enterprises. Scaling Global Operations.');
 
 // ── Email Addresses ────────────────────────────────────────
 define('EMAIL_SUPPORT',   'support@vortexsoftinnovations.com');
